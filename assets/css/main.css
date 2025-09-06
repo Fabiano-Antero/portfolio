@@ -28,6 +28,10 @@ body {
     gap: 12px
 }
 
+.align-items-center{
+    align-items: inherit !important;
+}
+
 .brand__logo {
     width: 46px;
     height: 46px;
