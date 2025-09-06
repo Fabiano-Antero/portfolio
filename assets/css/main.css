@@ -28,7 +28,7 @@ body {
     gap: 12px
 }
 
-.align-items-center{
+.align-items-center:nth-child(n){
     align-items: inherit !important;
 }
 
