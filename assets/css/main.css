@@ -113,7 +113,7 @@ body {
 }
 
 .btn-accent {
-    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    background: linear-gradient(90deg, var(--accent));
     border: 0;
     box-shadow: 0 10px 30px rgba(124, 92, 255, .28);
 
@@ -184,13 +184,42 @@ body {
     gap: var(--grid-gap)
 }
 
+p .text{
+    font-size: clamp(12px, 1.2vw, 16px) !important;
+}
+
+.fs-5 {
+    font-size: calc(0.89rem + .3vw) !important;
+    font-weight: 500 !important;
+}
+
+.gradient-text{
+  background: linear-gradient(90deg, #ffffff, var(--accent-2));
+  background-size: 100%;
+  background-clip: text;              /* padrão */
+  -webkit-background-clip: text;      /* WebKit */
+  color: transparent;                  /* padrão */
+  -webkit-text-fill-color: transparent;/* WebKit */
+}
+
+@media (max-width: 992px) {
+  .contato {
+    width: 100% !important;
+    max-width: none;
+    flex: 1 1 100%; /* se for item de flex */
+    display: block;
+  }
+}
+
 @media(min-width:992px) {
+
+
     .grid-3 {
-        grid-template-columns: repeat(3, 1fr)
+        grid-template-columns: repeat(3, 1fr) !important;
     }
 
     .grid-2 {
-        grid-template-columns: repeat(2, 1fr)
+        grid-template-columns: repeat(2, 1fr) !important;
     }
 }
 
@@ -258,12 +287,17 @@ body {
     margin-bottom: 1.2rem
 }
 
+
 .t-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--accent-2);
-    box-shadow: 0 0 0 4px rgba(20, 241, 217, .15)
+  width: 10px;
+  height: 10px;
+  min-width: 10px;        /* evita encolher */
+  min-height: 10px;       /* evita encolher */
+  flex: 0 0 10px;         /* shorthand: flex-grow:0; flex-shrink:0; flex-basis:10px */
+  aspect-ratio: 1 / 1;    /* garante círculo mesmo se algo tentar “achatar” */
+  border-radius: 50%;
+  background: var(--accent-2);
+  box-shadow: 0 0 0 4px rgba(20, 241, 217, .15);
 }
 
 /* Form */
