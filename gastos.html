@@ -127,8 +127,8 @@
     }
 
     .btn-icon {
-      width: 32px;
-      height: 32px;
+      width: 27px;
+      height: 27px;
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
@@ -174,35 +174,33 @@
       display: inline-flex;
     }
 
-   .main-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+    .main-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
 
-/* Botões principais: ícone em cima, texto embaixo */
-.main-actions .btn {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;      /* ícone em cima, texto embaixo */
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 4px;
-  padding-block: 14px;         /* um pouquinho mais alto */
-}
+    /* Botões principais: ícone em cima, texto embaixo */
+    .main-actions .btn {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 4px;
+      padding-block: 14px;
+    }
 
-/* Estilo separado para ícone e label */
-.main-actions .btn-main-icon {
-  font-size: 1.4rem;
-  line-height: 1;
-}
+    /* Estilo separado para ícone e label */
+    .main-actions .btn-main-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+    }
 
-.main-actions .btn-main-label {
-  font-size: 0.8rem;
-}
-
-    
+    .main-actions .btn-main-label {
+      font-size: 0.8rem;
+    }
 
     .section-title {
       font-size: 0.85rem;
@@ -656,9 +654,15 @@
       font-weight: 600;
     }
 
+    /* Modais específicos: ordem de empilhamento */
     #modalBankBackdrop,
-    #modalCardBackdrop {
+    #modalCardBackdrop,
+    #modalHistoryBackdrop {
       z-index: 60;
+    }
+
+    #modalMonthDetailBackdrop {
+      z-index: 70;
     }
 
     .history-filter-row {
@@ -696,31 +700,30 @@
 
     <main>
       <section class="card">
-  <div class="main-actions">
-    <button id="btnAddUser" class="btn btn-primary">
-      <span class="btn-main-icon">➕</span>
-      <span class="btn-main-label">Novo usuário</span>
-    </button>
+        <div class="main-actions">
+          <button id="btnAddUser" class="btn btn-primary">
+            <span class="btn-main-icon">➕</span>
+            <span class="btn-main-label">Novo usuário</span>
+          </button>
 
-    <button id="btnManageUsers" class="btn btn-secondary">
-      <span class="btn-main-icon">👥</span>
-      <span class="btn-main-label">Gerenciar usuários</span>
-    </button>
+          <button id="btnManageUsers" class="btn btn-secondary">
+            <span class="btn-main-icon">👥</span>
+            <span class="btn-main-label">Gerenciar usuários</span>
+          </button>
 
-    <button id="btnAddExpense" class="btn btn-secondary btn-disabled" disabled>
-      <span class="btn-main-icon">💸</span>
-      <span id="btnAddExpenseLabel" class="btn-main-label">
-        Cadastrar valores
-      </span>
-    </button>
+          <button id="btnAddExpense" class="btn btn-secondary btn-disabled" disabled>
+            <span class="btn-main-icon">💸</span>
+            <span class="btn-main-label">
+              Cadastrar valores
+            </span>
+          </button>
 
-    <button id="btnToggleHistory" class="btn btn-secondary">
-      <span class="btn-main-icon">📅</span>
-      <span class="btn-main-label">Histórico mensal</span>
-    </button>
-  </div>
-</section>
-
+          <button id="btnToggleHistory" class="btn btn-secondary">
+            <span class="btn-main-icon">📅</span>
+            <span class="btn-main-label">Histórico mensal</span>
+          </button>
+        </div>
+      </section>
 
       <section class="card">
         <div class="section-title">
@@ -1068,11 +1071,19 @@
     }
 
     function attemptCloseModal(id) {
-      const ok = confirm(
-        "Deseja realmente sair? Os dados não salvos neste formulário serão perdidos."
-      );
-      if (ok) closeModal(id);
-    }
+  // Histórico e detalhe do mês fecham direto, sem confirmação
+  if (id === "modalHistoryBackdrop" || id === "modalMonthDetailBackdrop") {
+    closeModal(id);
+    return;
+  }
+
+  // Demais modais pedem confirmação
+  const ok = confirm(
+    "Deseja realmente sair? Os dados não salvos neste formulário serão perdidos."
+  );
+  if (ok) closeModal(id);
+}
+
 
     function showToast(message, type = "info") {
       const container = document.getElementById("toastContainer");
@@ -1291,25 +1302,21 @@
 
     function renderMainButtons() {
       const btnAddExpense = document.getElementById("btnAddExpense");
-      const label = document.getElementById("btnAddExpenseLabel");
       const currentMonthKey = getCurrentMonthKey();
       const isMonthClosed = state.closedMonths.includes(currentMonthKey);
 
       if (state.users.filter((u) => u.active !== false).length === 0) {
         btnAddExpense.disabled = true;
         btnAddExpense.classList.add("btn-disabled");
-        label.textContent = "💸 Cadastrar valores";
         return;
       }
 
       if (isMonthClosed) {
         btnAddExpense.disabled = true;
         btnAddExpense.classList.add("btn-disabled");
-        label.textContent = "💸 Mês fechado para lançamentos";
       } else {
         btnAddExpense.disabled = false;
         btnAddExpense.classList.remove("btn-disabled");
-        label.textContent = "💸 Cadastrar valores";
       }
     }
 
