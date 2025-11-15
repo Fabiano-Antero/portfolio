@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <title>App de Gastos</title>
@@ -173,11 +174,35 @@
       display: inline-flex;
     }
 
-    .main-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+   .main-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Botões principais: ícone em cima, texto embaixo */
+.main-actions .btn {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;      /* ícone em cima, texto embaixo */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 4px;
+  padding-block: 14px;         /* um pouquinho mais alto */
+}
+
+/* Estilo separado para ícone e label */
+.main-actions .btn-main-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.main-actions .btn-main-label {
+  font-size: 0.8rem;
+}
+
+    
 
     .section-title {
       font-size: 0.85rem;
@@ -307,6 +332,7 @@
         opacity: 0;
         transform: translateY(6px) scale(0.96);
       }
+
       to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -378,7 +404,7 @@
       align-items: center;
     }
 
-    .field-group-inline > * {
+    .field-group-inline>* {
       flex: 1;
     }
 
@@ -491,7 +517,7 @@
     .toast-hide {
       opacity: 0 !important;
       transform: translateY(8px) !important;
-      transition: opacity 0.2s.ease, transform 0.2s.ease;
+      transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
     @keyframes toast-in {
@@ -499,6 +525,7 @@
         opacity: 0;
         transform: translateY(8px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -655,6 +682,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="app">
     <header>
@@ -668,21 +696,31 @@
 
     <main>
       <section class="card">
-        <div class="main-actions">
-          <button id="btnAddUser" class="btn btn-primary">
-            <span>➕ Cadastrar usuário</span>
-          </button>
-          <button id="btnManageUsers" class="btn btn-secondary">
-            <span>👥 Gerenciar usuários</span>
-          </button>
-          <button id="btnAddExpense" class="btn btn-secondary btn-disabled" disabled>
-            <span id="btnAddExpenseLabel">💸 Cadastrar valores</span>
-          </button>
-          <button id="btnToggleHistory" class="btn btn-secondary">
-            <span>📅 Histórico mensal</span>
-          </button>
-        </div>
-      </section>
+  <div class="main-actions">
+    <button id="btnAddUser" class="btn btn-primary">
+      <span class="btn-main-icon">➕</span>
+      <span class="btn-main-label">Novo usuário</span>
+    </button>
+
+    <button id="btnManageUsers" class="btn btn-secondary">
+      <span class="btn-main-icon">👥</span>
+      <span class="btn-main-label">Gerenciar usuários</span>
+    </button>
+
+    <button id="btnAddExpense" class="btn btn-secondary btn-disabled" disabled>
+      <span class="btn-main-icon">💸</span>
+      <span id="btnAddExpenseLabel" class="btn-main-label">
+        Cadastrar valores
+      </span>
+    </button>
+
+    <button id="btnToggleHistory" class="btn btn-secondary">
+      <span class="btn-main-icon">📅</span>
+      <span class="btn-main-label">Histórico mensal</span>
+    </button>
+  </div>
+</section>
+
 
       <section class="card">
         <div class="section-title">
@@ -691,7 +729,7 @@
         </div>
         <div id="expenseListContainer" class="expense-list"></div>
         <div id="emptyState" class="empty-state">
-          Nenhum gasto lançado neste mês ainda.  
+          Nenhum gasto lançado neste mês ainda.
           Cadastre um usuário e depois lance seus primeiros valores.
         </div>
       </section>
@@ -724,7 +762,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button id="btnSaveUser" class="btn.btn-primary">Salvar usuário</button>
+        <button id="btnSaveUser" class="btn btn-primary">Salvar usuário</button>
         <button class="btn btn-secondary" data-close-modal="modalUserBackdrop">Cancelar</button>
       </div>
     </div>
@@ -846,13 +884,7 @@
                 Parcelas (PIX)
                 <span class="field-helper">Valor será dividido igualmente</span>
               </label>
-              <input
-                id="expenseInstallmentsPix"
-                type="number"
-                min="1"
-                step="1"
-                value="1"
-              />
+              <input id="expenseInstallmentsPix" type="number" min="1" step="1" value="1" />
             </div>
           </div>
         </div>
@@ -873,13 +905,7 @@
                 Parcelas (Crédito)
                 <span class="field-helper">Valor será dividido igualmente</span>
               </label>
-              <input
-                id="expenseInstallments"
-                type="number"
-                min="1"
-                step="1"
-                value="1"
-              />
+              <input id="expenseInstallments" type="number" min="1" step="1" value="1" />
             </div>
           </div>
         </div>
@@ -928,11 +954,7 @@
           <label for="historyFilterInput">
             Filtrar por mês
           </label>
-          <input
-            id="historyFilterInput"
-            type="month"
-            placeholder="Selecione um mês"
-          />
+          <input id="historyFilterInput" type="month" placeholder="Selecione um mês" />
         </div>
 
         <div id="monthlyHistoryContainer" class="user-totals"></div>
@@ -945,421 +967,438 @@
 
   <!-- JS + Firebase (somente SDK modular, sem compat) -->
   <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-  import {
-    getFirestore,
-    collection,
-    doc,
-    getDocs,
-    getDoc,
-    setDoc,
-    addDoc,
-    updateDoc,
-    deleteDoc,
-    serverTimestamp,
-  } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      doc,
+      getDocs,
+      getDoc,
+      setDoc,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      serverTimestamp,
+    } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDmaQOuC1_H02DbdrFkTRKzwwzEmwhRtCs",
-    authDomain: "seu-bolsosob-controle.firebaseapp.com",
-    projectId: "seu-bolsosob-controle",
-    storageBucket: "seu-bolsosob-controle.firebasestorage.app",
-    messagingSenderId: "1005864107492",
-    appId: "1:1005864107492:web:e7c7f10f190222c69d9bf1"
-  };
+    const firebaseConfig = {
+      apiKey: "AIzaSyDmaQOuC1_H02DbdrFkTRKzwwzEmwhRtCs",
+      authDomain: "seu-bolsosob-controle.firebaseapp.com",
+      projectId: "seu-bolsosob-controle",
+      storageBucket: "seu-bolsosob-controle.firebasestorage.app",
+      messagingSenderId: "1005864107492",
+      appId: "1:1005864107492:web:e7c7f10f190222c69d9bf1"
+    };
 
-  const appFb = initializeApp(firebaseConfig);
-  const db = getFirestore(appFb);
+    const appFb = initializeApp(firebaseConfig);
+    const db = getFirestore(appFb);
 
-  // ----------------- ESTADO -----------------
-  let state = {
-    users: [],
-    banks: [],
-    cards: [],
-    expenses: [],
-    closedMonths: [],
-    paymentType: "pix",
-    editingExpenseId: null,
-  };
+    // ----------------- ESTADO -----------------
+    let state = {
+      users: [],
+      banks: [],
+      cards: [],
+      expenses: [],
+      closedMonths: [],
+      paymentType: "pix",
+      editingExpenseId: null,
+    };
 
-  let monthlyData = {};
-  let currentDetailMonthKey = null;
+    let monthlyData = {};
+    let currentDetailMonthKey = null;
 
-  // ----------------- HELPERS -----------------
-  function parseAmount(raw) {
-    if (!raw) return NaN;
-    let cleaned = raw
-      .replace(/[^\d.,-]/g, "")
-      .replace(/\./g, "")
-      .replace(",", ".");
-    return Number.parseFloat(cleaned);
-  }
-
-  function toMillis(value) {
-    if (!value) return null;
-    if (typeof value === "number") return value;
-    if (value instanceof Date) return value.getTime();
-    if (typeof value.toMillis === "function") return value.toMillis();
-    if (typeof value.seconds === "number") return value.seconds * 1000;
-    return null;
-  }
-
-  function formatBRL(value) {
-    return value.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
-  }
-
-  function formatDateTime(timestamp) {
-    const ms = toMillis(timestamp);
-    if (!ms) return "";
-    const d = new Date(ms);
-    return d.toLocaleString("pt-BR", {
-      dateStyle: "short",
-      timeStyle: "short",
-    });
-  }
-
-  function getMonthKeyFromTimestamp(ts) {
-    const ms = toMillis(ts);
-    const d = ms ? new Date(ms) : new Date();
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, "0");
-    return `${y}-${m}`;
-  }
-
-  function getCurrentMonthKey() {
-    const now = new Date();
-    const y = now.getFullYear();
-    const m = String(now.getMonth() + 1).padStart(2, "0");
-    return `${y}-${m}`;
-  }
-
-  // ----------------- UI BÁSICA -----------------
-  function openModal(id) {
-    document.getElementById(id).classList.add("active");
-  }
-
-  function closeModal(id) {
-    document.getElementById(id).classList.remove("active");
-  }
-
-  function attemptCloseModal(id) {
-    const ok = confirm(
-      "Deseja realmente sair? Os dados não salvos neste formulário serão perdidos."
-    );
-    if (ok) closeModal(id);
-  }
-
-  function showToast(message, type = "info") {
-    const container = document.getElementById("toastContainer");
-    if (!container) return;
-
-    const toast = document.createElement("div");
-    toast.className = "toast toast-" + type;
-
-    const dot = document.createElement("span");
-    dot.className = "toast-dot";
-
-    const text = document.createElement("span");
-    text.textContent = message;
-
-    toast.appendChild(dot);
-    toast.appendChild(text);
-    container.appendChild(toast);
-
-    setTimeout(() => {
-      toast.classList.add("toast-hide");
-    }, 2200);
-
-    setTimeout(() => {
-      if (toast.parentNode === container) {
-        container.removeChild(toast);
-      }
-    }, 3000);
-  }
-
-  // ----------------- RENDER SELECTS & GERENCIAR USUÁRIOS -----------------
-  function renderUsersSelect() {
-    const select = document.getElementById("expenseUser");
-    if (!select) return;
-    select.innerHTML = "";
-    state.users
-      .filter((u) => u.active !== false)
-      .forEach((u) => {
-        const opt = document.createElement("option");
-        opt.value = u.id;
-        opt.textContent = u.name;
-        select.appendChild(opt);
-      });
-  }
-
-  function renderManageUsersList() {
-    const container = document.getElementById("manageUsersList");
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    if (state.users.length === 0) {
-      container.textContent = "Nenhum usuário cadastrado ainda.";
-      return;
+    // ----------------- HELPERS -----------------
+    function parseAmount(raw) {
+      if (!raw) return NaN;
+      let cleaned = raw
+        .replace(/[^\d.,-]/g, "")
+        .replace(/\./g, "")
+        .replace(",", ".");
+      return Number.parseFloat(cleaned);
     }
 
-    const frag = document.createDocumentFragment();
+    function toMillis(value) {
+      if (!value) return null;
+      if (typeof value === "number") return value;
+      if (value instanceof Date) return value.getTime();
+      if (typeof value.toMillis === "function") return value.toMillis();
+      if (typeof value.seconds === "number") return value.seconds * 1000;
+      return null;
+    }
 
-    state.users
-      .slice()
-      .sort((a, b) => a.name.localeCompare(b.name, "pt-BR"))
-      .forEach((user) => {
-        const row = document.createElement("div");
-        row.className = "user-total-item";
+    function formatBRL(value) {
+      return value.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+    }
 
-        const info = document.createElement("div");
-        info.style.display = "flex";
-        info.style.flexDirection = "column";
-        info.style.gap = "2px";
+    function formatDateTime(timestamp) {
+      const ms = toMillis(timestamp);
+      if (!ms) return "";
+      const d = new Date(ms);
+      return d.toLocaleString("pt-BR", {
+        dateStyle: "short",
+        timeStyle: "short",
+      });
+    }
 
-        const nameEl = document.createElement("span");
-        nameEl.className = "user-total-name";
-        nameEl.textContent = user.name;
+    function getMonthKeyFromTimestamp(ts) {
+      const ms = toMillis(ts);
+      const d = ms ? new Date(ms) : new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      return `${y}-${m}`;
+    }
 
-        const statusEl = document.createElement("span");
-        statusEl.style.fontSize = "0.7rem";
-        statusEl.style.color = "var(--muted)";
-        statusEl.textContent = user.active === false ? "Inativo" : "Ativo";
+    function getCurrentMonthKey() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      return `${y}-${m}`;
+    }
 
-        info.appendChild(nameEl);
-        info.appendChild(statusEl);
+    // ----------------- UI BÁSICA -----------------
+    function openModal(id) {
+      document.getElementById(id).classList.add("active");
+    }
 
-        const actions = document.createElement("div");
-        actions.style.display = "flex";
-        actions.style.gap = "4px";
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("active");
+    }
 
-        const toggleBtn = document.createElement("button");
-        toggleBtn.type = "button";
-        toggleBtn.className = "btn btn-sm btn-secondary btn-inline";
-        toggleBtn.textContent =
-          user.active === false ? "Ativar" : "Desativar";
-        toggleBtn.addEventListener("click", () =>
-          toggleUserActive(user.id, user.active !== false)
+    function attemptCloseModal(id) {
+      const ok = confirm(
+        "Deseja realmente sair? Os dados não salvos neste formulário serão perdidos."
+      );
+      if (ok) closeModal(id);
+    }
+
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toastContainer");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      toast.className = "toast toast-" + type;
+
+      const dot = document.createElement("span");
+      dot.className = "toast-dot";
+
+      const text = document.createElement("span");
+      text.textContent = message;
+
+      toast.appendChild(dot);
+      toast.appendChild(text);
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add("toast-hide");
+      }, 2200);
+
+      setTimeout(() => {
+        if (toast.parentNode === container) {
+          container.removeChild(toast);
+        }
+      }, 3000);
+    }
+
+    // ----------------- RENDER SELECTS & GERENCIAR USUÁRIOS -----------------
+    function renderUsersSelect() {
+      const select = document.getElementById("expenseUser");
+      if (!select) return;
+      select.innerHTML = "";
+      state.users
+        .filter((u) => u.active !== false)
+        .forEach((u) => {
+          const opt = document.createElement("option");
+          opt.value = u.id;
+          opt.textContent = u.name;
+          select.appendChild(opt);
+        });
+    }
+
+    function renderManageUsersList() {
+      const container = document.getElementById("manageUsersList");
+      if (!container) return;
+
+      container.innerHTML = "";
+
+      if (state.users.length === 0) {
+        container.textContent = "Nenhum usuário cadastrado ainda.";
+        return;
+      }
+
+      const frag = document.createDocumentFragment();
+
+      state.users
+        .slice()
+        .sort((a, b) => a.name.localeCompare(b.name, "pt-BR"))
+        .forEach((user) => {
+          const row = document.createElement("div");
+          row.className = "user-total-item";
+
+          const info = document.createElement("div");
+          info.style.display = "flex";
+          info.style.flexDirection = "column";
+          info.style.gap = "2px";
+
+          const nameEl = document.createElement("span");
+          nameEl.className = "user-total-name";
+          nameEl.textContent = user.name;
+
+          const statusEl = document.createElement("span");
+          statusEl.style.fontSize = "0.7rem";
+          statusEl.style.color = "var(--muted)";
+          statusEl.textContent = user.active === false ? "Inativo" : "Ativo";
+
+          info.appendChild(nameEl);
+          info.appendChild(statusEl);
+
+          const actions = document.createElement("div");
+          actions.style.display = "flex";
+          actions.style.gap = "4px";
+
+          const toggleBtn = document.createElement("button");
+          toggleBtn.type = "button";
+          toggleBtn.className = "btn btn-sm btn-secondary btn-inline";
+          toggleBtn.textContent =
+            user.active === false ? "Ativar" : "Desativar";
+          toggleBtn.addEventListener("click", () =>
+            toggleUserActive(user.id, user.active !== false)
+          );
+
+          const renameBtn = document.createElement("button");
+          renameBtn.type = "button";
+          renameBtn.className = "btn btn-sm btn-secondary btn-inline";
+          renameBtn.textContent = "Renomear";
+          renameBtn.addEventListener("click", () => renameUser(user.id));
+
+          actions.appendChild(toggleBtn);
+          actions.appendChild(renameBtn);
+
+          row.appendChild(info);
+          row.appendChild(actions);
+          frag.appendChild(row);
+        });
+
+      container.appendChild(frag);
+    }
+
+    async function toggleUserActive(userId, isActive) {
+      try {
+        await updateDoc(doc(db, "users", userId), {
+          active: !isActive,
+        });
+
+        const user = state.users.find((u) => u.id === userId);
+        if (user) {
+          user.active = !isActive;
+        }
+
+        renderUsersSelect();
+        renderManageUsersList();
+        showToast("Status do usuário atualizado.", "success");
+      } catch (err) {
+        console.error("Erro ao atualizar usuário:", err);
+        showToast(
+          "Erro Firebase: " + (err.message || "falha ao atualizar usuário."),
+          "error"
         );
+      }
+    }
 
-        const renameBtn = document.createElement("button");
-        renameBtn.type = "button";
-        renameBtn.className = "btn btn-sm.btn-secondary btn-inline";
-        renameBtn.textContent = "Renomear";
-        renameBtn.addEventListener("click", () => renameUser(user.id));
-
-        actions.appendChild(toggleBtn);
-        actions.appendChild(renameBtn);
-
-        row.appendChild(info);
-        row.appendChild(actions);
-        frag.appendChild(row);
-      });
-
-    container.appendChild(frag);
-  }
-
-  async function toggleUserActive(userId, isActive) {
-    try {
-      await updateDoc(doc(db, "users", userId), {
-        active: !isActive,
-      });
-
+    async function renameUser(userId) {
       const user = state.users.find((u) => u.id === userId);
-      if (user) {
-        user.active = !isActive;
-      }
+      if (!user) return;
 
-      renderUsersSelect();
-      renderManageUsersList();
-      showToast("Status do usuário atualizado.", "success");
-    } catch (err) {
-      console.error("Erro ao atualizar usuário:", err);
-      showToast(
-        "Erro Firebase: " + (err.message || "falha ao atualizar usuário."),
-        "error"
+      const newName = prompt("Novo nome do usuário:", user.name);
+      if (!newName) return;
+
+      const trimmed = newName.trim();
+      if (!trimmed) return;
+
+      const normalized = trimmed.toLowerCase();
+      const exists = state.users.some(
+        (u) => u.id !== userId && u.name.toLowerCase() === normalized
       );
-    }
-  }
-
-  async function renameUser(userId) {
-    const user = state.users.find((u) => u.id === userId);
-    if (!user) return;
-
-    const newName = prompt("Novo nome do usuário:", user.name);
-    if (!newName) return;
-
-    const trimmed = newName.trim();
-    if (!trimmed) return;
-
-    const normalized = trimmed.toLowerCase();
-    const exists = state.users.some(
-      (u) => u.id !== userId && u.name.toLowerCase() === normalized
-    );
-    if (exists) {
-      showToast("Já existe outro usuário com esse nome.", "error");
-      return;
-    }
-
-    try {
-      await updateDoc(doc(db, "users", userId), {
-        name: trimmed,
-      });
-
-      user.name = trimmed;
-      renderUsersSelect();
-      renderManageUsersList();
-      renderExpensesList();
-      renderTotalsSummary();
-      renderMonthlyHistory();
-      showToast("Usuário renomeado com sucesso!", "success");
-    } catch (err) {
-      console.error("Erro ao renomear usuário:", err);
-      showToast(
-        "Erro Firebase: " + (err.message || "falha ao renomear usuário."),
-        "error"
-      );
-    }
-  }
-
-  function renderBanksSelect() {
-    const select = document.getElementById("expenseBank");
-    if (!select) return;
-    select.innerHTML = "";
-    if (state.banks.length === 0) {
-      const opt = document.createElement("option");
-      opt.value = "";
-      opt.textContent = "Nenhum banco cadastrado";
-      select.appendChild(opt);
-      select.disabled = true;
-    } else {
-      select.disabled = false;
-      state.banks.forEach((b) => {
-        const opt = document.createElement("option");
-        opt.value = b.id;
-        opt.textContent = b.name;
-        select.appendChild(opt);
-      });
-    }
-  }
-
-  function renderCardsSelect() {
-    const select = document.getElementById("expenseCard");
-    if (!select) return;
-    select.innerHTML = "";
-    if (state.cards.length === 0) {
-      const opt = document.createElement("option");
-      opt.value = "";
-      opt.textContent = "Nenhum cartão cadastrado";
-      select.appendChild(opt);
-      select.disabled = true;
-    } else {
-      select.disabled = false;
-      state.cards.forEach((c) => {
-        const opt = document.createElement("option");
-        opt.value = c.id;
-        opt.textContent = c.name;
-        select.appendChild(opt);
-      });
-    }
-  }
-
-  function renderMainButtons() {
-    const btnAddExpense = document.getElementById("btnAddExpense");
-    const label = document.getElementById("btnAddExpenseLabel");
-    const currentMonthKey = getCurrentMonthKey();
-    const isMonthClosed = state.closedMonths.includes(currentMonthKey);
-
-    if (state.users.filter((u) => u.active !== false).length === 0) {
-      btnAddExpense.disabled = true;
-      btnAddExpense.classList.add("btn-disabled");
-      label.textContent = "💸 Cadastrar valores";
-      return;
-    }
-
-    if (isMonthClosed) {
-      btnAddExpense.disabled = true;
-      btnAddExpense.classList.add("btn-disabled");
-      label.textContent = "💸 Mês fechado para lançamentos";
-    } else {
-      btnAddExpense.disabled = false;
-      btnAddExpense.classList.remove("btn-disabled");
-      label.textContent = "💸 Cadastrar valores";
-    }
-  }
-
-  // ----------------- MÁSCARA R$ -----------------
-  function attachCurrencyMask(input) {
-    input.addEventListener("input", () => {
-      let value = input.value.replace(/[^\d]/g, "");
-      if (!value) {
-        input.value = "";
+      if (exists) {
+        showToast("Já existe outro usuário com esse nome.", "error");
         return;
       }
-      while (value.length < 3) value = "0" + value;
-      const int = value.slice(0, -2);
-      const cents = value.slice(-2);
-      const num = Number(int + "." + cents);
-      input.value = num.toLocaleString("pt-BR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
-    });
 
-    input.addEventListener("blur", () => {
-      if (!input.value) return;
-      const num = parseAmount(input.value);
-      if (Number.isNaN(num)) {
-        input.value = "";
-        return;
+      try {
+        await updateDoc(doc(db, "users", userId), {
+          name: trimmed,
+        });
+
+        user.name = trimmed;
+        renderUsersSelect();
+        renderManageUsersList();
+        renderExpensesList();
+        renderTotalsSummary();
+        renderMonthlyHistory();
+        showToast("Usuário renomeado com sucesso!", "success");
+      } catch (err) {
+        console.error("Erro ao renomear usuário:", err);
+        showToast(
+          "Erro Firebase: " + (err.message || "falha ao renomear usuário."),
+          "error"
+        );
       }
-      input.value = num.toLocaleString("pt-BR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
-    });
-  }
+    }
 
-  // ----------------- CAMPOS DE VALOR -----------------
-  function updateValueRowButtons() {
-    const rows = document.querySelectorAll("#valuesList .value-row");
-    rows.forEach((row, index) => {
-      const existingBtn = row.querySelector("button");
-      if (existingBtn) existingBtn.remove();
-
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "btn-icon";
-
-      if (index === 0) {
-        btn.textContent = "+";
-        btn.addEventListener("click", addValueRow);
+    function renderBanksSelect() {
+      const select = document.getElementById("expenseBank");
+      if (!select) return;
+      select.innerHTML = "";
+      if (state.banks.length === 0) {
+        const opt = document.createElement("option");
+        opt.value = "";
+        opt.textContent = "Nenhum banco cadastrado";
+        select.appendChild(opt);
+        select.disabled = true;
       } else {
-        btn.textContent = "-";
-        btn.addEventListener("click", () => {
-          const container = document.getElementById("valuesList");
-          const allRows = document.querySelectorAll("#valuesList .value-row");
-          if (allRows.length > 1) {
-            container.removeChild(row);
-            updateValueRowButtons();
-          } else {
-            const input = row.querySelector("input");
-            if (input) input.value = "";
-          }
+        select.disabled = false;
+        state.banks.forEach((b) => {
+          const opt = document.createElement("option");
+          opt.value = b.id;
+          opt.textContent = b.name;
+          select.appendChild(opt);
         });
       }
+    }
 
-      row.appendChild(btn);
-    });
-  }
+    function renderCardsSelect() {
+      const select = document.getElementById("expenseCard");
+      if (!select) return;
+      select.innerHTML = "";
+      if (state.cards.length === 0) {
+        const opt = document.createElement("option");
+        opt.value = "";
+        opt.textContent = "Nenhum cartão cadastrado";
+        select.appendChild(opt);
+        select.disabled = true;
+      } else {
+        select.disabled = false;
+        state.cards.forEach((c) => {
+          const opt = document.createElement("option");
+          opt.value = c.id;
+          opt.textContent = c.name;
+          select.appendChild(opt);
+        });
+      }
+    }
 
-  function renderValuesInputs(initialCount = 1) {
-    const container = document.getElementById("valuesList");
-    container.innerHTML = "";
-    for (let i = 0; i < initialCount; i++) {
+    function renderMainButtons() {
+      const btnAddExpense = document.getElementById("btnAddExpense");
+      const label = document.getElementById("btnAddExpenseLabel");
+      const currentMonthKey = getCurrentMonthKey();
+      const isMonthClosed = state.closedMonths.includes(currentMonthKey);
+
+      if (state.users.filter((u) => u.active !== false).length === 0) {
+        btnAddExpense.disabled = true;
+        btnAddExpense.classList.add("btn-disabled");
+        label.textContent = "💸 Cadastrar valores";
+        return;
+      }
+
+      if (isMonthClosed) {
+        btnAddExpense.disabled = true;
+        btnAddExpense.classList.add("btn-disabled");
+        label.textContent = "💸 Mês fechado para lançamentos";
+      } else {
+        btnAddExpense.disabled = false;
+        btnAddExpense.classList.remove("btn-disabled");
+        label.textContent = "💸 Cadastrar valores";
+      }
+    }
+
+    // ----------------- MÁSCARA R$ -----------------
+    function attachCurrencyMask(input) {
+      input.addEventListener("input", () => {
+        let value = input.value.replace(/[^\d]/g, "");
+        if (!value) {
+          input.value = "";
+          return;
+        }
+        while (value.length < 3) value = "0" + value;
+        const int = value.slice(0, -2);
+        const cents = value.slice(-2);
+        const num = Number(int + "." + cents);
+        input.value = num.toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+      });
+
+      input.addEventListener("blur", () => {
+        if (!input.value) return;
+        const num = parseAmount(input.value);
+        if (Number.isNaN(num)) {
+          input.value = "";
+          return;
+        }
+        input.value = num.toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+      });
+    }
+
+    // ----------------- CAMPOS DE VALOR -----------------
+    function updateValueRowButtons() {
+      const rows = document.querySelectorAll("#valuesList .value-row");
+      rows.forEach((row, index) => {
+        const existingBtn = row.querySelector("button");
+        if (existingBtn) existingBtn.remove();
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "btn-icon";
+
+        if (index === 0) {
+          btn.textContent = "+";
+          btn.addEventListener("click", addValueRow);
+        } else {
+          btn.textContent = "-";
+          btn.addEventListener("click", () => {
+            const container = document.getElementById("valuesList");
+            const allRows = document.querySelectorAll("#valuesList .value-row");
+            if (allRows.length > 1) {
+              container.removeChild(row);
+              updateValueRowButtons();
+            } else {
+              const input = row.querySelector("input");
+              if (input) input.value = "";
+            }
+          });
+        }
+
+        row.appendChild(btn);
+      });
+    }
+
+    function renderValuesInputs(initialCount = 1) {
+      const container = document.getElementById("valuesList");
+      container.innerHTML = "";
+      for (let i = 0; i < initialCount; i++) {
+        const row = document.createElement("div");
+        row.className = "value-row";
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.inputMode = "decimal";
+        input.placeholder = "Ex.: 125,90";
+        attachCurrencyMask(input);
+
+        row.appendChild(input);
+        container.appendChild(row);
+      }
+      updateValueRowButtons();
+    }
+
+    function addValueRow() {
+      const container = document.getElementById("valuesList");
       const row = document.createElement("div");
       row.className = "value-row";
 
@@ -1371,473 +1410,477 @@
 
       row.appendChild(input);
       container.appendChild(row);
-    }
-    updateValueRowButtons();
-  }
-
-  function addValueRow() {
-    const container = document.getElementById("valuesList");
-    const row = document.createElement("div");
-    row.className = "value-row";
-
-    const input = document.createElement("input");
-    input.type = "text";
-    input.inputMode = "decimal";
-    input.placeholder = "Ex.: 125,90";
-    attachCurrencyMask(input);
-
-    row.appendChild(input);
-    container.appendChild(row);
-    updateValueRowButtons();
-  }
-
-  // ----------------- TIPO PAGAMENTO -----------------
-  function renderPaymentType() {
-    const pixFields = document.getElementById("pixFields");
-    const creditFields = document.getElementById("creditFields");
-
-    if (state.paymentType === "pix") {
-      pixFields.style.display = "block";
-      creditFields.style.display = "none";
-    } else {
-      pixFields.style.display = "none";
-      creditFields.style.display = "block";
+      updateValueRowButtons();
     }
 
-    document
-      .querySelectorAll("[data-payment-type]")
-      .forEach((btn) => {
-        const type = btn.getAttribute("data-payment-type");
-        btn.classList.toggle("chip-active", type === state.paymentType);
-      });
-  }
+    // ----------------- TIPO PAGAMENTO -----------------
+    function renderPaymentType() {
+      const pixFields = document.getElementById("pixFields");
+      const creditFields = document.getElementById("creditFields");
 
-  // ----------------- RESUMO POR USUÁRIO -----------------
-  function renderTotalsSummary() {
-    const container = document.getElementById("userTotalsContainer");
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    if (state.expenses.length === 0) {
-      container.textContent = "Nenhum valor lançado neste mês ainda.";
-      return;
-    }
-
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth();
-
-    const currentMonthExpenses = state.expenses.filter((exp) => {
-      const ms = toMillis(exp.createdAt);
-      if (!ms) return false;
-      const d = new Date(ms);
-      return d.getFullYear() === currentYear && d.getMonth() === currentMonth;
-    });
-
-    if (currentMonthExpenses.length === 0) {
-      container.textContent = "Nenhum valor lançado neste mês ainda.";
-      return;
-    }
-
-    const totalsByUser = {};
-    currentMonthExpenses.forEach((exp) => {
-      if (!totalsByUser[exp.userId]) totalsByUser[exp.userId] = 0;
-      totalsByUser[exp.userId] += exp.totalAmount;
-    });
-
-    const userIds = Object.keys(totalsByUser);
-    let grandTotal = 0;
-    const listFragment = document.createDocumentFragment();
-
-    userIds
-      .map((id) => {
-        const user = state.users.find((u) => u.id === id);
-        return {
-          id,
-          name: user ? user.name : "Usuário",
-          total: totalsByUser[id],
-        };
-      })
-      .sort((a, b) => a.name.localeCompare(b.name, "pt-BR"))
-      .forEach((item) => {
-        grandTotal += item.total;
-        const row = document.createElement("div");
-        row.className = "user-total-item";
-
-        const nameEl = document.createElement("span");
-        nameEl.className = "user-total-name";
-        nameEl.textContent = item.name;
-
-        const valueEl = document.createElement("span");
-        valueEl.className = "user-total-amount";
-        valueEl.textContent = formatBRL(item.total);
-
-        row.appendChild(nameEl);
-        row.appendChild(valueEl);
-        listFragment.appendChild(row);
-      });
-
-    container.appendChild(listFragment);
-
-    const globalRow = document.createElement("div");
-    globalRow.className = "user-total-global";
-
-    const label = document.createElement("span");
-    label.textContent = "Total geral do mês";
-
-    const value = document.createElement("span");
-    value.textContent = formatBRL(grandTotal);
-
-    globalRow.appendChild(label);
-    globalRow.appendChild(value);
-    container.appendChild(globalRow);
-  }
-
-  // ----------------- LISTA DE GASTOS (MÊS ATUAL) -----------------
-  function renderExpensesList() {
-    const container = document.getElementById("expenseListContainer");
-    const emptyState = document.getElementById("emptyState");
-    const summaryPill = document.getElementById("summaryPill");
-
-    container.innerHTML = "";
-
-    if (state.expenses.length === 0) {
-      emptyState.style.display = "block";
-      summaryPill.textContent = "0 registros";
-      renderTotalsSummary();
-      renderMonthlyHistory();
-      return;
-    }
-
-    const sorted = [...state.expenses].sort((a, b) => {
-      const ma = toMillis(a.createdAt) || 0;
-      const mb = toMillis(b.createdAt) || 0;
-      return mb - ma;
-    });
-
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth();
-    const currentMonthKey = getCurrentMonthKey();
-    const isCurrentMonthClosed = state.closedMonths.includes(currentMonthKey);
-
-    const currentMonthExpenses = sorted.filter((exp) => {
-      const ms = toMillis(exp.createdAt);
-      if (!ms) return false;
-      const d = new Date(ms);
-      return d.getFullYear() === currentYear && d.getMonth() === currentMonth;
-    });
-
-    if (currentMonthExpenses.length === 0) {
-      emptyState.style.display = "block";
-      summaryPill.textContent = "0 registros";
-      renderTotalsSummary();
-      renderMonthlyHistory();
-      return;
-    }
-
-    emptyState.style.display = "none";
-    summaryPill.textContent =
-      currentMonthExpenses.length +
-      (currentMonthExpenses.length === 1 ? " registro" : " registros");
-
-    currentMonthExpenses.forEach((exp) => {
-      const user = state.users.find((u) => u.id === exp.userId);
-      const bank = exp.bankId
-        ? state.banks.find((b) => b.id === exp.bankId)
-        : null;
-      const card = exp.cardId
-        ? state.cards.find((c) => c.id === exp.cardId)
-        : null;
-
-      const item = document.createElement("div");
-      item.className = "expense-item";
-
-      const main = document.createElement("div");
-      main.className = "expense-main";
-
-      const title = document.createElement("div");
-      title.className = "expense-title";
-      title.textContent = user ? user.name : "Usuário";
-
-      const meta = document.createElement("div");
-      meta.className = "expense-meta";
-
-      let metaParts = [];
-      if (exp.type === "pix") {
-        metaParts.push("PIX");
-        if (bank) metaParts.push(bank.name);
+      if (state.paymentType === "pix") {
+        pixFields.style.display = "block";
+        creditFields.style.display = "none";
       } else {
-        metaParts.push("Cartão");
-        if (card) metaParts.push(card.name);
-        if (exp.installments && exp.installments > 1) {
-          metaParts.push(exp.installments + "x");
-        }
-      }
-      meta.textContent = metaParts.join(" • ");
-
-      main.appendChild(title);
-      main.appendChild(meta);
-
-      const amount = document.createElement("div");
-      amount.className = "expense-amount";
-      amount.textContent = formatBRL(exp.totalAmount);
-
-      const tag = document.createElement("div");
-      tag.className = "expense-tag";
-
-      if (exp.type === "pix") {
-        tag.textContent = "PIX";
-        if (exp.installments && exp.installments > 1) {
-          const span = document.createElement("span");
-          span.textContent =
-            exp.installments + "x de " + formatBRL(exp.installmentAmount);
-          tag.appendChild(span);
-        }
-      } else {
-        tag.textContent = "Crédito";
-        if (exp.installments && exp.installments > 1) {
-          const span = document.createElement("span");
-          span.textContent =
-            exp.installments + "x de " + formatBRL(exp.installmentAmount);
-          tag.appendChild(span);
-        }
+        pixFields.style.display = "none";
+        creditFields.style.display = "block";
       }
 
-      const footer = document.createElement("div");
-      footer.className = "expense-footer";
-
-      const left = document.createElement("span");
-      left.textContent = formatDateTime(exp.createdAt);
-
-      const right = document.createElement("span");
-      right.textContent =
-        exp.values.length > 1
-          ? `${exp.values.length} itens somados`
-          : "1 item";
-
-      footer.appendChild(left);
-      footer.appendChild(right);
-
-      if (!isCurrentMonthClosed) {
-        const editBtn = document.createElement("button");
-        editBtn.type = "button";
-        editBtn.className = "btn btn-sm btn-secondary btn-inline";
-        editBtn.textContent = "Editar";
-        editBtn.addEventListener("click", () => openEditExpense(exp.id));
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.type = "button";
-        deleteBtn.className = "btn btn-sm btn-secondary btn-inline";
-        deleteBtn.textContent = "Excluir";
-        deleteBtn.addEventListener("click", async () => {
-          const ok = confirm(
-            "Deseja realmente excluir este lançamento? Se for parcelado, todas as parcelas futuras também serão removidas."
-          );
-          if (!ok) return;
-
-          await deleteDoc(doc(db, "expenses", exp.id));
-
-          state.expenses = state.expenses.filter((e) => e.id !== exp.id);
-          renderExpensesList();
-          showToast("Lançamento excluído com sucesso.", "success");
+      document
+        .querySelectorAll("[data-payment-type]")
+        .forEach((btn) => {
+          const type = btn.getAttribute("data-payment-type");
+          btn.classList.toggle("chip-active", type === state.paymentType);
         });
-
-        footer.appendChild(editBtn);
-        footer.appendChild(deleteBtn);
-      }
-
-      item.appendChild(main);
-      item.appendChild(amount);
-      item.appendChild(tag);
-      item.appendChild(footer);
-
-      container.appendChild(item);
-    });
-
-    renderTotalsSummary();
-    renderMonthlyHistory();
-  }
-
-  // ----------------- HISTÓRICO MENSAL -----------------
-  function openMonthDetail(key, label) {
-    const data = monthlyData[key];
-    if (!data) {
-      showToast("Não há detalhes para este mês.", "info");
-      return;
     }
 
-    currentDetailMonthKey = key;
+    // ----------------- RESUMO POR USUÁRIO -----------------
+    function renderTotalsSummary() {
+      const container = document.getElementById("userTotalsContainer");
+      if (!container) return;
 
-    const titleEl = document.getElementById("monthDetailTitle");
-    const subtitleEl = document.getElementById("monthDetailSubtitle");
-    const body = document.getElementById("monthDetailBody");
-    const closeBtn = document.getElementById("btnCloseMonth");
+      container.innerHTML = "";
 
-    const isClosed = state.closedMonths.includes(key);
-    const currentKey = getCurrentMonthKey();
-    const canClose = !isClosed && key <= currentKey;
+      if (state.expenses.length === 0) {
+        container.textContent = "Nenhum valor lançado neste mês ainda.";
+        return;
+      }
 
-    titleEl.textContent = label;
-    subtitleEl.textContent =
-      "Total: " +
-      formatBRL(data.total) +
-      " • " +
-      (isClosed ? "mês fechado" : "mês em aberto");
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const currentMonth = now.getMonth();
 
-    body.innerHTML = "";
+      const currentMonthExpenses = state.expenses.filter((exp) => {
+        const ms = toMillis(exp.createdAt);
+        if (!ms) return false;
+        const d = new Date(ms);
+        return d.getFullYear() === currentYear && d.getMonth() === currentMonth;
+      });
 
-    const totalsByUser = {};
-    data.items.forEach((item) => {
-      const name = item.userName || "Usuário";
-      if (!totalsByUser[name]) totalsByUser[name] = 0;
-      totalsByUser[name] += item.amount;
-    });
+      if (currentMonthExpenses.length === 0) {
+        container.textContent = "Nenhum valor lançado neste mês ainda.";
+        return;
+      }
 
-    const userNames = Object.keys(totalsByUser);
-    if (userNames.length > 0) {
-      const summaryBox = document.createElement("div");
-      summaryBox.className = "month-detail-summary";
+      const totalsByUser = {};
+      currentMonthExpenses.forEach((exp) => {
+        if (!totalsByUser[exp.userId]) totalsByUser[exp.userId] = 0;
+        totalsByUser[exp.userId] += exp.totalAmount;
+      });
 
-      userNames
-        .sort((a, b) => a.localeCompare(b, "pt-BR"))
-        .forEach((name) => {
+      const userIds = Object.keys(totalsByUser);
+      let grandTotal = 0;
+      const listFragment = document.createDocumentFragment();
+
+      userIds
+        .map((id) => {
+          const user = state.users.find((u) => u.id === id);
+          return {
+            id,
+            name: user ? user.name : "Usuário",
+            total: totalsByUser[id],
+          };
+        })
+        .sort((a, b) => a.name.localeCompare(b.name, "pt-BR"))
+        .forEach((item) => {
+          grandTotal += item.total;
           const row = document.createElement("div");
-          row.className = "month-detail-summary-row";
+          row.className = "user-total-item";
 
           const nameEl = document.createElement("span");
-          nameEl.className = "month-detail-summary-name";
-          nameEl.textContent = name;
+          nameEl.className = "user-total-name";
+          nameEl.textContent = item.name;
 
           const valueEl = document.createElement("span");
-          valueEl.className = "month-detail-summary-amount";
-          valueEl.textContent = formatBRL(totalsByUser[name]);
+          valueEl.className = "user-total-amount";
+          valueEl.textContent = formatBRL(item.total);
 
           row.appendChild(nameEl);
           row.appendChild(valueEl);
-          summaryBox.appendChild(row);
+          listFragment.appendChild(row);
         });
 
-      body.appendChild(summaryBox);
+      container.appendChild(listFragment);
+
+      const globalRow = document.createElement("div");
+      globalRow.className = "user-total-global";
+
+      const label = document.createElement("span");
+      label.textContent = "Total geral do mês";
+
+      const value = document.createElement("span");
+      value.textContent = formatBRL(grandTotal);
+
+      globalRow.appendChild(label);
+      globalRow.appendChild(value);
+      container.appendChild(globalRow);
     }
 
-    if (data.items.length === 0) {
-      const empty = document.createElement("div");
-      empty.textContent = "Nenhum lançamento neste mês.";
-      empty.style.fontSize = "0.8rem";
-      empty.style.color = "var(--muted)";
-      body.appendChild(empty);
-    } else {
-      data.items
-        .sort((a, b) => a.date - b.date)
-        .forEach((item) => {
-          const row = document.createElement("div");
-          row.className = "month-detail-item";
+    // ----------------- LISTA DE GASTOS (MÊS ATUAL) -----------------
+    function renderExpensesList() {
+      const container = document.getElementById("expenseListContainer");
+      const emptyState = document.getElementById("emptyState");
+      const summaryPill = document.getElementById("summaryPill");
 
-          const main = document.createElement("div");
-          main.className = "month-detail-main";
+      container.innerHTML = "";
 
-          const title = document.createElement("div");
-          title.className = "month-detail-title";
-          title.textContent = item.userName || "Usuário";
+      if (state.expenses.length === 0) {
+        emptyState.style.display = "block";
+        summaryPill.textContent = "0 registros";
+        renderTotalsSummary();
+        renderMonthlyHistory();
+        return;
+      }
 
-          const meta = document.createElement("div");
-          meta.className = "month-detail-meta";
+      const sorted = [...state.expenses].sort((a, b) => {
+        const ma = toMillis(a.createdAt) || 0;
+        const mb = toMillis(b.createdAt) || 0;
+        return mb - ma;
+      });
 
-          let parts = [];
-          if (item.type === "pix") {
-            parts.push("PIX");
-            if (item.bankName) parts.push(item.bankName);
-          } else {
-            parts.push("Crédito");
-            if (item.cardName) parts.push(item.cardName);
-          }
-          if (item.installments && item.installmentIndex) {
-            parts.push(
-              `Parcela ${item.installmentIndex}/${item.installments}`
-            );
-          }
-          if (item.date) {
-            parts.push(formatDateTime(item.date));
-          }
-          meta.textContent = parts.join(" • ");
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const currentMonth = now.getMonth();
+      const currentMonthKey = getCurrentMonthKey();
+      const isCurrentMonthClosed = state.closedMonths.includes(currentMonthKey);
 
-          main.appendChild(title);
-          main.appendChild(meta);
+      const currentMonthExpenses = sorted.filter((exp) => {
+        const ms = toMillis(exp.createdAt);
+        if (!ms) return false;
+        const d = new Date(ms);
+        return d.getFullYear() === currentYear && d.getMonth() === currentMonth;
+      });
 
-          const amount = document.createElement("div");
-          amount.className = "month-detail-amount";
-          amount.textContent = formatBRL(item.amount);
+      if (currentMonthExpenses.length === 0) {
+        emptyState.style.display = "block";
+        summaryPill.textContent = "0 registros";
+        renderTotalsSummary();
+        renderMonthlyHistory();
+        return;
+      }
 
-          row.appendChild(main);
-          row.appendChild(amount);
-          body.appendChild(row);
-        });
-    }
+      emptyState.style.display = "none";
+      summaryPill.textContent =
+        currentMonthExpenses.length +
+        (currentMonthExpenses.length === 1 ? " registro" : " registros");
 
-    if (canClose) {
-      closeBtn.style.display = "flex";
-    } else {
-      closeBtn.style.display = "none";
-    }
+      currentMonthExpenses.forEach((exp) => {
+        const user = state.users.find((u) => u.id === exp.userId);
+        const bank = exp.bankId
+          ? state.banks.find((b) => b.id === exp.bankId)
+          : null;
+        const card = exp.cardId
+          ? state.cards.find((c) => c.id === exp.cardId)
+          : null;
 
-    openModal("modalMonthDetailBackdrop");
-  }
+        const item = document.createElement("div");
+        item.className = "expense-item";
 
-  function renderMonthlyHistory() {
-    const container = document.getElementById("monthlyHistoryContainer");
-    if (!container) return;
+        const main = document.createElement("div");
+        main.className = "expense-main";
 
-    container.innerHTML = "";
+        const title = document.createElement("div");
+        title.className = "expense-title";
+        title.textContent = user ? user.name : "Usuário";
 
-    if (state.expenses.length === 0) {
-      container.textContent = "Nenhum valor lançado ainda.";
-      monthlyData = {};
-      return;
-    }
+        const meta = document.createElement("div");
+        meta.className = "expense-meta";
 
-    monthlyData = {};
-
-    function addToMonth(year, monthIndex, amount, detail) {
-      const key = `${year}-${String(monthIndex + 1).padStart(2, "0")}`;
-      if (!monthlyData[key]) monthlyData[key] = { total: 0, items: [] };
-      monthlyData[key].total += amount;
-      monthlyData[key].items.push(detail);
-    }
-
-    state.expenses.forEach((exp) => {
-      const createdMs = toMillis(exp.createdAt) || Date.now();
-      const created = new Date(createdMs);
-      const user = state.users.find((u) => u.id === exp.userId);
-      const bank = exp.bankId
-        ? state.banks.find((b) => b.id === exp.bankId)
-        : null;
-      const card = exp.cardId
-        ? state.cards.find((c) => c.id === exp.cardId)
-        : null;
-
-      if (exp.type === "pix") {
-        const installments = exp.installments || 1;
-        const per =
-          exp.installmentAmount || exp.totalAmount / installments;
-
-        if (installments === 1) {
-          addToMonth(
-            created.getFullYear(),
-            created.getMonth(),
-            exp.totalAmount,
-            {
-              expenseId: exp.id,
-              userId: exp.userId,
-              userName: user ? user.name : "Usuário",
-              type: "pix",
-              bankName: bank ? bank.name : "",
-              amount: exp.totalAmount,
-              date: created.getTime(),
-            }
-          );
+        let metaParts = [];
+        if (exp.type === "pix") {
+          metaParts.push("PIX");
+          if (bank) metaParts.push(bank.name);
         } else {
+          metaParts.push("Cartão");
+          if (card) metaParts.push(card.name);
+          if (exp.installments && exp.installments > 1) {
+            metaParts.push(exp.installments + "x");
+          }
+        }
+        meta.textContent = metaParts.join(" • ");
+
+        main.appendChild(title);
+        main.appendChild(meta);
+
+        const amount = document.createElement("div");
+        amount.className = "expense-amount";
+        amount.textContent = formatBRL(exp.totalAmount);
+
+        const tag = document.createElement("div");
+        tag.className = "expense-tag";
+
+        if (exp.type === "pix") {
+          tag.textContent = "PIX";
+          if (exp.installments && exp.installments > 1) {
+            const span = document.createElement("span");
+            span.textContent =
+              exp.installments + "x de " + formatBRL(exp.installmentAmount);
+            tag.appendChild(span);
+          }
+        } else {
+          tag.textContent = "Crédito";
+          if (exp.installments && exp.installments > 1) {
+            const span = document.createElement("span");
+            span.textContent =
+              exp.installments + "x de " + formatBRL(exp.installmentAmount);
+            tag.appendChild(span);
+          }
+        }
+
+        const footer = document.createElement("div");
+        footer.className = "expense-footer";
+
+        const left = document.createElement("span");
+        left.textContent = formatDateTime(exp.createdAt);
+
+        const right = document.createElement("span");
+        right.textContent =
+          exp.values.length > 1
+            ? `${exp.values.length} itens somados`
+            : "1 item";
+
+        footer.appendChild(left);
+        footer.appendChild(right);
+
+        if (!isCurrentMonthClosed) {
+          const editBtn = document.createElement("button");
+          editBtn.type = "button";
+          editBtn.className = "btn btn-sm btn-secondary btn-inline";
+          editBtn.textContent = "Editar";
+          editBtn.addEventListener("click", () => openEditExpense(exp.id));
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.type = "button";
+          deleteBtn.className = "btn btn-sm btn-secondary btn-inline";
+          deleteBtn.textContent = "Excluir";
+          deleteBtn.addEventListener("click", async () => {
+            const ok = confirm(
+              "Deseja realmente excluir este lançamento? Se for parcelado, todas as parcelas futuras também serão removidas."
+            );
+            if (!ok) return;
+
+            await deleteDoc(doc(db, "expenses", exp.id));
+
+            state.expenses = state.expenses.filter((e) => e.id !== exp.id);
+            renderExpensesList();
+            showToast("Lançamento excluído com sucesso.", "success");
+          });
+
+          footer.appendChild(editBtn);
+          footer.appendChild(deleteBtn);
+        }
+
+        item.appendChild(main);
+        item.appendChild(amount);
+        item.appendChild(tag);
+        item.appendChild(footer);
+
+        container.appendChild(item);
+      });
+
+      renderTotalsSummary();
+      renderMonthlyHistory();
+    }
+
+    // ----------------- HISTÓRICO MENSAL -----------------
+    function openMonthDetail(key, label) {
+      const data = monthlyData[key];
+      if (!data) {
+        showToast("Não há detalhes para este mês.", "info");
+        return;
+      }
+
+      currentDetailMonthKey = key;
+
+      const titleEl = document.getElementById("monthDetailTitle");
+      const subtitleEl = document.getElementById("monthDetailSubtitle");
+      const body = document.getElementById("monthDetailBody");
+      const closeBtn = document.getElementById("btnCloseMonth");
+
+      const isClosed = state.closedMonths.includes(key);
+      const currentKey = getCurrentMonthKey();
+      const canClose = !isClosed && key <= currentKey;
+
+      titleEl.textContent = label;
+      subtitleEl.textContent =
+        "Total: " +
+        formatBRL(data.total) +
+        " • " +
+        (isClosed ? "mês fechado" : "mês em aberto");
+
+      body.innerHTML = "";
+
+      const totalsByUser = {};
+      data.items.forEach((item) => {
+        const name = item.userName || "Usuário";
+        if (!totalsByUser[name]) totalsByUser[name] = 0;
+        totalsByUser[name] += item.amount;
+      });
+
+      const userNames = Object.keys(totalsByUser);
+      if (userNames.length > 0) {
+        const summaryBox = document.createElement("div");
+        summaryBox.className = "month-detail-summary";
+
+        userNames
+          .sort((a, b) => a.localeCompare(b, "pt-BR"))
+          .forEach((name) => {
+            const row = document.createElement("div");
+            row.className = "month-detail-summary-row";
+
+            const nameEl = document.createElement("span");
+            nameEl.className = "month-detail-summary-name";
+            nameEl.textContent = name;
+
+            const valueEl = document.createElement("span");
+            valueEl.className = "month-detail-summary-amount";
+            valueEl.textContent = formatBRL(totalsByUser[name]);
+
+            row.appendChild(nameEl);
+            row.appendChild(valueEl);
+            summaryBox.appendChild(row);
+          });
+
+        body.appendChild(summaryBox);
+      }
+
+      if (data.items.length === 0) {
+        const empty = document.createElement("div");
+        empty.textContent = "Nenhum lançamento neste mês.";
+        empty.style.fontSize = "0.8rem";
+        empty.style.color = "var(--muted)";
+        body.appendChild(empty);
+      } else {
+        data.items
+          .sort((a, b) => a.date - b.date)
+          .forEach((item) => {
+            const row = document.createElement("div");
+            row.className = "month-detail-item";
+
+            const main = document.createElement("div");
+            main.className = "month-detail-main";
+
+            const title = document.createElement("div");
+            title.className = "month-detail-title";
+            title.textContent = item.userName || "Usuário";
+
+            const meta = document.createElement("div");
+            meta.className = "month-detail-meta";
+
+            let parts = [];
+            if (item.type === "pix") {
+              parts.push("PIX");
+              if (item.bankName) parts.push(item.bankName);
+            } else {
+              parts.push("Crédito");
+              if (item.cardName) parts.push(item.cardName);
+            }
+            if (item.installments && item.installmentIndex) {
+              parts.push(
+                `Parcela ${item.installmentIndex}/${item.installments}`
+              );
+            }
+            if (item.date) {
+              parts.push(formatDateTime(item.date));
+            }
+            meta.textContent = parts.join(" • ");
+
+            main.appendChild(title);
+            main.appendChild(meta);
+
+            const amount = document.createElement("div");
+            amount.className = "month-detail-amount";
+            amount.textContent = formatBRL(item.amount);
+
+            row.appendChild(main);
+            row.appendChild(amount);
+            body.appendChild(row);
+          });
+      }
+
+      if (canClose) {
+        closeBtn.style.display = "flex";
+      } else {
+        closeBtn.style.display = "none";
+      }
+
+      openModal("modalMonthDetailBackdrop");
+    }
+
+    function renderMonthlyHistory() {
+      const container = document.getElementById("monthlyHistoryContainer");
+      if (!container) return;
+
+      container.innerHTML = "";
+
+      if (state.expenses.length === 0) {
+        container.textContent = "Nenhum valor lançado ainda.";
+        monthlyData = {};
+        return;
+      }
+
+      monthlyData = {};
+
+      function addToMonth(year, monthIndex, amount, detail) {
+        const key = `${year}-${String(monthIndex + 1).padStart(2, "0")}`;
+        if (!monthlyData[key]) monthlyData[key] = { total: 0, items: [] };
+        monthlyData[key].total += amount;
+        monthlyData[key].items.push(detail);
+      }
+
+      state.expenses.forEach((exp) => {
+        const createdMs = toMillis(exp.createdAt) || Date.now();
+        const created = new Date(createdMs);
+        const user = state.users.find((u) => u.id === exp.userId);
+        const bank = exp.bankId
+          ? state.banks.find((b) => b.id === exp.bankId)
+          : null;
+        const card = exp.cardId
+          ? state.cards.find((c) => c.id === exp.cardId)
+          : null;
+
+        if (exp.type === "pix") {
+          const installments = exp.installments || 1;
+          const per =
+            exp.installmentAmount || exp.totalAmount / installments;
+
+          if (installments === 1) {
+            addToMonth(
+              created.getFullYear(),
+              created.getMonth(),
+              exp.totalAmount,
+              {
+                expenseId: exp.id,
+                userId: exp.userId,
+                userName: user ? user.name : "Usuário",
+                type: "pix",
+                bankName: bank ? bank.name : "",
+                amount: exp.totalAmount,
+                date: created.getTime(),
+              }
+            );
+          } else {
+            for (let i = 0; i < installments; i++) {
+              const d = new Date(created);
+              d.setMonth(d.getMonth() + i);
+              addToMonth(d.getFullYear(), d.getMonth(), per, {
+                expenseId: exp.id,
+                userId: exp.userId,
+                userName: user ? user.name : "Usuário",
+                type: "pix",
+                bankName: bank ? bank.name : "",
+                amount: per,
+                date: d.getTime(),
+                installmentIndex: i + 1,
+                installments,
+              });
+            }
+          }
+        } else {
+          const installments = exp.installments || 1;
+          const per =
+            exp.installmentAmount || exp.totalAmount / installments;
+
           for (let i = 0; i < installments; i++) {
             const d = new Date(created);
             d.setMonth(d.getMonth() + i);
@@ -1845,8 +1888,8 @@
               expenseId: exp.id,
               userId: exp.userId,
               userName: user ? user.name : "Usuário",
-              type: "pix",
-              bankName: bank ? bank.name : "",
+              type: "credit",
+              cardName: card ? card.name : "",
               amount: per,
               date: d.getTime(),
               installmentIndex: i + 1,
@@ -1854,632 +1897,446 @@
             });
           }
         }
-      } else {
-        const installments = exp.installments || 1;
-        const per =
-          exp.installmentAmount || exp.totalAmount / installments;
-
-        for (let i = 0; i < installments; i++) {
-          const d = new Date(created);
-          d.setMonth(d.getMonth() + i);
-          addToMonth(d.getFullYear(), d.getMonth(), per, {
-            expenseId: exp.id,
-            userId: exp.userId,
-            userName: user ? user.name : "Usuário",
-            type: "credit",
-            cardName: card ? card.name : "",
-            amount: per,
-            date: d.getTime(),
-            installmentIndex: i + 1,
-            installments,
-          });
-        }
-      }
-    });
-
-    const keys = Object.keys(monthlyData).sort();
-
-    const filterInput = document.getElementById("historyFilterInput");
-    const filterValue = filterInput && filterInput.value ? filterInput.value : "";
-
-    const visibleKeys = filterValue
-      ? keys.filter((k) => k === filterValue)
-      : keys;
-
-    if (visibleKeys.length === 0) {
-      container.textContent = "Nenhum registro para o mês selecionado.";
-      return;
-    }
-
-    visibleKeys.forEach((key) => {
-      const [yearStr, monthStr] = key.split("-");
-      const year = Number(yearStr);
-      const monthIndex = Number(monthStr) - 1;
-
-      const d = new Date(year, monthIndex, 1);
-      const label = d.toLocaleDateString("pt-BR", {
-        month: "short",
-        year: "numeric",
       });
 
-      const isClosed = state.closedMonths.includes(key);
+      const keys = Object.keys(monthlyData).sort();
 
-      const row = document.createElement("div");
-      row.className = "month-history-item";
+      const filterInput = document.getElementById("historyFilterInput");
+      const filterValue = filterInput && filterInput.value ? filterInput.value : "";
 
-      const info = document.createElement("div");
-      info.className = "month-history-info";
+      const visibleKeys = filterValue
+        ? keys.filter((k) => k === filterValue)
+        : keys;
 
-      const labelEl = document.createElement("span");
-      labelEl.className = "month-history-label";
-      labelEl.textContent = label;
+      if (visibleKeys.length === 0) {
+        container.textContent = "Nenhum registro para o mês selecionado.";
+        return;
+      }
 
-      const valueEl = document.createElement("span");
-      valueEl.className = "month-history-amount";
-      valueEl.textContent = formatBRL(monthlyData[key].total);
+      visibleKeys.forEach((key) => {
+        const [yearStr, monthStr] = key.split("-");
+        const year = Number(yearStr);
+        const monthIndex = Number(monthStr) - 1;
 
-      const statusEl = document.createElement("span");
-      statusEl.className = "month-history-status";
-      statusEl.textContent = isClosed ? "Mês fechado" : "Mês em aberto";
-
-      info.appendChild(labelEl);
-      info.appendChild(valueEl);
-      info.appendChild(statusEl);
-
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "btn btn-sm.btn-secondary btn-inline";
-      btn.textContent = "Detalhes";
-      btn.addEventListener("click", () => openMonthDetail(key, label));
-
-      row.appendChild(info);
-      row.appendChild(btn);
-      container.appendChild(row);
-    });
-  }
-
-  // ----------------- EDITAR GASTO -----------------
-  function openEditExpense(expenseId) {
-    const exp = state.expenses.find((e) => e.id === expenseId);
-    if (!exp) return;
-
-    const monthKey = getMonthKeyFromTimestamp(exp.createdAt);
-    const currentKey = getCurrentMonthKey();
-    if (monthKey !== currentKey) {
-      showToast("Só é possível editar gastos do mês atual.", "error");
-      return;
-    }
-    if (state.closedMonths.includes(monthKey)) {
-      showToast("Este mês está fechado para edição.", "error");
-      return;
-    }
-
-    state.editingExpenseId = expenseId;
-
-    document.querySelector("#modalExpenseBackdrop .modal-title").textContent =
-      "Editar gasto";
-    document.getElementById("btnSaveExpense").textContent =
-      "Salvar alterações";
-
-    renderUsersSelect();
-    renderBanksSelect();
-    renderCardsSelect();
-
-    const userSelect = document.getElementById("expenseUser");
-    if (userSelect) userSelect.value = exp.userId;
-
-    state.paymentType = exp.type;
-    renderPaymentType();
-
-    renderValuesInputs(exp.values.length);
-    const valueInputs = document.querySelectorAll("#valuesList input");
-    exp.values.forEach((v, i) => {
-      if (valueInputs[i]) {
-        valueInputs[i].value = v.toLocaleString("pt-BR", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
+        const d = new Date(year, monthIndex, 1);
+        const label = d.toLocaleDateString("pt-BR", {
+          month: "short",
+          year: "numeric",
         });
-      }
-    });
 
-    const pixInst = document.getElementById("expenseInstallmentsPix");
-    const creditInst = document.getElementById("expenseInstallments");
+        const isClosed = state.closedMonths.includes(key);
 
-    if (exp.type === "pix") {
-      const bankSelect = document.getElementById("expenseBank");
-      if (bankSelect && exp.bankId) {
-        bankSelect.disabled = false;
-        bankSelect.value = exp.bankId;
-      }
-      if (pixInst) pixInst.value = exp.installments || 1;
-    } else {
-      const cardSelect = document.getElementById("expenseCard");
-      if (cardSelect && exp.cardId) {
-        cardSelect.disabled = false;
-        cardSelect.value = exp.cardId;
-      }
-      if (creditInst) creditInst.value = exp.installments || 1;
-    }
+        const row = document.createElement("div");
+        row.className = "month-history-item";
 
-    const errorEl = document.getElementById("expenseError");
-    errorEl.style.display = "none";
-    errorEl.textContent = "";
+        const info = document.createElement("div");
+        info.className = "month-history-info";
 
-    openModal("modalExpenseBackdrop");
-  }
+        const labelEl = document.createElement("span");
+        labelEl.className = "month-history-label";
+        labelEl.textContent = label;
 
-  // ----------------- VALIDAÇÃO GASTO -----------------
-  function validateExpense() {
-    const errorEl = document.getElementById("expenseError");
-    errorEl.style.display = "none";
-    errorEl.textContent = "";
+        const valueEl = document.createElement("span");
+        valueEl.className = "month-history-amount";
+        valueEl.textContent = formatBRL(monthlyData[key].total);
 
-    const userId = document.getElementById("expenseUser").value;
-    if (!userId) {
-      errorEl.textContent = "Selecione um usuário.";
-      errorEl.style.display = "block";
-      return null;
-    }
+        const statusEl = document.createElement("span");
+        statusEl.className = "month-history-status";
+        statusEl.textContent = isClosed ? "Mês fechado" : "Mês em aberto";
 
-    const valueInputs = document.querySelectorAll("#valuesList input");
-    const values = [];
-    valueInputs.forEach((inp) => {
-      const v = parseAmount(inp.value);
-      if (!Number.isNaN(v) && v > 0) values.push(v);
-    });
+        info.appendChild(labelEl);
+        info.appendChild(valueEl);
+        info.appendChild(statusEl);
 
-    if (values.length === 0) {
-      errorEl.textContent = "Informe pelo menos um valor maior que zero.";
-      errorEl.style.display = "block";
-      return null;
-    }
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "btn btn-sm btn-secondary btn-inline";
+        btn.textContent = "Detalhes";
+        btn.addEventListener("click", () => openMonthDetail(key, label));
 
-    const total = values.reduce((acc, v) => acc + v, 0);
-    let result = {
-      userId,
-      values,
-      totalAmount: total,
-      type: state.paymentType,
-    };
-
-    if (state.paymentType === "pix") {
-      const bankSelect = document.getElementById("expenseBank");
-      if (!bankSelect.value) {
-        errorEl.textContent =
-          "Cadastre e selecione um banco para lançar um PIX.";
-        errorEl.style.display = "block";
-        return null;
-      }
-      let installments = Number.parseInt(
-        document.getElementById("expenseInstallmentsPix").value,
-        10
-      );
-      if (!installments || installments < 1) {
-        errorEl.textContent =
-          "Informe uma quantidade de parcelas válida para o PIX (mínimo 1).";
-        errorEl.style.display = "block";
-        return null;
-      }
-      const installmentAmount = total / installments;
-
-      result.bankId = bankSelect.value;
-      result.installments = installments;
-      result.installmentAmount = installmentAmount;
-    } else {
-      const cardSelect = document.getElementById("expenseCard");
-      if (!cardSelect.value) {
-        errorEl.textContent =
-          "Cadastre e selecione um cartão para lançar no crédito.";
-        errorEl.style.display = "block";
-        return null;
-      }
-      let installments = Number.parseInt(
-        document.getElementById("expenseInstallments").value,
-        10
-      );
-      if (!installments || installments < 1) {
-        errorEl.textContent =
-          "Informe uma quantidade de parcelas válida (mínimo 1).";
-        errorEl.style.display = "block";
-        return null;
-      }
-
-      const installmentAmount = total / installments;
-
-      result.cardId = cardSelect.value;
-      result.installments = installments;
-      result.installmentAmount = installmentAmount;
-    }
-
-    return result;
-  }
-
-  // ----------------- SALVAR USUÁRIO -----------------
-  async function handleSaveUser() {
-    const input = document.getElementById("userName");
-    let name = input.value.trim();
-
-    if (!name) {
-      showToast("Informe um nome para o usuário.", "error");
-      return;
-    }
-
-    const normalized = name.toLowerCase();
-    const exists = state.users.some(
-      (u) => u.name.toLowerCase() === normalized
-    );
-    if (exists) {
-      showToast("Já existe um usuário com esse nome.", "error");
-      return;
-    }
-
-    const newUserData = {
-      name,
-      active: true,
-      createdAt: serverTimestamp(),
-    };
-
-    try {
-      const userRef = doc(db, "users", name);
-
-      await setDoc(userRef, newUserData);
-
-      const snap = await getDoc(userRef);
-
-      if (!snap.exists()) {
-        console.error("Firebase não retornou o doc do usuário após o setDoc.");
-        showToast(
-          "Erro: não foi possível confirmar o cadastro no banco. Verifique sua conexão e tente novamente.",
-          "error"
-        );
-        return;
-      }
-
-      const data = snap.data();
-
-      state.users.push({
-        id: userRef.id,
-        name: data.name || name,
-        active: data.active !== false,
-        createdAt: data.createdAt || Date.now(),
+        row.appendChild(info);
+        row.appendChild(btn);
+        container.appendChild(row);
       });
+    }
 
-      input.value = "";
-      closeModal("modalUserBackdrop");
+    // ----------------- EDITAR GASTO -----------------
+    function openEditExpense(expenseId) {
+      const exp = state.expenses.find((e) => e.id === expenseId);
+      if (!exp) return;
+
+      const monthKey = getMonthKeyFromTimestamp(exp.createdAt);
+      const currentKey = getCurrentMonthKey();
+      if (monthKey !== currentKey) {
+        showToast("Só é possível editar gastos do mês atual.", "error");
+        return;
+      }
+      if (state.closedMonths.includes(monthKey)) {
+        showToast("Este mês está fechado para edição.", "error");
+        return;
+      }
+
+      state.editingExpenseId = expenseId;
+
+      document.querySelector("#modalExpenseBackdrop .modal-title").textContent =
+        "Editar gasto";
+      document.getElementById("btnSaveExpense").textContent =
+        "Salvar alterações";
+
       renderUsersSelect();
-      renderMainButtons();
-      renderManageUsersList();
-      showToast("Usuário salvo e confirmado no banco! ✅", "success");
-    } catch (err) {
-      console.error("Erro ao salvar usuário no Firebase:", err);
-      showToast(
-        "Erro Firebase: " + (err.message || "falha ao salvar usuário."),
-        "error"
-      );
-    }
-  }
-
-  // ----------------- SALVAR BANCO -----------------
-  async function handleSaveBank() {
-    const input = document.getElementById("bankName");
-    const name = input.value.trim();
-    if (!name) {
-      showToast("Informe um nome para o banco.", "error");
-      return;
-    }
-
-    const newBankData = { name, createdAt: serverTimestamp() };
-    try {
-      const colRef = collection(db, "banks");
-      const docRef = await addDoc(colRef, newBankData);
-
-      const snap = await getDoc(docRef);
-      if (!snap.exists()) {
-        console.error("Banco não encontrado após addDoc.");
-        showToast(
-          "Erro: não foi possível confirmar o cadastro do banco.",
-          "error"
-        );
-        return;
-      }
-
-      const data = snap.data();
-      state.banks.push({ id: docRef.id, ...data });
-
-      input.value = "";
-      closeModal("modalBankBackdrop");
       renderBanksSelect();
-
-      const select = document.getElementById("expenseBank");
-      if (select) {
-        select.disabled = false;
-        select.value = docRef.id;
-      }
-      showToast("Banco salvo e confirmado no banco! ✅", "success");
-    } catch (err) {
-      console.error("Erro ao salvar banco:", err);
-      showToast(
-        "Erro Firebase: " + (err.message || "falha ao salvar banco."),
-        "error"
-      );
-    }
-  }
-
-  // ----------------- SALVAR CARTÃO -----------------
-  async function handleSaveCard() {
-    const input = document.getElementById("cardName");
-    const name = input.value.trim();
-    if (!name) {
-      showToast("Informe um nome / bandeira para o cartão.", "error");
-      return;
-    }
-
-    const newCardData = { name, createdAt: serverTimestamp() };
-    try {
-      const colRef = collection(db, "cards");
-      const docRef = await addDoc(colRef, newCardData);
-
-      const snap = await getDoc(docRef);
-      if (!snap.exists()) {
-        console.error("Cartão não encontrado após addDoc.");
-        showToast(
-          "Erro: não foi possível confirmar o cadastro do cartão.",
-          "error"
-        );
-        return;
-      }
-
-      const data = snap.data();
-      state.cards.push({ id: docRef.id, ...data });
-      input.value = "";
-      closeModal("modalCardBackdrop");
       renderCardsSelect();
 
-      const select = document.getElementById("expenseCard");
-      if (select) {
-        select.disabled = false;
-        select.value = docRef.id;
-      }
-      showToast("Cartão salvo e confirmado no banco! ✅", "success");
-    } catch (err) {
-      console.error("Erro ao salvar cartão:", err);
-      showToast(
-        "Erro Firebase: " + (err.message || "falha ao salvar cartão."),
-        "error"
-      );
-    }
-  }
+      const userSelect = document.getElementById("expenseUser");
+      if (userSelect) userSelect.value = exp.userId;
 
-  // ----------------- SALVAR GASTO -----------------
-  async function.handleSaveExpense() {
-    const payload = validateExpense();
-    if (!payload) return;
+      state.paymentType = exp.type;
+      renderPaymentType();
 
-    const currentKey = getCurrentMonthKey();
-    if (state.closedMonths.includes(currentKey)) {
-      showToast("Este mês está fechado para novos lançamentos.", "error");
-      return;
-    }
-
-    try {
-      if (state.editingExpenseId) {
-        const idx = state.expenses.findIndex(
-          (e) => e.id === state.editingExpenseId
-        );
-        if (idx !== -1) {
-          const existing = state.expenses[idx];
-          const updated = { ...existing, ...payload };
-
-          await updateDoc(doc(db, "expenses", state.editingExpenseId), {
-            userId: updated.userId,
-            values: updated.values,
-            totalAmount: updated.totalAmount,
-            type: updated.type,
-            bankId: updated.bankId || null,
-            cardId: updated.cardId || null,
-            installments: updated.installments || 1,
-            installmentAmount:
-              updated.installmentAmount || updated.totalAmount,
+      renderValuesInputs(exp.values.length);
+      const valueInputs = document.querySelectorAll("#valuesList input");
+      exp.values.forEach((v, i) => {
+        if (valueInputs[i]) {
+          valueInputs[i].value = v.toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
           });
-
-          state.expenses[idx] = updated;
         }
-        showToast("Gasto atualizado com sucesso!", "success");
+      });
+
+      const pixInst = document.getElementById("expenseInstallmentsPix");
+      const creditInst = document.getElementById("expenseInstallments");
+
+      if (exp.type === "pix") {
+        const bankSelect = document.getElementById("expenseBank");
+        if (bankSelect && exp.bankId) {
+          bankSelect.disabled = false;
+          bankSelect.value = exp.bankId;
+        }
+        if (pixInst) pixInst.value = exp.installments || 1;
       } else {
-        const newExpenseForFirestore = {
-          ...payload,
-          createdAt: serverTimestamp(),
-        };
+        const cardSelect = document.getElementById("expenseCard");
+        if (cardSelect && exp.cardId) {
+          cardSelect.disabled = false;
+          cardSelect.value = exp.cardId;
+        }
+        if (creditInst) creditInst.value = exp.installments || 1;
+      }
 
-        const colRef = collection(db, "expenses");
-        const docRef = await addDoc(colRef, newExpenseForFirestore);
+      const errorEl = document.getElementById("expenseError");
+      errorEl.style.display = "none";
+      errorEl.textContent = "";
 
-        const snap = await getDoc(docRef);
+      openModal("modalExpenseBackdrop");
+    }
+
+    // ----------------- VALIDAÇÃO GASTO -----------------
+    function validateExpense() {
+      const errorEl = document.getElementById("expenseError");
+      errorEl.style.display = "none";
+      errorEl.textContent = "";
+
+      const userId = document.getElementById("expenseUser").value;
+      if (!userId) {
+        errorEl.textContent = "Selecione um usuário.";
+        errorEl.style.display = "block";
+        return null;
+      }
+
+      const valueInputs = document.querySelectorAll("#valuesList input");
+      const values = [];
+      valueInputs.forEach((inp) => {
+        const v = parseAmount(inp.value);
+        if (!Number.isNaN(v) && v > 0) values.push(v);
+      });
+
+      if (values.length === 0) {
+        errorEl.textContent = "Informe pelo menos um valor maior que zero.";
+        errorEl.style.display = "block";
+        return null;
+      }
+
+      const total = values.reduce((acc, v) => acc + v, 0);
+      let result = {
+        userId,
+        values,
+        totalAmount: total,
+        type: state.paymentType,
+      };
+
+      if (state.paymentType === "pix") {
+        const bankSelect = document.getElementById("expenseBank");
+        if (!bankSelect.value) {
+          errorEl.textContent =
+            "Cadastre e selecione um banco para lançar um PIX.";
+          errorEl.style.display = "block";
+          return null;
+        }
+        let installments = Number.parseInt(
+          document.getElementById("expenseInstallmentsPix").value,
+          10
+        );
+        if (!installments || installments < 1) {
+          errorEl.textContent =
+            "Informe uma quantidade de parcelas válida para o PIX (mínimo 1).";
+          errorEl.style.display = "block";
+          return null;
+        }
+        const installmentAmount = total / installments;
+
+        result.bankId = bankSelect.value;
+        result.installments = installments;
+        result.installmentAmount = installmentAmount;
+      } else {
+        const cardSelect = document.getElementById("expenseCard");
+        if (!cardSelect.value) {
+          errorEl.textContent =
+            "Cadastre e selecione um cartão para lançar no crédito.";
+          errorEl.style.display = "block";
+          return null;
+        }
+        let installments = Number.parseInt(
+          document.getElementById("expenseInstallments").value,
+          10
+        );
+        if (!installments || installments < 1) {
+          errorEl.textContent =
+            "Informe uma quantidade de parcelas válida (mínimo 1).";
+          errorEl.style.display = "block";
+          return null;
+        }
+
+        const installmentAmount = total / installments;
+
+        result.cardId = cardSelect.value;
+        result.installments = installments;
+        result.installmentAmount = installmentAmount;
+      }
+
+      return result;
+    }
+
+    // ----------------- SALVAR USUÁRIO -----------------
+    async function handleSaveUser() {
+      const input = document.getElementById("userName");
+      let name = input.value.trim();
+
+      if (!name) {
+        showToast("Informe um nome para o usuário.", "error");
+        return;
+      }
+
+      const normalized = name.toLowerCase();
+      const exists = state.users.some(
+        (u) => u.name.toLowerCase() === normalized
+      );
+      if (exists) {
+        showToast("Já existe um usuário com esse nome.", "error");
+        return;
+      }
+
+      const newUserData = {
+        name,
+        active: true,
+        createdAt: serverTimestamp(),
+      };
+
+      try {
+        const userRef = doc(db, "users", name);
+
+        await setDoc(userRef, newUserData);
+
+        const snap = await getDoc(userRef);
+
         if (!snap.exists()) {
-          console.error("Gasto não encontrado após addDoc.");
+          console.error("Firebase não retornou o doc do usuário após o setDoc.");
           showToast(
-            "Erro: não foi possível confirmar o cadastro do gasto.",
+            "Erro: não foi possível confirmar o cadastro no banco. Verifique sua conexão e tente novamente.",
             "error"
           );
           return;
         }
 
-        const saved = snap.data();
-        state.expenses.push({
-          id: docRef.id,
-          ...saved,
+        const data = snap.data();
+
+        state.users.push({
+          id: userRef.id,
+          name: data.name || name,
+          active: data.active !== false,
+          createdAt: data.createdAt || Date.now(),
         });
 
-        showToast("Gasto salvo e confirmado no banco! ✅", "success");
+        input.value = "";
+        closeModal("modalUserBackdrop");
+        renderUsersSelect();
+        renderMainButtons();
+        renderManageUsersList();
+        showToast("Usuário salvo e confirmado no banco! ✅", "success");
+      } catch (err) {
+        console.error("Erro ao salvar usuário no Firebase:", err);
+        showToast(
+          "Erro Firebase: " + (err.message || "falha ao salvar usuário."),
+          "error"
+        );
+      }
+    }
+
+    // ----------------- SALVAR BANCO -----------------
+    async function handleSaveBank() {
+      const input = document.getElementById("bankName");
+      const name = input.value.trim();
+      if (!name) {
+        showToast("Informe um nome para o banco.", "error");
+        return;
       }
 
-      renderExpensesList();
+      const newBankData = { name, createdAt: serverTimestamp() };
+      try {
+        const colRef = collection(db, "banks");
+        const docRef = await addDoc(colRef, newBankData);
 
-      renderValuesInputs(1);
-      const creditInst = document.getElementById("expenseInstallments");
-      const pixInst = document.getElementById("expenseInstallmentsPix");
-      if (creditInst) creditInst.value = 1;
-      if (pixInst) pixInst.value = 1;
-      document.getElementById("expenseError").style.display = "none";
-      document.getElementById("expenseError").textContent = "";
-
-      state.editingExpenseId = null;
-      document.querySelector("#modalExpenseBackdrop .modal-title").textContent =
-        "Novo gasto";
-      document.getElementById("btnSaveExpense").textContent = "Salvar gasto";
-
-      closeModal("modalExpenseBackdrop");
-    } catch (err) {
-      console.error("Erro ao salvar gasto:", err);
-      showToast(
-        "Erro Firebase: " + (err.message || "falha ao salvar gasto."),
-        "error"
-      );
-    }
-  }
-
-  // ----------------- FECHAR MÊS -----------------
-  async function handleCloseMonth() {
-    if (!currentDetailMonthKey) return;
-
-    const.isAlreadyClosed = state.closedMonths.includes(currentDetailMonthKey);
-    if (isAlreadyClosed) {
-      showToast("Este mês já está fechado.", "info");
-      return;
-    }
-
-    const currentKey = getCurrentMonthKey();
-    if (currentDetailMonthKey > currentKey) {
-      showToast("Não é possível fechar um mês futuro.", "error");
-      return;
-    }
-
-    const ok = confirm(
-      "Depois de fechar este mês, você não poderá mais editar ou excluir os lançamentos dele. Deseja continuar?"
-    );
-    if (!ok) return;
-
-    try {
-      await setDoc(doc(db, "closedMonths", currentDetailMonthKey), {
-        closedAt: serverTimestamp(),
-      });
-
-      state.closedMonths.push(currentDetailMonthKey);
-
-      showToast("Mês fechado com sucesso.", "success");
-      closeModal("modalMonthDetailBackdrop");
-      renderMonthlyHistory();
-      renderExpensesList();
-      renderMainButtons();
-    } catch (err) {
-      console.error("Erro ao fechar mês:", err);
-      showToast(
-        "Erro Firebase: " + (err.message || "falha ao fechar mês."),
-        "error"
-      );
-    }
-  }
-
-  // ----------------- LOAD INICIAL DO FIREBASE -----------------
-  async function loadUsersFromFirebase() {
-    const snap = await getDocs(collection(db, "users"));
-    state.users = snap.docs.map((d) => {
-      const data = d.data();
-      return {
-        id: d.id,
-        name: data.name || d.id,
-        active: data.active !== false,
-        createdAt: data.createdAt || null,
-      };
-    });
-  }
-
-  async function loadBanksFromFirebase() {
-    const snap = await getDocs(collection(db, "banks"));
-    state.banks = snap.docs.map((d) => ({
-      id: d.id,
-      ...d.data(),
-    }));
-  }
-
-  async function loadCardsFromFirebase() {
-    const snap = await getDocs(collection(db, "cards"));
-    state.cards = snap.docs.map((d) => ({
-      id: d.id,
-      ...d.data(),
-    }));
-  }
-
-  async function loadExpensesFromFirebase() {
-    const snap = await getDocs(collection(db, "expenses"));
-    state.expenses = snap.docs.map((d) => ({
-      id: d.id,
-      ...d.data(),
-    }));
-  }
-
-  async function loadClosedMonthsFromFirebase() {
-    const snap = await getDocs(collection(db, "closedMonths"));
-    state.closedMonths = snap.docs.map((d) => d.id);
-  }
-
-  // ----------------- INIT -----------------
-  async function init() {
-    try {
-      await Promise.all([
-        loadUsersFromFirebase(),
-        loadBanksFromFirebase(),
-        loadCardsFromFirebase(),
-        loadExpensesFromFirebase(),
-        loadClosedMonthsFromFirebase(),
-      ]);
-    } catch (err) {
-      console.error("Erro ao carregar dados do Firebase:", err);
-      showToast("Erro ao carregar dados da nuvem.", "error");
-    }
-
-    renderUsersSelect();
-    renderBanksSelect();
-    renderCardsSelect();
-    renderMainButtons();
-    renderValuesInputs(1);
-    renderPaymentType();
-    renderExpensesList();
-    renderManageUsersList();
-
-    document
-      .getElementById("btnAddUser")
-      .addEventListener("click", () => openModal("modalUserBackdrop"));
-
-    document
-      .getElementById("btnManageUsers")
-      .addEventListener("click", () => {
-        renderManageUsersList();
-        openModal("modalManageUsersBackdrop");
-      });
-
-    document
-      .getElementById("btnAddExpense")
-      .addEventListener("click", () => {
-        const currentKey = getCurrentMonthKey();
-        if (state.closedMonths.includes(currentKey)) {
-          showToast("Este mês está fechado para novos lançamentos.", "info");
+        const snap = await getDoc(docRef);
+        if (!snap.exists()) {
+          console.error("Banco não encontrado após addDoc.");
+          showToast(
+            "Erro: não foi possível confirmar o cadastro do banco.",
+            "error"
+          );
           return;
         }
 
-        if (state.users.filter((u) => u.active !== false).length === 0) {
-          showToast("Cadastre um usuário antes de lançar gastos.", "info");
-          return;
-        }
-        state.editingExpenseId = null;
-        document.querySelector("#modalExpenseBackdrop .modal-title").textContent =
-          "Novo gasto";
-        document.getElementById("btnSaveExpense").textContent =
-          "Salvar gasto";
+        const data = snap.data();
+        state.banks.push({ id: docRef.id, ...data });
 
-        renderUsersSelect();
+        input.value = "";
+        closeModal("modalBankBackdrop");
         renderBanksSelect();
+
+        const select = document.getElementById("expenseBank");
+        if (select) {
+          select.disabled = false;
+          select.value = docRef.id;
+        }
+        showToast("Banco salvo e confirmado no banco! ✅", "success");
+      } catch (err) {
+        console.error("Erro ao salvar banco:", err);
+        showToast(
+          "Erro Firebase: " + (err.message || "falha ao salvar banco."),
+          "error"
+        );
+      }
+    }
+
+    // ----------------- SALVAR CARTÃO -----------------
+    async function handleSaveCard() {
+      const input = document.getElementById("cardName");
+      const name = input.value.trim();
+      if (!name) {
+        showToast("Informe um nome / bandeira para o cartão.", "error");
+        return;
+      }
+
+      const newCardData = { name, createdAt: serverTimestamp() };
+      try {
+        const colRef = collection(db, "cards");
+        const docRef = await addDoc(colRef, newCardData);
+
+        const snap = await getDoc(docRef);
+        if (!snap.exists()) {
+          console.error("Cartão não encontrado após addDoc.");
+          showToast(
+            "Erro: não foi possível confirmar o cadastro do cartão.",
+            "error"
+          );
+          return;
+        }
+
+        const data = snap.data();
+        state.cards.push({ id: docRef.id, ...data });
+        input.value = "";
+        closeModal("modalCardBackdrop");
         renderCardsSelect();
+
+        const select = document.getElementById("expenseCard");
+        if (select) {
+          select.disabled = false;
+          select.value = docRef.id;
+        }
+        showToast("Cartão salvo e confirmado no banco! ✅", "success");
+      } catch (err) {
+        console.error("Erro ao salvar cartão:", err);
+        showToast(
+          "Erro Firebase: " + (err.message || "falha ao salvar cartão."),
+          "error"
+        );
+      }
+    }
+
+    // ----------------- SALVAR GASTO -----------------
+    async function handleSaveExpense() {
+      const payload = validateExpense();
+      if (!payload) return;
+
+      const currentKey = getCurrentMonthKey();
+      if (state.closedMonths.includes(currentKey)) {
+        showToast("Este mês está fechado para novos lançamentos.", "error");
+        return;
+      }
+
+      try {
+        if (state.editingExpenseId) {
+          const idx = state.expenses.findIndex(
+            (e) => e.id === state.editingExpenseId
+          );
+          if (idx !== -1) {
+            const existing = state.expenses[idx];
+            const updated = { ...existing, ...payload };
+
+            await updateDoc(doc(db, "expenses", state.editingExpenseId), {
+              userId: updated.userId,
+              values: updated.values,
+              totalAmount: updated.totalAmount,
+              type: updated.type,
+              bankId: updated.bankId || null,
+              cardId: updated.cardId || null,
+              installments: updated.installments || 1,
+              installmentAmount:
+                updated.installmentAmount || updated.totalAmount,
+            });
+
+            state.expenses[idx] = updated;
+          }
+          showToast("Gasto atualizado com sucesso!", "success");
+        } else {
+          const newExpenseForFirestore = {
+            ...payload,
+            createdAt: serverTimestamp(),
+          };
+
+          const colRef = collection(db, "expenses");
+          const docRef = await addDoc(colRef, newExpenseForFirestore);
+
+          const snap = await getDoc(docRef);
+          if (!snap.exists()) {
+            console.error("Gasto não encontrado após addDoc.");
+            showToast(
+              "Erro: não foi possível confirmar o cadastro do gasto.",
+              "error"
+            );
+            return;
+          }
+
+          const saved = snap.data();
+          state.expenses.push({
+            id: docRef.id,
+            ...saved,
+          });
+
+          showToast("Gasto salvo e confirmado no banco! ✅", "success");
+        }
+
+        renderExpensesList();
+
         renderValuesInputs(1);
         const creditInst = document.getElementById("expenseInstallments");
         const pixInst = document.getElementById("expenseInstallmentsPix");
@@ -2487,91 +2344,257 @@
         if (pixInst) pixInst.value = 1;
         document.getElementById("expenseError").style.display = "none";
         document.getElementById("expenseError").textContent = "";
-        state.paymentType = "pix";
-        renderPaymentType();
-        openModal("modalExpenseBackdrop");
-      });
 
-    document
-      .getElementById("btnToggleHistory")
-      .addEventListener("click", () => {
-        const historyFilterInput = document.getElementById("historyFilterInput");
-        if (historyFilterInput) {
-          historyFilterInput.value = "";
-        }
+        state.editingExpenseId = null;
+        document.querySelector("#modalExpenseBackdrop .modal-title").textContent =
+          "Novo gasto";
+        document.getElementById("btnSaveExpense").textContent = "Salvar gasto";
+
+        closeModal("modalExpenseBackdrop");
+      } catch (err) {
+        console.error("Erro ao salvar gasto:", err);
+        showToast(
+          "Erro Firebase: " + (err.message || "falha ao salvar gasto."),
+          "error"
+        );
+      }
+    }
+
+    // ----------------- FECHAR MÊS -----------------
+    async function handleCloseMonth() {
+      if (!currentDetailMonthKey) return;
+
+      const isAlreadyClosed = state.closedMonths.includes(currentDetailMonthKey);
+      if (isAlreadyClosed) {
+        showToast("Este mês já está fechado.", "info");
+        return;
+      }
+
+      const currentKey = getCurrentMonthKey();
+      if (currentDetailMonthKey > currentKey) {
+        showToast("Não é possível fechar um mês futuro.", "error");
+        return;
+      }
+
+      const ok = confirm(
+        "Depois de fechar este mês, você não poderá mais editar ou excluir os lançamentos dele. Deseja continuar?"
+      );
+      if (!ok) return;
+
+      try {
+        await setDoc(doc(db, "closedMonths", currentDetailMonthKey), {
+          closedAt: serverTimestamp(),
+        });
+
+        state.closedMonths.push(currentDetailMonthKey);
+
+        showToast("Mês fechado com sucesso.", "success");
+        closeModal("modalMonthDetailBackdrop");
         renderMonthlyHistory();
-        openModal("modalHistoryBackdrop");
+        renderExpensesList();
+        renderMainButtons();
+      } catch (err) {
+        console.error("Erro ao fechar mês:", err);
+        showToast(
+          "Erro Firebase: " + (err.message || "falha ao fechar mês."),
+          "error"
+        );
+      }
+    }
+
+    // ----------------- LOAD INICIAL DO FIREBASE -----------------
+    async function loadUsersFromFirebase() {
+      const snap = await getDocs(collection(db, "users"));
+      state.users = snap.docs.map((d) => {
+        const data = d.data();
+        return {
+          id: d.id,
+          name: data.name || d.id,
+          active: data.active !== false,
+          createdAt: data.createdAt || null,
+        };
       });
+    }
 
-    document
-      .getElementById("btnSaveUser")
-      .addEventListener("click", handleSaveUser);
+    async function loadBanksFromFirebase() {
+      const snap = await getDocs(collection(db, "banks"));
+      state.banks = snap.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
+      }));
+    }
 
-    document
-      .getElementById("btnSaveBank")
-      .addEventListener("click", handleSaveBank);
+    async function loadCardsFromFirebase() {
+      const snap = await getDocs(collection(db, "cards"));
+      state.cards = snap.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
+      }));
+    }
 
-    document
-      .getElementById("btnSaveCard")
-      .addEventListener("click", handleSaveCard);
+    async function loadExpensesFromFirebase() {
+      const snap = await getDocs(collection(db, "expenses"));
+      state.expenses = snap.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
+      }));
+    }
 
-    document
-      .getElementById("btnSaveExpense")
-      .addEventListener("click", handleSaveExpense);
+    async function loadClosedMonthsFromFirebase() {
+      const snap = await getDocs(collection(db, "closedMonths"));
+      state.closedMonths = snap.docs.map((d) => d.id);
+    }
 
-    document
-      .getElementById("btnCloseMonth")
-      .addEventListener("click", handleCloseMonth);
+    // ----------------- INIT -----------------
+    async function init() {
+      try {
+        await Promise.all([
+          loadUsersFromFirebase(),
+          loadBanksFromFirebase(),
+          loadCardsFromFirebase(),
+          loadExpensesFromFirebase(),
+          loadClosedMonthsFromFirebase(),
+        ]);
+      } catch (err) {
+        console.error("Erro ao carregar dados do Firebase:", err);
+        showToast("Erro ao carregar dados da nuvem.", "error");
+      }
 
-    document.querySelectorAll("[data-close-modal]").forEach((btn) => {
-      const id = btn.getAttribute("data-close-modal");
-      btn.addEventListener("click", () => attemptCloseModal(id));
-    });
+      renderUsersSelect();
+      renderBanksSelect();
+      renderCardsSelect();
+      renderMainButtons();
+      renderValuesInputs(1);
+      renderPaymentType();
+      renderExpensesList();
+      renderManageUsersList();
 
-    document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
-      backdrop.addEventListener("click", (e) => {
-        if (e.target === backdrop) attemptCloseModal(backdrop.id);
-      });
-    });
+      document
+        .getElementById("btnAddUser")
+        .addEventListener("click", () => openModal("modalUserBackdrop"));
 
-    document
-      .querySelectorAll("[data-payment-type]")
-      .forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.paymentType = btn.getAttribute("data-payment-type");
+      document
+        .getElementById("btnManageUsers")
+        .addEventListener("click", () => {
+          renderManageUsersList();
+          openModal("modalManageUsersBackdrop");
+        });
+
+      document
+        .getElementById("btnAddExpense")
+        .addEventListener("click", () => {
+          const currentKey = getCurrentMonthKey();
+          if (state.closedMonths.includes(currentKey)) {
+            showToast("Este mês está fechado para novos lançamentos.", "info");
+            return;
+          }
+
+          if (state.users.filter((u) => u.active !== false).length === 0) {
+            showToast("Cadastre um usuário antes de lançar gastos.", "info");
+            return;
+          }
+          state.editingExpenseId = null;
+          document.querySelector("#modalExpenseBackdrop .modal-title").textContent =
+            "Novo gasto";
+          document.getElementById("btnSaveExpense").textContent =
+            "Salvar gasto";
+
+          renderUsersSelect();
+          renderBanksSelect();
+          renderCardsSelect();
+          renderValuesInputs(1);
+          const creditInst = document.getElementById("expenseInstallments");
+          const pixInst = document.getElementById("expenseInstallmentsPix");
+          if (creditInst) creditInst.value = 1;
+          if (pixInst) pixInst.value = 1;
+          document.getElementById("expenseError").style.display = "none";
+          document.getElementById("expenseError").textContent = "";
+          state.paymentType = "pix";
           renderPaymentType();
+          openModal("modalExpenseBackdrop");
+        });
+
+      document
+        .getElementById("btnToggleHistory")
+        .addEventListener("click", () => {
+          const historyFilterInput = document.getElementById("historyFilterInput");
+          if (historyFilterInput) {
+            historyFilterInput.value = "";
+          }
+          renderMonthlyHistory();
+          openModal("modalHistoryBackdrop");
+        });
+
+      document
+        .getElementById("btnSaveUser")
+        .addEventListener("click", handleSaveUser);
+
+      document
+        .getElementById("btnSaveBank")
+        .addEventListener("click", handleSaveBank);
+
+      document
+        .getElementById("btnSaveCard")
+        .addEventListener("click", handleSaveCard);
+
+      document
+        .getElementById("btnSaveExpense")
+        .addEventListener("click", handleSaveExpense);
+
+      document
+        .getElementById("btnCloseMonth")
+        .addEventListener("click", handleCloseMonth);
+
+      document.querySelectorAll("[data-close-modal]").forEach((btn) => {
+        const id = btn.getAttribute("data-close-modal");
+        btn.addEventListener("click", () => attemptCloseModal(id));
+      });
+
+      document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
+        backdrop.addEventListener("click", (e) => {
+          if (e.target === backdrop) attemptCloseModal(backdrop.id);
         });
       });
 
-    const btnBankInline = document.getElementById("btnOpenBankModalInline");
-    if (btnBankInline) {
-      btnBankInline.addEventListener("click", () => {
-        openModal("modalBankBackdrop");
-      });
+      document
+        .querySelectorAll("[data-payment-type]")
+        .forEach((btn) => {
+          btn.addEventListener("click", () => {
+            state.paymentType = btn.getAttribute("data-payment-type");
+            renderPaymentType();
+          });
+        });
+
+      const btnBankInline = document.getElementById("btnOpenBankModalInline");
+      if (btnBankInline) {
+        btnBankInline.addEventListener("click", () => {
+          openModal("modalBankBackdrop");
+        });
+      }
+
+      const btnCardInline = document.getElementById("btnOpenCardModalInline");
+      if (btnCardInline) {
+        btnCardInline.addEventListener("click", () => {
+          openModal("modalCardBackdrop");
+        });
+      }
+
+      const historyFilterInput = document.getElementById("historyFilterInput");
+      if (historyFilterInput) {
+        historyFilterInput.addEventListener("change", () => {
+          renderMonthlyHistory();
+        });
+      }
     }
 
-    const btnCardInline = document.getElementById("btnOpenCardModalInline");
-    if (btnCardInline) {
-      btnCardInline.addEventListener("click", () => {
-        openModal("modalCardBackdrop");
+    document.addEventListener("DOMContentLoaded", () => {
+      init().catch((err) => {
+        console.error("Erro na inicialização:", err);
+        showToast("Erro ao iniciar o app.", "error");
       });
-    }
-
-    const historyFilterInput = document.getElementById("historyFilterInput");
-    if (historyFilterInput) {
-      historyFilterInput.addEventListener("change", () => {
-        renderMonthlyHistory();
-      });
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    init().catch((err) => {
-      console.error("Erro na inicialização:", err);
-      showToast("Erro ao iniciar o app.", "error");
     });
-  });
   </script>
 
 </body>
+
 </html>
