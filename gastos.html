@@ -491,7 +491,7 @@
     .toast-hide {
       opacity: 0 !important;
       transform: translateY(8px) !important;
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      transition: opacity 0.2s.ease, transform 0.2s.ease;
     }
 
     @keyframes toast-in {
@@ -672,6 +672,9 @@
           <button id="btnAddUser" class="btn btn-primary">
             <span>➕ Cadastrar usuário</span>
           </button>
+          <button id="btnManageUsers" class="btn btn-secondary">
+            <span>👥 Gerenciar usuários</span>
+          </button>
           <button id="btnAddExpense" class="btn btn-secondary btn-disabled" disabled>
             <span id="btnAddExpenseLabel">💸 Cadastrar valores</span>
           </button>
@@ -721,8 +724,29 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button id="btnSaveUser" class="btn btn-primary">Salvar usuário</button>
+        <button id="btnSaveUser" class="btn.btn-primary">Salvar usuário</button>
         <button class="btn btn-secondary" data-close-modal="modalUserBackdrop">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Gerenciar Usuários -->
+  <div id="modalManageUsersBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">Gerenciar usuários</div>
+          <div class="modal-subtitle">
+            Ative, desative ou renomeie usuários. O histórico de gastos é preservado.
+          </div>
+        </div>
+        <button class="btn-icon" data-close-modal="modalManageUsersBackdrop">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="manageUsersList" class="user-totals"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="modalManageUsersBackdrop">Fechar</button>
       </div>
     </div>
   </div>
@@ -1056,17 +1080,149 @@
     }, 3000);
   }
 
-  // ----------------- RENDER SELECTS & BOTÕES -----------------
+  // ----------------- RENDER SELECTS & GERENCIAR USUÁRIOS -----------------
   function renderUsersSelect() {
     const select = document.getElementById("expenseUser");
     if (!select) return;
     select.innerHTML = "";
-    state.users.forEach((u) => {
-      const opt = document.createElement("option");
-      opt.value = u.id;
-      opt.textContent = u.name;
-      select.appendChild(opt);
-    });
+    state.users
+      .filter((u) => u.active !== false)
+      .forEach((u) => {
+        const opt = document.createElement("option");
+        opt.value = u.id;
+        opt.textContent = u.name;
+        select.appendChild(opt);
+      });
+  }
+
+  function renderManageUsersList() {
+    const container = document.getElementById("manageUsersList");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (state.users.length === 0) {
+      container.textContent = "Nenhum usuário cadastrado ainda.";
+      return;
+    }
+
+    const frag = document.createDocumentFragment();
+
+    state.users
+      .slice()
+      .sort((a, b) => a.name.localeCompare(b.name, "pt-BR"))
+      .forEach((user) => {
+        const row = document.createElement("div");
+        row.className = "user-total-item";
+
+        const info = document.createElement("div");
+        info.style.display = "flex";
+        info.style.flexDirection = "column";
+        info.style.gap = "2px";
+
+        const nameEl = document.createElement("span");
+        nameEl.className = "user-total-name";
+        nameEl.textContent = user.name;
+
+        const statusEl = document.createElement("span");
+        statusEl.style.fontSize = "0.7rem";
+        statusEl.style.color = "var(--muted)";
+        statusEl.textContent = user.active === false ? "Inativo" : "Ativo";
+
+        info.appendChild(nameEl);
+        info.appendChild(statusEl);
+
+        const actions = document.createElement("div");
+        actions.style.display = "flex";
+        actions.style.gap = "4px";
+
+        const toggleBtn = document.createElement("button");
+        toggleBtn.type = "button";
+        toggleBtn.className = "btn btn-sm btn-secondary btn-inline";
+        toggleBtn.textContent =
+          user.active === false ? "Ativar" : "Desativar";
+        toggleBtn.addEventListener("click", () =>
+          toggleUserActive(user.id, user.active !== false)
+        );
+
+        const renameBtn = document.createElement("button");
+        renameBtn.type = "button";
+        renameBtn.className = "btn btn-sm.btn-secondary btn-inline";
+        renameBtn.textContent = "Renomear";
+        renameBtn.addEventListener("click", () => renameUser(user.id));
+
+        actions.appendChild(toggleBtn);
+        actions.appendChild(renameBtn);
+
+        row.appendChild(info);
+        row.appendChild(actions);
+        frag.appendChild(row);
+      });
+
+    container.appendChild(frag);
+  }
+
+  async function toggleUserActive(userId, isActive) {
+    try {
+      await updateDoc(doc(db, "users", userId), {
+        active: !isActive,
+      });
+
+      const user = state.users.find((u) => u.id === userId);
+      if (user) {
+        user.active = !isActive;
+      }
+
+      renderUsersSelect();
+      renderManageUsersList();
+      showToast("Status do usuário atualizado.", "success");
+    } catch (err) {
+      console.error("Erro ao atualizar usuário:", err);
+      showToast(
+        "Erro Firebase: " + (err.message || "falha ao atualizar usuário."),
+        "error"
+      );
+    }
+  }
+
+  async function renameUser(userId) {
+    const user = state.users.find((u) => u.id === userId);
+    if (!user) return;
+
+    const newName = prompt("Novo nome do usuário:", user.name);
+    if (!newName) return;
+
+    const trimmed = newName.trim();
+    if (!trimmed) return;
+
+    const normalized = trimmed.toLowerCase();
+    const exists = state.users.some(
+      (u) => u.id !== userId && u.name.toLowerCase() === normalized
+    );
+    if (exists) {
+      showToast("Já existe outro usuário com esse nome.", "error");
+      return;
+    }
+
+    try {
+      await updateDoc(doc(db, "users", userId), {
+        name: trimmed,
+      });
+
+      user.name = trimmed;
+      renderUsersSelect();
+      renderManageUsersList();
+      renderExpensesList();
+      renderTotalsSummary();
+      renderMonthlyHistory();
+      showToast("Usuário renomeado com sucesso!", "success");
+    } catch (err) {
+      console.error("Erro ao renomear usuário:", err);
+      showToast(
+        "Erro Firebase: " + (err.message || "falha ao renomear usuário."),
+        "error"
+      );
+    }
   }
 
   function renderBanksSelect() {
@@ -1117,7 +1273,7 @@
     const currentMonthKey = getCurrentMonthKey();
     const isMonthClosed = state.closedMonths.includes(currentMonthKey);
 
-    if (state.users.length === 0) {
+    if (state.users.filter((u) => u.active !== false).length === 0) {
       btnAddExpense.disabled = true;
       btnAddExpense.classList.add("btn-disabled");
       label.textContent = "💸 Cadastrar valores";
@@ -1772,7 +1928,7 @@
 
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "btn btn-sm btn-secondary btn-inline";
+      btn.className = "btn btn-sm.btn-secondary btn-inline";
       btn.textContent = "Detalhes";
       btn.addEventListener("click", () => openMonthDetail(key, label));
 
@@ -1938,7 +2094,7 @@
     return result;
   }
 
-  // ----------------- SALVAR USUÁRIO (com verificação no Firestore) -----------------
+  // ----------------- SALVAR USUÁRIO -----------------
   async function handleSaveUser() {
     const input = document.getElementById("userName");
     let name = input.value.trim();
@@ -1959,6 +2115,7 @@
 
     const newUserData = {
       name,
+      active: true,
       createdAt: serverTimestamp(),
     };
 
@@ -1978,18 +2135,20 @@
         return;
       }
 
-      console.log("Usuário criado no Firebase:", snap.data());
+      const data = snap.data();
 
       state.users.push({
-        id: name,
-        name,
-        createdAt: Date.now(),
+        id: userRef.id,
+        name: data.name || name,
+        active: data.active !== false,
+        createdAt: data.createdAt || Date.now(),
       });
 
       input.value = "";
       closeModal("modalUserBackdrop");
       renderUsersSelect();
       renderMainButtons();
+      renderManageUsersList();
       showToast("Usuário salvo e confirmado no banco! ✅", "success");
     } catch (err) {
       console.error("Erro ao salvar usuário no Firebase:", err);
@@ -2000,7 +2159,7 @@
     }
   }
 
-  // ----------------- SALVAR BANCO (com verificação no Firestore) -----------------
+  // ----------------- SALVAR BANCO -----------------
   async function handleSaveBank() {
     const input = document.getElementById("bankName");
     const name = input.value.trim();
@@ -2046,7 +2205,7 @@
     }
   }
 
-  // ----------------- SALVAR CARTÃO (com verificação no Firestore) -----------------
+  // ----------------- SALVAR CARTÃO -----------------
   async function handleSaveCard() {
     const input = document.getElementById("cardName");
     const name = input.value.trim();
@@ -2091,8 +2250,8 @@
     }
   }
 
-  // ----------------- SALVAR GASTO (com verificação no Firestore para novos) -----------------
-  async function handleSaveExpense() {
+  // ----------------- SALVAR GASTO -----------------
+  async function.handleSaveExpense() {
     const payload = validateExpense();
     if (!payload) return;
 
@@ -2183,7 +2342,7 @@
   async function handleCloseMonth() {
     if (!currentDetailMonthKey) return;
 
-    const isAlreadyClosed = state.closedMonths.includes(currentDetailMonthKey);
+    const.isAlreadyClosed = state.closedMonths.includes(currentDetailMonthKey);
     if (isAlreadyClosed) {
       showToast("Este mês já está fechado.", "info");
       return;
@@ -2224,10 +2383,15 @@
   // ----------------- LOAD INICIAL DO FIREBASE -----------------
   async function loadUsersFromFirebase() {
     const snap = await getDocs(collection(db, "users"));
-    state.users = snap.docs.map((d) => ({
-      id: d.id,
-      ...d.data(),
-    }));
+    state.users = snap.docs.map((d) => {
+      const data = d.data();
+      return {
+        id: d.id,
+        name: data.name || d.id,
+        active: data.active !== false,
+        createdAt: data.createdAt || null,
+      };
+    });
   }
 
   async function loadBanksFromFirebase() {
@@ -2281,10 +2445,18 @@
     renderValuesInputs(1);
     renderPaymentType();
     renderExpensesList();
+    renderManageUsersList();
 
     document
       .getElementById("btnAddUser")
       .addEventListener("click", () => openModal("modalUserBackdrop"));
+
+    document
+      .getElementById("btnManageUsers")
+      .addEventListener("click", () => {
+        renderManageUsersList();
+        openModal("modalManageUsersBackdrop");
+      });
 
     document
       .getElementById("btnAddExpense")
@@ -2295,7 +2467,7 @@
           return;
         }
 
-        if (state.users.length === 0) {
+        if (state.users.filter((u) => u.active !== false).length === 0) {
           showToast("Cadastre um usuário antes de lançar gastos.", "info");
           return;
         }
