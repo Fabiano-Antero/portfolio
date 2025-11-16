@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cartão de Visita • Fabiano Antero</title>
+  <meta name="theme-color" content="#050814" />
+
+  <!-- Fonte -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050814;
+      --card-bg: #020617;
+      --card-elevated: #020617;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --accent-1: #4f46e5;
+      --accent-2: #06b6d4;
+      --accent-soft: rgba(79, 70, 229, 0.25);
+      --border-subtle: rgba(148, 163, 184, 0.2);
+      --radius-card: 22px;
+      --transition-fast: 180ms ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(79, 70, 229, 0.25), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(8, 47, 73, 0.45), transparent 55%),
+        var(--bg);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.is-loading main {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    body.is-loaded main {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 260ms ease-out 380ms,
+        transform 260ms ease-out 380ms;
+    }
+
+    /* Loader */
+    #loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 1));
+      z-index: 40;
+      transition: opacity 260ms ease-out, visibility 260ms ease-out;
+    }
+
+    body.is-loaded #loader {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .loader-ring {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 2px solid rgba(148, 163, 184, 0.45);
+      border-top-color: var(--accent-2);
+      border-right-color: var(--accent-1);
+      animation: spin 620ms linear infinite;
+    }
+
+    .loader-text {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .loader-highlight {
+      color: rgba(94, 234, 212, 0.9);
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Layout do cartão */
+    main {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card-shell {
+      position: relative;
+      border-radius: calc(var(--radius-card) + 2px);
+      padding: 1px;
+      background: radial-gradient(circle at top left, rgba(94, 234, 212, 0.8), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.85), transparent 55%);
+      box-shadow:
+        0 18px 60px rgba(15, 23, 42, 0.85),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .card {
+      position: relative;
+      border-radius: var(--radius-card);
+      background:
+        radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.98));
+      padding: 20px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    @media (min-width: 480px) {
+      .card {
+        padding: 22px 22px 18px;
+      }
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(94, 234, 212, 0.12), transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(129, 140, 248, 0.14), transparent 52%);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: -1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .availability-pill {
+      align-self: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      background: rgba(22, 163, 74, 0.09);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #bbf7d0;
+    }
+
+    .availability-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    /* FOTO DE PERFIL */
+    .avatar-wrapper {
+      position: relative;
+      width: 86px;
+      height: 86px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        conic-gradient(from 220deg, rgba(94, 234, 212, 0.9), rgba(59, 130, 246, 0.9), rgba(244, 244, 245, 0.9), rgba(56, 189, 248, 0.9), rgba(94, 234, 212, 0.9));
+      opacity: 0.85;
+      filter: blur(0.4px);
+      transform: scale(1.02);
+    }
+
+    .avatar-inner {
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card:hover .avatar-inner {
+      transform: translateY(-1px);
+      box-shadow:
+        0 14px 40px rgba(15, 23, 42, 1),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+    .name {
+      font-size: clamp(1.4rem, 4vw, 1.6rem);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-top: 4px;
+    }
+
+    .role {
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
+
+    .role strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .pitch {
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--text-soft);
+      max-width: 34rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+      justify-content: center;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+    }
+
+    .tag--accent {
+      border-color: rgba(129, 140, 248, 0.8);
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.3), rgba(8, 47, 73, 0.3));
+    }
+
+    .divider {
+      height: 1px;
+      border-radius: 999px;
+      background: linear-gradient(to right,
+        transparent,
+        rgba(148, 163, 184, 0.45),
+        transparent);
+      margin-block: 4px;
+    }
+
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.78rem;
+    }
+
+    .info-label {
+      color: var(--text-soft);
+    }
+
+    .info-value {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .info-value a {
+      text-decoration: none;
+      color: #e5e7eb;
+      border-bottom: 1px dashed rgba(148, 163, 184, 0.45);
+      padding-bottom: 1px;
+      transition: color var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast);
+    }
+
+    .info-value a:hover {
+      color: #a5b4fc;
+      border-bottom-color: rgba(129, 140, 248, 0.8);
+    }
+
+    .info-chip {
+      font-size: 0.74rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    /* Ações: SEMPRE UM ABAIXO DO OUTRO */
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+      width: 100%;
+    }
+
+    .btn {
+      position: relative;
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        opacity var(--transition-fast);
+      outline: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      color: #0b1120;
+      background: linear-gradient(135deg, #22c55e, #a3e635);
+      box-shadow: 0 10px 30px rgba(22, 163, 74, 0.6);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 40px rgba(22, 163, 74, 0.7);
+    }
+
+    .btn-secondary {
+      color: #e5e7eb;
+      background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.35), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(129, 140, 248, 0.9);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+      background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.32), rgba(15, 23, 42, 0.98));
+    }
+
+    .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.9);
+    }
+
+    .micro-copy {
+      margin-top: 8px;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .micro-copy span strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .micro-badge {
+      border-radius: 999px;
+      padding: 3px 8px;
+      border: 1px solid rgba(129, 140, 248, 0.6);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #a5b4fc;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* Acessibilidade foco */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid rgba(56, 189, 248, 0.9);
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+<body class="is-loading">
+  <!-- Loader inicial -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-ring"></div>
+      <span class="loader-text">
+        Preparando o cartão
+        <span class="loader-highlight">Fabiano Antero</span>
+      </span>
+    </div>
+  </div>
+
+  <main aria-label="Cartão de visita de Fabiano Antero">
+    <div class="card-shell">
+      <section class="card">
+        <header class="card-header">
+          <div class="availability-pill" aria-label="Disponível para novos projetos">
+            <span class="availability-dot"></span>
+            Disponível para projetos
+          </div>
+
+          <!-- FOTO DE PERFIL -->
+          <div class="avatar-wrapper">
+            <div class="avatar-ring"></div>
+            <div class="avatar-inner">
+              <img
+                src="fabiano.png"
+                alt="Foto de perfil de Fabiano Antero"
+                class="avatar"
+              />
+            </div>
+          </div>
+
+          <div>
+            <h1 class="name">Fabiano Antero</h1>
+            <p class="role">
+              <strong>UX designer</strong> &amp; Desenvolvedor Front-end
+            </p>
+          </div>
+
+          <p class="pitch">
+            Crio experiências digitais que combinam estética, clareza e conversão, 
+            unindo pesquisa, prototipação e código em interfaces que funcionam no mundo real.
+          </p>
+
+          <div class="tags" aria-hidden="true">
+            <span class="tag tag--accent">UI/UX &amp; Produto</span>
+            <span class="tag">Design Systems</span>
+            <span class="tag">App Mobile</span>
+            <span class="tag">App Web</span>
+            <span class="tag">WordPress</span>
+            <span class="tag">Landing Pages</span>
+            <span class="tag">Sites para todos os nichos</span>
+          </div>
+        </header>
+
+        <div class="divider" role="separator" aria-hidden="true"></div>
+
+        <section class="actions" aria-label="Ações rápidas">
+          <a
+            class="btn btn-primary"
+            href="https://wa.me/5583982347405?text=Ol%C3%A1%20Fabiano%2C%20encontrei%20seu%20cart%C3%A3o%20online%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto."
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="btn-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+                <path
+                  d="M5 5h14a1 1 0 0 1 1 1v9.5a1 1 0 0 1-1 1h-5.4L9 21v-4.5H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"
+                  stroke="#022c22"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <span>Chamar no WhatsApp</span>
+          </a>
+
+          <a
+            class="btn btn-secondary"
+            href="https://fabianoantero.site"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="btn-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+                <path
+                  d="M9.5 5H5.8C5.36 5 5 5.36 5 5.8v12.4c0 .44.36.8.8.8h12.4c.44 0 .8-.36.8-.8v-3.7M13 5h6M19 5v6"
+                  stroke="#c7d2fe"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <span>Ver portfólio completo</span>
+          </a>
+        </section>
+
+        <div class="micro-copy">
+          <span>
+            Design centrado em pessoas.
+            <strong>Sem drama.</strong>
+          </span>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Loader + animação de entrada
+    window.addEventListener('load', function () {
+      const body = document.body;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReducedMotion) {
+        body.classList.remove('is-loading');
+        body.classList.add('is-loaded');
+        return;
+      }
+
+      setTimeout(function () {
+        body.classList.remove('is-loading');
+        body.classList.add('is-loaded');
+      }, 600);
+    });
+  </script>
+</body>
+</html>
