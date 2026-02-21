@@ -1,0 +1,1567 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Guardião Anti-Golpe (MVP)</title>
+  <style>
+    :root{
+      --bg:#0b0e14;
+      --panel:#101625;
+      --panel2:#0f1422;
+      --text:#e9eefc;
+      --muted:#aab5d6;
+      --line:rgba(255,255,255,.10);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --pad: 16px;
+      --max: 980px;
+
+      /* risk colors (não “fixo” por design, mas útil aqui) */
+      --low:#2dd4bf;
+      --mid:#fbbf24;
+      --high:#fb7185;
+      --accent:#60a5fa;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: radial-gradient(1200px 700px at 50% -10%, rgba(96,165,250,.22), transparent 60%),
+                  radial-gradient(900px 600px at 0% 30%, rgba(45,212,191,.12), transparent 55%),
+                  radial-gradient(900px 600px at 100% 40%, rgba(251,113,133,.10), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+    }
+
+    a{color:inherit}
+    .wrap{
+      min-height:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding: 18px 14px 40px;
+      gap: 14px;
+    }
+
+    header{
+      width:100%;
+      max-width:var(--max);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 8px 6px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      user-select:none;
+    }
+    .logo{
+      width:38px;height:38px;border-radius:12px;
+      background: linear-gradient(135deg, rgba(96,165,250,.95), rgba(45,212,191,.85));
+      box-shadow: 0 10px 24px rgba(96,165,250,.18);
+      position:relative;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-20px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 55%);
+      transform: rotate(12deg);
+    }
+    .logo.big{
+      width:74px;height:74px;border-radius:22px;
+      box-shadow: 0 14px 34px rgba(96,165,250,.22);
+    }
+
+    .brand h1{
+      margin:0;
+      font-size: 14px;
+      letter-spacing:.2px;
+      line-height: 1.1;
+    }
+    .brand small{
+      display:block;
+      margin-top:3px;
+      color:var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .top-actions{
+      display:flex; gap:10px; align-items:center;
+    }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      color: var(--text);
+      font-weight: 650;
+      font-size: 12px;
+      transition: transform .08s ease, background .12s ease;
+    }
+    .pill:hover{background: rgba(255,255,255,.06)}
+    .pill:active{transform: translateY(1px)}
+
+    main{
+      width:100%;
+      max-width:var(--max);
+      display:flex;
+      justify-content:center;
+    }
+
+    .card{
+      width:100%;
+      max-width: 760px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .card .inner{
+      padding: 18px;
+    }
+
+    .title{
+      margin:0 0 6px;
+      font-size: 22px;
+      letter-spacing:.2px;
+    }
+    .sub{
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.45;
+      font-size: 14px;
+    }
+
+    .row{display:flex; gap:12px; flex-wrap:wrap}
+    .col{flex:1; min-width: 260px}
+
+    .btn{
+      appearance:none;
+      border:none;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight: 750;
+      color: #07101f;
+      background: linear-gradient(135deg, rgba(96,165,250,1), rgba(45,212,191,1));
+      cursor:pointer;
+      transition: transform .08s ease, filter .12s ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height: 44px;
+    }
+    .btn:hover{filter:brightness(1.03)}
+    .btn:active{transform: translateY(1px)}
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border:1px solid var(--line);
+    }
+    .btn.ghost{
+      background: transparent;
+      color: var(--text);
+      border:1px dashed rgba(255,255,255,.18);
+    }
+    .btn.danger{
+      background: rgba(251,113,133,.16);
+      color: #ffd4db;
+      border:1px solid rgba(251,113,133,.25);
+    }
+    .btn:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      filter: none;
+      transform:none;
+    }
+
+    .divider{
+      height:1px;
+      background: var(--line);
+      margin: 16px 0;
+    }
+
+    .toggle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.14);
+    }
+    .toggle b{font-size: 14px}
+    .toggle span{color:var(--muted); font-size: 12px; line-height:1.35}
+    .switch{
+      width: 52px;
+      height: 30px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border:1px solid var(--line);
+      position:relative;
+      cursor:pointer;
+      flex:0 0 auto;
+    }
+    .switch::after{
+      content:"";
+      width: 24px;height:24px;border-radius: 999px;
+      position:absolute; top: 2px; left: 2px;
+      background: rgba(255,255,255,.88);
+      transition: left .16s ease, background .16s ease;
+    }
+    .switch.on{
+      background: rgba(96,165,250,.26);
+      border-color: rgba(96,165,250,.35);
+    }
+    .switch.on::after{left: 26px; background: rgba(45,212,191,.95)}
+
+    .segmented{
+      display:flex;
+      gap: 8px;
+      flex-wrap:wrap;
+      padding: 8px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.14);
+    }
+    .segmented button{
+      border:none;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--muted);
+      cursor:pointer;
+      font-weight: 750;
+      font-size: 13px;
+      flex: 1;
+      min-width: 190px;
+      transition: background .12s ease, color .12s ease;
+    }
+    .segmented button.active{
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    textarea, input{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      outline:none;
+      font-size: 14px;
+    }
+    textarea{min-height: 118px; resize: vertical}
+    .hint{color:var(--muted); font-size: 12px; margin-top: 8px; line-height:1.45}
+
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    @media (max-width: 720px){
+      .kpis{grid-template-columns: 1fr}
+    }
+    .kpi{
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(0,0,0,.14);
+      padding: 12px;
+    }
+    .kpi small{color:var(--muted); display:block; margin-bottom:6px}
+    .kpi b{font-size: 15px}
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      font-weight: 850;
+      font-size: 13px;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: var(--muted);
+    }
+
+    .meter{
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(0,0,0,.14);
+      padding: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .bar{
+      height: 10px;
+      flex: 1 1 280px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      min-width: 240px;
+    }
+    .bar > i{
+      display:block;
+      height:100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--low), var(--mid), var(--high));
+    }
+
+    ul{margin: 10px 0 0; padding: 0 0 0 18px}
+    li{margin: 6px 0; color: var(--text)}
+    li small{color:var(--muted)}
+
+    .accordion{
+      border:1px solid var(--line);
+      border-radius: 16px;
+      overflow:hidden;
+      background: rgba(0,0,0,.12);
+    }
+    details{
+      border-top:1px solid var(--line);
+    }
+    details:first-child{border-top:none}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding: 12px 12px;
+      font-weight: 850;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    summary::-webkit-details-marker{display:none}
+    details[open] summary{
+      background: rgba(255,255,255,.05);
+    }
+    .acc-body{
+      padding: 0 12px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .item{
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(0,0,0,.14);
+      padding: 12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    .item b{display:block; margin-bottom:4px}
+    .meta{color:var(--muted); font-size: 12px}
+    .item-actions{display:flex; gap: 8px; flex-wrap:wrap}
+    .item-actions .btn{min-height: 38px; padding: 9px 10px; border-radius: 12px; font-size: 12px}
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      max-width: 720px;
+      width: calc(100% - 28px);
+      border:1px solid var(--line);
+      background: rgba(10,14,22,.92);
+      color: var(--text);
+      border-radius: 16px;
+      padding: 12px 12px;
+      box-shadow: var(--shadow);
+      display:none;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      z-index: 9999;
+      backdrop-filter: blur(8px);
+    }
+    .toast.show{display:flex}
+    .toast small{color:var(--muted)}
+
+    .spinner{
+      width: 44px;height:44px;border-radius:50%;
+      border: 4px solid rgba(255,255,255,.14);
+      border-top-color: rgba(96,165,250,.95);
+      animation: spin 1s linear infinite;
+      margin: 10px auto 14px;
+    }
+    @keyframes spin{to{transform: rotate(360deg)}}
+
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    footer{
+      width:100%;
+      max-width:var(--max);
+      color: var(--muted);
+      font-size: 12px;
+      text-align:center;
+      padding: 10px 0 0;
+    }
+
+    /* ---------- SPLASH (NEW) ---------- */
+    .splash{
+      min-height: 58vh;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding: 18px 10px;
+    }
+    .splash h2{
+      margin: 14px 0 6px;
+      font-size: 22px;
+      letter-spacing: .2px;
+    }
+    .splash p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .splash .loader{
+      margin-top: 8px;
+    }
+    .fade-in{
+      animation: fadeIn .25s ease both;
+    }
+    @keyframes fadeIn{
+      from{opacity:0; transform: translateY(6px)}
+      to{opacity:1; transform: translateY(0)}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header id="appHeader">
+      <div class="brand" role="banner">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Guardião Anti-Golpe</h1>
+          <small>MVP Web • Link / Pix / Boleto</small>
+        </div>
+      </div>
+      <div class="top-actions" id="topActions">
+        <button class="pill" id="goHomeBtn" title="Ir para Home">🏠 Home</button>
+        <button class="pill" id="goHistoryBtn" title="Ver histórico">🕘 Histórico</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="card" id="app"></section>
+    </main>
+
+    <footer id="appFooter">
+      Dica: este MVP usa checagens locais e heurísticas. Para checagens reais (Web Risk/Serpro etc.), conecte seu backend via <span class="mono">fetch()</span>.
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">
+    <div>
+      <b id="toastTitle">Ok</b><br/>
+      <small id="toastMsg"></small>
+    </div>
+    <button class="btn secondary" id="toastClose" style="min-height:38px;padding:9px 10px;border-radius:12px">Fechar</button>
+  </div>
+
+  <script>
+    /***********************
+     * UTIL / STORAGE
+     ***********************/
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    const STORAGE_KEYS = {
+      saveHistory: "guardian_save_history",
+      maskData: "guardian_mask_data",
+      history: "guardian_history",
+      lastDraft: "guardian_last_draft",
+      seenOnboarding: "guardian_seen_onboarding" // NEW: para ir direto ao Home após já ter usado
+    };
+
+    const state = {
+      route: "splash",
+      draft: {
+        mode: "paste", // paste | qr | boleto
+        text: "",
+        boleto: ""
+      },
+      lastResult: null
+    };
+
+    function getBool(key, fallback=false){
+      const v = localStorage.getItem(key);
+      if (v === null) return fallback;
+      return v === "true";
+    }
+    function setBool(key, val){
+      localStorage.setItem(key, String(!!val));
+    }
+    function getJSON(key, fallback){
+      try{
+        const v = localStorage.getItem(key);
+        if (!v) return fallback;
+        return JSON.parse(v);
+      }catch{ return fallback; }
+    }
+    function setJSON(key, obj){
+      localStorage.setItem(key, JSON.stringify(obj));
+    }
+
+    function toast(title, msg){
+      $("#toastTitle").textContent = title;
+      $("#toastMsg").textContent = msg || "";
+      $("#toast").classList.add("show");
+    }
+    $("#toastClose").addEventListener("click", () => $("#toast").classList.remove("show"));
+
+    function nowISO(){ return new Date().toISOString(); }
+    function formatDate(iso){
+      const d = new Date(iso);
+      const pad = (n)=> String(n).padStart(2,"0");
+      return `${pad(d.getDate())}/${pad(d.getMonth()+1)} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+    /***********************
+     * ROUTER
+     ***********************/
+    function nav(to){
+      state.route = to;
+      location.hash = "#/" + to;
+      render();
+    }
+    function initRouter(){
+      window.addEventListener("hashchange", () => {
+        const r = (location.hash || "#/splash").replace("#/","");
+        state.route = r || "splash";
+        render();
+      });
+    }
+
+    $("#goHomeBtn").addEventListener("click", () => nav("home"));
+    $("#goHistoryBtn").addEventListener("click", () => nav("history"));
+
+    /***********************
+     * HISTORY
+     ***********************/
+    function loadHistory(){
+      return getJSON(STORAGE_KEYS.history, []);
+    }
+    function saveHistory(list){
+      setJSON(STORAGE_KEYS.history, list);
+    }
+    function addToHistory(entry){
+      const shouldSave = getBool(STORAGE_KEYS.saveHistory, true);
+      if (!shouldSave) return;
+      const list = loadHistory();
+      list.unshift(entry);
+      // keep last 50
+      saveHistory(list.slice(0,50));
+    }
+    function deleteHistoryItem(id){
+      const list = loadHistory().filter(x => x.id !== id);
+      saveHistory(list);
+    }
+
+    function maskValue(v){
+      const mask = getBool(STORAGE_KEYS.maskData, true);
+      if (!mask) return v;
+
+      // Mask URLs and long numeric strings, keep last 4 chars
+      const s = String(v || "");
+      if (s.length <= 8) return s;
+      return s.slice(0, 4) + "…" + s.slice(-4);
+    }
+
+    /***********************
+     * DETECTION + CHECKERS (MVP mock)
+     ***********************/
+    function extractUrls(text){
+      const re = /\bhttps?:\/\/[^\s]+/gi;
+      return (text.match(re) || []).map(u => u.replace(/[),.;]+$/g,""));
+    }
+
+    function looksLikeBoletoLine(s){
+      const digits = (s || "").replace(/\D/g,"");
+      return digits.length === 47 || digits.length === 48;
+    }
+
+    function looksLikePixCopyPaste(s){
+      // BR Code Pix normalmente começa com "000201"
+      const digits = (s || "").replace(/\s/g,"");
+      return digits.startsWith("000201") && digits.includes("BR.GOV.BCB.PIX");
+    }
+
+    function classifyInput(payload){
+      const t = (payload || "").trim();
+      if (!t) return { type:"empty" };
+      if (looksLikeBoletoLine(t)) return { type:"boleto", value: t };
+      if (looksLikePixCopyPaste(t)) return { type:"pix", value: t };
+      const urls = extractUrls(t);
+      if (urls.length) return { type:"url", value: urls[0], extra: { urls } };
+      // maybe user pasted a domain without scheme
+      if (/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(t) && !t.includes(" ")){
+        return { type:"url", value: "https://" + t, extra:{ urls:["https://" + t] } };
+      }
+      return { type:"text", value: t };
+    }
+
+    // Very simple "boleto" DV validation (placeholder)
+    // Real boleto validation is more nuanced; this is enough to demonstrate flow.
+    function fakeValidateBoleto(line){
+      const digits = line.replace(/\D/g,"");
+      const okLen = (digits.length===47 || digits.length===48);
+      if (!okLen) return { ok:false, reason:"Tamanho inválido" };
+
+      // Quick checksum-like heuristic: sum digits mod 10 != 0 => suspicious
+      let sum = 0;
+      for (const ch of digits) sum += (ch.charCodeAt(0)-48);
+      const mod = sum % 10;
+      const ok = mod !== 0; // purely heuristic for MVP demo
+      return {
+        ok,
+        reason: ok ? "Formato consistente (heurística)" : "Dígitos parecem inconsistentes (heurística)"
+      };
+    }
+
+    // Pix TLV/CRC real é mais chato; aqui é mock com sinais básicos
+    function fakeValidatePix(brcode){
+      const s = brcode.replace(/\s/g,"");
+      const ok = s.startsWith("000201") && s.includes("BR.GOV.BCB.PIX");
+      let hasAmount = /54\d{2}\d+/.test(s); // campo 54 (valor) - heurística
+      let hasUrl = s.includes("25") && (s.includes("http://") || s.includes("https://")); // super heurístico
+      return {
+        ok,
+        hasAmount,
+        hasUrl,
+        reason: ok ? "Estrutura básica reconhecida" : "BR Code não reconhecido"
+      };
+    }
+
+    function suspiciousTextSignals(text){
+      const t = (text || "").toLowerCase();
+      const hits = [];
+      const rules = [
+        {k:"urgência", re: /\b(agora|urgente|última chance|hoje|imediato|pra já)\b/i},
+        {k:"segredo", re: /\b(não conte|não fala|sigilo|discreto)\b/i},
+        {k:"autoridade", re: /\b(suporte|banco|central|polícia|receita|cartório)\b/i},
+        {k:"pressão", re: /\b(multa|bloqueio|suspenso|cancelado|processo)\b/i},
+        {k:"pagamento fora", re: /\b(pix|boleto)\b/i},
+      ];
+      for (const r of rules){
+        if (r.re.test(t)) hits.push(r.k);
+      }
+      return hits;
+    }
+
+    function domainFromUrl(url){
+      try{
+        const u = new URL(url);
+        return u.hostname.toLowerCase();
+      }catch{
+        return "";
+      }
+    }
+
+    function lookalikeSignals(domain){
+      // heurísticas simples (parecido com marca / caracteres suspeitos / subdomínio enganoso)
+      const hits = [];
+      if (!domain) return hits;
+
+      if (domain.includes("--") || domain.split(".").some(p => p.length>25)) hits.push("estrutura de domínio incomum");
+      if (/xn--/.test(domain)) hits.push("punycode (pode imitar letras)");
+      if (/(pay|promo|oferta|suporte|seguro|verifica|confirmar)/.test(domain)) hits.push("termos comuns em golpe");
+
+      // lista curta opcional (você pode trocar por sua lista)
+      const brands = ["mercadolivre","magalu","amazon","nubank","caixa","itau","bradesco","santander","shopee"];
+      for (const b of brands){
+        // “quase” contém (ex.: magalu-promo, amaz0n)
+        if (domain.includes(b.slice(0, Math.max(4, Math.floor(b.length*0.7)))) && !domain.includes(b + ".com")){
+          hits.push(`parece tentar imitar uma marca (${b})`);
+          break;
+        }
+      }
+      return hits;
+    }
+
+    function scoreToLevel(score){
+      if (score >= 70) return "Alto";
+      if (score >= 30) return "Médio";
+      return "Baixo";
+    }
+    function levelColor(level){
+      if (level === "Alto") return "var(--high)";
+      if (level === "Médio") return "var(--mid)";
+      return "var(--low)";
+    }
+
+    async function runCheck(input, forcedType=null){
+      // Simula latência
+      await new Promise(r => setTimeout(r, 800));
+
+      const c = forcedType ? { type: forcedType, value: input } : classifyInput(input);
+      if (c.type === "empty"){
+        return { error:true, message:"Cole um link, Pix, boleto ou texto para checar." };
+      }
+
+      let score = 10;
+      const reasons = [];
+      const actions = [];
+      const technical = {};
+
+      if (c.type === "url"){
+        const url = c.value;
+        const domain = domainFromUrl(url);
+        technical.kind = "url";
+        technical.url = url;
+        technical.domain = domain;
+
+        // Heurísticas
+        const lHits = lookalikeSignals(domain);
+        if (lHits.length){
+          score += 20;
+          reasons.push(`O domínio tem sinais suspeitos: ${lHits[0]}.`);
+          technical.lookalike = lHits;
+        }
+
+        // se tem muitos "subdomínios"
+        const parts = domain.split(".");
+        if (parts.length >= 4){
+          score += 10;
+          reasons.push("O link usa muitos subdomínios (pode ser disfarce).");
+          technical.subdomains = parts.length - 2;
+        }
+
+        // se parece encurtador
+        if (/bit\.ly|tinyurl|t\.co|cutt\.ly|short|linktr\.ee/.test(domain)){
+          score += 10;
+          reasons.push("O link parece um encurtador. Confira o destino final antes de clicar.");
+        }
+
+        // “Threat intel” mock
+        // (No real: aqui você chamaria seu backend -> Google Web Risk / etc.)
+        const mockThreat = Math.random() < 0.08; // 8% chance
+        technical.threatIntel = mockThreat ? "FLAGGED" : "CLEAN";
+        if (mockThreat){
+          score += 60;
+          reasons.push("Há indicação de ameaça para esse link (simulação do MVP).");
+        }else{
+          reasons.push("Não há sinal óbvio de ameaça (MVP). Ainda confirme por canal oficial.");
+        }
+
+        actions.push("Evite digitar senha/código fora do site/app oficial.");
+        actions.push("Se for compra, procure a loja pelo app oficial ou site conhecido.");
+      }
+
+      if (c.type === "pix"){
+        technical.kind = "pix";
+        technical.brcode = c.value;
+
+        const v = fakeValidatePix(c.value);
+        technical.pix = v;
+
+        if (!v.ok){
+          score += 70;
+          reasons.push("O Pix (BR Code) não foi reconhecido com segurança.");
+        }else{
+          reasons.push("Estrutura básica do Pix reconhecida (MVP).");
+        }
+
+        if (v.hasUrl){
+          score += 15;
+          reasons.push("Esse Pix parece apontar para um link (Pix dinâmico). Cheque o domínio.");
+        }
+
+        if (!v.hasAmount){
+          score += 8;
+          reasons.push("Esse Pix não traz valor explícito (você vai confirmar no banco).");
+        }
+
+        actions.push("No app do banco, confira nome/beneficiário antes de confirmar.");
+        actions.push("Se houve urgência/pressão, pare e confirme por canal oficial.");
+      }
+
+      if (c.type === "boleto"){
+        technical.kind = "boleto";
+        const digits = c.value.replace(/\D/g,"");
+        technical.line = digits;
+
+        const v = fakeValidateBoleto(digits);
+        technical.boleto = v;
+
+        if (!v.ok){
+          score += 70;
+          reasons.push("A linha digitável parece inconsistente (MVP).");
+        }else{
+          score += 8;
+          reasons.push("Formato do boleto parece consistente (MVP).");
+        }
+
+        actions.push("Antes de pagar, confira banco/beneficiário no app do seu banco.");
+        actions.push("Desconfie se pedirem pagamento fora do canal oficial.");
+      }
+
+      if (c.type === "text"){
+        technical.kind = "text";
+        const hits = suspiciousTextSignals(c.value);
+        technical.signals = hits;
+
+        if (hits.length){
+          score += 15 + Math.min(20, hits.length * 6);
+          reasons.push(`O texto tem sinais de engenharia social: ${hits.slice(0,3).join(", ")}.`);
+          actions.push("Não siga instruções de urgência. Confirme com a pessoa/empresa por outro canal.");
+        }else{
+          reasons.push("O texto não mostra sinais fortes de golpe (MVP). Mesmo assim, confirme dados antes de pagar.");
+        }
+      }
+
+      score = clamp(score, 0, 100);
+      const level = scoreToLevel(score);
+
+      // garante 2–3 motivos (limpa e limita)
+      const finalReasons = reasons.filter(Boolean).slice(0,3);
+      const finalActions = actions.filter(Boolean).slice(0,3);
+
+      return {
+        error:false,
+        inputType: c.type,
+        score,
+        level,
+        reasons: finalReasons.length ? finalReasons : ["Sem sinais claros (MVP). Confirme pelo canal oficial."],
+        actions: finalActions.length ? finalActions : ["Confirme beneficiário/loja antes de continuar."],
+        technical
+      };
+    }
+
+    /***********************
+     * QR SCAN (Web)
+     ***********************/
+    async function startQrScan(videoEl, onResult){
+      // BarcodeDetector funciona em Chromium moderno; fallback mostra mensagem.
+      if (!("mediaDevices" in navigator) || !navigator.mediaDevices.getUserMedia){
+        throw new Error("Câmera não disponível neste navegador.");
+      }
+      if (!("BarcodeDetector" in window)){
+        throw new Error("BarcodeDetector não suportado. Use Chrome/Edge recentes ou cole o Pix/Boleto manualmente.");
+      }
+
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio:false });
+      videoEl.srcObject = stream;
+      await videoEl.play();
+
+      const detector = new BarcodeDetector({ formats: ["qr_code"] });
+
+      let rafId = null;
+      const loop = async () => {
+        try{
+          const barcodes = await detector.detect(videoEl);
+          if (barcodes && barcodes.length){
+            const raw = barcodes[0].rawValue || "";
+            stop();
+            onResult(raw);
+            return;
+          }
+        }catch{}
+        rafId = requestAnimationFrame(loop);
+      };
+
+      function stop(){
+        if (rafId) cancelAnimationFrame(rafId);
+        const s = videoEl.srcObject;
+        if (s && s.getTracks) s.getTracks().forEach(t => t.stop());
+        videoEl.srcObject = null;
+      }
+
+      loop();
+      return stop;
+    }
+
+    /***********************
+     * UI RENDER
+     ***********************/
+    let splashTimer = null;
+
+    function setChromeVisibility(route){
+      // splash costuma ser "limpo": sem header/footer (fica mais app-like)
+      const hide = (route === "splash");
+      $("#appHeader").style.display = hide ? "none" : "";
+      $("#appFooter").style.display = hide ? "none" : "";
+    }
+
+    function render(){
+      const app = $("#app");
+      const route = state.route;
+
+      setChromeVisibility(route);
+
+      // persist draft
+      setJSON(STORAGE_KEYS.lastDraft, state.draft);
+
+      if (route === "splash") app.innerHTML = tplSplash();
+      else if (route === "onboarding") app.innerHTML = tplOnboarding();
+      else if (route === "home") app.innerHTML = tplHome();
+      else if (route === "processing") app.innerHTML = tplProcessing();
+      else if (route === "result") app.innerHTML = tplResult();
+      else if (route === "details") app.innerHTML = tplDetails();
+      else if (route === "history") app.innerHTML = tplHistory();
+      else app.innerHTML = tplOnboarding();
+
+      // auto-advance splash
+      if (route === "splash"){
+        if (splashTimer) clearTimeout(splashTimer);
+        splashTimer = setTimeout(() => {
+          const next = getBool(STORAGE_KEYS.seenOnboarding, false) ? "home" : "onboarding";
+          nav(next);
+        }, 900);
+      } else {
+        if (splashTimer) { clearTimeout(splashTimer); splashTimer = null; }
+      }
+
+      bind(route);
+    }
+
+    function tplSplash(){
+      return `
+        <div class="inner splash fade-in">
+          <div>
+            <div class="logo big" aria-hidden="true" style="margin: 0 auto 6px;"></div>
+            <h2>Guardião</h2>
+            <p>Checagem rápida antes de clicar ou pagar.</p>
+            <div class="loader">
+              <div class="spinner" aria-hidden="true"></div>
+              <p class="hint" style="margin:0">Carregando…</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tplOnboarding(){
+      const saveHistory = getBool(STORAGE_KEYS.saveHistory, true);
+      return `
+        <div class="inner">
+          <h2 class="title">Antes de clicar ou pagar, confere aqui.</h2>
+          <p class="sub">Cole, compartilhe ou escaneie. Em segundos você vê o risco e o motivo — com orientação do que fazer agora.</p>
+
+          <div class="kpis">
+            <div class="kpi"><small>Checa</small><b>Links suspeitos</b></div>
+            <div class="kpi"><small>Valida</small><b>Pix (BR Code)</b></div>
+            <div class="kpi"><small>Valida</small><b>Boleto (linha digitável)</b></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="toggle">
+            <div>
+              <b>Salvar histórico</b>
+              <div><span>Se desligado, nada fica salvo no dispositivo.</span></div>
+            </div>
+            <div class="switch ${saveHistory ? "on":""}" id="saveHistorySwitch" role="switch" aria-checked="${saveHistory}"></div>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="row">
+            <button class="btn" id="startBtn">Começar</button>
+            <button class="btn secondary" id="noSaveBtn">Usar sem salvar</button>
+          </div>
+
+          <p class="hint">MVP: as checagens de ameaça são simuladas. Você conecta APIs reais depois via backend.</p>
+        </div>
+      `;
+    }
+
+    function tplHome(){
+      const d = state.draft;
+      const active = d.mode || "paste";
+      return `
+        <div class="inner">
+          <h2 class="title">O que você quer checar?</h2>
+          <p class="sub">Escolha um modo. No MVP web, o “Compartilhar” do celular vira “colar”.</p>
+
+          <div class="segmented" role="tablist">
+            <button class="${active==="paste" ? "active":""}" data-mode="paste" role="tab">📋 Colar texto ou link</button>
+            <button class="${active==="qr" ? "active":""}" data-mode="qr" role="tab">📷 Escanear QR</button>
+            <button class="${active==="boleto" ? "active":""}" data-mode="boleto" role="tab">⌨️ Linha digitável</button>
+          </div>
+
+          <div style="height:12px"></div>
+
+          ${active==="paste" ? `
+            <label class="hint">Cole aqui (link / mensagem / Pix copia-e-cola):</label>
+            <textarea id="pasteInput" placeholder="Cole um link, um texto do WhatsApp, ou um Pix copia-e-cola…">${escapeHtml(d.text||"")}</textarea>
+            <div class="row" style="margin-top:10px">
+              <button class="btn" id="checkPasteBtn">Checar</button>
+              <button class="btn secondary" id="clearPasteBtn">Limpar</button>
+            </div>
+            <p class="hint">Ex.: cole um link suspeito, ou o Pix que te enviaram (começa com 000201…).</p>
+          ` : ""}
+
+          ${active==="qr" ? `
+            <p class="hint">No navegador, o scanner depende de suporte do dispositivo. Se falhar, cole o conteúdo do Pix/Boleto no modo “Colar”.</p>
+            <div class="toggle">
+              <div>
+                <b>Scanner de QR</b>
+                <div><span>Usa câmera + BarcodeDetector quando disponível.</span></div>
+              </div>
+              <button class="btn secondary" id="startQrBtn" style="min-width:140px">Iniciar</button>
+            </div>
+
+            <div style="height:10px"></div>
+
+            <div class="accordion">
+              <details open>
+                <summary>Prévia da câmera <span class="mono">▼</span></summary>
+                <div class="acc-body">
+                  <video id="qrVideo" playsinline style="width:100%;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:#000"></video>
+                  <div class="row" style="margin-top:10px">
+                    <button class="btn" id="checkQrBtn" disabled>Checar QR</button>
+                    <button class="btn danger" id="stopQrBtn" disabled>Parar</button>
+                  </div>
+                  <div class="hint" id="qrStatus">Aguardando iniciar…</div>
+                  <textarea id="qrRaw" placeholder="Conteúdo lido do QR aparece aqui…" style="margin-top:10px;min-height:90px" readonly></textarea>
+                </div>
+              </details>
+            </div>
+          ` : ""}
+
+          ${active==="boleto" ? `
+            <label class="hint">Cole ou digite a linha digitável (47 ou 48 dígitos):</label>
+            <input id="boletoInput" inputmode="numeric" placeholder="Ex.: 23793.38128 60007.827136 95000.063305 7 10200000015000"
+              value="${escapeHtml(d.boleto||"")}" />
+            <div class="row" style="margin-top:10px">
+              <button class="btn" id="checkBoletoBtn">Checar boleto</button>
+              <button class="btn secondary" id="clearBoletoBtn">Limpar</button>
+            </div>
+            <p class="hint">MVP: validação é demonstrativa. Você pode implementar DV real depois (FEBRABAN).</p>
+          ` : ""}
+
+          <div class="divider"></div>
+
+          <div class="toggle">
+            <div>
+              <b>Mascarar dados</b>
+              <div><span>Oculta parte do link/linha no histórico.</span></div>
+            </div>
+            <div class="switch ${getBool(STORAGE_KEYS.maskData,true) ? "on":""}" id="maskSwitch" role="switch" aria-checked="${getBool(STORAGE_KEYS.maskData,true)}"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tplProcessing(){
+      return `
+        <div class="inner" style="text-align:center">
+          <div class="spinner" aria-hidden="true"></div>
+          <h2 class="title" style="margin-bottom:6px">Checando…</h2>
+          <p class="sub">Analisando formato e sinais de fraude. Isso leva só alguns segundos.</p>
+          <button class="btn secondary" id="cancelBtn">Cancelar</button>
+        </div>
+      `;
+    }
+
+    function tplResult(){
+      const r = state.lastResult;
+      if (!r) return `
+        <div class="inner">
+          <h2 class="title">Sem resultado</h2>
+          <p class="sub">Faça uma checagem primeiro.</p>
+          <button class="btn" id="backHomeBtn">Voltar</button>
+        </div>
+      `;
+
+      const color = levelColor(r.level);
+      const width = r.score + "%";
+
+      return `
+        <div class="inner">
+          <h2 class="title">Resultado</h2>
+          <p class="sub">Risco calculado (MVP) com base em estrutura + sinais heurísticos.</p>
+
+          <div class="meter">
+            <span class="badge">
+              <span class="dot" style="background:${color}"></span>
+              Risco ${r.level}
+            </span>
+            <div class="bar" aria-label="Medidor de risco">
+              <i style="width:${width}"></i>
+            </div>
+            <span class="mono">${r.score}/100</span>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <div class="col">
+              <b>Por que deu isso?</b>
+              <ul>
+                ${r.reasons.map(x => `<li>${escapeHtml(x)}</li>`).join("")}
+              </ul>
+            </div>
+            <div class="col">
+              <b>O que fazer agora</b>
+              <ul>
+                ${r.actions.map(x => `<li>${escapeHtml(x)}</li>`).join("")}
+              </ul>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="row">
+            <button class="btn" id="checkAnotherBtn">Checar outra coisa</button>
+            <button class="btn secondary" id="detailsBtn">Ver detalhes técnicos</button>
+            <button class="btn ghost" id="shareBtn">Compartilhar alerta</button>
+          </div>
+
+          <p class="hint">Tipo detectado: <span class="mono">${r.inputType}</span></p>
+        </div>
+      `;
+    }
+
+    function tplDetails(){
+      const r = state.lastResult;
+      if (!r) return `
+        <div class="inner">
+          <h2 class="title">Sem detalhes</h2>
+          <p class="sub">Faça uma checagem primeiro.</p>
+          <button class="btn" id="backHomeBtn2">Voltar</button>
+        </div>
+      `;
+
+      const t = r.technical || {};
+      const pretty = (obj)=> JSON.stringify(obj, null, 2);
+
+      return `
+        <div class="inner">
+          <h2 class="title">Detalhes técnicos</h2>
+          <p class="sub">Informações para auditoria rápida e troubleshooting.</p>
+
+          <div class="accordion">
+            <details open>
+              <summary>Resumo <span class="mono">▼</span></summary>
+              <div class="acc-body">${escapeHtml(pretty({
+                kind: t.kind,
+                score: r.score,
+                level: r.level,
+                detectedType: r.inputType
+              }))}</div>
+            </details>
+
+            <details>
+              <summary>Dados extraídos <span class="mono">▼</span></summary>
+              <div class="acc-body">${escapeHtml(pretty(t))}</div>
+            </details>
+
+            <details>
+              <summary>Como conectar APIs reais <span class="mono">▼</span></summary>
+              <div class="acc-body">
+1) Crie um endpoint no seu backend (ex.: /api/check-url) que chama Web Risk / VirusTotal.
+2) No front, substitua o mock por fetch():
+   fetch("/api/check-url", { method:"POST", body: JSON.stringify({ url }) })
+3) Faça cache por domínio para reduzir custo.
+              </div>
+            </details>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="row">
+            <button class="btn" id="copyDetailsBtn">Copiar dados</button>
+            <button class="btn secondary" id="backResultBtn">Voltar</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function tplHistory(){
+      const list = loadHistory();
+      const saveH = getBool(STORAGE_KEYS.saveHistory, true);
+      const mask = getBool(STORAGE_KEYS.maskData, true);
+
+      return `
+        <div class="inner">
+          <h2 class="title">Histórico</h2>
+          <p class="sub">Suas últimas checagens (até 50). Você pode rechecar ou apagar.</p>
+
+          <div class="row">
+            <div class="col">
+              <div class="toggle">
+                <div>
+                  <b>Salvar histórico</b>
+                  <div><span>Se desligado, novas checagens não serão salvas.</span></div>
+                </div>
+                <div class="switch ${saveH ? "on":""}" id="saveHistorySwitch2" role="switch" aria-checked="${saveH}"></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="toggle">
+                <div>
+                  <b>Mascarar dados</b>
+                  <div><span>Oculta parte do conteúdo exibido.</span></div>
+                </div>
+                <div class="switch ${mask ? "on":""}" id="maskSwitch2" role="switch" aria-checked="${mask}"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          ${list.length ? `
+            <div class="list">
+              ${list.map(item => {
+                const color = levelColor(item.level);
+                return `
+                  <div class="item">
+                    <div>
+                      <span class="badge">
+                        <span class="dot" style="background:${color}"></span>
+                        Risco ${escapeHtml(item.level)}
+                      </span>
+                      <b style="margin-top:8px">${escapeHtml(item.typeLabel)}</b>
+                      <div class="meta">${formatDate(item.ts)} • <span class="mono">${item.score}/100</span> • <span class="mono">${escapeHtml(maskValue(item.preview))}</span></div>
+                    </div>
+                    <div class="item-actions">
+                      <button class="btn secondary" data-recheck="${item.id}">Rechecar</button>
+                      <button class="btn danger" data-del="${item.id}">Apagar</button>
+                    </div>
+                  </div>
+                `;
+              }).join("")}
+            </div>
+          ` : `
+            <p class="sub">Nada por aqui ainda. Faça uma checagem na Home.</p>
+          `}
+
+          <div style="height:12px"></div>
+
+          <div class="row">
+            <button class="btn" id="goHomeFromHistory">Ir para Home</button>
+            <button class="btn secondary" id="clearAllHistory" ${list.length ? "" : "disabled"}>Limpar tudo</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function bind(route){
+      if (route === "splash"){
+        // nada clicável
+      }
+
+      if (route === "onboarding"){
+        $("#startBtn").addEventListener("click", () => {
+          setBool(STORAGE_KEYS.seenOnboarding, true);
+          nav("home");
+        });
+        $("#noSaveBtn").addEventListener("click", () => {
+          setBool(STORAGE_KEYS.saveHistory, false);
+          setBool(STORAGE_KEYS.seenOnboarding, true);
+          toast("Modo privado", "Novas checagens não serão salvas.");
+          nav("home");
+        });
+
+        const sw = $("#saveHistorySwitch");
+        sw.addEventListener("click", () => {
+          const v = !getBool(STORAGE_KEYS.saveHistory, true);
+          setBool(STORAGE_KEYS.saveHistory, v);
+          sw.classList.toggle("on", v);
+          sw.setAttribute("aria-checked", String(v));
+        });
+      }
+
+      if (route === "home"){
+        // segmented
+        $$(".segmented button").forEach(btn => {
+          btn.addEventListener("click", () => {
+            state.draft.mode = btn.dataset.mode;
+            render();
+          });
+        });
+
+        // mask switch
+        const ms = $("#maskSwitch");
+        if (ms){
+          ms.addEventListener("click", () => {
+            const v = !getBool(STORAGE_KEYS.maskData, true);
+            setBool(STORAGE_KEYS.maskData, v);
+            ms.classList.toggle("on", v);
+            toast("Configuração", v ? "Mascaramento ligado." : "Mascaramento desligado.");
+          });
+        }
+
+        // paste mode
+        const pasteInput = $("#pasteInput");
+        if (pasteInput){
+          pasteInput.addEventListener("input", () => state.draft.text = pasteInput.value);
+          $("#clearPasteBtn").addEventListener("click", () => {
+            state.draft.text = "";
+            render();
+          });
+          $("#checkPasteBtn").addEventListener("click", async () => {
+            await doCheck(state.draft.text);
+          });
+        }
+
+        // boleto mode
+        const boletoInput = $("#boletoInput");
+        if (boletoInput){
+          boletoInput.addEventListener("input", () => state.draft.boleto = boletoInput.value);
+          $("#clearBoletoBtn").addEventListener("click", () => {
+            state.draft.boleto = "";
+            render();
+          });
+          $("#checkBoletoBtn").addEventListener("click", async () => {
+            await doCheck(state.draft.boleto, "boleto");
+          });
+        }
+
+        // qr mode
+        const startBtn = $("#startQrBtn");
+        if (startBtn){
+          const video = $("#qrVideo");
+          const raw = $("#qrRaw");
+          const status = $("#qrStatus");
+          const checkQrBtn = $("#checkQrBtn");
+          const stopQrBtn = $("#stopQrBtn");
+          let stopFn = null;
+
+          startBtn.addEventListener("click", async () => {
+            try{
+              status.textContent = "Iniciando câmera…";
+              raw.value = "";
+              checkQrBtn.disabled = true;
+              stopQrBtn.disabled = false;
+              stopFn = await startQrScan(video, (val) => {
+                raw.value = val;
+                status.textContent = "QR lido. Você pode checar agora.";
+                checkQrBtn.disabled = false;
+                stopQrBtn.disabled = true;
+              });
+              status.textContent = "Aponte a câmera para um QR (Pix/Boleto)…";
+            }catch(e){
+              stopQrBtn.disabled = true;
+              status.textContent = "Falhou: " + (e?.message || e);
+              toast("Scanner indisponível", e?.message || "Use o modo Colar.");
+            }
+          });
+
+          stopQrBtn.addEventListener("click", () => {
+            if (stopFn) stopFn();
+            stopFn = null;
+            stopQrBtn.disabled = true;
+            status.textContent = "Scanner parado.";
+          });
+
+          checkQrBtn.addEventListener("click", async () => {
+            const val = raw.value.trim();
+            if (!val){
+              toast("Sem dados", "Nenhum conteúdo foi lido do QR.");
+              return;
+            }
+            await doCheck(val);
+          });
+        }
+      }
+
+      if (route === "processing"){
+        $("#cancelBtn").addEventListener("click", () => nav("home"));
+      }
+
+      if (route === "result"){
+        const back = $("#backHomeBtn");
+        if (back) back.addEventListener("click", () => nav("home"));
+        $("#checkAnotherBtn").addEventListener("click", () => nav("home"));
+        $("#detailsBtn").addEventListener("click", () => nav("details"));
+        $("#shareBtn").addEventListener("click", async () => {
+          const r = state.lastResult;
+          const msg = `Guardião Anti-Golpe: Risco ${r.level} (${r.score}/100). Motivos: ${r.reasons.join(" | ")}`;
+          try{
+            if (navigator.share){
+              await navigator.share({ title:"Alerta", text: msg });
+            }else{
+              await navigator.clipboard.writeText(msg);
+              toast("Copiado", "Alerta copiado para a área de transferência.");
+            }
+          }catch{
+            await navigator.clipboard.writeText(msg);
+            toast("Copiado", "Alerta copiado para a área de transferência.");
+          }
+        });
+      }
+
+      if (route === "details"){
+        const b1 = $("#backHomeBtn2");
+        if (b1) b1.addEventListener("click", () => nav("home"));
+        $("#backResultBtn").addEventListener("click", () => nav("result"));
+        $("#copyDetailsBtn").addEventListener("click", async () => {
+          const txt = JSON.stringify(state.lastResult, null, 2);
+          await navigator.clipboard.writeText(txt);
+          toast("Copiado", "Detalhes técnicos copiados.");
+        });
+      }
+
+      if (route === "history"){
+        $("#goHomeFromHistory").addEventListener("click", () => nav("home"));
+        $("#clearAllHistory").addEventListener("click", () => {
+          if (!confirm("Apagar todo o histórico?")) return;
+          saveHistory([]);
+          render();
+        });
+
+        const sw1 = $("#saveHistorySwitch2");
+        sw1.addEventListener("click", () => {
+          const v = !getBool(STORAGE_KEYS.saveHistory, true);
+          setBool(STORAGE_KEYS.saveHistory, v);
+          sw1.classList.toggle("on", v);
+          sw1.setAttribute("aria-checked", String(v));
+          toast("Configuração", v ? "Histórico ligado." : "Histórico desligado.");
+        });
+
+        const sw2 = $("#maskSwitch2");
+        sw2.addEventListener("click", () => {
+          const v = !getBool(STORAGE_KEYS.maskData, true);
+          setBool(STORAGE_KEYS.maskData, v);
+          sw2.classList.toggle("on", v);
+          sw2.setAttribute("aria-checked", String(v));
+          render();
+        });
+
+        $$("[data-del]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-del");
+            deleteHistoryItem(id);
+            render();
+          });
+        });
+
+        $$("[data-recheck]").forEach(btn => {
+          btn.addEventListener("click", async () => {
+            const id = btn.getAttribute("data-recheck");
+            const item = loadHistory().find(x => x.id === id);
+            if (!item) return;
+            await doCheck(item.rawInput || item.preview, null, true);
+          });
+        });
+      }
+    }
+
+    async function doCheck(raw, forcedType=null, isRecheck=false){
+      const input = (raw || "").trim();
+      if (!input){
+        toast("Faltou conteúdo", "Cole um link, Pix, boleto ou texto para checar.");
+        return;
+      }
+
+      nav("processing");
+      const res = await runCheck(input, forcedType);
+
+      if (res.error){
+        toast("Não deu", res.message || "Falha ao checar.");
+        nav("home");
+        return;
+      }
+
+      state.lastResult = res;
+
+      // add history entry
+      const id = "h_" + Math.random().toString(16).slice(2) + Date.now().toString(16);
+      const typeLabel = ({
+        url:"Link",
+        pix:"Pix (BR Code)",
+        boleto:"Boleto",
+        text:"Texto"
+      })[res.inputType] || "Checagem";
+
+      addToHistory({
+        id,
+        ts: nowISO(),
+        type: res.inputType,
+        typeLabel,
+        score: res.score,
+        level: res.level,
+        preview: input,
+        rawInput: input // no MVP: guarda; em produção, você pode não guardar (LGPD)
+      });
+
+      if (!isRecheck) toast("Checagem pronta", `Risco ${res.level} (${res.score}/100).`);
+      nav("result");
+    }
+
+    function escapeHtml(s){
+      return String(s || "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    /***********************
+     * INIT
+     ***********************/
+    (function init(){
+      // defaults
+      if (localStorage.getItem(STORAGE_KEYS.saveHistory) === null) setBool(STORAGE_KEYS.saveHistory, true);
+      if (localStorage.getItem(STORAGE_KEYS.maskData) === null) setBool(STORAGE_KEYS.maskData, true);
+      if (localStorage.getItem(STORAGE_KEYS.seenOnboarding) === null) setBool(STORAGE_KEYS.seenOnboarding, false);
+
+      // restore draft
+      const d = getJSON(STORAGE_KEYS.lastDraft, null);
+      if (d && typeof d === "object") state.draft = { ...state.draft, ...d };
+
+      initRouter();
+
+      // start route
+      const rawHash = (location.hash || "").replace("#/","");
+      // se o usuário já abriu com rota específica (ex.: #/home), respeita
+      if (rawHash){
+        state.route = rawHash;
+      } else {
+        state.route = "splash";
+        location.hash = "#/splash";
+      }
+      render();
+    })();
+  </script>
+</body>
+</html>
+```0
