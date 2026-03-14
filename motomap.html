@@ -968,13 +968,13 @@
       display: none;
       align-items: center;
       gap: 6px;
-      background: rgba(255,107,43,0.12);
-      border: 1px solid rgba(255,107,43,0.35);
+      background: var(--accent);
+      border: 1px solid var(--accent);
       border-radius: 50px;
-      padding: 6px 12px;
+      padding: 12px;
       font-size: 12px;
       font-weight: 600;
-      color: var(--accent);
+      color: #fff;
       max-width: 160px;
       overflow: hidden;
       white-space: nowrap;
@@ -984,11 +984,11 @@
     #busca-tag-fechar {
       cursor: pointer;
       font-size: 13px;
-      color: var(--muted);
+      color: #fff;
       flex-shrink: 0;
-      transition: color .15s;
+      transition: opacity .15s;
     }
-    #busca-tag-fechar:hover { color: var(--red); }
+    #busca-tag-fechar:hover { opacity: 0.7; }
     .ripple-marker {
       width: 30px;
       height: 30px;
