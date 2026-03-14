@@ -769,6 +769,119 @@
     }
     .leaflet-popup-close-button { color: var(--muted) !important; font-size: 18px !important; }
 
+    .map-add-pin-popup {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 1200;
+      width: min(280px, calc(100vw - 24px));
+      opacity: 0;
+      transform: translateY(8px) scale(0.96);
+      transition: opacity .18s ease, transform .18s ease;
+      pointer-events: none;
+    }
+    .map-add-pin-popup.ativo {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .map-add-pin-popup-card {
+      position: relative;
+      background: linear-gradient(180deg, #141c2e 0%, #101726 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      box-shadow: 0 18px 44px rgba(0,0,0,0.52);
+      color: var(--text);
+      padding: 14px;
+      backdrop-filter: blur(14px);
+    }
+    .map-add-pin-popup-title {
+      font-family: var(--font-title);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-right: 28px;
+    }
+    .map-add-pin-popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 24px;
+      height: 24px;
+      border: none;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: background .2s ease, color .2s ease;
+    }
+    .map-add-pin-popup-close:hover {
+      background: rgba(255,255,255,0.11);
+      color: var(--text);
+    }
+    .map-add-pin-popup-arrow {
+      position: absolute;
+      left: 50%;
+      bottom: -9px;
+      width: 18px;
+      height: 18px;
+      background: #101726;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transform: translateX(-50%) rotate(45deg);
+      box-shadow: 10px 10px 18px rgba(0,0,0,0.08);
+    }
+    .map-add-pin-popup.abaixo .map-add-pin-popup-arrow {
+      top: -9px;
+      bottom: auto;
+      transform: translateX(-50%) rotate(225deg);
+    }
+    .map-add-pin-popup .popup-add-pin-note {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+    .map-add-pin-popup .popup-add-pin-distance {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(255,107,43,0.12);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .map-add-pin-popup .popup-add-pin-btn {
+      margin-top: 12px;
+      width: 100%;
+      padding: 11px 12px;
+      border: none;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform .15s ease, filter .2s ease, box-shadow .2s ease;
+      box-shadow: 0 6px 18px rgba(255,107,43,0.26);
+    }
+    .map-add-pin-popup .popup-add-pin-btn:hover {
+      filter: brightness(1.06);
+      box-shadow: 0 8px 22px rgba(255,107,43,0.32);
+    }
+    .map-add-pin-popup .popup-add-pin-btn:active {
+      transform: scale(0.98);
+    }
+
     /* ========================
        RESPONSIVO MOBILE
     ======================== */
@@ -1277,6 +1390,50 @@
       font-size: 11px;
     }
 
+    .popup-add-pin-note {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .popup-add-pin-distance {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255,107,43,0.12);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .popup-add-pin-btn {
+      margin-top: 12px;
+      width: 100%;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform .15s ease, filter .2s ease, box-shadow .2s ease;
+      box-shadow: 0 6px 18px rgba(255,107,43,0.26);
+    }
+    .popup-add-pin-btn:hover {
+      filter: brightness(1.06);
+      box-shadow: 0 8px 22px rgba(255,107,43,0.32);
+    }
+    .popup-add-pin-btn:active {
+      transform: scale(0.98);
+    }
+
     .popup-pin-remove-btn {
       margin-top: 10px;
       width: 100%;
@@ -1506,6 +1663,17 @@
        MAPA
   ======================== -->
   <div id="map"></div>
+
+  <div id="map-add-pin-popup" class="map-add-pin-popup" hidden>
+    <div class="map-add-pin-popup-card">
+      <button type="button" class="map-add-pin-popup-close" id="map-add-pin-popup-close" aria-label="Fechar">✕</button>
+      <div class="map-add-pin-popup-title">Adicionar pin nesta área</div>
+      <span class="popup-add-pin-note" id="map-add-pin-note"></span>
+      <span class="popup-add-pin-distance" id="map-add-pin-distance"></span>
+      <button type="button" class="popup-add-pin-btn" id="map-add-pin-action">Adicionar pin</button>
+    </div>
+    <div class="map-add-pin-popup-arrow" aria-hidden="true"></div>
+  </div>
 
   <!-- Controles inferiores -->
   <div class="bottom-floating-bar">
@@ -2013,13 +2181,29 @@
       popupAnchor:[0, -32]
     });
 
+    function abrirPopupAdicionarPinNaMoto() {
+      if (!geoPronto) {
+        mostrarToast("📍 Aguarde o GPS localizar você para liberar a marcação.");
+        return;
+      }
+      const latlngAtual = userMarker ? userMarker.getLatLng() : L.latLng(geoLat, geoLng);
+      abrirPopupAdicionarPin(latlngAtual);
+    }
+
     function atualizarUserMarker(lat, lng) {
       if (userMarker) {
         userMarker.setLatLng([lat, lng]);
       } else {
-        userMarker = L.marker([lat, lng], { icon: MOTO_ICON, zIndexOffset: 1000 })
-          .bindPopup("<strong>🛵 Você está aqui</strong><br><small class='popup-meta-text'>Posição GPS</small>")
-          .addTo(map);
+        userMarker = L.marker([lat, lng], { icon: MOTO_ICON, zIndexOffset: 1000 }).addTo(map);
+        userMarker.on("click", e => {
+          L.DomEvent.stopPropagation(e);
+          abrirPopupAdicionarPinNaMoto();
+        });
+      }
+
+      if (popupAdicionarPinLatLng) {
+        popupAdicionarPinLatLng = L.latLng(lat, lng);
+        atualizarPosicaoPopupAdicionarPin();
       }
     }
 
@@ -2068,6 +2252,118 @@
     let modalDragStartY    = 0;
     let modalDragOffsetY   = 0;
     let modalDragging      = false;
+    let popupLatLngSolicitada = null;
+    let popupAdicionarPinLatLng = null;
+    let popupAdicionarPinHideTimer = null;
+
+    function gerarPontoAleatorioNoRaio(latBase = geoLat, lngBase = geoLng, raioMetros = MAX_PIN_DISTANCE_METERS) {
+      const raioTerra = 6371000;
+      const lat1 = latBase * Math.PI / 180;
+      const lng1 = lngBase * Math.PI / 180;
+
+      for (let tentativa = 0; tentativa < 12; tentativa++) {
+        const distancia = Math.sqrt(Math.random()) * raioMetros;
+        const angulo = Math.random() * Math.PI * 2;
+        const delta = distancia / raioTerra;
+
+        const lat2 = Math.asin(
+          Math.sin(lat1) * Math.cos(delta) +
+          Math.cos(lat1) * Math.sin(delta) * Math.cos(angulo)
+        );
+        const lng2 = lng1 + Math.atan2(
+          Math.sin(angulo) * Math.sin(delta) * Math.cos(lat1),
+          Math.cos(delta) - Math.sin(lat1) * Math.sin(lat2)
+        );
+
+        const lat = lat2 * 180 / Math.PI;
+        const lng = ((lng2 * 180 / Math.PI + 540) % 360) - 180;
+
+        if (validarAreaDoPin(lat, lng, { silencioso: true })) {
+          return { lat, lng };
+        }
+      }
+
+      return { lat: latBase, lng: lngBase };
+    }
+
+    function atualizarPosicaoPopupAdicionarPin() {
+      if (!popupAdicionarPinLatLng) return;
+
+      const popupEl = $("map-add-pin-popup");
+      if (!popupEl || popupEl.hidden) return;
+
+      const pointBase = map.latLngToContainerPoint(popupAdicionarPinLatLng);
+      const popupAnchor = (userMarker && userMarker.options && userMarker.options.icon && userMarker.options.icon.options && userMarker.options.icon.options.popupAnchor)
+        ? userMarker.options.icon.options.popupAnchor
+        : [0, -32];
+      const point = L.point(pointBase.x + popupAnchor[0], pointBase.y + popupAnchor[1]);
+      const mapRect = map.getContainer().getBoundingClientRect();
+      const popupRect = popupEl.getBoundingClientRect();
+      const margin = 12;
+      const arrowGap = 14;
+
+      let left = mapRect.left + point.x - (popupRect.width / 2);
+      left = Math.max(mapRect.left + margin, Math.min(left, mapRect.right - popupRect.width - margin));
+
+      let top = mapRect.top + point.y - popupRect.height - arrowGap;
+      let abaixo = false;
+      if (top < mapRect.top + margin) {
+        top = mapRect.top + point.y + arrowGap;
+        abaixo = true;
+      }
+      top = Math.max(mapRect.top + margin, Math.min(top, mapRect.bottom - popupRect.height - margin));
+
+      popupEl.classList.toggle("abaixo", abaixo);
+      popupEl.style.left = `${left}px`;
+      popupEl.style.top = `${top}px`;
+    }
+
+    function fecharPopupAdicionarPin() {
+      popupLatLngSolicitada = null;
+      popupAdicionarPinLatLng = null;
+      const popupEl = $("map-add-pin-popup");
+      if (!popupEl) return;
+      popupEl.classList.remove("ativo", "abaixo");
+      clearTimeout(popupAdicionarPinHideTimer);
+      popupAdicionarPinHideTimer = setTimeout(() => {
+        popupEl.hidden = true;
+      }, 180);
+    }
+
+    function abrirPopupAdicionarPin(latlng = null) {
+      if (!geoPronto) {
+        mostrarToast("📍 Aguarde o GPS localizar você para liberar a marcação.");
+        fecharPopupAdicionarPin();
+        return;
+      }
+
+      const ancoraLatLng = latlng || (userMarker ? userMarker.getLatLng() : L.latLng(geoLat, geoLng));
+
+      popupLatLngSolicitada = ancoraLatLng;
+      popupAdicionarPinLatLng = ancoraLatLng;
+
+      $("map-add-pin-note").textContent = "";
+      $("map-add-pin-distance").textContent = `📍 Raio ativo de ${MAX_PIN_DISTANCE_METERS} m a partir da sua moto`;
+
+      const popupEl = $("map-add-pin-popup");
+      clearTimeout(popupAdicionarPinHideTimer);
+      popupEl.hidden = false;
+      requestAnimationFrame(() => {
+        popupEl.classList.add("ativo");
+        atualizarPosicaoPopupAdicionarPin();
+      });
+    }
+
+    function iniciarFluxoPinPeloPopup() {
+      if (!popupLatLngSolicitada) {
+        mostrarToast('⚠️ Toque na sua moto para abrir o botão de adicionar pin.');
+        return;
+      }
+
+      const pontoAleatorio = gerarPontoAleatorioNoRaio(geoLat, geoLng, MAX_PIN_DISTANCE_METERS);
+      fecharPopupAdicionarPin();
+      abrirModal(pontoAleatorio.lat, pontoAleatorio.lng);
+    }
 
     /* ================================================
        MODAL PRINCIPAL (2 steps)
@@ -2088,6 +2384,7 @@
     }
 
     function abrirModal(lat, lng) {
+      fecharPopupAdicionarPin();
       latSelecionada = lat;
       lngSelecionada = lng;
       statusSelecionado = null;
@@ -2141,6 +2438,22 @@
     EL.overlay.addEventListener("click", e => { if (e.target === EL.overlay) fecharModal(); });
     $("btn-cancelar").addEventListener("click", fecharModal);
     $("btn-voltar").addEventListener("click",   () => { EL.step2.classList.add("slide-back"); irParaStep(1); });
+
+    $("map-add-pin-action").addEventListener("click", e => {
+      e.preventDefault();
+      e.stopPropagation();
+      iniciarFluxoPinPeloPopup();
+    });
+
+    $("map-add-pin-popup-close").addEventListener("click", e => {
+      e.preventDefault();
+      e.stopPropagation();
+      fecharPopupAdicionarPin();
+    });
+
+    $("map-add-pin-popup").addEventListener("click", e => {
+      e.stopPropagation();
+    });
 
     const modalCard = $("modal-card");
     const modalDragArea = modalCard.querySelector(".modal-sheet-handle-wrap");
@@ -2202,9 +2515,19 @@
       });
     });
 
-    map.on("click", e => {
-      if (!validarAreaDoPin(e.latlng.lat, e.latlng.lng)) return;
-      abrirModal(e.latlng.lat, e.latlng.lng);
+    map.on("click", () => {
+      if (popupAdicionarPinLatLng) {
+        fecharPopupAdicionarPin();
+      }
+    });
+
+    map.on("move zoom resize", atualizarPosicaoPopupAdicionarPin);
+    map.on("movestart", () => {
+      if (popupAdicionarPinLatLng) atualizarPosicaoPopupAdicionarPin();
+    });
+    window.addEventListener("resize", atualizarPosicaoPopupAdicionarPin);
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") fecharPopupAdicionarPin();
     });
 
     /* ================================================
