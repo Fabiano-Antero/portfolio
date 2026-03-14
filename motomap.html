@@ -181,7 +181,7 @@
     ======================== */
     #painel {
       position: fixed;
-      top: 70px;
+      top: 94px;
       right: 20px;
       z-index: 900;
       background: rgba(17,24,39,0.88);
@@ -803,8 +803,8 @@
       top: 20px;
       right: 20px;
       z-index: 910;
-      width: 44px;
-      height: 44px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       background: rgba(17,24,39,0.88);
       backdrop-filter: blur(16px);
@@ -814,7 +814,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 17px;
+      font-size: 18px;
       color: var(--text);
       transition: border-color .2s, box-shadow .2s, opacity .3s, transform .3s;
     }
@@ -835,7 +835,7 @@
       backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: 50px;
-      height: 44px;
+      height: 50px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -1207,20 +1207,13 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <script>
-    /* ─────────────────────────────────────────────
-       ATENÇÃO: substitua os valores abaixo pelas
-       credenciais do seu projeto no Firebase.
-       console.firebase.google.com →
-       Configurações do projeto → Seus apps → Web
-    ───────────────────────────────────────────── */
+  (function () {
+    "use strict";
 
-    // ========================
-    // CONFIGURAÇÃO DO FIREBASE
-    // ⚠️ SUBSTITUA COM SUAS CREDENCIAIS
-    // Acesse: console.firebase.google.com
-    // Crie um projeto → Realtime Database → Regras:
-    // { "rules": { ".read": true, ".write": true } }
-    // ========================
+    /* ================================================
+       CONFIG FIREBASE
+       ⚠️ Substitua pelas suas credenciais
+    ================================================ */
     const firebaseConfig = {
       apiKey:            "AIzaSyDJIlHfko7314lbqrez226VtLAW2qKX0fY",
       authDomain:        "motomap-6b303.firebaseapp.com",
@@ -1230,784 +1223,599 @@
       messagingSenderId: "811391057354",
       appId:             "1:811391057354:web:c4287ee0c3cad5e088e333"
     };
-
     firebase.initializeApp(firebaseConfig);
-    const db           = firebase.database();
-    const marcacoesRef = db.ref("marcacoes");
+    const DB  = firebase.database();
+    const REF = DB.ref("marcacoes");
 
-    // ========================
-    // GEOLOCALIZAÇÃO — dispara IMEDIATAMENTE
-    // antes de qualquer outra coisa, para que o
-    // browser mostre o popup de permissão sem delay.
-    // ========================
-    let _geoLatInicial = -23.5505;
-    let _geoLngInicial = -46.6333;
-    let _geoPronto     = false;
-    let _geoPendentes  = []; // callbacks aguardando posição
+    /* ================================================
+       CONSTANTES
+    ================================================ */
+    const STATUS = {
+      chamando_muito: { label:"Chamando Muito",      icon:"🔥", cor:"#00E676", base:0.85, badge:"rgba(0,230,118,0.15)",  borda:"rgba(0,230,118,0.5)"  },
+      chamando_pouco: { label:"Chamando Pouco",      icon:"📦", cor:"#FFD600", base:0.45, badge:"rgba(255,214,0,0.15)",  borda:"rgba(255,214,0,0.5)"  },
+      parado:         { label:"Parado / Sem Pedidos", icon:"⛔", cor:"#FF1744", base:0.10, badge:"rgba(255,23,68,0.15)",  borda:"rgba(255,23,68,0.5)"  }
+    };
 
-    const loadingScreen = document.getElementById("loading-screen");
-    const loadingMsg    = document.getElementById("loading-msg");
-
-    function _onGeoSucesso(pos) {
-      _geoLatInicial = pos.coords.latitude;
-      _geoLngInicial = pos.coords.longitude;
-      _geoPronto     = true;
-      _geoPendentes.forEach(fn => fn(pos));
-      _geoPendentes  = [];
+    /* Cache de ícones por status+isOwn — evita recriar a cada render */
+    const ICON_CACHE = {};
+    function getIcon(status, isOwn) {
+      const key = status + (isOwn ? "_own" : "");
+      if (ICON_CACHE[key]) return ICON_CACHE[key];
+      const { cor, icon } = STATUS[status];
+      const borda  = isOwn ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.3)";
+      const sombra = isOwn ? "CC" : "66";
+      const dot    = isOwn
+        ? `<div style="position:absolute;top:-4px;right:-4px;width:11px;height:11px;background:#fff;border-radius:50%;border:2px solid ${cor};transform:rotate(45deg);"></div>`
+        : "";
+      ICON_CACHE[key] = L.divIcon({
+        className: "",
+        html: `<div style="width:32px;height:32px;background:${cor};border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid ${borda};box-shadow:0 2px 12px ${cor}${sombra};display:flex;align-items:center;justify-content:center;"><span style="transform:rotate(45deg);font-size:13px">${icon}</span></div>${dot}`,
+        iconSize:   [32,32],
+        iconAnchor: [16,32],
+        popupAnchor:[0,-34]
+      });
+      return ICON_CACHE[key];
     }
-    function _onGeoErro(err) {
-      loadingMsg.textContent = "Permissão de localização negada. Usando posição padrão.";
-      setTimeout(() => loadingScreen.classList.add("oculto"), 2200);
-      console.warn("Geo erro:", err.message);
+
+    const SESSION_ID = (() => {
+      const k = "motomap_session";
+      return localStorage.getItem(k) || (() => {
+        const id = "s_" + Date.now() + "_" + Math.random().toString(36).slice(2,8);
+        localStorage.setItem(k, id);
+        return id;
+      })();
+    })();
+
+    /* ================================================
+       CACHE DE ELEMENTOS DOM
+    ================================================ */
+    const $ = id => document.getElementById(id);
+    const EL = {
+      loading:       $("loading-screen"),
+      loadingMsg:    $("loading-msg"),
+      map:           $("map"),
+      precisaoBadge: $("precisao-badge"),
+      precisaoTexto: $("precisao-texto"),
+      overlay:       $("modal-overlay"),
+      step1:         $("step1"),
+      step2:         $("step2"),
+      coordDisp:     $("coord-display"),
+      statusBadge:   $("status-badge"),
+      modalConfirma: $("modal-confirma"),
+      confirmaCoords:$("confirma-coords"),
+      inputCorridas: $("input-corridas"),
+      inputHorario:  $("input-horario"),
+      salvarTexto:   $("salvar-texto"),
+      salvarSpinner: $("salvar-spinner"),
+      toast:         $("toast"),
+      painel:        $("painel"),
+      statTotal:     $("stat-total"),
+      statMuito:     $("stat-muito"),
+      statPouco:     $("stat-pouco"),
+      statParado:    $("stat-parado"),
+      statUltima:    $("stat-ultima"),
+      logo:          $("logo"),
+      btnBusca:      $("btn-busca"),
+      buscaBarra:    $("busca-barra"),
+      buscaInput:    $("busca-input"),
+      buscaFechar:   $("busca-fechar"),
+      buscaRes:      $("busca-resultados"),
+      buscaResWrap:  $("busca-resultados-wrap"),
+      buscaTagAtivo: $("busca-tag-ativo"),
+      buscaTagNome:  $("busca-tag-nome"),
+      buscaTagFechar:$("busca-tag-fechar")
+    };
+
+    /* ================================================
+       GEOLOCALIZAÇÃO
+       — getCurrentPosition dispara o popup imediato
+       — watchPosition usa baixa precisão para poupar
+         bateria; alta precisão só no botão manual
+       — Pausado quando aba está em background
+    ================================================ */
+    let geoLat = -23.5505, geoLng = -46.6333;
+    let geoPronto  = false;
+    let geoPendentes = [];
+    let watchId = null;
+
+    function onGeoPosicao(pos) {
+      geoLat = pos.coords.latitude;
+      geoLng = pos.coords.longitude;
+      geoPronto = true;
+      const fns = geoPendentes.splice(0);
+      fns.forEach(fn => fn(pos));
+    }
+    function onGeoErro(err) {
+      EL.loadingMsg.textContent = "Localização negada. Usando posição padrão.";
+      setTimeout(() => EL.loading.classList.add("oculto"), 2200);
+      console.warn("Geo:", err.message);
     }
 
+    /* Pedido inicial — gera popup de permissão imediatamente */
     if ("geolocation" in navigator) {
-      // Dispara AGORA — isso gera o popup de permissão no browser
-      navigator.geolocation.getCurrentPosition(_onGeoSucesso, _onGeoErro, {
+      navigator.geolocation.getCurrentPosition(onGeoPosicao, onGeoErro, {
         enableHighAccuracy: true,
         timeout: 15000,
         maximumAge: 0
       });
     } else {
-      loadingMsg.textContent = "Geolocalização não disponível neste navegador.";
-      setTimeout(() => loadingScreen.classList.add("oculto"), 2000);
+      EL.loadingMsg.textContent = "Geolocalização não disponível.";
+      setTimeout(() => EL.loading.classList.add("oculto"), 2000);
     }
 
-    // ========================
-    // INICIALIZAÇÃO DO MAPA
-    // Começa em São Paulo como fallback; geolocalização
-    // automática substitui assim que o browser autorizar.
-    // ========================
+    function iniciarWatch() {
+      if (watchId !== null || !("geolocation" in navigator)) return;
+      watchId = navigator.geolocation.watchPosition(onAtualizarPosicao, null, {
+        enableHighAccuracy: false, /* baixa precisão = muito menos CPU/bateria */
+        maximumAge: 20000,        /* aceita posição com até 20s de idade       */
+        timeout: 30000
+      });
+    }
+    function pararWatch() {
+      if (watchId === null) return;
+      navigator.geolocation.clearWatch(watchId);
+      watchId = null;
+    }
+
+    /* Pausa watch quando aba vai para background */
+    document.addEventListener("visibilitychange", () => {
+      document.hidden ? pararWatch() : iniciarWatch();
+    });
+
+    /* ================================================
+       MAPA
+    ================================================ */
     const map = L.map("map", {
-      center: [_geoLatInicial, _geoLngInicial],
+      center: [geoLat, geoLng],
       zoom: 13,
-      zoomControl: false
+      zoomControl: false,
+      preferCanvas: true  /* renderiza marcadores em canvas — muito mais leve */
     });
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "© OpenStreetMap",
-      maxZoom: 19
+      maxZoom: 19,
+      keepBuffer: 2        /* reduz tiles carregados fora da viewport */
     }).addTo(map);
 
     L.control.zoom({ position: "bottomright" }).addTo(map);
 
-    // ========================
-    // MARCADOR "VOCÊ ESTÁ AQUI" + RASTREAMENTO
-    // ========================
-    let userMarker  = null;
-    let primeiraVez = true;
-    const precisaoBadge = document.getElementById("precisao-badge");
-    const precisaoTexto = document.getElementById("precisao-texto");
+    const heatLayer    = L.heatLayer([], { radius:30, blur:20, maxZoom:17, gradient:{ 0.1:"#3B82F6", 0.4:"#FCD34D", 0.7:"#F97316", 1.0:"#EF4444" } }).addTo(map);
+    const markersLayer = L.layerGroup().addTo(map);
 
-    function criarUserMarker(lat, lng) {
-      const icon = L.divIcon({
-        className: "",
-        html: `<div class="user-moto-wrapper">
-                 <div class="user-moto-pulse"></div>
-                 <div class="user-moto-pulse2"></div>
-                 <div class="user-moto-bg">🛵</div>
-               </div>`,
-        iconSize:   [48, 48],
-        iconAnchor: [24, 24],
-        popupAnchor:[0, -28]
-      });
+    /* ================================================
+       MARCADOR DO USUÁRIO
+    ================================================ */
+    let userMarker = null;
+    let primeiraVez = true;
+    const MOTO_ICON = L.divIcon({
+      className: "",
+      html: `<div class="user-moto-wrapper"><div class="user-moto-pulse"></div><div class="user-moto-pulse2"></div><div class="user-moto-bg">🛵</div></div>`,
+      iconSize: [48,48], iconAnchor: [24,24], popupAnchor: [0,-28]
+    });
+
+    function atualizarUserMarker(lat, lng) {
       if (userMarker) {
         userMarker.setLatLng([lat, lng]);
       } else {
-        userMarker = L.marker([lat, lng], { icon, zIndexOffset: 1000 })
-          .bindPopup("<strong>🛵 Você está aqui</strong><br><small style='color:#8B9BB4'>Posição GPS em tempo real</small>")
+        userMarker = L.marker([lat, lng], { icon: MOTO_ICON, zIndexOffset: 1000 })
+          .bindPopup("<strong>🛵 Você está aqui</strong><br><small style='color:#8B9BB4'>Posição GPS</small>")
           .addTo(map);
       }
     }
 
-    function aoReceberPosicao(pos) {
+    function onAtualizarPosicao(pos) {
       const { latitude: lat, longitude: lng, accuracy } = pos.coords;
-      criarUserMarker(lat, lng);
+      geoLat = lat; geoLng = lng;
+      atualizarUserMarker(lat, lng);
       if (primeiraVez) {
         map.flyTo([lat, lng], 15, { duration: 1.4 });
         primeiraVez = false;
       }
-      precisaoBadge.classList.add("visivel");
-      precisaoTexto.textContent = `GPS ativo · ±${Math.round(accuracy)}m`;
-      loadingScreen.classList.add("oculto");
+      EL.precisaoBadge.classList.add("visivel");
+      EL.precisaoTexto.textContent = `GPS · ±${Math.round(accuracy)}m`;
+      EL.loading.classList.add("oculto");
     }
 
-    // Se a permissão já foi concedida antes do mapa carregar, aplica imediatamente
-    if (_geoPronto) {
-      aoReceberPosicao({ coords: { latitude: _geoLatInicial, longitude: _geoLngInicial, accuracy: 50 } });
+    /* Registra callback para quando GPS estiver pronto */
+    if (geoPronto) {
+      onAtualizarPosicao({ coords: { latitude: geoLat, longitude: geoLng, accuracy: 50 } });
     } else {
-      // Registra callback para quando a permissão chegar
-      _geoPendentes.push(aoReceberPosicao);
+      geoPendentes.push(onAtualizarPosicao);
     }
-
-    // Rastreamento contínuo (watchPosition) — atualiza marcador conforme o motoboy se move
-    if ("geolocation" in navigator) {
-      navigator.geolocation.watchPosition(aoReceberPosicao, err => {
-        console.warn("Watch geo:", err.message);
-      }, { enableHighAccuracy: true, maximumAge: 5000 });
-    }
-
-    // Camada de heatmap
-    let heatLayer = L.heatLayer([], {
-      radius: 30,
-      blur: 20,
-      maxZoom: 17,
-      gradient: {
-        0.1: "#3B82F6",
-        0.4: "#FCD34D",
-        0.7: "#F97316",
-        1.0: "#EF4444"
-      }
-    }).addTo(map);
-
-    // Grupo de marcadores (pins)
-    const markersLayer = L.layerGroup().addTo(map);
-
-    // ========================
-    // ESTADO DA APLICAÇÃO
-    // ========================
-    let statusSelecionado = null;
-    let latSelecionada    = null;
-    let lngSelecionada    = null;
-
-    const STATUS_CONFIG = {
-      chamando_muito: {
-        label: "Chamando Muito",
-        icon:  "🔥",
-        cor:   "#00E676",
-        base:  0.85,
-        badge: "rgba(0,230,118,0.15)",
-        borda: "rgba(0,230,118,0.5)"
-      },
-      chamando_pouco: {
-        label: "Chamando Pouco",
-        icon:  "📦",
-        cor:   "#FFD600",
-        base:  0.45,
-        badge: "rgba(255,214,0,0.15)",
-        borda: "rgba(255,214,0,0.5)"
-      },
-      parado: {
-        label: "Parado / Sem Pedidos",
-        icon:  "⛔",
-        cor:   "#FF1744",
-        base:  0.10,
-        badge: "rgba(255,23,68,0.15)",
-        borda: "rgba(255,23,68,0.5)"
-      }
-    };
-
-    // ========================
-    // CONTROLE DO MODAL
-    // ========================
-    const overlay   = document.getElementById("modal-overlay");
-    const step1     = document.getElementById("step1");
-    const step2     = document.getElementById("step2");
-    const coordDisp = document.getElementById("coord-display");
-    const statusBadge = document.getElementById("status-badge");
-
-    function abrirModal(lat, lng) {
-      latSelecionada = lat;
-      lngSelecionada = lng;
-      statusSelecionado = null;
-
-      // Reset visual
-      document.querySelectorAll(".btn-status").forEach(b => b.classList.remove("selecionado"));
-      document.getElementById("input-corridas").value = "";
-      document.getElementById("input-horario").value = horaAtual();
-
-      // Exibe coordenadas
-      coordDisp.textContent = `📍 ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-
-      // Vai pro step 1
-      irParaStep(1);
-      overlay.classList.add("ativo");
-
-      // Ripple visual no mapa
-      criarRipple(lat, lng, "#FF6B2B");
-    }
-
-    function fecharModal() {
-      overlay.classList.remove("ativo");
-      setTimeout(() => {
-        irParaStep(1);
-        statusSelecionado = null;
-      }, 300);
-    }
-
-    function irParaStep(num) {
-      step1.classList.remove("ativo", "slide-back");
-      step2.classList.remove("ativo", "slide-back");
-
-      if (num === 1) {
-        step1.classList.add("ativo");
-      } else {
-        step2.classList.add("ativo");
-
-        // Atualiza badge de status
-        const cfg = STATUS_CONFIG[statusSelecionado];
-        statusBadge.innerHTML = `
-          <span style="font-size:18px">${cfg.icon}</span>
-          <span style="font-weight:600;color:${cfg.cor}">${cfg.label}</span>
-        `;
-        statusBadge.style.background = cfg.badge;
-        statusBadge.style.border = `1px solid ${cfg.borda}`;
-        statusBadge.style.borderRadius = "10px";
-        statusBadge.style.padding = "10px 14px";
-        statusBadge.style.display = "flex";
-        statusBadge.style.alignItems = "center";
-        statusBadge.style.gap = "10px";
-      }
-    }
-
-    // ========================
-    // CONFIRMAÇÃO ANTES DE SALVAR
-    // Aparece após o usuário clicar em "Salvar Marcação",
-    // perguntando se ele realmente deseja marcar aquele local.
-    // ========================
-    const modalConfirma  = document.getElementById("modal-confirma");
-    const confirmaCoords = document.getElementById("confirma-coords");
-    let _marcacaoPendente = null;
-
-    function abrirConfirmacao(marcacao, cfg) {
-      _marcacaoPendente = { marcacao, cfg };
-      confirmaCoords.textContent = `${cfg.icon} ${cfg.label} · Lat ${marcacao.lat.toFixed(5)}, Lng ${marcacao.lng.toFixed(5)}`;
-      modalConfirma.classList.add("ativo");
-    }
-
-    function fecharConfirmacao() {
-      modalConfirma.classList.remove("ativo");
-      _marcacaoPendente = null;
-    }
-
-    // "Sim" → salva no Firebase
-    document.getElementById("btn-confirma-sim").addEventListener("click", async () => {
-      if (!_marcacaoPendente) return;
-      const { marcacao, cfg } = _marcacaoPendente;
-      fecharConfirmacao();
-      fecharModal();
-
-      document.getElementById("salvar-texto").style.display = "none";
-      document.getElementById("salvar-spinner").style.display = "block";
-
-      try {
-        await marcacoesRef.push(marcacao);
-        mostrarToast(`✅ Marcação salva! ${cfg.icon} ${cfg.label}`);
-      } catch (err) {
-        mostrarToast("❌ Erro ao salvar. Verifique as credenciais do Firebase.");
-        console.error(err);
-      } finally {
-        document.getElementById("salvar-texto").style.display = "inline";
-        document.getElementById("salvar-spinner").style.display = "none";
-      }
-    });
-
-    // "Não" → volta pro modal (step 2 continua aberto)
-    document.getElementById("btn-confirma-nao").addEventListener("click", fecharConfirmacao);
-    modalConfirma.addEventListener("click", e => {
-      if (e.target === modalConfirma) fecharConfirmacao();
-    });
-
-    // Clique no mapa → abre o modal diretamente
-    map.on("click", e => {
-      abrirModal(e.latlng.lat, e.latlng.lng);
-    });
-
-    // Seleção de status no step 1
-    document.querySelectorAll(".btn-status").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".btn-status").forEach(b => b.classList.remove("selecionado"));
-        btn.classList.add("selecionado");
-        statusSelecionado = btn.dataset.status;
-
-        // Aguarda um beat para dar feedback visual e avança
-        setTimeout(() => irParaStep(2), 200);
-      });
-    });
-
-    document.getElementById("btn-cancelar").addEventListener("click", fecharModal);
-    document.getElementById("btn-voltar").addEventListener("click", () => {
-      step2.classList.add("slide-back");
-      irParaStep(1);
-    });
-
-    // ========================
-    // FIREBASE — LEITURA/ESCRITA
-    // ========================
-
-    // ID único da sessão do usuário — gerado uma vez e salvo no localStorage
-    // Usado para identificar os próprios pins e permitir remoção individual
-    const SESSION_ID = localStorage.getItem("motomap_session") || (() => {
-      const id = "s_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
-      localStorage.setItem("motomap_session", id);
-      return id;
-    })();
-
-    document.getElementById("btn-salvar").addEventListener("click", () => {
-      const corridas = parseInt(document.getElementById("input-corridas").value) || 0;
-      const horario  = document.getElementById("input-horario").value || horaAtual();
-
-      if (!statusSelecionado) { mostrarToast("⚠️ Selecione o status da região"); return; }
-
-      const cfg  = STATUS_CONFIG[statusSelecionado];
-      const peso = Math.min(cfg.base + corridas * 0.03, 1.0);
-
-      const marcacao = {
-        lat:            latSelecionada,
-        lng:            lngSelecionada,
-        status:         statusSelecionado,
-        corridas:       corridas,
-        horario_inicio: horario,
-        timestamp:      new Date().toISOString(),
-        peso:           peso,
-        session_id:     SESSION_ID
-      };
-
-      // Abre confirmação — o Firebase só é chamado se o usuário confirmar
-      abrirConfirmacao(marcacao, cfg);
-    });
-
-    // ========================
-    // HEATMAP — RENDERIZAÇÃO
-    // Escuta em tempo real via .on("value") — 100% gratuito
-    // ========================
-    marcacoesRef.on("value", snapshot => {
-      const data = snapshot.val();
-
-      heatLayer.setLatLngs([]);
-      markersLayer.clearLayers();
-
-      let total = 0, muito = 0, pouco = 0, parado = 0;
-      let ultima = null;
-      const heatPoints = [];
-
-      if (data) {
-        Object.entries(data).forEach(([key, m]) => {
-          total++;
-          if (m.status === "chamando_muito")      muito++;
-          else if (m.status === "chamando_pouco") pouco++;
-          else                                    parado++;
-
-          heatPoints.push([m.lat, m.lng, m.peso]);
-          adicionarPin(m, key);   // passa a key do Firebase para permitir remoção
-
-          if (!ultima || new Date(m.timestamp) > new Date(ultima)) ultima = m.timestamp;
-        });
-      }
-
-      heatLayer.setLatLngs(heatPoints);
-
-      // ========================
-      // PAINEL DE ESTATÍSTICAS
-      // ========================
-      document.getElementById("stat-total").textContent  = total;
-      document.getElementById("stat-muito").textContent  = muito;
-      document.getElementById("stat-pouco").textContent  = pouco;
-      document.getElementById("stat-parado").textContent = parado;
-
-      if (ultima) {
-        const d = new Date(ultima);
-        document.getElementById("stat-ultima").textContent =
-          `🕐 Última: ${d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}`;
-      }
-    });
-
-    function adicionarPin(m, key) {
-      const cfg     = STATUS_CONFIG[m.status];
-      const d       = new Date(m.timestamp);
-      const dataFmt = d.toLocaleDateString("pt-BR");
-      const horaFmt = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-      const isOwn   = m.session_id === SESSION_ID;
-
-      // Pins próprios têm borda branca destacada + brilho maior
-      const svgIcon = L.divIcon({
-        className: "",
-        html: `
-          <div style="
-            width:32px; height:32px;
-            background:${cfg.cor};
-            border-radius:50% 50% 50% 0;
-            transform:rotate(-45deg);
-            border:2px solid ${isOwn ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.3)"};
-            box-shadow:0 2px 12px ${cfg.cor}${isOwn ? "CC" : "66"};
-            display:flex;align-items:center;justify-content:center;
-          ">
-            <span style="transform:rotate(45deg);font-size:13px">${cfg.icon}</span>
-          </div>
-          ${isOwn ? `<div style="
-            position:absolute;top:-4px;right:-4px;
-            width:11px;height:11px;
-            background:#fff;border-radius:50%;
-            border:2px solid ${cfg.cor};
-            transform:rotate(45deg);
-          "></div>` : ""}`,
-        iconSize:   [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor:[0, -34]
-      });
-
-      const marker = L.marker([m.lat, m.lng], { icon: svgIcon });
-
-      // Popup: botão de remover só aparece nos próprios pins
-      const rodape = isOwn
-        ? `<button onclick="window.solicitarRemocao('${key}')" style="
-              margin-top:10px;width:100%;padding:8px 0;
-              background:rgba(255,23,68,0.1);
-              border:1px solid rgba(255,23,68,0.35);
-              border-radius:8px;color:#FF1744;
-              font-size:12px;font-weight:600;
-              cursor:pointer;font-family:inherit;
-              transition:background .15s;
-            "
-            onmouseover="this.style.background='rgba(255,23,68,0.22)'"
-            onmouseout="this.style.background='rgba(255,23,68,0.1)'"
-           >🗑️ Remover minha marcação</button>`
-        : `<div style="
-              margin-top:8px;padding:6px 10px;
-              background:rgba(139,155,180,0.08);
-              border-radius:8px;font-size:11px;
-              color:#8B9BB4;text-align:center;
-            ">🔒 Marcação de outro entregador</div>`;
-
-      marker.bindPopup(`
-        <strong>${cfg.icon} ${cfg.label}</strong>
-        🛵 Corridas: <b>${m.corridas}</b><br>
-        ⏰ Início: <b>${m.horario_inicio || "—"}</b><br>
-        📅 ${dataFmt} às ${horaFmt}
-        <br>${rodape}
-      `, { maxWidth: 250 });
-
-      markersLayer.addLayer(marker);
-    }
-
-    // ========================
-    // MODAL DE CONFIRMAÇÃO DE REMOÇÃO
-    // ========================
-    (function montarModalRemocao() {
-      const overlay = document.createElement("div");
-      overlay.id = "modal-remover";
-      overlay.style.cssText = `
-        position:fixed;inset:0;z-index:2000;
-        background:rgba(5,8,18,0.65);backdrop-filter:blur(6px);
-        display:flex;align-items:flex-end;justify-content:center;
-        padding-bottom:32px;opacity:0;pointer-events:none;
-        transition:opacity .25s ease;
-      `;
-
-      overlay.innerHTML = `
-        <div id="remover-card" style="
-          background:#111827;border:1px solid #2A3448;border-radius:20px;
-          width:100%;max-width:400px;margin:0 16px;padding:22px 20px 18px;
-          box-shadow:0 -8px 40px rgba(0,0,0,0.6);
-          transform:translateY(30px);
-          transition:transform .3s cubic-bezier(.34,1.4,.64,1);
-          display:flex;flex-direction:column;gap:14px;
-        ">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div style="
-              width:38px;height:38px;border-radius:50%;flex-shrink:0;
-              background:rgba(255,23,68,0.12);border:1px solid rgba(255,23,68,0.3);
-              display:flex;align-items:center;justify-content:center;font-size:18px;
-            ">🗑️</div>
-            <div>
-              <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#F1F5F9;">
-                Remover marcação?
-              </div>
-              <div style="font-size:12px;color:#8B9BB4;margin-top:2px;">
-                Esta ação não pode ser desfeita.
-              </div>
-            </div>
-          </div>
-          <div id="remover-info" style="
-            background:#1C2333;border:1px solid #2A3448;border-radius:8px;
-            padding:10px 12px;font-size:12px;color:#8B9BB4;
-          "></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <button id="remover-nao" style="
-              padding:13px;border-radius:10px;border:1px solid #2A3448;
-              background:#1C2333;color:#8B9BB4;font-family:'DM Sans',sans-serif;
-              font-size:14px;font-weight:600;cursor:pointer;
-            ">← Cancelar</button>
-            <button id="remover-sim" style="
-              padding:13px;border-radius:10px;border:none;
-              background:#FF1744;color:#fff;font-family:'DM Sans',sans-serif;
-              font-size:14px;font-weight:600;cursor:pointer;
-            ">🗑️ Remover</button>
-          </div>
-        </div>`;
-
-      document.body.appendChild(overlay);
-
-      let _keyPendente = null;
-
-      function abrir(key, infoHtml) {
-        _keyPendente = key;
-        document.getElementById("remover-info").innerHTML = infoHtml;
-        overlay.style.opacity = "1";
-        overlay.style.pointerEvents = "all";
-        document.getElementById("remover-card").style.transform = "translateY(0)";
-      }
-
-      function fechar() {
-        overlay.style.opacity = "0";
-        overlay.style.pointerEvents = "none";
-        document.getElementById("remover-card").style.transform = "translateY(30px)";
-        _keyPendente = null;
-      }
-
-      document.getElementById("remover-nao").addEventListener("click", fechar);
-      overlay.addEventListener("click", e => { if (e.target === overlay) fechar(); });
-
-      document.getElementById("remover-sim").addEventListener("click", async () => {
-        if (!_keyPendente) return;
-        const key = _keyPendente;
-        fechar();
-        try {
-          await db.ref("marcacoes/" + key).remove();
-          mostrarToast("✅ Marcação removida!");
-        } catch (err) {
-          mostrarToast("❌ Erro ao remover. Tente novamente.");
-          console.error(err);
-        }
-      });
-
-      // Expõe função global para o botão no popup do Leaflet
-      window.solicitarRemocao = (key) => {
-        // Fecha popup do mapa antes de abrir o modal
-        map.closePopup();
-        abrir(key, "📌 Você está prestes a remover um pin que <b style='color:#F1F5F9'>você adicionou</b>. Outros entregadores não poderão mais visualizá-lo.");
-      };
-    })();
-
-    // ========================
-    // LIMPEZA AUTOMÁTICA À MEIA-NOITE
-    // Calcula o tempo exato até 00:00 e agenda o remove().
-    // Reagenda automaticamente para a meia-noite seguinte
-    // após cada execução.
-    // ========================
-    function agendarLimpezaMeiaNoite() {
-      const agora     = new Date();
-      const meiaNoite = new Date(agora);
-      meiaNoite.setHours(24, 0, 0, 0);          // próxima meia-noite
-      const msAte     = meiaNoite - agora;       // milissegundos restantes
-
-      const hh = String(Math.floor(msAte / 3600000)).padStart(2,"0");
-      const mm = String(Math.floor((msAte % 3600000) / 60000)).padStart(2,"0");
-      console.log(`🕛 Limpeza automática agendada em ${hh}h${mm}m`);
-
-      setTimeout(async () => {
-        try {
-          await marcacoesRef.remove();
-          mostrarToast("🕛 Meia-noite! Mapa limpo automaticamente.");
-          console.log("✅ Limpeza automática executada:", new Date().toLocaleString("pt-BR"));
-        } catch (err) {
-          console.error("Erro na limpeza automática:", err);
-        }
-        // Reagenda para a próxima meia-noite
-        agendarLimpezaMeiaNoite();
-      }, msAte);
-    }
-
-    // Inicia o agendamento ao carregar a página
-    agendarLimpezaMeiaNoite();
-
-    // ========================
-    // BOTÃO MINHA LOCALIZAÇÃO
-    // Voa para a posição atual já rastreada
-    // ========================
-    document.getElementById("btn-localizacao").addEventListener("click", () => {
-      if (!("geolocation" in navigator)) {
-        mostrarToast("⚠️ Geolocalização não suportada neste navegador");
-        return;
-      }
-      mostrarToast("📍 Centralizando na sua posição...");
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          const { latitude: lat, longitude: lng, accuracy } = pos.coords;
-          map.flyTo([lat, lng], 16, { duration: 1.2 });
-          criarUserMarker(lat, lng);
-          precisaoBadge.classList.add("visivel");
-          precisaoTexto.textContent = `GPS ativo · ±${Math.round(accuracy)}m`;
-          mostrarToast("✅ Localização atualizada!");
-        },
-        () => mostrarToast("❌ Não foi possível obter a localização"),
-        { enableHighAccuracy: true, timeout: 8000 }
-      );
-    });
-
-    // ========================
-    // PAINEL — COLLAPSE
-    // Clique no header abre/fecha com animação suave
-    // ========================
-    document.getElementById("painel-header").addEventListener("click", () => {
-      document.getElementById("painel").classList.toggle("fechado");
-    });
-
-    // ========================
-    // UTILITÁRIOS
-    // ========================
+    iniciarWatch();
+
+    /* ================================================
+       ESTADO DA UI
+    ================================================ */
+    let statusSelecionado  = null;
+    let latSelecionada     = null;
+    let lngSelecionada     = null;
+    let marcacaoPendente   = null;
+
+    /* ================================================
+       MODAL PRINCIPAL (2 steps)
+    ================================================ */
     function horaAtual() {
       const d = new Date();
       return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
     }
 
-    function mostrarToast(msg) {
-      const t = document.getElementById("toast");
-      t.textContent = msg;
-      t.classList.add("visivel");
-      clearTimeout(t._timer);
-      t._timer = setTimeout(() => t.classList.remove("visivel"), 3000);
+    function abrirModal(lat, lng) {
+      latSelecionada = lat;
+      lngSelecionada = lng;
+      statusSelecionado = null;
+      document.querySelectorAll(".btn-status").forEach(b => b.classList.remove("selecionado"));
+      EL.inputCorridas.value = "";
+      EL.inputHorario.value  = horaAtual();
+      EL.coordDisp.textContent = `📍 ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+      irParaStep(1);
+      EL.overlay.classList.add("ativo");
+      criarRipple(lat, lng, "#FF6B2B");
     }
 
-    function criarRipple(lat, lng, cor) {
-      const ponto = map.latLngToContainerPoint([lat, lng]);
-      const div = document.createElement("div");
-      div.className = "ripple-marker";
-      div.style.cssText = `
-        position:fixed;
-        left:${ponto.x - 15}px;
-        top:${ponto.y - 15}px;
-        background:${cor};
-        z-index:500;
-      `;
-      document.body.appendChild(div);
-      div.addEventListener("animationend", () => div.remove());
+    function fecharModal() {
+      EL.overlay.classList.remove("ativo");
+      setTimeout(() => { irParaStep(1); statusSelecionado = null; }, 300);
     }
 
-    // ========================
-    // BUSCA POR BAIRRO — EXPAND BAR
-    // Botão redondo → expande em barra full-width
-    // Logo some enquanto a barra está aberta
-    // Nominatim (OSM) — 100% gratuito, sem API key
-    // ========================
+    function irParaStep(n) {
+      EL.step1.classList.toggle("ativo", n === 1);
+      EL.step1.classList.remove("slide-back");
+      EL.step2.classList.toggle("ativo", n === 2);
+      EL.step2.classList.remove("slide-back");
+      if (n === 2) {
+        const cfg = STATUS[statusSelecionado];
+        Object.assign(EL.statusBadge.style, {
+          background: cfg.badge, border: `1px solid ${cfg.borda}`,
+          borderRadius: "10px", padding: "10px 14px",
+          display: "flex", alignItems: "center", gap: "10px"
+        });
+        EL.statusBadge.innerHTML = `<span style="font-size:18px">${cfg.icon}</span><span style="font-weight:600;color:${cfg.cor}">${cfg.label}</span>`;
+      }
+    }
+
+    EL.overlay.addEventListener("click", e => { if (e.target === EL.overlay) fecharModal(); });
+    $("btn-cancelar").addEventListener("click", fecharModal);
+    $("btn-voltar").addEventListener("click",   () => { EL.step2.classList.add("slide-back"); irParaStep(1); });
+
+    document.querySelectorAll(".btn-status").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".btn-status").forEach(b => b.classList.remove("selecionado"));
+        btn.classList.add("selecionado");
+        statusSelecionado = btn.dataset.status;
+        setTimeout(() => irParaStep(2), 200);
+      });
+    });
+
+    map.on("click", e => abrirModal(e.latlng.lat, e.latlng.lng));
+
+    /* ================================================
+       CONFIRMAÇÃO ANTES DE SALVAR
+    ================================================ */
+    function abrirConfirmacao(marcacao, cfg) {
+      marcacaoPendente = { marcacao, cfg };
+      EL.confirmaCoords.textContent = `${cfg.icon} ${cfg.label} · Lat ${marcacao.lat.toFixed(5)}, Lng ${marcacao.lng.toFixed(5)}`;
+      EL.modalConfirma.classList.add("ativo");
+    }
+    function fecharConfirmacao() {
+      EL.modalConfirma.classList.remove("ativo");
+      marcacaoPendente = null;
+    }
+
+    EL.modalConfirma.addEventListener("click", e => { if (e.target === EL.modalConfirma) fecharConfirmacao(); });
+    $("btn-confirma-nao").addEventListener("click", fecharConfirmacao);
+    $("btn-confirma-sim").addEventListener("click", async () => {
+      if (!marcacaoPendente) return;
+      const { marcacao, cfg } = marcacaoPendente;
+      fecharConfirmacao();
+      fecharModal();
+      EL.salvarTexto.style.display   = "none";
+      EL.salvarSpinner.style.display = "block";
+      try {
+        await REF.push(marcacao);
+        mostrarToast(`✅ Salvo! ${cfg.icon} ${cfg.label}`);
+      } catch (e) {
+        mostrarToast("❌ Erro ao salvar. Verifique o Firebase.");
+        console.error(e);
+      } finally {
+        EL.salvarTexto.style.display   = "inline";
+        EL.salvarSpinner.style.display = "none";
+      }
+    });
+
+    $("btn-salvar").addEventListener("click", () => {
+      if (!statusSelecionado) { mostrarToast("⚠️ Selecione o status"); return; }
+      const corridas = parseInt(EL.inputCorridas.value) || 0;
+      const horario  = EL.inputHorario.value || horaAtual();
+      const cfg  = STATUS[statusSelecionado];
+      const peso = Math.min(cfg.base + corridas * 0.03, 1.0);
+      abrirConfirmacao({
+        lat: latSelecionada, lng: lngSelecionada,
+        status: statusSelecionado, corridas, horario_inicio: horario,
+        timestamp: new Date().toISOString(), peso, session_id: SESSION_ID
+      }, cfg);
+    });
+
+    /* ================================================
+       FIREBASE — RENDERIZAÇÃO COM THROTTLE
+       Aguarda 200ms após o último evento antes de
+       redesenhar, evitando múltiplos renders seguidos.
+    ================================================ */
+    let renderTimer = null;
+    let dadosCache  = null;
+
+    REF.on("value", snapshot => {
+      dadosCache = snapshot.val();
+      clearTimeout(renderTimer);
+      renderTimer = setTimeout(renderizarMapa, 200);
+    });
+
+    function renderizarMapa() {
+      const data = dadosCache;
+      markersLayer.clearLayers();
+      const heatPoints = [];
+      let total = 0, muito = 0, pouco = 0, parado = 0, ultima = null;
+
+      if (data) {
+        Object.entries(data).forEach(([key, m]) => {
+          if (!STATUS[m.status]) return; /* ignora dados corrompidos */
+          total++;
+          if      (m.status === "chamando_muito") muito++;
+          else if (m.status === "chamando_pouco") pouco++;
+          else                                    parado++;
+          heatPoints.push([m.lat, m.lng, m.peso]);
+          adicionarPin(m, key);
+          if (!ultima || m.timestamp > ultima) ultima = m.timestamp;
+        });
+      }
+
+      heatLayer.setLatLngs(heatPoints);
+      EL.statTotal.textContent  = total;
+      EL.statMuito.textContent  = muito;
+      EL.statPouco.textContent  = pouco;
+      EL.statParado.textContent = parado;
+      if (ultima) {
+        const d = new Date(ultima);
+        EL.statUltima.textContent = `🕐 Última: ${d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`;
+      }
+    }
+
+    function adicionarPin(m, key) {
+      const cfg   = STATUS[m.status];
+      const isOwn = m.session_id === SESSION_ID;
+      const d     = new Date(m.timestamp);
+      const dtFmt = d.toLocaleDateString("pt-BR");
+      const hrFmt = d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+
+      const rodape = isOwn
+        ? `<button onclick="window._removerPin('${key}')" style="margin-top:10px;width:100%;padding:8px 0;background:rgba(255,23,68,0.1);border:1px solid rgba(255,23,68,0.35);border-radius:8px;color:#FF1744;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">🗑️ Remover minha marcação</button>`
+        : `<div style="margin-top:8px;padding:6px 10px;background:rgba(139,155,180,0.08);border-radius:8px;font-size:11px;color:#8B9BB4;text-align:center;">🔒 Marcação de outro entregador</div>`;
+
+      L.marker([m.lat, m.lng], { icon: getIcon(m.status, isOwn) })
+        .bindPopup(`<strong>${cfg.icon} ${cfg.label}</strong>🛵 Corridas: <b>${m.corridas}</b><br>⏰ Início: <b>${m.horario_inicio||"—"}</b><br>📅 ${dtFmt} às ${hrFmt}<br>${rodape}`, { maxWidth: 250 })
+        .addTo(markersLayer);
+    }
+
+    /* ================================================
+       MODAL REMOÇÃO DE PIN
+    ================================================ */
+    (function() {
+      const el = document.createElement("div");
+      el.id = "modal-remover";
+      el.style.cssText = "position:fixed;inset:0;z-index:2000;background:rgba(5,8,18,0.65);backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:32px;opacity:0;pointer-events:none;transition:opacity .25s ease;";
+      el.innerHTML = `<div id="remover-card" style="background:#111827;border:1px solid #2A3448;border-radius:20px;width:100%;max-width:400px;margin:0 16px;padding:22px 20px 18px;box-shadow:0 -8px 40px rgba(0,0,0,0.6);transform:translateY(30px);transition:transform .3s cubic-bezier(.34,1.4,.64,1);display:flex;flex-direction:column;gap:14px;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(255,23,68,0.12);border:1px solid rgba(255,23,68,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;">🗑️</div><div><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#F1F5F9;">Remover marcação?</div><div style="font-size:12px;color:#8B9BB4;margin-top:2px;">Esta ação não pode ser desfeita.</div></div></div><div id="remover-info" style="background:#1C2333;border:1px solid #2A3448;border-radius:8px;padding:10px 12px;font-size:12px;color:#8B9BB4;"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><button id="remover-nao" style="padding:13px;border-radius:10px;border:1px solid #2A3448;background:#1C2333;color:#8B9BB4;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">← Cancelar</button><button id="remover-sim" style="padding:13px;border-radius:10px;border:none;background:#FF1744;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">🗑️ Remover</button></div></div>`;
+      document.body.appendChild(el);
+
+      const card = $("remover-card");
+      let keyPendente = null;
+
+      const abrir  = (key, info) => { keyPendente = key; $("remover-info").innerHTML = info; el.style.cssText += "opacity:1;pointer-events:all;"; card.style.transform = "translateY(0)"; };
+      const fechar = () => { el.style.opacity = "0"; el.style.pointerEvents = "none"; card.style.transform = "translateY(30px)"; keyPendente = null; };
+
+      $("remover-nao").addEventListener("click", fechar);
+      el.addEventListener("click", e => { if (e.target === el) fechar(); });
+      $("remover-sim").addEventListener("click", async () => {
+        if (!keyPendente) return;
+        const k = keyPendente;
+        fechar();
+        try {
+          await DB.ref("marcacoes/" + k).remove();
+          mostrarToast("✅ Marcação removida!");
+        } catch (e) {
+          mostrarToast("❌ Erro ao remover."); console.error(e);
+        }
+      });
+
+      window._removerPin = key => {
+        map.closePopup();
+        abrir(key, "📌 Você está prestes a remover um pin que <b style='color:#F1F5F9'>você adicionou</b>.");
+      };
+    })();
+
+    /* ================================================
+       LIMPEZA AUTOMÁTICA À MEIA-NOITE
+    ================================================ */
+    (function agendarLimpeza() {
+      const agora = new Date();
+      const meia  = new Date(agora); meia.setHours(24,0,0,0);
+      setTimeout(async () => {
+        try { await REF.remove(); mostrarToast("🕛 Meia-noite — mapa limpo!"); } catch(e) { console.error(e); }
+        agendarLimpeza();
+      }, meia - agora);
+    })();
+
+    /* ================================================
+       BOTÃO MINHA LOCALIZAÇÃO
+    ================================================ */
+    $("btn-localizacao").addEventListener("click", () => {
+      if (!("geolocation" in navigator)) { mostrarToast("⚠️ Geolocalização indisponível"); return; }
+      mostrarToast("📍 Obtendo posição...");
+      navigator.geolocation.getCurrentPosition(pos => {
+        const { latitude: lat, longitude: lng, accuracy } = pos.coords;
+        map.flyTo([lat, lng], 16, { duration: 1.2 });
+        atualizarUserMarker(lat, lng);
+        EL.precisaoBadge.classList.add("visivel");
+        EL.precisaoTexto.textContent = `GPS · ±${Math.round(accuracy)}m`;
+        mostrarToast("✅ Localização atualizada!");
+      }, () => mostrarToast("❌ Não foi possível obter localização"), { enableHighAccuracy: true, timeout: 8000 });
+    });
+
+    /* ================================================
+       PAINEL COLLAPSE
+    ================================================ */
+    $("painel-header").addEventListener("click", () => EL.painel.classList.toggle("fechado"));
+
+    /* ================================================
+       BUSCA POR BAIRRO
+    ================================================ */
     let bairroLayer = null;
+    let debuscaTimer = null;
 
-    const btnBusca         = document.getElementById("btn-busca");
-    const buscaBarra       = document.getElementById("busca-barra");
-    const buscaInput       = document.getElementById("busca-input");
-    const buscaFechar      = document.getElementById("busca-fechar");
-    const buscaResultados  = document.getElementById("busca-resultados");
-    const buscaResultadosWrap = document.getElementById("busca-resultados-wrap");
-    const buscaTagAtivo    = document.getElementById("busca-tag-ativo");
-    const buscaTagNome     = document.getElementById("busca-tag-nome");
-    const buscaTagFechar   = document.getElementById("busca-tag-fechar");
-    const logoEl           = document.getElementById("logo");
+    const geoCtx = { cidade: null, estado: null, pais: "BR", lat: null, lng: null, viewbox: null };
+
+    async function resolverGeoCtx(lat, lng) {
+      if (geoCtx.cidade) return;
+      geoCtx.lat = lat; geoCtx.lng = lng;
+      try {
+        const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1&accept-language=pt-BR`, { headers:{"Accept-Language":"pt-BR"} });
+        const d = await r.json();
+        const a = d.address || {};
+        geoCtx.cidade = a.city || a.town || a.village || a.county || null;
+        geoCtx.estado = a.state || null;
+        geoCtx.pais   = (a.country_code || "BR").toUpperCase();
+        if (d.boundingbox) {
+          const [minLat,maxLat,minLon,maxLon] = d.boundingbox;
+          geoCtx.viewbox = `${minLon},${maxLat},${maxLon},${minLat}`;
+        }
+      } catch(e) { console.warn("Reverse geo:", e); }
+    }
 
     function abrirBusca() {
-      buscaBarra.classList.add("aberta");
-      logoEl.classList.add("oculto");
-      btnBusca.style.opacity = "0";
-      btnBusca.style.pointerEvents = "none";
-      setTimeout(() => buscaInput.focus(), 200);
+      EL.buscaBarra.classList.add("aberta");
+      EL.logo.classList.add("oculto");
+      EL.btnBusca.style.opacity = "0";
+      EL.btnBusca.style.pointerEvents = "none";
+      if (geoCtx.cidade) EL.buscaInput.placeholder = `Bairros em ${geoCtx.cidade}...`;
+      setTimeout(() => EL.buscaInput.focus(), 200);
     }
-
     function fecharBusca() {
-      buscaBarra.classList.remove("aberta");
-      buscaResultadosWrap.classList.remove("visivel");
-      logoEl.classList.remove("oculto");
-      btnBusca.style.opacity = "1";
-      btnBusca.style.pointerEvents = "all";
-      buscaInput.value = "";
-      buscaResultados.innerHTML = "";
+      EL.buscaBarra.classList.remove("aberta");
+      EL.buscaResWrap.classList.remove("visivel");
+      EL.logo.classList.remove("oculto");
+      EL.btnBusca.style.opacity = "1";
+      EL.btnBusca.style.pointerEvents = "all";
+      EL.buscaInput.value = "";
+      EL.buscaRes.innerHTML = "";
     }
 
-    btnBusca.addEventListener("click", abrirBusca);
-    buscaFechar.addEventListener("click", fecharBusca);
+    EL.btnBusca.addEventListener("click", abrirBusca);
+    EL.buscaFechar.addEventListener("click", fecharBusca);
+    document.addEventListener("keydown", e => { if (e.key === "Escape") fecharBusca(); });
 
-    // Fecha ao pressionar Escape
-    document.addEventListener("keydown", e => {
-      if (e.key === "Escape") fecharBusca();
+    EL.buscaInput.addEventListener("input", () => {
+      clearTimeout(debuscaTimer);
+      const t = EL.buscaInput.value.trim();
+      if (!t) { EL.buscaResWrap.classList.remove("visivel"); EL.buscaRes.innerHTML = ""; return; }
+      debuscaTimer = setTimeout(() => buscar(t), 400);
+    });
+    EL.buscaInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") { clearTimeout(debuscaTimer); buscar(EL.buscaInput.value.trim()); }
     });
 
-    // Busca ao digitar (debounce 400ms)
-    let _debounce;
-    buscaInput.addEventListener("input", () => {
-      clearTimeout(_debounce);
-      const termo = buscaInput.value.trim();
-      if (!termo) {
-        buscaResultadosWrap.classList.remove("visivel");
-        buscaResultados.innerHTML = "";
-        return;
-      }
-      _debounce = setTimeout(() => executarBusca(termo), 400);
-    });
-
-    buscaInput.addEventListener("keydown", e => {
-      if (e.key === "Enter") {
-        clearTimeout(_debounce);
-        executarBusca(buscaInput.value.trim());
-      }
-    });
-
-    async function executarBusca(termo) {
+    async function buscar(termo) {
       if (!termo) return;
-      buscaResultados.innerHTML = `<div class="busca-status">🔍 Buscando...</div>`;
-      buscaResultadosWrap.classList.add("visivel");
-
+      EL.buscaRes.innerHTML = `<div class="busca-status">🔍 Buscando${geoCtx.cidade ? ` em ${geoCtx.cidade}` : ""}...</div>`;
+      EL.buscaResWrap.classList.add("visivel");
       try {
-        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(termo)}&format=json&addressdetails=1&limit=6&polygon_geojson=1&accept-language=pt-BR`;
-        const res  = await fetch(url, { headers: { "Accept-Language": "pt-BR" } });
-        const data = await res.json();
-
-        if (!data.length) {
-          buscaResultados.innerHTML = `<div class="busca-status">😕 Nenhum resultado encontrado</div>`;
-          return;
+        const q  = geoCtx.cidade ? `${termo}, ${geoCtx.cidade}${geoCtx.estado?", "+geoCtx.estado:""}` : termo;
+        const vb = geoCtx.viewbox ? `&viewbox=${geoCtx.viewbox}&bounded=1` : (geoCtx.lat ? `&viewbox=${geoCtx.lng-.5},${geoCtx.lat+.5},${geoCtx.lng+.5},${geoCtx.lat-.5}&bounded=1` : "");
+        const cc = `&countrycodes=${geoCtx.pais.toLowerCase()}`;
+        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&limit=8&polygon_geojson=1${vb}${cc}&accept-language=pt-BR`;
+        let data = await (await fetch(url,{headers:{"Accept-Language":"pt-BR"}})).json();
+        if (!data.length && geoCtx.cidade) {
+          data = await (await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(termo)}&format=json&addressdetails=1&limit=6&polygon_geojson=1${cc}&accept-language=pt-BR`,{headers:{"Accept-Language":"pt-BR"}})).json();
         }
+        if (!data.length) { EL.buscaRes.innerHTML = `<div class="busca-status">😕 Nenhum resultado</div>`; return; }
 
-        buscaResultados.innerHTML = "";
-        data.forEach(item => {
-          const nome    = item.name || item.display_name.split(",")[0];
-          const detalhe = item.display_name;
+        const pts = data.map(item => {
+          const a = item.address||{};
+          const cidade = (a.city||a.town||a.village||a.county||"").toLowerCase();
+          const estado = (a.state||"").toLowerCase();
+          let score = 0;
+          if (geoCtx.cidade && cidade.includes(geoCtx.cidade.toLowerCase())) score += 2;
+          if (geoCtx.estado && estado.includes(geoCtx.estado.toLowerCase()))  score += 1;
+          return { item, score };
+        }).sort((a,b) => b.score - a.score);
+
+        EL.buscaRes.innerHTML = "";
+        if (geoCtx.cidade) {
+          const h = document.createElement("div");
+          h.style.cssText = "font-size:11px;color:var(--muted);padding:4px 12px 8px;text-transform:uppercase;letter-spacing:0.07em;font-weight:600;";
+          h.textContent = `📍 Próximos a ${geoCtx.cidade}`;
+          EL.buscaRes.appendChild(h);
+        }
+        pts.forEach(({ item, score }) => {
+          const a = item.address||{};
+          const nome   = item.name || item.display_name.split(",")[0];
+          const detail = [a.city||a.town||a.village||a.county||"", a.state||""].filter(Boolean).join(", ") || item.display_name;
+          const badge  = score >= 2 ? `<span style="font-size:10px;padding:1px 6px;border-radius:50px;background:rgba(255,107,43,0.15);color:var(--accent);font-weight:600;margin-left:4px;">📍 Próximo</span>` : "";
           const div = document.createElement("div");
           div.className = "busca-item";
-          div.innerHTML = `
-            <span class="busca-item-nome">${nome}</span>
-            <span class="busca-item-detalhe">${detalhe}</span>`;
+          div.innerHTML = `<div style="display:flex;align-items:center;gap:4px;"><span class="busca-item-nome">${nome}</span>${badge}</div><span class="busca-item-detalhe">${detail}</span>`;
           div.addEventListener("click", () => selecionarLocal(item, nome));
-          buscaResultados.appendChild(div);
+          EL.buscaRes.appendChild(div);
         });
-
-      } catch (err) {
-        buscaResultados.innerHTML = `<div class="busca-status">❌ Erro na busca. Verifique sua conexão.</div>`;
-        console.error(err);
+      } catch(e) {
+        EL.buscaRes.innerHTML = `<div class="busca-status">❌ Erro na busca.</div>`;
+        console.error(e);
       }
     }
 
     function selecionarLocal(item, nome) {
-      // Remove polígono anterior
       if (bairroLayer) { map.removeLayer(bairroLayer); bairroLayer = null; }
-
       if (item.geojson) {
-        bairroLayer = L.geoJSON(item.geojson, {
-          style: {
-            color: "#FF6B2B", weight: 2.5, opacity: 0.9,
-            fillColor: "#FF6B2B", fillOpacity: 0.1, dashArray: "6 4"
-          }
-        }).addTo(map);
-        map.flyToBounds(bairroLayer.getBounds(), { padding: [50, 50], duration: 1.2 });
+        bairroLayer = L.geoJSON(item.geojson, { style:{ color:"#FF6B2B", weight:2.5, opacity:.9, fillColor:"#FF6B2B", fillOpacity:.1, dashArray:"6 4" } }).addTo(map);
+        map.flyToBounds(bairroLayer.getBounds(), { padding:[50,50], duration:1.2 });
       } else {
-        map.flyTo([parseFloat(item.lat), parseFloat(item.lon)], 15, { duration: 1.2 });
+        map.flyTo([+item.lat, +item.lon], 15, { duration:1.2 });
       }
-
-      // Mostra tag do bairro ativo
-      buscaTagNome.textContent = nome.length > 20 ? nome.slice(0, 20) + "…" : nome;
-      buscaTagAtivo.classList.add("visivel");
-
+      EL.buscaTagNome.textContent = nome.length > 20 ? nome.slice(0,20)+"…" : nome;
+      EL.buscaTagAtivo.classList.add("visivel");
       fecharBusca();
       mostrarToast(`📍 Mostrando: ${nome}`);
     }
 
-    // Remove bairro ao clicar no ✕ da tag
-    buscaTagFechar.addEventListener("click", () => {
+    EL.buscaTagFechar.addEventListener("click", () => {
       if (bairroLayer) { map.removeLayer(bairroLayer); bairroLayer = null; }
-      buscaTagAtivo.classList.remove("visivel");
+      EL.buscaTagAtivo.classList.remove("visivel");
     });
 
-    // Fechar modal ao clicar no overlay
-    overlay.addEventListener("click", e => {
-      if (e.target === overlay) fecharModal();
-    });
+    /* Dispara reverse geocode junto com o GPS */
+    geoPendentes.push(pos => resolverGeoCtx(pos.coords.latitude, pos.coords.longitude));
+    if (geoPronto) resolverGeoCtx(geoLat, geoLng);
 
+    /* ================================================
+       UTILITÁRIOS
+    ================================================ */
+    let toastTimer = null;
+    function mostrarToast(msg) {
+      EL.toast.textContent = msg;
+      EL.toast.classList.add("visivel");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => EL.toast.classList.remove("visivel"), 3000);
+    }
+
+    function criarRipple(lat, lng, cor) {
+      const p = map.latLngToContainerPoint([lat, lng]);
+      const d = document.createElement("div");
+      d.className = "ripple-marker";
+      d.style.cssText = `position:fixed;left:${p.x-15}px;top:${p.y-15}px;background:${cor};z-index:500;`;
+      document.body.appendChild(d);
+      d.addEventListener("animationend", () => d.remove(), { once: true });
+    }
+
+  })();
   </script>
 
 </body>
