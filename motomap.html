@@ -177,7 +177,7 @@
     .btn-confirma.nao:hover { color: var(--text); background: var(--border); }
 
     /* ========================
-       PAINEL DE ESTATÍSTICAS
+       PAINEL DE ESTATÍSTICAS — COLLAPSE
     ======================== */
     #painel {
       position: fixed;
@@ -188,22 +188,22 @@
       backdrop-filter: blur(16px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px 18px;
-      min-width: 210px;
+      min-width: 220px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      transition: all .3s ease;
+      overflow: hidden;
     }
 
-    #painel-toggle {
-      display: none;
-    }
-
+    /* Header — sempre visível, clicável */
     .painel-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      padding: 13px 16px;
+      cursor: pointer;
+      user-select: none;
+      gap: 10px;
     }
+    .painel-header:hover { background: rgba(255,255,255,0.03); }
 
     .painel-header h3 {
       font-family: var(--font-title);
@@ -212,20 +212,51 @@
       color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .painel-minimizar {
-      background: none;
-      border: none;
+    /* Seta animada */
+    .painel-chevron {
       color: var(--muted);
-      cursor: pointer;
-      font-size: 16px;
+      font-size: 12px;
+      transition: transform .3s ease;
       line-height: 1;
-      padding: 2px 4px;
-      border-radius: 4px;
-      transition: color .2s;
     }
-    .painel-minimizar:hover { color: var(--text); }
+    #painel.fechado .painel-chevron { transform: rotate(-90deg); }
+
+    /* Corpo colapsável */
+    .painel-collapse {
+      max-height: 300px;
+      overflow: hidden;
+      transition: max-height .35s cubic-bezier(.4,0,.2,1),
+                  opacity .3s ease,
+                  padding .3s ease;
+      opacity: 1;
+      padding: 0 16px 14px;
+    }
+    #painel.fechado .painel-collapse {
+      max-height: 0;
+      opacity: 0;
+      padding: 0 16px;
+    }
+
+    /* Divisor interno */
+    .painel-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 0;
+    }
+
+    .painel-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: var(--font-title);
+      margin-bottom: 2px;
+    }
 
     .painel-body { display: flex; flex-direction: column; gap: 8px; }
 
@@ -235,47 +266,23 @@
       align-items: center;
       font-size: 13px;
     }
-
     .stat-label { color: var(--muted); }
     .stat-val {
       font-weight: 600;
       color: var(--text);
       font-variant-numeric: tabular-nums;
     }
-    .stat-val.green { color: var(--green); }
+    .stat-val.green  { color: var(--green); }
     .stat-val.yellow { color: var(--yellow); }
-    .stat-val.red { color: var(--red); }
+    .stat-val.red    { color: var(--red); }
     .stat-val.accent { color: var(--accent); }
-
-    .painel-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 4px 0;
-    }
-
-    .painel-total {
-      display: flex;
-      justify-content: space-between;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: var(--font-title);
-    }
 
     .painel-ultima {
       font-size: 11px;
       color: var(--muted);
-      margin-top: 4px;
+      margin-top: 6px;
       text-align: right;
     }
-
-    /* minimizado */
-    #painel.minimizado .painel-body,
-    #painel.minimizado .painel-divider,
-    #painel.minimizado .painel-total,
-    #painel.minimizado .painel-ultima {
-      display: none;
-    }
-    #painel.minimizado { padding: 12px 14px; }
 
     /* ========================
        LOGO / TÍTULO
@@ -631,7 +638,7 @@
     ======================== */
     @media (max-width: 480px) {
       #logo span.titulo { font-size: 13px; }
-      #painel { top: auto; right: 12px; bottom: 90px; min-width: 180px; }
+      #painel { top: auto; right: 12px; bottom: 110px; min-width: 190px; }
       #btn-localizacao { bottom: 20px; right: 16px; }
       #modal-card { margin: 12px; padding: 22px 18px 18px; }
       .campos-row { grid-template-columns: 1fr; }
@@ -722,39 +729,42 @@
     }
 
     /* ========================
-       MARCADOR DE LOCALIZAÇÃO DO USUÁRIO
+       MARCADOR DE LOCALIZAÇÃO — MOTO
     ======================== */
-    .user-location-marker {
-      width: 20px;
-      height: 20px;
+    .user-moto-wrapper {
       position: relative;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .user-dot {
-      width: 14px;
-      height: 14px;
-      background: #4FC3F7;
-      border: 2.5px solid #fff;
-      border-radius: 50%;
-      box-shadow: 0 2px 8px rgba(79,195,247,0.6);
+    .user-moto-pulse {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .user-pulse {
-      width: 36px;
-      height: 36px;
-      background: rgba(79,195,247,0.2);
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation: user-pulse 2s ease-out infinite;
+      background: rgba(255, 107, 43, 0.2);
+      animation: moto-pulse 2s ease-out infinite;
     }
-    @keyframes user-pulse {
-      0%   { transform: translate(-50%,-50%) scale(0.5); opacity: 0.8; }
-      100% { transform: translate(-50%,-50%) scale(2);   opacity: 0; }
+    .user-moto-pulse2 {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 107, 43, 0.12);
+      animation: moto-pulse 2s ease-out infinite 0.6s;
+    }
+    .user-moto-bg {
+      position: relative;
+      font-size: 26px;
+      line-height: 1;
+      z-index: 2;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+    }
+    @keyframes moto-pulse {
+      0%   { transform: scale(0.5); opacity: 0.8; }
+      100% { transform: scale(2);   opacity: 0; }
     }
 
     /* Badge de precisão */
@@ -837,33 +847,35 @@
   </div>
 
   <!-- ========================
-       PAINEL DE ESTATÍSTICAS
+       PAINEL DE ESTATÍSTICAS — COLLAPSE
   ======================== -->
   <div id="painel">
-    <div class="painel-header">
+    <div class="painel-header" id="painel-header">
       <h3>📊 Estatísticas</h3>
-      <button class="painel-minimizar" id="btn-minimizar" title="Minimizar">−</button>
+      <span class="painel-chevron">▼</span>
     </div>
-    <div class="painel-total">
-      <span>Total</span>
-      <span class="stat-val accent" id="stat-total">0</span>
+    <div class="painel-collapse">
+      <div class="painel-total">
+        <span>Total</span>
+        <span class="stat-val accent" id="stat-total">0</span>
+      </div>
+      <div class="painel-divider"></div>
+      <div class="painel-body">
+        <div class="stat-row">
+          <span class="stat-label">🔥 Chamando Muito</span>
+          <span class="stat-val green" id="stat-muito">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">📦 Chamando Pouco</span>
+          <span class="stat-val yellow" id="stat-pouco">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">⛔ Parado</span>
+          <span class="stat-val red" id="stat-parado">0</span>
+        </div>
+      </div>
+      <div class="painel-ultima" id="stat-ultima">Sem marcações ainda</div>
     </div>
-    <div class="painel-divider"></div>
-    <div class="painel-body">
-      <div class="stat-row">
-        <span class="stat-label">🔥 Chamando Muito</span>
-        <span class="stat-val green" id="stat-muito">0</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">📦 Chamando Pouco</span>
-        <span class="stat-val yellow" id="stat-pouco">0</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">⛔ Parado</span>
-        <span class="stat-val red" id="stat-parado">0</span>
-      </div>
-    </div>
-    <div class="painel-ultima" id="stat-ultima">Sem marcações ainda</div>
   </div>
 
   <!-- ========================
@@ -1073,19 +1085,20 @@
     function criarUserMarker(lat, lng) {
       const icon = L.divIcon({
         className: "",
-        html: `<div class="user-location-marker">
-                 <div class="user-pulse"></div>
-                 <div class="user-dot"></div>
+        html: `<div class="user-moto-wrapper">
+                 <div class="user-moto-pulse"></div>
+                 <div class="user-moto-pulse2"></div>
+                 <div class="user-moto-bg">🛵</div>
                </div>`,
-        iconSize:   [36, 36],
-        iconAnchor: [18, 18],
-        popupAnchor:[0, -22]
+        iconSize:   [48, 48],
+        iconAnchor: [24, 24],
+        popupAnchor:[0, -28]
       });
       if (userMarker) {
         userMarker.setLatLng([lat, lng]);
       } else {
         userMarker = L.marker([lat, lng], { icon, zIndexOffset: 1000 })
-          .bindPopup("<strong>📍 Você está aqui</strong><br><small style='color:#8B9BB4'>Posição GPS em tempo real</small>")
+          .bindPopup("<strong>🛵 Você está aqui</strong><br><small style='color:#8B9BB4'>Posição GPS em tempo real</small>")
           .addTo(map);
       }
     }
@@ -1606,12 +1619,11 @@
     });
 
     // ========================
-    // PAINEL — MINIMIZAR
+    // PAINEL — COLLAPSE
+    // Clique no header abre/fecha com animação suave
     // ========================
-    const painel = document.getElementById("painel");
-    document.getElementById("btn-minimizar").addEventListener("click", () => {
-      const min = painel.classList.toggle("minimizado");
-      document.getElementById("btn-minimizar").textContent = min ? "+" : "−";
+    document.getElementById("painel-header").addEventListener("click", () => {
+      document.getElementById("painel").classList.toggle("fechado");
     });
 
     // ========================
