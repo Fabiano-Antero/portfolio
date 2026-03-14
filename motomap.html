@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🛵 MotoMap — Heatmap de Entregadores</title>
+
+  <!-- Leaflet.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Google Fonts: Syne + DM Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ========================
+       VARIÁVEIS E RESET
+    ======================== */
+    :root {
+      --bg:        #0A0E1A;
+      --surface:   #111827;
+      --surface2:  #1C2333;
+      --border:    #2A3448;
+      --accent:    #FF6B2B;
+      --accent-glow: rgba(255,107,43,0.35);
+      --text:      #F1F5F9;
+      --muted:     #8B9BB4;
+      --green:     #00E676;
+      --green-glow: rgba(0,230,118,0.3);
+      --yellow:    #FFD600;
+      --yellow-glow: rgba(255,214,0,0.3);
+      --red:       #FF1744;
+      --red-glow:  rgba(255,23,68,0.3);
+      --radius:    14px;
+      --font-title: 'Syne', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow: hidden;
+      height: 100dvh;
+    }
+
+    /* ========================
+       MAPA FULL-SCREEN
+    ======================== */
+    #map {
+      width: 100%;
+      height: 100dvh;
+      z-index: 1;
+      cursor: crosshair;
+    }
+
+    /* Tiles escuros via filter */
+    .leaflet-tile { filter: brightness(0.75) saturate(0.7) hue-rotate(195deg); }
+    .leaflet-container { background: var(--bg); }
+
+    /* ========================
+       BOTÕES FLUTUANTES
+    ======================== */
+    .fab {
+      position: fixed;
+      z-index: 900;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 16px;
+      border-radius: 50px;
+      backdrop-filter: blur(12px);
+      transition: all .2s ease;
+      letter-spacing: 0.01em;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .fab:active { transform: scale(0.95); }
+
+    #btn-localizacao {
+      bottom: 24px;
+      right: 24px;
+      background: var(--accent);
+      color: #fff;
+    }
+    #btn-localizacao:hover { background: #ff8452; box-shadow: 0 4px 24px var(--accent-glow); }
+
+    #btn-limpar {
+      bottom: 24px;
+      left: 24px;
+      background: var(--surface2);
+      color: var(--red);
+      border: 1px solid var(--border);
+    }
+    #btn-limpar:hover { background: rgba(255,23,68,0.12); border-color: var(--red); }
+
+    /* ========================
+       PAINEL DE ESTATÍSTICAS
+    ======================== */
+    #painel {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 900;
+      background: rgba(17,24,39,0.88);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      min-width: 210px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      transition: all .3s ease;
+    }
+
+    #painel-toggle {
+      display: none;
+    }
+
+    .painel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .painel-header h3 {
+      font-family: var(--font-title);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .painel-minimizar {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: color .2s;
+    }
+    .painel-minimizar:hover { color: var(--text); }
+
+    .painel-body { display: flex; flex-direction: column; gap: 8px; }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .stat-label { color: var(--muted); }
+    .stat-val {
+      font-weight: 600;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-val.green { color: var(--green); }
+    .stat-val.yellow { color: var(--yellow); }
+    .stat-val.red { color: var(--red); }
+    .stat-val.accent { color: var(--accent); }
+
+    .painel-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 4px 0;
+    }
+
+    .painel-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: var(--font-title);
+    }
+
+    .painel-ultima {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    /* minimizado */
+    #painel.minimizado .painel-body,
+    #painel.minimizado .painel-divider,
+    #painel.minimizado .painel-total,
+    #painel.minimizado .painel-ultima {
+      display: none;
+    }
+    #painel.minimizado { padding: 12px 14px; }
+
+    /* ========================
+       LOGO / TÍTULO
+    ======================== */
+    #logo {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 900;
+      background: rgba(17,24,39,0.88);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    #logo span.emoji { font-size: 20px; }
+    #logo span.titulo {
+      font-family: var(--font-title);
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    #logo span.titulo em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    /* ========================
+       OVERLAY DO MODAL
+    ======================== */
+    #modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(5,8,18,0.7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    #modal-overlay.ativo {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* ========================
+       CARD DO MODAL
+    ======================== */
+    #modal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 420px;
+      margin: 16px;
+      padding: 28px 24px 24px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+      transform: scale(0.93) translateY(16px);
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .25s ease;
+      opacity: 0;
+      overflow: hidden;
+    }
+    #modal-overlay.ativo #modal-card {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    /* ========================
+       STEPS DO MODAL
+    ======================== */
+    .step {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      animation: slideIn .3s ease;
+    }
+    .step.ativo { display: flex; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideBack {
+      from { opacity: 0; transform: translateX(-20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .step.slide-back { animation: slideBack .3s ease; }
+
+    /* Step indicator */
+    .step-indicator {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .step-dot {
+      height: 3px;
+      border-radius: 3px;
+      flex: 1;
+      background: var(--border);
+      transition: background .3s;
+    }
+    .step-dot.ativo { background: var(--accent); }
+
+    /* Título do modal */
+    .modal-titulo {
+      font-family: var(--font-title);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .modal-subtitulo {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* Coordenadas */
+    .coord-badge {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+    }
+
+    /* ========================
+       BOTÕES DE STATUS
+    ======================== */
+    .status-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-status {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1.5px solid transparent;
+      background: var(--surface2);
+      cursor: pointer;
+      transition: all .2s ease;
+      text-align: left;
+      min-height: 64px;
+    }
+
+    .btn-status .status-icon { font-size: 24px; flex-shrink: 0; }
+    .btn-status .status-info { display: flex; flex-direction: column; gap: 2px; }
+    .btn-status .status-nome {
+      font-family: var(--font-title);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .btn-status .status-desc {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .btn-status.verde { border-color: rgba(0,230,118,0.25); }
+    .btn-status.verde:hover,
+    .btn-status.verde.selecionado {
+      border-color: var(--green);
+      background: rgba(0,230,118,0.1);
+      box-shadow: 0 0 0 3px rgba(0,230,118,0.15);
+    }
+    .btn-status.verde.selecionado .status-nome { color: var(--green); }
+
+    .btn-status.amarelo { border-color: rgba(255,214,0,0.25); }
+    .btn-status.amarelo:hover,
+    .btn-status.amarelo.selecionado {
+      border-color: var(--yellow);
+      background: rgba(255,214,0,0.1);
+      box-shadow: 0 0 0 3px rgba(255,214,0,0.15);
+    }
+    .btn-status.amarelo.selecionado .status-nome { color: var(--yellow); }
+
+    .btn-status.vermelho { border-color: rgba(255,23,68,0.25); }
+    .btn-status.vermelho:hover,
+    .btn-status.vermelho.selecionado {
+      border-color: var(--red);
+      background: rgba(255,23,68,0.1);
+      box-shadow: 0 0 0 3px rgba(255,23,68,0.15);
+    }
+    .btn-status.vermelho.selecionado .status-nome { color: var(--red); }
+
+    /* ========================
+       INPUTS
+    ======================== */
+    .campo {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .campo label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .campo input {
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color .2s;
+      width: 100%;
+    }
+    .campo input:focus { border-color: var(--accent); }
+    .campo input[type=number]::-webkit-inner-spin-button { opacity: 0.4; }
+
+    .campos-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* Badge de status selecionado no step 2 */
+    #status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* ========================
+       BOTÕES DE AÇÃO DO MODAL
+    ======================== */
+    .modal-acoes {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-modal {
+      flex: 1;
+      padding: 13px;
+      border-radius: 10px;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-modal:active { transform: scale(0.97); }
+
+    .btn-modal.primario {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-modal.primario:hover { background: #ff8452; box-shadow: 0 4px 16px var(--accent-glow); }
+
+    .btn-modal.secundario {
+      background: var(--surface2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-modal.secundario:hover { color: var(--text); background: var(--border); }
+
+    /* ========================
+       LOADING SPINNER
+    ======================== */
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ========================
+       TOAST / NOTIFICAÇÃO
+    ======================== */
+    #toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      z-index: 2000;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: all .3s ease;
+      white-space: nowrap;
+    }
+    #toast.visivel {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ========================
+       POPUP LEAFLET CUSTOMIZADO
+    ======================== */
+    .leaflet-popup-content-wrapper {
+      background: var(--surface) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 12px !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
+      color: var(--text) !important;
+    }
+    .leaflet-popup-tip { background: var(--surface) !important; }
+    .leaflet-popup-content {
+      font-family: var(--font-body) !important;
+      font-size: 13px !important;
+      margin: 12px 14px !important;
+      line-height: 1.7 !important;
+      color: var(--text) !important;
+    }
+    .leaflet-popup-content strong {
+      font-family: var(--font-title);
+      font-size: 15px;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .leaflet-popup-close-button { color: var(--muted) !important; font-size: 18px !important; }
+
+    /* ========================
+       RESPONSIVO MOBILE
+    ======================== */
+    @media (max-width: 480px) {
+      #logo span.titulo { font-size: 13px; }
+      #painel { top: auto; right: 12px; bottom: 90px; min-width: 180px; }
+      #btn-localizacao { bottom: 20px; right: 16px; }
+      #btn-limpar { bottom: 20px; left: 16px; }
+      #modal-card { margin: 12px; padding: 22px 18px 18px; }
+      .campos-row { grid-template-columns: 1fr; }
+    }
+
+    /* ========================
+       TELA DE CARREGAMENTO
+    ======================== */
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      transition: opacity .5s ease, visibility .5s ease;
+    }
+    #loading-screen.oculto {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loading-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .loading-logo .emoji { font-size: 40px; animation: bounce 1s ease infinite alternate; }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-10px); }
+    }
+    .loading-logo .nome {
+      font-family: var(--font-title);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .loading-logo .nome em { font-style: normal; color: var(--accent); }
+    .loading-msg {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 500;
+      text-align: center;
+      max-width: 280px;
+      line-height: 1.6;
+    }
+    .loading-bar {
+      width: 180px;
+      height: 3px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .loading-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 3px;
+      width: 0%;
+      animation: load-progress 2s ease forwards;
+    }
+    @keyframes load-progress {
+      0%   { width: 0%; }
+      40%  { width: 60%; }
+      70%  { width: 75%; }
+      100% { width: 90%; }
+    }
+    .loading-permissao {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,107,43,0.1);
+      border: 1px solid rgba(255,107,43,0.3);
+      border-radius: 50px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      animation: pulse-border 2s ease infinite;
+    }
+    @keyframes pulse-border {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,43,0.3); }
+      50%       { box-shadow: 0 0 0 6px rgba(255,107,43,0); }
+    }
+
+    /* ========================
+       MARCADOR DE LOCALIZAÇÃO DO USUÁRIO
+    ======================== */
+    .user-location-marker {
+      width: 20px;
+      height: 20px;
+      position: relative;
+    }
+    .user-dot {
+      width: 14px;
+      height: 14px;
+      background: #4FC3F7;
+      border: 2.5px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(79,195,247,0.6);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .user-pulse {
+      width: 36px;
+      height: 36px;
+      background: rgba(79,195,247,0.2);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: user-pulse 2s ease-out infinite;
+    }
+    @keyframes user-pulse {
+      0%   { transform: translate(-50%,-50%) scale(0.5); opacity: 0.8; }
+      100% { transform: translate(-50%,-50%) scale(2);   opacity: 0; }
+    }
+
+    /* Badge de precisão */
+    #precisao-badge {
+      position: fixed;
+      bottom: 68px;
+      right: 24px;
+      z-index: 900;
+      background: rgba(17,24,39,0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 11px;
+      color: var(--muted);
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    #precisao-badge.visivel { display: flex; }
+    #precisao-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #4FC3F7;
+      animation: user-pulse 2s ease-out infinite;
+    }
+
+    /* ========================
+       RIPPLE NO MAPA
+    ======================== */
+    .ripple-marker {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      animation: ripple-anim 0.6s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes ripple-anim {
+      from { opacity: 0.8; transform: scale(0.2); }
+      to   { opacity: 0; transform: scale(2.5); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================
+       TELA DE CARREGAMENTO
+  ======================== -->
+  <div id="loading-screen">
+    <div class="loading-logo">
+      <span class="emoji">🛵</span>
+      <span class="nome">Moto<em>Map</em></span>
+    </div>
+    <div class="loading-permissao">
+      <span>📍</span> Identificando sua localização...
+    </div>
+    <div class="loading-msg" id="loading-msg">
+      Permita o acesso à sua localização para uma experiência completa
+    </div>
+    <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+  </div>
+
+  <!-- ========================
+       MAPA
+  ======================== -->
+  <div id="map"></div>
+
+  <!-- Badge de precisão GPS -->
+  <div id="precisao-badge">
+    <span class="dot"></span>
+    <span id="precisao-texto">GPS ativo</span>
+  </div>
+
+  <!-- ========================
+       LOGO
+  ======================== -->
+  <div id="logo">
+    <span class="emoji">🛵</span>
+    <span class="titulo">Moto<em>Map</em></span>
+  </div>
+
+  <!-- ========================
+       PAINEL DE ESTATÍSTICAS
+  ======================== -->
+  <div id="painel">
+    <div class="painel-header">
+      <h3>📊 Estatísticas</h3>
+      <button class="painel-minimizar" id="btn-minimizar" title="Minimizar">−</button>
+    </div>
+    <div class="painel-total">
+      <span>Total</span>
+      <span class="stat-val accent" id="stat-total">0</span>
+    </div>
+    <div class="painel-divider"></div>
+    <div class="painel-body">
+      <div class="stat-row">
+        <span class="stat-label">🔥 Chamando Muito</span>
+        <span class="stat-val green" id="stat-muito">0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">📦 Chamando Pouco</span>
+        <span class="stat-val yellow" id="stat-pouco">0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">⛔ Parado</span>
+        <span class="stat-val red" id="stat-parado">0</span>
+      </div>
+    </div>
+    <div class="painel-ultima" id="stat-ultima">Sem marcações ainda</div>
+  </div>
+
+  <!-- ========================
+       BOTÕES FLUTUANTES
+  ======================== -->
+  <button class="fab" id="btn-localizacao">📍 Minha Localização</button>
+  <button class="fab" id="btn-limpar">🗑️ Limpar Mapa</button>
+
+  <!-- ========================
+       MODAL OVERLAY
+  ======================== -->
+  <div id="modal-overlay">
+    <div id="modal-card">
+
+      <!-- STEP 1: Status da região -->
+      <div class="step ativo" id="step1">
+        <div class="step-indicator">
+          <div class="step-dot ativo"></div>
+          <div class="step-dot"></div>
+        </div>
+        <div>
+          <div class="modal-titulo">Como está o movimento aqui?</div>
+          <div class="modal-subtitulo">Selecione o status da região marcada</div>
+        </div>
+        <div class="coord-badge" id="coord-display">📍 Carregando coordenadas...</div>
+        <div class="status-grid">
+          <button class="btn-status verde" data-status="chamando_muito">
+            <span class="status-icon">🔥</span>
+            <div class="status-info">
+              <span class="status-nome">Chamando Muito</span>
+              <span class="status-desc">Região com alta demanda de pedidos</span>
+            </div>
+          </button>
+          <button class="btn-status amarelo" data-status="chamando_pouco">
+            <span class="status-icon">📦</span>
+            <div class="status-info">
+              <span class="status-nome">Chamando Pouco</span>
+              <span class="status-desc">Fluxo moderado de pedidos</span>
+            </div>
+          </button>
+          <button class="btn-status vermelho" data-status="parado">
+            <span class="status-icon">⛔</span>
+            <div class="status-info">
+              <span class="status-nome">Parado / Sem Pedidos</span>
+              <span class="status-desc">Região sem demanda no momento</span>
+            </div>
+          </button>
+        </div>
+        <div class="modal-acoes">
+          <button class="btn-modal secundario" id="btn-cancelar">✕ Cancelar</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Dados da sessão -->
+      <div class="step" id="step2">
+        <div class="step-indicator">
+          <div class="step-dot ativo"></div>
+          <div class="step-dot ativo"></div>
+        </div>
+        <div>
+          <div class="modal-titulo">Sua sessão de hoje</div>
+          <div class="modal-subtitulo">Preencha os dados para registrar o ponto</div>
+        </div>
+
+        <div id="status-badge"></div>
+
+        <div class="campos-row">
+          <div class="campo">
+            <label>🛵 Corridas feitas</label>
+            <input type="number" id="input-corridas" placeholder="Ex: 5" min="0" value="" />
+          </div>
+          <div class="campo">
+            <label>⏰ Horário de início</label>
+            <input type="time" id="input-horario" />
+          </div>
+        </div>
+
+        <div class="modal-acoes">
+          <button class="btn-modal secundario" id="btn-voltar">← Voltar</button>
+          <button class="btn-modal primario" id="btn-salvar">
+            <span id="salvar-texto">✔ Salvar Marcação</span>
+            <div class="spinner" id="salvar-spinner"></div>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <!-- Leaflet.js -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet.heat -->
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <!-- Firebase Compat SDK (não exige ES module — roda como script normal) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <script>
+    /* ─────────────────────────────────────────────
+       ATENÇÃO: substitua os valores abaixo pelas
+       credenciais do seu projeto no Firebase.
+       console.firebase.google.com →
+       Configurações do projeto → Seus apps → Web
+    ───────────────────────────────────────────── */
+
+    // ========================
+    // CONFIGURAÇÃO DO FIREBASE
+    // ⚠️ SUBSTITUA COM SUAS CREDENCIAIS
+    // Acesse: console.firebase.google.com
+    // Crie um projeto → Realtime Database → Regras:
+    // { "rules": { ".read": true, ".write": true } }
+    // ========================
+    const firebaseConfig = {
+      apiKey:            "AIzaSyDJIlHfko7314lbqrez226VtLAW2qKX0fY",
+      authDomain:        "motomap-6b303.firebaseapp.com",
+      databaseURL:       "https://motomap-6b303-default-rtdb.firebaseio.com",
+      projectId:         "motomap-6b303",
+      storageBucket:     "motomap-6b303.firebasestorage.app",
+      messagingSenderId: "811391057354",
+      appId:             "1:811391057354:web:c4287ee0c3cad5e088e333"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db           = firebase.database();
+    const marcacoesRef = db.ref("marcacoes");
+
+    // ========================
+    // GEOLOCALIZAÇÃO — dispara IMEDIATAMENTE
+    // antes de qualquer outra coisa, para que o
+    // browser mostre o popup de permissão sem delay.
+    // ========================
+    let _geoLatInicial = -23.5505;
+    let _geoLngInicial = -46.6333;
+    let _geoPronto     = false;
+    let _geoPendentes  = []; // callbacks aguardando posição
+
+    const loadingScreen = document.getElementById("loading-screen");
+    const loadingMsg    = document.getElementById("loading-msg");
+
+    function _onGeoSucesso(pos) {
+      _geoLatInicial = pos.coords.latitude;
+      _geoLngInicial = pos.coords.longitude;
+      _geoPronto     = true;
+      _geoPendentes.forEach(fn => fn(pos));
+      _geoPendentes  = [];
+    }
+    function _onGeoErro(err) {
+      loadingMsg.textContent = "Permissão de localização negada. Usando posição padrão.";
+      setTimeout(() => loadingScreen.classList.add("oculto"), 2200);
+      console.warn("Geo erro:", err.message);
+    }
+
+    if ("geolocation" in navigator) {
+      // Dispara AGORA — isso gera o popup de permissão no browser
+      navigator.geolocation.getCurrentPosition(_onGeoSucesso, _onGeoErro, {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 0
+      });
+    } else {
+      loadingMsg.textContent = "Geolocalização não disponível neste navegador.";
+      setTimeout(() => loadingScreen.classList.add("oculto"), 2000);
+    }
+
+    // ========================
+    // INICIALIZAÇÃO DO MAPA
+    // Começa em São Paulo como fallback; geolocalização
+    // automática substitui assim que o browser autorizar.
+    // ========================
+    const map = L.map("map", {
+      center: [_geoLatInicial, _geoLngInicial],
+      zoom: 13,
+      zoomControl: false
+    });
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap",
+      maxZoom: 19
+    }).addTo(map);
+
+    L.control.zoom({ position: "bottomright" }).addTo(map);
+
+    // ========================
+    // MARCADOR "VOCÊ ESTÁ AQUI" + RASTREAMENTO
+    // ========================
+    let userMarker  = null;
+    let primeiraVez = true;
+    const precisaoBadge = document.getElementById("precisao-badge");
+    const precisaoTexto = document.getElementById("precisao-texto");
+
+    function criarUserMarker(lat, lng) {
+      const icon = L.divIcon({
+        className: "",
+        html: `<div class="user-location-marker">
+                 <div class="user-pulse"></div>
+                 <div class="user-dot"></div>
+               </div>`,
+        iconSize:   [36, 36],
+        iconAnchor: [18, 18],
+        popupAnchor:[0, -22]
+      });
+      if (userMarker) {
+        userMarker.setLatLng([lat, lng]);
+      } else {
+        userMarker = L.marker([lat, lng], { icon, zIndexOffset: 1000 })
+          .bindPopup("<strong>📍 Você está aqui</strong><br><small style='color:#8B9BB4'>Posição GPS em tempo real</small>")
+          .addTo(map);
+      }
+    }
+
+    function aoReceberPosicao(pos) {
+      const { latitude: lat, longitude: lng, accuracy } = pos.coords;
+      criarUserMarker(lat, lng);
+      if (primeiraVez) {
+        map.flyTo([lat, lng], 15, { duration: 1.4 });
+        primeiraVez = false;
+      }
+      precisaoBadge.classList.add("visivel");
+      precisaoTexto.textContent = `GPS ativo · ±${Math.round(accuracy)}m`;
+      loadingScreen.classList.add("oculto");
+    }
+
+    // Se a permissão já foi concedida antes do mapa carregar, aplica imediatamente
+    if (_geoPronto) {
+      aoReceberPosicao({ coords: { latitude: _geoLatInicial, longitude: _geoLngInicial, accuracy: 50 } });
+    } else {
+      // Registra callback para quando a permissão chegar
+      _geoPendentes.push(aoReceberPosicao);
+    }
+
+    // Rastreamento contínuo (watchPosition) — atualiza marcador conforme o motoboy se move
+    if ("geolocation" in navigator) {
+      navigator.geolocation.watchPosition(aoReceberPosicao, err => {
+        console.warn("Watch geo:", err.message);
+      }, { enableHighAccuracy: true, maximumAge: 5000 });
+    }
+
+    // Camada de heatmap
+    let heatLayer = L.heatLayer([], {
+      radius: 30,
+      blur: 20,
+      maxZoom: 17,
+      gradient: {
+        0.1: "#3B82F6",
+        0.4: "#FCD34D",
+        0.7: "#F97316",
+        1.0: "#EF4444"
+      }
+    }).addTo(map);
+
+    // Grupo de marcadores (pins)
+    const markersLayer = L.layerGroup().addTo(map);
+
+    // ========================
+    // ESTADO DA APLICAÇÃO
+    // ========================
+    let statusSelecionado = null;
+    let latSelecionada    = null;
+    let lngSelecionada    = null;
+
+    const STATUS_CONFIG = {
+      chamando_muito: {
+        label: "Chamando Muito",
+        icon:  "🔥",
+        cor:   "#00E676",
+        base:  0.85,
+        badge: "rgba(0,230,118,0.15)",
+        borda: "rgba(0,230,118,0.5)"
+      },
+      chamando_pouco: {
+        label: "Chamando Pouco",
+        icon:  "📦",
+        cor:   "#FFD600",
+        base:  0.45,
+        badge: "rgba(255,214,0,0.15)",
+        borda: "rgba(255,214,0,0.5)"
+      },
+      parado: {
+        label: "Parado / Sem Pedidos",
+        icon:  "⛔",
+        cor:   "#FF1744",
+        base:  0.10,
+        badge: "rgba(255,23,68,0.15)",
+        borda: "rgba(255,23,68,0.5)"
+      }
+    };
+
+    // ========================
+    // CONTROLE DO MODAL
+    // ========================
+    const overlay   = document.getElementById("modal-overlay");
+    const step1     = document.getElementById("step1");
+    const step2     = document.getElementById("step2");
+    const coordDisp = document.getElementById("coord-display");
+    const statusBadge = document.getElementById("status-badge");
+
+    function abrirModal(lat, lng) {
+      latSelecionada = lat;
+      lngSelecionada = lng;
+      statusSelecionado = null;
+
+      // Reset visual
+      document.querySelectorAll(".btn-status").forEach(b => b.classList.remove("selecionado"));
+      document.getElementById("input-corridas").value = "";
+      document.getElementById("input-horario").value = horaAtual();
+
+      // Exibe coordenadas
+      coordDisp.textContent = `📍 ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+
+      // Vai pro step 1
+      irParaStep(1);
+      overlay.classList.add("ativo");
+
+      // Ripple visual no mapa
+      criarRipple(lat, lng, "#FF6B2B");
+    }
+
+    function fecharModal() {
+      overlay.classList.remove("ativo");
+      setTimeout(() => {
+        irParaStep(1);
+        statusSelecionado = null;
+      }, 300);
+    }
+
+    function irParaStep(num) {
+      step1.classList.remove("ativo", "slide-back");
+      step2.classList.remove("ativo", "slide-back");
+
+      if (num === 1) {
+        step1.classList.add("ativo");
+      } else {
+        step2.classList.add("ativo");
+
+        // Atualiza badge de status
+        const cfg = STATUS_CONFIG[statusSelecionado];
+        statusBadge.innerHTML = `
+          <span style="font-size:18px">${cfg.icon}</span>
+          <span style="font-weight:600;color:${cfg.cor}">${cfg.label}</span>
+        `;
+        statusBadge.style.background = cfg.badge;
+        statusBadge.style.border = `1px solid ${cfg.borda}`;
+        statusBadge.style.borderRadius = "10px";
+        statusBadge.style.padding = "10px 14px";
+        statusBadge.style.display = "flex";
+        statusBadge.style.alignItems = "center";
+        statusBadge.style.gap = "10px";
+      }
+    }
+
+    // Clique no mapa → abre modal
+    map.on("click", e => {
+      abrirModal(e.latlng.lat, e.latlng.lng);
+    });
+
+    // Seleção de status no step 1
+    document.querySelectorAll(".btn-status").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".btn-status").forEach(b => b.classList.remove("selecionado"));
+        btn.classList.add("selecionado");
+        statusSelecionado = btn.dataset.status;
+
+        // Aguarda um beat para dar feedback visual e avança
+        setTimeout(() => irParaStep(2), 200);
+      });
+    });
+
+    document.getElementById("btn-cancelar").addEventListener("click", fecharModal);
+    document.getElementById("btn-voltar").addEventListener("click", () => {
+      step2.classList.add("slide-back");
+      irParaStep(1);
+    });
+
+    // ========================
+    // FIREBASE — LEITURA/ESCRITA
+    // ========================
+
+    // ID único da sessão do usuário — gerado uma vez e salvo no localStorage
+    // Usado para identificar os próprios pins e permitir remoção individual
+    const SESSION_ID = localStorage.getItem("motomap_session") || (() => {
+      const id = "s_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
+      localStorage.setItem("motomap_session", id);
+      return id;
+    })();
+
+    document.getElementById("btn-salvar").addEventListener("click", async () => {
+      const corridas = parseInt(document.getElementById("input-corridas").value) || 0;
+      const horario  = document.getElementById("input-horario").value || horaAtual();
+
+      if (!statusSelecionado) { mostrarToast("⚠️ Selecione o status da região"); return; }
+
+      const cfg  = STATUS_CONFIG[statusSelecionado];
+      const peso = Math.min(cfg.base + corridas * 0.03, 1.0);
+
+      const marcacao = {
+        lat:            latSelecionada,
+        lng:            lngSelecionada,
+        status:         statusSelecionado,
+        corridas:       corridas,
+        horario_inicio: horario,
+        timestamp:      new Date().toISOString(),
+        peso:           peso,
+        session_id:     SESSION_ID   // identifica o dono do pin
+      };
+
+      document.getElementById("salvar-texto").style.display = "none";
+      document.getElementById("salvar-spinner").style.display = "block";
+
+      try {
+        await marcacoesRef.push(marcacao);
+        fecharModal();
+        mostrarToast(`✅ Marcação salva! ${cfg.icon} ${cfg.label}`);
+      } catch (err) {
+        mostrarToast("❌ Erro ao salvar. Verifique as credenciais do Firebase.");
+        console.error(err);
+      } finally {
+        document.getElementById("salvar-texto").style.display = "inline";
+        document.getElementById("salvar-spinner").style.display = "none";
+      }
+    });
+
+    // ========================
+    // HEATMAP — RENDERIZAÇÃO
+    // Escuta em tempo real via .on("value") — 100% gratuito
+    // ========================
+    marcacoesRef.on("value", snapshot => {
+      const data = snapshot.val();
+
+      heatLayer.setLatLngs([]);
+      markersLayer.clearLayers();
+
+      let total = 0, muito = 0, pouco = 0, parado = 0;
+      let ultima = null;
+      const heatPoints = [];
+
+      if (data) {
+        Object.entries(data).forEach(([key, m]) => {
+          total++;
+          if (m.status === "chamando_muito")      muito++;
+          else if (m.status === "chamando_pouco") pouco++;
+          else                                    parado++;
+
+          heatPoints.push([m.lat, m.lng, m.peso]);
+          adicionarPin(m, key);   // passa a key do Firebase para permitir remoção
+
+          if (!ultima || new Date(m.timestamp) > new Date(ultima)) ultima = m.timestamp;
+        });
+      }
+
+      heatLayer.setLatLngs(heatPoints);
+
+      // ========================
+      // PAINEL DE ESTATÍSTICAS
+      // ========================
+      document.getElementById("stat-total").textContent  = total;
+      document.getElementById("stat-muito").textContent  = muito;
+      document.getElementById("stat-pouco").textContent  = pouco;
+      document.getElementById("stat-parado").textContent = parado;
+
+      if (ultima) {
+        const d = new Date(ultima);
+        document.getElementById("stat-ultima").textContent =
+          `🕐 Última: ${d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}`;
+      }
+    });
+
+    function adicionarPin(m, key) {
+      const cfg     = STATUS_CONFIG[m.status];
+      const d       = new Date(m.timestamp);
+      const dataFmt = d.toLocaleDateString("pt-BR");
+      const horaFmt = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+      const isOwn   = m.session_id === SESSION_ID;
+
+      const svgIcon = L.divIcon({
+        className: "",
+        html: `
+          <div style="
+            width:32px; height:32px;
+            background:${cfg.cor};
+            border-radius:50% 50% 50% 0;
+            transform:rotate(-45deg);
+            border:2px solid ${isOwn ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.3)"};
+            box-shadow:0 2px 12px ${cfg.cor}${isOwn ? "CC" : "66"};
+            display:flex;align-items:center;justify-content:center;
+          ">
+            <span style="transform:rotate(45deg);font-size:13px">${cfg.icon}</span>
+          </div>`,
+        iconSize:   [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor:[0, -34]
+      });
+
+      const marker = L.marker([m.lat, m.lng], { icon: svgIcon });
+
+      // Popup com botão de remover apenas para os próprios pins
+      const btnRemover = isOwn
+        ? `<br><button onclick="removerPin('${key}')" style="
+              margin-top:8px;
+              width:100%;
+              padding:7px 0;
+              background:rgba(255,23,68,0.12);
+              border:1px solid rgba(255,23,68,0.4);
+              border-radius:7px;
+              color:#FF1744;
+              font-size:12px;
+              font-weight:600;
+              cursor:pointer;
+              font-family:inherit;
+            ">🗑️ Remover minha marcação</button>`
+        : `<br><span style="font-size:11px;color:#8B9BB4">📌 Marcação de outro entregador</span>`;
+
+      marker.bindPopup(`
+        <strong>${cfg.icon} ${cfg.label}</strong>
+        🛵 Corridas: <b>${m.corridas}</b><br>
+        ⏰ Início: <b>${m.horario_inicio || "—"}</b><br>
+        📅 ${dataFmt} às ${horaFmt}
+        ${btnRemover}
+      `, { maxWidth: 240 });
+
+      markersLayer.addLayer(marker);
+    }
+
+    // Função global chamada pelo botão dentro do popup
+    window.removerPin = async (key) => {
+      const ok = confirm("Remover esta marcação?");
+      if (!ok) return;
+      try {
+        await db.ref("marcacoes/" + key).remove();
+        mostrarToast("✅ Marcação removida!");
+      } catch (err) {
+        mostrarToast("❌ Erro ao remover. Tente novamente.");
+        console.error(err);
+      }
+    };
+
+    // ========================
+    // BOTÃO LIMPAR MAPA
+    // ========================
+    document.getElementById("btn-limpar").addEventListener("click", async () => {
+      const ok = confirm("🗑️ Apagar todas as marcações?\n\nEsta ação não pode ser desfeita.");
+      if (!ok) return;
+      try {
+        await marcacoesRef.remove();
+        mostrarToast("🗑️ Mapa limpo com sucesso!");
+      } catch (err) {
+        mostrarToast("❌ Erro ao limpar. Verifique as permissões do Firebase.");
+        console.error(err);
+      }
+    });
+
+    // ========================
+    // LIMPEZA AUTOMÁTICA À MEIA-NOITE
+    // Calcula o tempo exato até 00:00 e agenda o remove().
+    // Reagenda automaticamente para a meia-noite seguinte
+    // após cada execução.
+    // ========================
+    function agendarLimpezaMeiaNoite() {
+      const agora     = new Date();
+      const meiaNoite = new Date(agora);
+      meiaNoite.setHours(24, 0, 0, 0);          // próxima meia-noite
+      const msAte     = meiaNoite - agora;       // milissegundos restantes
+
+      const hh = String(Math.floor(msAte / 3600000)).padStart(2,"0");
+      const mm = String(Math.floor((msAte % 3600000) / 60000)).padStart(2,"0");
+      console.log(`🕛 Limpeza automática agendada em ${hh}h${mm}m`);
+
+      setTimeout(async () => {
+        try {
+          await marcacoesRef.remove();
+          mostrarToast("🕛 Meia-noite! Mapa limpo automaticamente.");
+          console.log("✅ Limpeza automática executada:", new Date().toLocaleString("pt-BR"));
+        } catch (err) {
+          console.error("Erro na limpeza automática:", err);
+        }
+        // Reagenda para a próxima meia-noite
+        agendarLimpezaMeiaNoite();
+      }, msAte);
+    }
+
+    // Inicia o agendamento ao carregar a página
+    agendarLimpezaMeiaNoite();
+
+    // ========================
+    // BOTÃO MINHA LOCALIZAÇÃO
+    // Voa para a posição atual já rastreada
+    // ========================
+    document.getElementById("btn-localizacao").addEventListener("click", () => {
+      if (!("geolocation" in navigator)) {
+        mostrarToast("⚠️ Geolocalização não suportada neste navegador");
+        return;
+      }
+      mostrarToast("📍 Centralizando na sua posição...");
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          const { latitude: lat, longitude: lng, accuracy } = pos.coords;
+          map.flyTo([lat, lng], 16, { duration: 1.2 });
+          criarUserMarker(lat, lng);
+          precisaoBadge.classList.add("visivel");
+          precisaoTexto.textContent = `GPS ativo · ±${Math.round(accuracy)}m`;
+          mostrarToast("✅ Localização atualizada!");
+        },
+        () => mostrarToast("❌ Não foi possível obter a localização"),
+        { enableHighAccuracy: true, timeout: 8000 }
+      );
+    });
+
+    // ========================
+    // PAINEL — MINIMIZAR
+    // ========================
+    const painel = document.getElementById("painel");
+    document.getElementById("btn-minimizar").addEventListener("click", () => {
+      const min = painel.classList.toggle("minimizado");
+      document.getElementById("btn-minimizar").textContent = min ? "+" : "−";
+    });
+
+    // ========================
+    // UTILITÁRIOS
+    // ========================
+    function horaAtual() {
+      const d = new Date();
+      return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+    }
+
+    function mostrarToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("visivel");
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove("visivel"), 3000);
+    }
+
+    function criarRipple(lat, lng, cor) {
+      const ponto = map.latLngToContainerPoint([lat, lng]);
+      const div = document.createElement("div");
+      div.className = "ripple-marker";
+      div.style.cssText = `
+        position:fixed;
+        left:${ponto.x - 15}px;
+        top:${ponto.y - 15}px;
+        background:${cor};
+        z-index:500;
+      `;
+      document.body.appendChild(div);
+      div.addEventListener("animationend", () => div.remove());
+    }
+
+    // Fechar modal ao clicar no overlay
+    overlay.addEventListener("click", e => {
+      if (e.target === overlay) fecharModal();
+    });
+
+  </script>
+
+</body>
+</html>
