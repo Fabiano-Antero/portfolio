@@ -62,9 +62,25 @@
     /* ========================
        BOTÕES FLUTUANTES
     ======================== */
-    .fab {
+    .bottom-floating-bar {
       position: fixed;
+      left: 24px;
+      right: 49px;
+      bottom: 24px;
       z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      pointer-events: none;
+    }
+    .bottom-floating-bar > * {
+      pointer-events: auto;
+    }
+
+    .fab {
+      position: static;
+      z-index: 1;
       border: none;
       cursor: pointer;
       font-family: var(--font-body);
@@ -79,14 +95,14 @@
       transition: all .2s ease;
       letter-spacing: 0.01em;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      flex-shrink: 0;
     }
     .fab:active { transform: scale(0.95); }
 
     #btn-localizacao {
-      bottom: 24px;
-      right: 49px;
       background: var(--accent);
       color: #fff;
+      margin-left: auto;
     }
     #btn-localizacao:hover { background: #ff8452; box-shadow: 0 4px 24px var(--accent-glow); }
 
@@ -97,84 +113,63 @@
       position: fixed;
       inset: 0;
       z-index: 1100;
-      background: rgba(5,8,18,0.65);
-      backdrop-filter: blur(6px);
+      background: rgba(5,8,18,0.75);
+      backdrop-filter: blur(8px);
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
       transition: opacity .25s ease;
-      padding-bottom: 32px;
+      padding: 16px;
     }
     #modal-confirma.ativo {
       opacity: 1;
       pointer-events: all;
     }
     #confirma-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #111827;
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 20px;
       width: 100%;
       max-width: 400px;
-      margin: 0 16px;
-      padding: 22px 20px 18px;
-      box-shadow: 0 -8px 40px rgba(0,0,0,0.6);
-      transform: translateY(30px);
-      transition: transform .3s cubic-bezier(.34,1.4,.64,1);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+      margin: 16px;
+      padding: 0;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+      transform: scale(0.93) translateY(16px);
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .25s ease;
+      opacity: 0;
+      overflow: hidden;
     }
     #modal-confirma.ativo #confirma-card {
-      transform: translateY(0);
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+    .confirma-head {
+      padding-bottom: 18px;
     }
     .confirma-titulo {
-      font-family: var(--font-title);
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .confirma-titulo-ico {
+      font-size: 18px;
+      line-height: 1;
+    }
+    .confirma-body {
+      gap: 12px;
     }
     .confirma-coords {
-      font-size: 12px;
-      color: var(--muted);
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 12px;
       font-variant-numeric: tabular-nums;
     }
     .confirma-acoes {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
     }
-    .btn-confirma {
-      padding: 13px;
-      border-radius: 10px;
-      border: none;
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all .2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+    .confirma-acoes .btn-modal {
+      flex: 1;
     }
-    .btn-confirma:active { transform: scale(0.96); }
-    .btn-confirma.sim {
-      background: var(--accent);
-      color: #fff;
-    }
-    .btn-confirma.sim:hover { background: #ff8452; box-shadow: 0 4px 16px var(--accent-glow); }
-    .btn-confirma.nao {
-      background: var(--surface2);
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-    .btn-confirma.nao:hover { color: var(--text); background: var(--border); }
 
     /* ========================
        PAINEL DE ESTATÍSTICAS — COLLAPSE
@@ -703,7 +698,7 @@
     @media (max-width: 480px) {
       #logo span.titulo { font-size: 13px; }
       #painel { top: auto; right: 12px; bottom: 110px; min-width: 190px; }
-      #btn-localizacao { bottom: 20px; right: 49px; }
+      .bottom-floating-bar { left: 12px; right: 12px; bottom: 20px; }
       #modal-card { margin: 12px; padding: 22px 18px 18px; }
       .campos-row { grid-template-columns: 1fr; }
       #confirma-card { margin: 0 10px; padding: 18px 16px 14px; }
@@ -834,10 +829,8 @@
 
     /* Badge de precisão */
     #precisao-badge {
-      position: fixed;
-      bottom: 68px;
-      right: 49px;
-      z-index: 900;
+      position: static;
+      z-index: 1;
       background: rgba(17,24,39,0.88);
       backdrop-filter: blur(12px);
       border: 1px solid var(--border);
@@ -848,6 +841,8 @@
       display: none;
       align-items: center;
       gap: 6px;
+      flex-shrink: 0;
+      min-height: 38px;
     }
     #precisao-badge.visivel { display: flex; }
     #precisao-badge .dot {
@@ -1112,6 +1107,242 @@
       from { opacity: 0.8; transform: scale(0.2); }
       to   { opacity: 0; transform: scale(2.5); }
     }
+  
+
+    .busca-barra-icone { flex-shrink: 0; }
+
+    .status-svg.verde { color: var(--green); }
+    .status-svg.amarelo { color: var(--yellow); }
+    .status-svg.vermelho { color: var(--red); }
+
+    #status-badge.verde {
+      background: #1E4A2E;
+      box-shadow: 0 0 0 2px rgba(0,230,118,0.18);
+    }
+    #status-badge.amarelo {
+      background: #3D3A1A;
+      box-shadow: 0 0 0 2px rgba(255,214,0,0.18);
+    }
+    #status-badge.vermelho {
+      background: #4A1A1A;
+      box-shadow: 0 0 0 2px rgba(255,23,68,0.18);
+    }
+
+    #btn-busca.oculto {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #btn-salvar.carregando #salvar-texto { display: none; }
+    #btn-salvar.carregando .spinner { display: block; }
+
+    .popup-meta-text {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .popup-pin-remove-btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 8px 0;
+      background: rgba(255,23,68,0.1);
+      border: 1px solid rgba(255,23,68,0.35);
+      border-radius: 8px;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .popup-pin-other-note {
+      margin-top: 8px;
+      padding: 6px 10px;
+      background: rgba(139,155,180,0.08);
+      border-radius: 8px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    #modal-remover {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(5,8,18,0.65);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    #modal-remover.ativo {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #remover-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 16px;
+      padding: 22px 20px 18px;
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.6);
+      transform: translateY(30px);
+      transition: transform .3s cubic-bezier(.34,1.4,.64,1);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #modal-remover.ativo #remover-card { transform: translateY(0); }
+    .remover-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .remover-icon-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,23,68,0.12);
+      border: 1px solid rgba(255,23,68,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .remover-title {
+      font-family: var(--font-title);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .remover-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .remover-info {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .remover-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .btn-remover {
+      padding: 13px;
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .btn-remover.secundario {
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--muted);
+    }
+    .btn-remover.secundario:hover {
+      background: var(--border);
+      color: var(--text);
+    }
+    .btn-remover.primario {
+      border: none;
+      background: var(--red);
+      color: #fff;
+    }
+    .btn-remover.primario:hover {
+      box-shadow: 0 4px 16px var(--red-glow);
+      background: #ff3b62;
+    }
+    .remover-highlight { color: var(--text); }
+
+    .busca-contexto {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 6px 10px 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 600;
+    }
+
+    .map-pin {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .map-pin-icon-text {
+      transform: rotate(45deg);
+      font-size: 13px;
+      line-height: 1;
+    }
+    .map-pin-dot {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 11px;
+      height: 11px;
+      background: #fff;
+      border-radius: 50%;
+      transform: rotate(45deg);
+    }
+    .map-pin.status-chamando-muito { background: var(--green); box-shadow: 0 2px 12px rgba(0,230,118,0.4); }
+    .map-pin.status-chamando-pouco { background: var(--yellow); box-shadow: 0 2px 12px rgba(255,214,0,0.4); }
+    .map-pin.status-parado { background: var(--red); box-shadow: 0 2px 12px rgba(255,23,68,0.4); }
+    .map-pin.is-own { border-color: rgba(255,255,255,0.9); }
+    .map-pin.is-own.status-chamando-muito { box-shadow: 0 2px 12px rgba(0,230,118,0.8); }
+    .map-pin.is-own.status-chamando-pouco { box-shadow: 0 2px 12px rgba(255,214,0,0.8); }
+    .map-pin.is-own.status-parado { box-shadow: 0 2px 12px rgba(255,23,68,0.8); }
+    .map-pin.status-chamando-muito .map-pin-dot { border: 2px solid var(--green); }
+    .map-pin.status-chamando-pouco .map-pin-dot { border: 2px solid var(--yellow); }
+    .map-pin.status-parado .map-pin-dot { border: 2px solid var(--red); }
+
+    .search-pin {
+      width: 28px;
+      height: 28px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      background: var(--accent);
+      border: 3px solid #fff;
+      box-shadow: 0 2px 12px rgba(255,107,43,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .search-pin-emoji {
+      transform: rotate(45deg);
+      font-size: 13px;
+      line-height: 1;
+      margin-left: 1px;
+    }
+
+    .bairro-shape {
+      stroke: var(--accent);
+      stroke-width: 2.5;
+      stroke-opacity: .9;
+      fill: var(--accent);
+      fill-opacity: .1;
+      stroke-dasharray: 6 4;
+    }
+
   </style>
 </head>
 <body>
@@ -1140,11 +1371,12 @@
   ======================== -->
   <div id="map"></div>
 
-  <!-- Badge de precisão GPS -->
-  <div id="precisao-badge">
-    <span class="dot"></span>
-    <span id="precisao-texto">GPS ativo</span>
-  </div>
+  <!-- Controles inferiores -->
+  <div class="bottom-floating-bar">
+    <div id="precisao-badge">
+      <span class="dot"></span>
+      <span id="precisao-texto">GPS ativo</span>
+    </div>
 
   <!-- ========================
        LOGO
@@ -1165,7 +1397,7 @@
 
   <!-- Barra expandida -->
   <div id="busca-barra">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
+    <svg class="busca-barra-icone" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
     </svg>
     <input id="busca-input" type="text" placeholder="Buscar bairro ou local..." autocomplete="off" />
@@ -1265,18 +1497,31 @@
   <!-- ========================
        BOTÕES FLUTUANTES
   ======================== -->
-  <button class="fab" id="btn-localizacao">📍 Minha Localização</button>
+    <button class="fab" id="btn-localizacao">📍 Minha Localização</button>
+  </div>
 
   <!-- ========================
        MODAL DE CONFIRMAÇÃO DE LOCAL
   ======================== -->
   <div id="modal-confirma">
     <div id="confirma-card">
-      <div class="confirma-titulo">✅ Confirmar marcação?</div>
-      <div class="confirma-coords" id="confirma-coords">—</div>
-      <div class="confirma-acoes">
-        <button class="btn-confirma nao" id="btn-confirma-nao">← Voltar</button>
-        <button class="btn-confirma sim" id="btn-confirma-sim">✔ Confirmar</button>
+      <div class="step-indicator">
+        <div class="step-dot ativo"></div>
+        <div class="step-dot"></div>
+      </div>
+      <div class="modal-head confirma-head">
+        <div class="modal-titulo confirma-titulo">
+          <span class="confirma-titulo-ico">✅</span>
+          <span>Confirmar marcação?</span>
+        </div>
+        <div class="modal-subtitulo">Revise os dados do ponto antes de continuar</div>
+      </div>
+      <div class="modal-body confirma-body">
+        <div class="coord-badge confirma-coords" id="confirma-coords">—</div>
+      </div>
+      <div class="modal-acoes confirma-acoes">
+        <button class="btn-modal secundario" id="btn-confirma-nao">Voltar</button>
+        <button class="btn-modal primario" id="btn-confirma-sim">Confirmar</button>
       </div>
     </div>
   </div>
@@ -1309,7 +1554,7 @@
           <div class="status-grid">
             <button class="btn-status verde" data-status="chamando_muito">
               <div class="status-icon-wrap">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#00E676">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="status-svg verde">
                   <path d="M12 2C6.5 7 4 12.5 6 16.5c.6 1.2 1.5 2.1 2.5 2.7C8 17.5 8.5 15.5 10 14c0 2 1 3.5 3 4.5 2-1 3-3 3-5 0-1-.3-2-.8-3C14.5 12 14 13.5 13 14c1-3.5-.5-8-1-12z"/>
                 </svg>
               </div>
@@ -1320,7 +1565,7 @@
             </button>
             <button class="btn-status amarelo" data-status="chamando_pouco">
               <div class="status-icon-wrap">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#FFD600">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="status-svg amarelo">
                   <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
                   <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
                 </svg>
@@ -1332,7 +1577,7 @@
             </button>
             <button class="btn-status vermelho" data-status="parado">
               <div class="status-icon-wrap">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#FF1744">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="status-svg vermelho">
                   <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
                 </svg>
               </div>
@@ -1429,15 +1674,12 @@
     function getIcon(status, isOwn) {
       const key = status + (isOwn ? "_own" : "");
       if (ICON_CACHE[key]) return ICON_CACHE[key];
-      const { cor, icon } = STATUS[status];
-      const borda  = isOwn ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.3)";
-      const sombra = isOwn ? "CC" : "66";
-      const dot    = isOwn
-        ? `<div style="position:absolute;top:-4px;right:-4px;width:11px;height:11px;background:#fff;border-radius:50%;border:2px solid ${cor};transform:rotate(45deg);"></div>`
-        : "";
+      const { icon } = STATUS[status];
+      const dot = isOwn ? '<span class="map-pin-dot"></span>' : "";
+      const ownClass = isOwn ? " is-own" : "";
       ICON_CACHE[key] = L.divIcon({
         className: "",
-        html: `<div style="width:32px;height:32px;background:${cor};border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid ${borda};box-shadow:0 2px 12px ${cor}${sombra};display:flex;align-items:center;justify-content:center;"><span style="transform:rotate(45deg);font-size:13px">${icon}</span></div>${dot}`,
+        html: `<div class="map-pin status-${status.replaceAll("_", "-")}${ownClass}"><span class="map-pin-icon-text">${icon}</span>${dot}</div>`,
         iconSize:   [32,32],
         iconAnchor: [16,32],
         popupAnchor:[0,-34]
@@ -1602,7 +1844,7 @@
         userMarker.setLatLng([lat, lng]);
       } else {
         userMarker = L.marker([lat, lng], { icon: MOTO_ICON, zIndexOffset: 1000 })
-          .bindPopup("<strong>🛵 Você está aqui</strong><br><small style='color:#8B9BB4'>Posição GPS</small>")
+          .bindPopup("<strong>🛵 Você está aqui</strong><br><small class='popup-meta-text'>Posição GPS</small>")
           .addTo(map);
       }
     }
@@ -1674,10 +1916,16 @@
       EL.step2.classList.remove("slide-back");
       if (n === 2) {
         const cfg = STATUS[statusSelecionado];
-        EL.statusBadge.style.cssText = `background:${cfg.badge};border:1px solid ${cfg.borda.replace('0.5','0.3')};border-radius:12px;`;
+        EL.statusBadge.classList.remove("verde", "amarelo", "vermelho");
+        const badgeClass = statusSelecionado === "chamando_muito"
+          ? "verde"
+          : statusSelecionado === "chamando_pouco"
+            ? "amarelo"
+            : "vermelho";
+        EL.statusBadge.classList.add(badgeClass);
         EL.statusBadge.innerHTML = `
           <div class="badge-ico">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${cfg.svgStroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${cfg.svg}</svg>
+            <svg class="status-svg ${badgeClass}" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${cfg.svg}</svg>
           </div>
           <div class="badge-info">
             <span class="badge-nome">${cfg.label}</span>
@@ -1721,8 +1969,7 @@
       const { marcacao, cfg } = marcacaoPendente;
       fecharConfirmacao();
       fecharModal();
-      EL.salvarTexto.style.display   = "none";
-      EL.salvarSpinner.style.display = "block";
+      $("btn-salvar").classList.add("carregando");
       try {
         await REF.push(marcacao);
         mostrarToast(`✅ Salvo! ${cfg.icon} ${cfg.label}`);
@@ -1730,8 +1977,7 @@
         mostrarToast("❌ Erro ao salvar. Verifique o Firebase.");
         console.error(e);
       } finally {
-        EL.salvarTexto.style.display   = "inline";
-        EL.salvarSpinner.style.display = "none";
+        $("btn-salvar").classList.remove("carregando");
       }
     });
 
@@ -1800,8 +2046,8 @@
       const hrFmt = d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
 
       const rodape = isOwn
-        ? `<button onclick="window._removerPin('${key}')" style="margin-top:10px;width:100%;padding:8px 0;background:rgba(255,23,68,0.1);border:1px solid rgba(255,23,68,0.35);border-radius:8px;color:#FF1744;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">🗑️ Remover minha marcação</button>`
-        : `<div style="margin-top:8px;padding:6px 10px;background:rgba(139,155,180,0.08);border-radius:8px;font-size:11px;color:#8B9BB4;text-align:center;">🔒 Marcação de outro entregador</div>`;
+        ? `<button onclick="window._removerPin('${key}')" class="popup-pin-remove-btn">🗑️ Remover minha marcação</button>`
+        : `<div class="popup-pin-other-note">🔒 Marcação de outro entregador</div>`;
 
       L.marker([m.lat, m.lng], { icon: getIcon(m.status, isOwn) })
         .bindPopup(`<strong>${cfg.icon} ${cfg.label}</strong>🛵 Corridas: <b>${m.corridas}</b><br>⏰ Início: <b>${m.horario_inicio||"—"}</b><br>📅 ${dtFmt} às ${hrFmt}<br>${rodape}`, { maxWidth: 250 })
@@ -1814,15 +2060,34 @@
     (function() {
       const el = document.createElement("div");
       el.id = "modal-remover";
-      el.style.cssText = "position:fixed;inset:0;z-index:2000;background:rgba(5,8,18,0.65);backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:32px;opacity:0;pointer-events:none;transition:opacity .25s ease;";
-      el.innerHTML = `<div id="remover-card" style="background:#111827;border:1px solid #2A3448;border-radius:20px;width:100%;max-width:400px;margin:0 16px;padding:22px 20px 18px;box-shadow:0 -8px 40px rgba(0,0,0,0.6);transform:translateY(30px);transition:transform .3s cubic-bezier(.34,1.4,.64,1);display:flex;flex-direction:column;gap:14px;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:38px;height:38px;border-radius:50%;background:rgba(255,23,68,0.12);border:1px solid rgba(255,23,68,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;">🗑️</div><div><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#F1F5F9;">Remover marcação?</div><div style="font-size:12px;color:#8B9BB4;margin-top:2px;">Esta ação não pode ser desfeita.</div></div></div><div id="remover-info" style="background:#1C2333;border:1px solid #2A3448;border-radius:8px;padding:10px 12px;font-size:12px;color:#8B9BB4;"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><button id="remover-nao" style="padding:13px;border-radius:10px;border:1px solid #2A3448;background:#1C2333;color:#8B9BB4;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">← Cancelar</button><button id="remover-sim" style="padding:13px;border-radius:10px;border:none;background:#FF1744;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">🗑️ Remover</button></div></div>`;
+      el.innerHTML = `
+        <div id="remover-card">
+          <div class="remover-head">
+            <div class="remover-icon-wrap">🗑️</div>
+            <div>
+              <div class="remover-title">Remover marcação?</div>
+              <div class="remover-subtitle">Esta ação não pode ser desfeita.</div>
+            </div>
+          </div>
+          <div id="remover-info" class="remover-info"></div>
+          <div class="remover-actions">
+            <button id="remover-nao" class="btn-remover secundario">← Cancelar</button>
+            <button id="remover-sim" class="btn-remover primario">🗑️ Remover</button>
+          </div>
+        </div>`;
       document.body.appendChild(el);
 
-      const card = $("remover-card");
       let keyPendente = null;
 
-      const abrir  = (key, info) => { keyPendente = key; $("remover-info").innerHTML = info; el.style.cssText += "opacity:1;pointer-events:all;"; card.style.transform = "translateY(0)"; };
-      const fechar = () => { el.style.opacity = "0"; el.style.pointerEvents = "none"; card.style.transform = "translateY(30px)"; keyPendente = null; };
+      const abrir  = (key, info) => {
+        keyPendente = key;
+        $("remover-info").innerHTML = info;
+        el.classList.add("ativo");
+      };
+      const fechar = () => {
+        el.classList.remove("ativo");
+        keyPendente = null;
+      };
 
       $("remover-nao").addEventListener("click", fechar);
       el.addEventListener("click", e => { if (e.target === el) fechar(); });
@@ -1840,7 +2105,7 @@
 
       window._removerPin = key => {
         map.closePopup();
-        abrir(key, "📌 Você está prestes a remover um pin que <b style='color:#F1F5F9'>você adicionou</b>.");
+        abrir(key, "📌 Você está prestes a remover um pin que <b class='remover-highlight'>você adicionou</b>.");
       };
     })();
 
@@ -1986,8 +2251,7 @@
     function abrirBusca() {
       EL.buscaBarra.classList.add("aberta");
       EL.logo.classList.add("oculto");
-      EL.btnBusca.style.opacity = "0";
-      EL.btnBusca.style.pointerEvents = "none";
+      EL.btnBusca.classList.add("oculto");
       const hint = geoCtx.cidade ? `Buscar em ${geoCtx.cidade}...` : "Buscar bairro ou estabelecimento...";
       EL.buscaInput.placeholder = hint;
       setTimeout(() => EL.buscaInput.focus(), 200);
@@ -1996,8 +2260,7 @@
       EL.buscaBarra.classList.remove("aberta");
       EL.buscaResWrap.classList.remove("visivel");
       EL.logo.classList.remove("oculto");
-      EL.btnBusca.style.opacity = "1";
-      EL.btnBusca.style.pointerEvents = "all";
+      EL.btnBusca.classList.remove("oculto");
       EL.buscaInput.value = "";
       EL.buscaRes.innerHTML = "";
     }
@@ -2097,7 +2360,7 @@
 
         // Cabeçalho de contexto
         const h = document.createElement("div");
-        h.style.cssText = "font-size:11px;color:var(--muted);padding:6px 10px 4px;text-transform:uppercase;letter-spacing:0.07em;font-weight:600;";
+        h.className = "busca-contexto";
         h.textContent = geoCtx.cidade ? `📍 Próximos a ${geoCtx.cidade}` : "Resultados";
         EL.buscaRes.appendChild(h);
 
@@ -2147,15 +2410,7 @@
         const lat = +item.lat, lng = +item.lon;
         const icon = L.divIcon({
           className: "",
-          html: `<div style="
-            background:#FF6B2B;
-            border:3px solid #fff;
-            border-radius:50% 50% 50% 0;
-            width:28px;height:28px;
-            transform:rotate(-45deg);
-            box-shadow:0 2px 12px rgba(255,107,43,0.6);
-            display:flex;align-items:center;justify-content:center;
-          "><span style="transform:rotate(45deg);font-size:13px;line-height:28px;margin-left:1px">${cat ? cat.ico : "📍"}</span></div>`,
+          html: `<div class="search-pin"><span class="search-pin-emoji">${cat ? cat.ico : "📍"}</span></div>`,
           iconSize: [28, 28],
           iconAnchor: [14, 28],
         });
@@ -2167,7 +2422,7 @@
       } else {
         // Bairro/área: polígono
         bairroLayer = L.geoJSON(item.geojson, {
-          style: { color: "#FF6B2B", weight: 2.5, opacity: .9, fillColor: "#FF6B2B", fillOpacity: .1, dashArray: "6 4" }
+          style: () => ({ className: "bairro-shape" })
         }).addTo(map);
         map.flyToBounds(bairroLayer.getBounds(), { padding: [50, 50], duration: 1.2 });
       }
@@ -2198,14 +2453,7 @@
       toastTimer = setTimeout(() => EL.toast.classList.remove("visivel"), 3000);
     }
 
-    function criarRipple(lat, lng, cor) {
-      const p = map.latLngToContainerPoint([lat, lng]);
-      const d = document.createElement("div");
-      d.className = "ripple-marker";
-      d.style.cssText = `position:fixed;left:${p.x-15}px;top:${p.y-15}px;background:${cor};z-index:500;`;
-      document.body.appendChild(d);
-      d.addEventListener("animationend", () => d.remove(), { once: true });
-    }
+    function criarRipple() {}
 
   })();
   </script>
