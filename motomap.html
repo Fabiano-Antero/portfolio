@@ -90,14 +90,91 @@
     }
     #btn-localizacao:hover { background: #ff8452; box-shadow: 0 4px 24px var(--accent-glow); }
 
-    #btn-limpar {
-      bottom: 24px;
-      left: 24px;
+    /* ========================
+       MODAL DE CONFIRMAÇÃO DE LOCAL
+    ======================== */
+    #modal-confirma {
+      position: fixed;
+      inset: 0;
+      z-index: 1100;
+      background: rgba(5,8,18,0.65);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+      padding-bottom: 32px;
+    }
+    #modal-confirma.ativo {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #confirma-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 16px;
+      padding: 22px 20px 18px;
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.6);
+      transform: translateY(30px);
+      transition: transform .3s cubic-bezier(.34,1.4,.64,1);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #modal-confirma.ativo #confirma-card {
+      transform: translateY(0);
+    }
+    .confirma-titulo {
+      font-family: var(--font-title);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .confirma-coords {
+      font-size: 12px;
+      color: var(--muted);
       background: var(--surface2);
-      color: var(--red);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-variant-numeric: tabular-nums;
+    }
+    .confirma-acoes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .btn-confirma {
+      padding: 13px;
+      border-radius: 10px;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-confirma:active { transform: scale(0.96); }
+    .btn-confirma.sim {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-confirma.sim:hover { background: #ff8452; box-shadow: 0 4px 16px var(--accent-glow); }
+    .btn-confirma.nao {
+      background: var(--surface2);
+      color: var(--muted);
       border: 1px solid var(--border);
     }
-    #btn-limpar:hover { background: rgba(255,23,68,0.12); border-color: var(--red); }
+    .btn-confirma.nao:hover { color: var(--text); background: var(--border); }
 
     /* ========================
        PAINEL DE ESTATÍSTICAS
@@ -556,9 +633,9 @@
       #logo span.titulo { font-size: 13px; }
       #painel { top: auto; right: 12px; bottom: 90px; min-width: 180px; }
       #btn-localizacao { bottom: 20px; right: 16px; }
-      #btn-limpar { bottom: 20px; left: 16px; }
       #modal-card { margin: 12px; padding: 22px 18px 18px; }
       .campos-row { grid-template-columns: 1fr; }
+      #confirma-card { margin: 0 10px; padding: 18px 16px 14px; }
     }
 
     /* ========================
@@ -793,7 +870,20 @@
        BOTÕES FLUTUANTES
   ======================== -->
   <button class="fab" id="btn-localizacao">📍 Minha Localização</button>
-  <button class="fab" id="btn-limpar">🗑️ Limpar Mapa</button>
+
+  <!-- ========================
+       MODAL DE CONFIRMAÇÃO DE LOCAL
+  ======================== -->
+  <div id="modal-confirma">
+    <div id="confirma-card">
+      <div class="confirma-titulo">✅ Confirmar marcação?</div>
+      <div class="confirma-coords" id="confirma-coords">—</div>
+      <div class="confirma-acoes">
+        <button class="btn-confirma nao" id="btn-confirma-nao">← Voltar</button>
+        <button class="btn-confirma sim" id="btn-confirma-sim">✔ Confirmar</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ========================
        MODAL OVERLAY
@@ -1140,7 +1230,55 @@
       }
     }
 
-    // Clique no mapa → abre modal
+    // ========================
+    // CONFIRMAÇÃO ANTES DE SALVAR
+    // Aparece após o usuário clicar em "Salvar Marcação",
+    // perguntando se ele realmente deseja marcar aquele local.
+    // ========================
+    const modalConfirma  = document.getElementById("modal-confirma");
+    const confirmaCoords = document.getElementById("confirma-coords");
+    let _marcacaoPendente = null;
+
+    function abrirConfirmacao(marcacao, cfg) {
+      _marcacaoPendente = { marcacao, cfg };
+      confirmaCoords.textContent = `${cfg.icon} ${cfg.label} · Lat ${marcacao.lat.toFixed(5)}, Lng ${marcacao.lng.toFixed(5)}`;
+      modalConfirma.classList.add("ativo");
+    }
+
+    function fecharConfirmacao() {
+      modalConfirma.classList.remove("ativo");
+      _marcacaoPendente = null;
+    }
+
+    // "Sim" → salva no Firebase
+    document.getElementById("btn-confirma-sim").addEventListener("click", async () => {
+      if (!_marcacaoPendente) return;
+      const { marcacao, cfg } = _marcacaoPendente;
+      fecharConfirmacao();
+      fecharModal();
+
+      document.getElementById("salvar-texto").style.display = "none";
+      document.getElementById("salvar-spinner").style.display = "block";
+
+      try {
+        await marcacoesRef.push(marcacao);
+        mostrarToast(`✅ Marcação salva! ${cfg.icon} ${cfg.label}`);
+      } catch (err) {
+        mostrarToast("❌ Erro ao salvar. Verifique as credenciais do Firebase.");
+        console.error(err);
+      } finally {
+        document.getElementById("salvar-texto").style.display = "inline";
+        document.getElementById("salvar-spinner").style.display = "none";
+      }
+    });
+
+    // "Não" → volta pro modal (step 2 continua aberto)
+    document.getElementById("btn-confirma-nao").addEventListener("click", fecharConfirmacao);
+    modalConfirma.addEventListener("click", e => {
+      if (e.target === modalConfirma) fecharConfirmacao();
+    });
+
+    // Clique no mapa → abre o modal diretamente
     map.on("click", e => {
       abrirModal(e.latlng.lat, e.latlng.lng);
     });
@@ -1175,7 +1313,7 @@
       return id;
     })();
 
-    document.getElementById("btn-salvar").addEventListener("click", async () => {
+    document.getElementById("btn-salvar").addEventListener("click", () => {
       const corridas = parseInt(document.getElementById("input-corridas").value) || 0;
       const horario  = document.getElementById("input-horario").value || horaAtual();
 
@@ -1192,23 +1330,11 @@
         horario_inicio: horario,
         timestamp:      new Date().toISOString(),
         peso:           peso,
-        session_id:     SESSION_ID   // identifica o dono do pin
+        session_id:     SESSION_ID
       };
 
-      document.getElementById("salvar-texto").style.display = "none";
-      document.getElementById("salvar-spinner").style.display = "block";
-
-      try {
-        await marcacoesRef.push(marcacao);
-        fecharModal();
-        mostrarToast(`✅ Marcação salva! ${cfg.icon} ${cfg.label}`);
-      } catch (err) {
-        mostrarToast("❌ Erro ao salvar. Verifique as credenciais do Firebase.");
-        console.error(err);
-      } finally {
-        document.getElementById("salvar-texto").style.display = "inline";
-        document.getElementById("salvar-spinner").style.display = "none";
-      }
+      // Abre confirmação — o Firebase só é chamado se o usuário confirmar
+      abrirConfirmacao(marcacao, cfg);
     });
 
     // ========================
@@ -1263,6 +1389,7 @@
       const horaFmt = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
       const isOwn   = m.session_id === SESSION_ID;
 
+      // Pins próprios têm borda branca destacada + brilho maior
       const svgIcon = L.divIcon({
         className: "",
         html: `
@@ -1276,7 +1403,14 @@
             display:flex;align-items:center;justify-content:center;
           ">
             <span style="transform:rotate(45deg);font-size:13px">${cfg.icon}</span>
-          </div>`,
+          </div>
+          ${isOwn ? `<div style="
+            position:absolute;top:-4px;right:-4px;
+            width:11px;height:11px;
+            background:#fff;border-radius:50%;
+            border:2px solid ${cfg.cor};
+            transform:rotate(45deg);
+          "></div>` : ""}`,
         iconSize:   [32, 32],
         iconAnchor: [16, 32],
         popupAnchor:[0, -34]
@@ -1284,61 +1418,136 @@
 
       const marker = L.marker([m.lat, m.lng], { icon: svgIcon });
 
-      // Popup com botão de remover apenas para os próprios pins
-      const btnRemover = isOwn
-        ? `<br><button onclick="removerPin('${key}')" style="
-              margin-top:8px;
-              width:100%;
-              padding:7px 0;
-              background:rgba(255,23,68,0.12);
-              border:1px solid rgba(255,23,68,0.4);
-              border-radius:7px;
-              color:#FF1744;
-              font-size:12px;
-              font-weight:600;
-              cursor:pointer;
-              font-family:inherit;
-            ">🗑️ Remover minha marcação</button>`
-        : `<br><span style="font-size:11px;color:#8B9BB4">📌 Marcação de outro entregador</span>`;
+      // Popup: botão de remover só aparece nos próprios pins
+      const rodape = isOwn
+        ? `<button onclick="window.solicitarRemocao('${key}')" style="
+              margin-top:10px;width:100%;padding:8px 0;
+              background:rgba(255,23,68,0.1);
+              border:1px solid rgba(255,23,68,0.35);
+              border-radius:8px;color:#FF1744;
+              font-size:12px;font-weight:600;
+              cursor:pointer;font-family:inherit;
+              transition:background .15s;
+            "
+            onmouseover="this.style.background='rgba(255,23,68,0.22)'"
+            onmouseout="this.style.background='rgba(255,23,68,0.1)'"
+           >🗑️ Remover minha marcação</button>`
+        : `<div style="
+              margin-top:8px;padding:6px 10px;
+              background:rgba(139,155,180,0.08);
+              border-radius:8px;font-size:11px;
+              color:#8B9BB4;text-align:center;
+            ">🔒 Marcação de outro entregador</div>`;
 
       marker.bindPopup(`
         <strong>${cfg.icon} ${cfg.label}</strong>
         🛵 Corridas: <b>${m.corridas}</b><br>
         ⏰ Início: <b>${m.horario_inicio || "—"}</b><br>
         📅 ${dataFmt} às ${horaFmt}
-        ${btnRemover}
-      `, { maxWidth: 240 });
+        <br>${rodape}
+      `, { maxWidth: 250 });
 
       markersLayer.addLayer(marker);
     }
 
-    // Função global chamada pelo botão dentro do popup
-    window.removerPin = async (key) => {
-      const ok = confirm("Remover esta marcação?");
-      if (!ok) return;
-      try {
-        await db.ref("marcacoes/" + key).remove();
-        mostrarToast("✅ Marcação removida!");
-      } catch (err) {
-        mostrarToast("❌ Erro ao remover. Tente novamente.");
-        console.error(err);
-      }
-    };
+    // ========================
+    // MODAL DE CONFIRMAÇÃO DE REMOÇÃO
+    // ========================
+    (function montarModalRemocao() {
+      const overlay = document.createElement("div");
+      overlay.id = "modal-remover";
+      overlay.style.cssText = `
+        position:fixed;inset:0;z-index:2000;
+        background:rgba(5,8,18,0.65);backdrop-filter:blur(6px);
+        display:flex;align-items:flex-end;justify-content:center;
+        padding-bottom:32px;opacity:0;pointer-events:none;
+        transition:opacity .25s ease;
+      `;
 
-    // ========================
-    // BOTÃO LIMPAR MAPA
-    // ========================
-    document.getElementById("btn-limpar").addEventListener("click", async () => {
-      const ok = confirm("🗑️ Apagar todas as marcações?\n\nEsta ação não pode ser desfeita.");
-      if (!ok) return;
-      try {
-        await marcacoesRef.remove();
-        mostrarToast("🗑️ Mapa limpo com sucesso!");
-      } catch (err) {
-        mostrarToast("❌ Erro ao limpar. Verifique as permissões do Firebase.");
-        console.error(err);
+      overlay.innerHTML = `
+        <div id="remover-card" style="
+          background:#111827;border:1px solid #2A3448;border-radius:20px;
+          width:100%;max-width:400px;margin:0 16px;padding:22px 20px 18px;
+          box-shadow:0 -8px 40px rgba(0,0,0,0.6);
+          transform:translateY(30px);
+          transition:transform .3s cubic-bezier(.34,1.4,.64,1);
+          display:flex;flex-direction:column;gap:14px;
+        ">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="
+              width:38px;height:38px;border-radius:50%;flex-shrink:0;
+              background:rgba(255,23,68,0.12);border:1px solid rgba(255,23,68,0.3);
+              display:flex;align-items:center;justify-content:center;font-size:18px;
+            ">🗑️</div>
+            <div>
+              <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#F1F5F9;">
+                Remover marcação?
+              </div>
+              <div style="font-size:12px;color:#8B9BB4;margin-top:2px;">
+                Esta ação não pode ser desfeita.
+              </div>
+            </div>
+          </div>
+          <div id="remover-info" style="
+            background:#1C2333;border:1px solid #2A3448;border-radius:8px;
+            padding:10px 12px;font-size:12px;color:#8B9BB4;
+          "></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <button id="remover-nao" style="
+              padding:13px;border-radius:10px;border:1px solid #2A3448;
+              background:#1C2333;color:#8B9BB4;font-family:'DM Sans',sans-serif;
+              font-size:14px;font-weight:600;cursor:pointer;
+            ">← Cancelar</button>
+            <button id="remover-sim" style="
+              padding:13px;border-radius:10px;border:none;
+              background:#FF1744;color:#fff;font-family:'DM Sans',sans-serif;
+              font-size:14px;font-weight:600;cursor:pointer;
+            ">🗑️ Remover</button>
+          </div>
+        </div>`;
+
+      document.body.appendChild(overlay);
+
+      let _keyPendente = null;
+
+      function abrir(key, infoHtml) {
+        _keyPendente = key;
+        document.getElementById("remover-info").innerHTML = infoHtml;
+        overlay.style.opacity = "1";
+        overlay.style.pointerEvents = "all";
+        document.getElementById("remover-card").style.transform = "translateY(0)";
       }
-    });
+
+      function fechar() {
+        overlay.style.opacity = "0";
+        overlay.style.pointerEvents = "none";
+        document.getElementById("remover-card").style.transform = "translateY(30px)";
+        _keyPendente = null;
+      }
+
+      document.getElementById("remover-nao").addEventListener("click", fechar);
+      overlay.addEventListener("click", e => { if (e.target === overlay) fechar(); });
+
+      document.getElementById("remover-sim").addEventListener("click", async () => {
+        if (!_keyPendente) return;
+        const key = _keyPendente;
+        fechar();
+        try {
+          await db.ref("marcacoes/" + key).remove();
+          mostrarToast("✅ Marcação removida!");
+        } catch (err) {
+          mostrarToast("❌ Erro ao remover. Tente novamente.");
+          console.error(err);
+        }
+      });
+
+      // Expõe função global para o botão no popup do Leaflet
+      window.solicitarRemocao = (key) => {
+        // Fecha popup do mapa antes de abrir o modal
+        map.closePopup();
+        abrir(key, "📌 Você está prestes a remover um pin que <b style='color:#F1F5F9'>você adicionou</b>. Outros entregadores não poderão mais visualizá-lo.");
+      };
+    })();
 
     // ========================
     // LIMPEZA AUTOMÁTICA À MEIA-NOITE
