@@ -181,7 +181,7 @@
     ======================== */
     #painel {
       position: fixed;
-      top: 20px;
+      top: 70px;
       right: 20px;
       z-index: 900;
       background: rgba(17,24,39,0.88);
@@ -643,6 +643,8 @@
       #modal-card { margin: 12px; padding: 22px 18px 18px; }
       .campos-row { grid-template-columns: 1fr; }
       #confirma-card { margin: 0 10px; padding: 18px 16px 14px; }
+      #btn-busca { font-size: 13px; padding: 9px 14px; }
+      #busca-painel { width: calc(100vw - 40px); right: 20px; top: 64px; }
     }
 
     /* ========================
@@ -793,8 +795,164 @@
     }
 
     /* ========================
-       RIPPLE NO MAPA
+       BUSCA POR BAIRRO
     ======================== */
+    #btn-busca {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 900;
+      background: rgba(17,24,39,0.88);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      transition: all .2s;
+    }
+    #btn-busca:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    #btn-busca:active { transform: scale(0.96); }
+
+    /* Painel de busca (dropdown) */
+    #busca-painel {
+      position: fixed;
+      top: 66px;
+      right: 20px;
+      z-index: 900;
+      width: 300px;
+      background: rgba(17,24,39,0.96);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: max-height .35s cubic-bezier(.4,0,.2,1),
+                  opacity .25s ease;
+    }
+    #busca-painel.aberto {
+      max-height: 420px;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .busca-inner { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+
+    .busca-input-wrap {
+      display: flex;
+      align-items: center;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .busca-input-wrap:focus-within { border-color: var(--accent); }
+
+    #busca-input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      padding: 11px 14px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+    }
+    #busca-input::placeholder { color: var(--muted); }
+
+    #busca-btn {
+      background: var(--accent);
+      border: none;
+      padding: 0 14px;
+      height: 100%;
+      min-height: 42px;
+      cursor: pointer;
+      color: #fff;
+      font-size: 16px;
+      transition: background .2s;
+    }
+    #busca-btn:hover { background: #ff8452; }
+
+    /* Lista de resultados */
+    #busca-resultados {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    #busca-resultados::-webkit-scrollbar { width: 4px; }
+    #busca-resultados::-webkit-scrollbar-track { background: transparent; }
+    #busca-resultados::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .busca-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .15s;
+      border: 1px solid transparent;
+    }
+    .busca-item:hover { background: var(--surface2); border-color: var(--border); }
+    .busca-item-nome {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .busca-item-detalhe {
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .busca-status {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    /* Tag do bairro selecionado */
+    #busca-tag {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,107,43,0.12);
+      border: 1px solid rgba(255,107,43,0.35);
+      border-radius: 50px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    #busca-tag.visivel { display: flex; }
+    #busca-tag-fechar {
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1;
+      margin-left: 2px;
+    }
+    #busca-tag-fechar:hover { color: var(--red); }
     .ripple-marker {
       width: 30px;
       height: 30px;
@@ -844,6 +1002,25 @@
   <div id="logo">
     <span class="emoji">🛵</span>
     <span class="titulo">Moto<em>Map</em></span>
+  </div>
+
+  <!-- ========================
+       BOTÃO + PAINEL DE BUSCA POR BAIRRO
+  ======================== -->
+  <button id="btn-busca">🔍 Buscar bairro</button>
+
+  <div id="busca-painel">
+    <div class="busca-inner">
+      <div class="busca-input-wrap">
+        <input id="busca-input" type="text" placeholder="Ex: Miramar, João Pessoa..." autocomplete="off" />
+        <button id="busca-btn">🔍</button>
+      </div>
+      <div id="busca-tag">
+        <span id="busca-tag-nome">—</span>
+        <span id="busca-tag-fechar" title="Limpar busca">✕</span>
+      </div>
+      <div id="busca-resultados"></div>
+    </div>
   </div>
 
   <!-- ========================
@@ -1656,6 +1833,128 @@
       document.body.appendChild(div);
       div.addEventListener("animationend", () => div.remove());
     }
+
+    // ========================
+    // BUSCA POR BAIRRO
+    // Usa Nominatim (OpenStreetMap) — 100% gratuito
+    // Destaca o bairro no mapa com um polígono laranja
+    // ========================
+    let bairroLayer = null; // camada do polígono do bairro selecionado
+
+    const btnBusca      = document.getElementById("btn-busca");
+    const buscaPainel   = document.getElementById("busca-painel");
+    const buscaInput    = document.getElementById("busca-input");
+    const buscaBtn      = document.getElementById("busca-btn");
+    const buscaResultados = document.getElementById("busca-resultados");
+    const buscaTag      = document.getElementById("busca-tag");
+    const buscaTagNome  = document.getElementById("busca-tag-nome");
+    const buscaTagFechar = document.getElementById("busca-tag-fechar");
+
+    // Abre/fecha o painel de busca
+    btnBusca.addEventListener("click", () => {
+      buscaPainel.classList.toggle("aberto");
+      if (buscaPainel.classList.contains("aberto")) {
+        setTimeout(() => buscaInput.focus(), 150);
+      }
+    });
+
+    // Fecha ao clicar fora
+    document.addEventListener("click", e => {
+      if (!btnBusca.contains(e.target) && !buscaPainel.contains(e.target)) {
+        buscaPainel.classList.remove("aberto");
+      }
+    });
+
+    // Busca ao pressionar Enter
+    buscaInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") executarBusca();
+    });
+    buscaBtn.addEventListener("click", executarBusca);
+
+    async function executarBusca() {
+      const termo = buscaInput.value.trim();
+      if (!termo) return;
+
+      buscaResultados.innerHTML = `<div class="busca-status">🔍 Buscando...</div>`;
+
+      try {
+        // Nominatim — geocodificação gratuita via OSM
+        // Prioriza bairros (neighbourhood, suburb) mas aceita outros tipos
+        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(termo)}&format=json&addressdetails=1&limit=6&polygon_geojson=1&accept-language=pt-BR`;
+        const res  = await fetch(url, { headers: { "Accept-Language": "pt-BR" } });
+        const data = await res.json();
+
+        if (!data.length) {
+          buscaResultados.innerHTML = `<div class="busca-status">😕 Nenhum resultado encontrado</div>`;
+          return;
+        }
+
+        buscaResultados.innerHTML = "";
+        data.forEach(item => {
+          const nome    = item.name || item.display_name.split(",")[0];
+          const detalhe = item.display_name;
+
+          const div = document.createElement("div");
+          div.className = "busca-item";
+          div.innerHTML = `
+            <span class="busca-item-nome">${nome}</span>
+            <span class="busca-item-detalhe">${detalhe}</span>`;
+
+          div.addEventListener("click", () => selecionarBairro(item, nome));
+          buscaResultados.appendChild(div);
+        });
+
+      } catch (err) {
+        buscaResultados.innerHTML = `<div class="busca-status">❌ Erro na busca. Verifique sua conexão.</div>`;
+        console.error(err);
+      }
+    }
+
+    function selecionarBairro(item, nome) {
+      // Remove polígono anterior
+      if (bairroLayer) { map.removeLayer(bairroLayer); bairroLayer = null; }
+
+      const geo = item.geojson;
+
+      if (geo) {
+        // Desenha polígono / multipolygon do bairro
+        bairroLayer = L.geoJSON(geo, {
+          style: {
+            color:       "#FF6B2B",
+            weight:      2.5,
+            opacity:     0.9,
+            fillColor:   "#FF6B2B",
+            fillOpacity: 0.12,
+            dashArray:   "6 4"
+          }
+        }).addTo(map);
+
+        // Voa para os bounds do polígono
+        map.flyToBounds(bairroLayer.getBounds(), { padding: [40, 40], duration: 1.2 });
+      } else {
+        // Fallback: zoom nas coordenadas se não houver polígono
+        map.flyTo([parseFloat(item.lat), parseFloat(item.lon)], 15, { duration: 1.2 });
+      }
+
+      // Atualiza tag de bairro selecionado
+      buscaTagNome.textContent = nome;
+      buscaTag.classList.add("visivel");
+      btnBusca.innerHTML = `📍 ${nome.length > 18 ? nome.slice(0, 18) + "…" : nome}`;
+
+      // Fecha painel
+      buscaPainel.classList.remove("aberto");
+      buscaResultados.innerHTML = "";
+      buscaInput.value = "";
+
+      mostrarToast(`📍 Mostrando: ${nome}`);
+    }
+
+    // Limpa o bairro selecionado
+    buscaTagFechar.addEventListener("click", () => {
+      if (bairroLayer) { map.removeLayer(bairroLayer); bairroLayer = null; }
+      buscaTag.classList.remove("visivel");
+      btnBusca.innerHTML = "🔍 Buscar bairro";
+    });
 
     // Fechar modal ao clicar no overlay
     overlay.addEventListener("click", e => {
