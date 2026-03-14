@@ -1129,6 +1129,8 @@
     </div>
     <div class="loading-msg" id="loading-msg">
       Permita o acesso à sua localização para uma experiência completa
+      <br><br>
+      Os dados do mapa são baseados em contribuições da comunidade e atualizados continuamente. Pequenas variações podem ocorrer.
     </div>
     <div class="loading-bar"><div class="loading-bar-fill"></div></div>
   </div>
@@ -1243,8 +1245,20 @@
           </span>
           <span class="stat-val red" id="stat-parado">0</span>
         </div>
+        <div class="painel-divider"></div>
+        <div class="stat-row">
+          <span class="stat-label">
+            <span class="stat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#8B9BB4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </span>
+            Atualizado
+          </span>
+          <span class="stat-val" id="stat-ultima">—</span>
+        </div>
       </div>
-      <div class="painel-ultima" id="stat-ultima">Sem marcações ainda</div>
     </div>
   </div>
 
@@ -1772,7 +1786,9 @@
       EL.statParado.textContent = parado;
       if (ultima) {
         const d = new Date(ultima);
-        EL.statUltima.textContent = `🕐 Última: ${d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`;
+        EL.statUltima.textContent = d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+      } else {
+        EL.statUltima.textContent = "—";
       }
     }
 
