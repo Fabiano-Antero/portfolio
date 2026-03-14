@@ -722,7 +722,14 @@
     ======================== */
     @media (max-width: 480px) {
       #logo span.titulo { font-size: 13px; }
-      #painel { top: auto; right: 12px; bottom: 110px; min-width: 190px; }
+      #painel {
+        top: 82px;
+        right: 12px;
+        bottom: auto;
+        left: auto;
+        min-width: 190px;
+        max-width: calc(100vw - 24px);
+      }
       .bottom-floating-bar { left: 12px; right: 12px; bottom: 20px; }
       #modal-card { max-height: min(88dvh, 720px); }
       .campos-row { grid-template-columns: 1fr; }
