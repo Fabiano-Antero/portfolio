@@ -342,8 +342,8 @@
       background: rgba(5,8,18,0.7);
       backdrop-filter: blur(8px);
       display: flex;
-      align-items: center;
-      justify-content: center;
+      align-items: flex-end;
+      justify-content: stretch;
       opacity: 0;
       pointer-events: none;
       transition: opacity .25s ease;
@@ -358,21 +358,46 @@
     ======================== */
     #modal-card {
       background: #111827;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 24px 24px 0 0;
       width: 100%;
-      max-width: 400px;
-      margin: 16px;
+      max-width: none;
+      margin: 0;
       padding: 0;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.7);
-      transform: scale(0.93) translateY(16px);
-      transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .25s ease;
+      box-shadow: 0 -24px 64px rgba(0,0,0,0.55);
+      transform: translateY(100%);
+      transition: transform .32s cubic-bezier(.22,1,.36,1), opacity .25s ease;
       opacity: 0;
       overflow: hidden;
+      max-height: min(82dvh, 720px);
+      touch-action: none;
+      will-change: transform;
     }
     #modal-overlay.ativo #modal-card {
-      transform: scale(1) translateY(0);
+      transform: translateY(0);
       opacity: 1;
+    }
+    #modal-card.arrastando {
+      transition: none;
+    }
+    .modal-sheet-handle-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 10px 20px 2px;
+      cursor: grab;
+      touch-action: none;
+    }
+    .modal-sheet-handle-wrap:active {
+      cursor: grabbing;
+    }
+    .modal-sheet-handle {
+      width: 54px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
     }
 
     /* ========================
@@ -699,10 +724,10 @@
       #logo span.titulo { font-size: 13px; }
       #painel { top: auto; right: 12px; bottom: 110px; min-width: 190px; }
       .bottom-floating-bar { left: 12px; right: 12px; bottom: 20px; }
-      #modal-card { margin: 12px; padding: 22px 18px 18px; }
+      #modal-card { max-height: min(88dvh, 720px); }
       .campos-row { grid-template-columns: 1fr; }
       #confirma-card { margin: 0 10px; padding: 18px 16px 14px; }
-      #busca-tag-ativo { right: 70px; max-width: 130px; }
+      #busca-tag-ativo { top: 72px; left: 12px; right: auto; max-width: calc(100vw - 24px); }
     }
 
     /* ========================
@@ -1069,8 +1094,9 @@
     /* Tag do bairro ativo (fica dentro do btn-busca) */
     #busca-tag-ativo {
       position: fixed;
-      top: 20px;
-      right: 74px;
+      top: 76px;
+      left: 20px;
+      right: auto;
       z-index: 905;
       display: none;
       align-items: center;
@@ -1082,7 +1108,7 @@
       font-size: 12px;
       font-weight: 600;
       color: #fff;
-      max-width: 160px;
+      max-width: min(220px, calc(100vw - 40px));
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -1531,6 +1557,9 @@
   ======================== -->
   <div id="modal-overlay">
     <div id="modal-card">
+      <div class="modal-sheet-handle-wrap" aria-hidden="true">
+        <div class="modal-sheet-handle"></div>
+      </div>
 
       <!-- STEP 1: Status da região -->
       <div class="step ativo" id="step1">
@@ -1876,6 +1905,9 @@
     let latSelecionada     = null;
     let lngSelecionada     = null;
     let marcacaoPendente   = null;
+    let modalDragStartY    = 0;
+    let modalDragOffsetY   = 0;
+    let modalDragging      = false;
 
     /* ================================================
        MODAL PRINCIPAL (2 steps)
@@ -1883,6 +1915,16 @@
     function horaAtual() {
       const d = new Date();
       return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+    }
+
+    function resetarDragModal() {
+      modalDragging = false;
+      modalDragOffsetY = 0;
+      modalDragStartY = 0;
+      EL.overlay.classList.remove("dragging");
+      const card = $("modal-card");
+      card.classList.remove("arrastando");
+      card.style.transform = "";
     }
 
     function abrirModal(lat, lng) {
@@ -1899,14 +1941,16 @@
           </svg>
         </div>
         <span>${lat.toFixed(5)}, ${lng.toFixed(5)}</span>`;
+      resetarDragModal();
       irParaStep(1);
       EL.overlay.classList.add("ativo");
       criarRipple(lat, lng, "#FF6B2B");
     }
 
     function fecharModal() {
+      resetarDragModal();
       EL.overlay.classList.remove("ativo");
-      setTimeout(() => { irParaStep(1); statusSelecionado = null; }, 300);
+      setTimeout(() => { irParaStep(1); statusSelecionado = null; }, 320);
     }
 
     function irParaStep(n) {
@@ -1937,6 +1981,57 @@
     EL.overlay.addEventListener("click", e => { if (e.target === EL.overlay) fecharModal(); });
     $("btn-cancelar").addEventListener("click", fecharModal);
     $("btn-voltar").addEventListener("click",   () => { EL.step2.classList.add("slide-back"); irParaStep(1); });
+
+    const modalCard = $("modal-card");
+    const modalDragArea = modalCard.querySelector(".modal-sheet-handle-wrap");
+    const modalPodeArrastar = target => !target.closest("input, button, select, textarea");
+
+    function iniciarDragModal(clientY, target) {
+      if (!EL.overlay.classList.contains("ativo")) return;
+      if (target && !target.closest(".modal-sheet-handle-wrap, .modal-head") && !modalPodeArrastar(target)) return;
+      modalDragging = true;
+      modalDragStartY = clientY;
+      modalDragOffsetY = 0;
+      EL.overlay.classList.add("dragging");
+      modalCard.classList.add("arrastando");
+    }
+
+    function moverDragModal(clientY) {
+      if (!modalDragging) return;
+      modalDragOffsetY = Math.max(0, clientY - modalDragStartY);
+      modalCard.style.transform = `translateY(${modalDragOffsetY}px)`;
+    }
+
+    function finalizarDragModal() {
+      if (!modalDragging) return;
+      const deveFechar = modalDragOffsetY > 120;
+      modalDragging = false;
+      EL.overlay.classList.remove("dragging");
+      modalCard.classList.remove("arrastando");
+      if (deveFechar) {
+        fecharModal();
+        return;
+      }
+      modalCard.style.transform = "";
+      modalDragOffsetY = 0;
+      modalDragStartY = 0;
+    }
+
+    modalCard.addEventListener("touchstart", e => iniciarDragModal(e.touches[0].clientY, e.target), { passive: true });
+    modalCard.addEventListener("touchmove", e => {
+      if (!modalDragging) return;
+      moverDragModal(e.touches[0].clientY);
+      e.preventDefault();
+    }, { passive: false });
+    modalCard.addEventListener("touchend", finalizarDragModal);
+    modalCard.addEventListener("touchcancel", finalizarDragModal);
+
+    modalCard.addEventListener("mousedown", e => {
+      iniciarDragModal(e.clientY, e.target);
+      if (modalDragging) e.preventDefault();
+    });
+    document.addEventListener("mousemove", e => moverDragModal(e.clientY));
+    document.addEventListener("mouseup", finalizarDragModal);
 
     document.querySelectorAll(".btn-status").forEach(btn => {
       btn.addEventListener("click", () => {
