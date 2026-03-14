@@ -360,13 +360,13 @@
        CARD DO MODAL
     ======================== */
     #modal-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #111827;
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 20px;
       width: 100%;
-      max-width: 420px;
+      max-width: 400px;
       margin: 16px;
-      padding: 28px 24px 24px;
+      padding: 0;
       box-shadow: 0 24px 64px rgba(0,0,0,0.7);
       transform: scale(0.93) translateY(16px);
       transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .25s ease;
@@ -384,7 +384,7 @@
     .step {
       display: none;
       flex-direction: column;
-      gap: 16px;
+      gap: 0;
       animation: slideIn .3s ease;
     }
     .step.ativo { display: flex; }
@@ -399,45 +399,68 @@
     }
     .step.slide-back { animation: slideBack .3s ease; }
 
-    /* Step indicator */
+    /* Barra de progresso */
     .step-indicator {
       display: flex;
       gap: 6px;
-      margin-bottom: 4px;
+      padding: 18px 20px 0;
     }
     .step-dot {
-      height: 3px;
-      border-radius: 3px;
+      height: 4px;
+      border-radius: 4px;
       flex: 1;
       background: var(--border);
       transition: background .3s;
     }
     .step-dot.ativo { background: var(--accent); }
 
-    /* Título do modal */
+    /* Cabeçalho do modal */
+    .modal-head {
+      padding: 16px 20px 20px;
+    }
     .modal-titulo {
       font-family: var(--font-title);
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--text);
       line-height: 1.3;
+      margin-bottom: 4px;
     }
     .modal-subtitulo {
       font-size: 13px;
       color: var(--muted);
-      margin-top: 2px;
+    }
+
+    /* Corpo do modal */
+    .modal-body {
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     /* Coordenadas */
     .coord-badge {
-      background: var(--surface2);
+      background: #1C2333;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 12px;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
       color: var(--muted);
       font-variant-numeric: tabular-nums;
-      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .coord-badge-ico {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
     /* ========================
@@ -446,105 +469,124 @@
     .status-grid {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .btn-status {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 14px 18px;
+      gap: 12px;
+      padding: 14px 16px;
       border-radius: 12px;
-      border: 1.5px solid transparent;
-      background: var(--surface2);
+      border: none;
+      background: #1C2333;
       cursor: pointer;
       transition: all .2s ease;
       text-align: left;
-      min-height: 64px;
+      width: 100%;
     }
+    .btn-status:active { transform: scale(0.98); }
 
-    .btn-status .status-icon { font-size: 24px; flex-shrink: 0; }
+    .btn-status .status-icon-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
     .btn-status .status-info { display: flex; flex-direction: column; gap: 2px; }
     .btn-status .status-nome {
       font-family: var(--font-title);
       font-size: 14px;
       font-weight: 700;
-      color: var(--text);
+      color: #fff;
     }
     .btn-status .status-desc {
       font-size: 12px;
-      color: var(--muted);
+      color: rgba(255,255,255,0.65);
     }
 
-    .btn-status.verde { border-color: rgba(0,230,118,0.25); }
-    .btn-status.verde:hover,
-    .btn-status.verde.selecionado {
-      border-color: var(--green);
-      background: rgba(0,230,118,0.1);
-      box-shadow: 0 0 0 3px rgba(0,230,118,0.15);
+    .btn-status.verde {
+      background: #1E4A2E;
     }
-    .btn-status.verde.selecionado .status-nome { color: var(--green); }
+    .btn-status.verde:hover { background: #245933; }
+    .btn-status.verde.selecionado { background: #1E4A2E; box-shadow: 0 0 0 2px rgba(0,230,118,0.4); }
 
-    .btn-status.amarelo { border-color: rgba(255,214,0,0.25); }
-    .btn-status.amarelo:hover,
-    .btn-status.amarelo.selecionado {
-      border-color: var(--yellow);
-      background: rgba(255,214,0,0.1);
-      box-shadow: 0 0 0 3px rgba(255,214,0,0.15);
+    .btn-status.amarelo {
+      background: #3D3A1A;
     }
-    .btn-status.amarelo.selecionado .status-nome { color: var(--yellow); }
+    .btn-status.amarelo:hover { background: #4a4620; }
+    .btn-status.amarelo.selecionado { background: #3D3A1A; box-shadow: 0 0 0 2px rgba(255,214,0,0.4); }
 
-    .btn-status.vermelho { border-color: rgba(255,23,68,0.25); }
-    .btn-status.vermelho:hover,
-    .btn-status.vermelho.selecionado {
-      border-color: var(--red);
-      background: rgba(255,23,68,0.1);
-      box-shadow: 0 0 0 3px rgba(255,23,68,0.15);
+    .btn-status.vermelho {
+      background: #4A1A1A;
     }
-    .btn-status.vermelho.selecionado .status-nome { color: var(--red); }
+    .btn-status.vermelho:hover { background: #5a2020; }
+    .btn-status.vermelho.selecionado { background: #4A1A1A; box-shadow: 0 0 0 2px rgba(255,23,68,0.4); }
+
+    /* ========================
+       BADGE DE STATUS (step 2)
+    ======================== */
+    #status-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-family: var(--font-title);
+      color: #fff;
+      width: 100%;
+    }
+    #status-badge .badge-ico {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    #status-badge .badge-info { display: flex; flex-direction: column; gap: 3px; }
+    #status-badge .badge-nome { font-size: 14px; font-weight: 700; color: #fff; }
+    #status-badge .badge-desc { font-size: 12px; font-weight: 400; font-family: var(--font-body); color: rgba(255,255,255,0.7); }
 
     /* ========================
        INPUTS
     ======================== */
-    .campo {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .campos-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .campo { display: flex; flex-direction: column; gap: 8px; }
     .campo label {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 500;
       color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .campo label .lbl-ico {
+      font-size: 16px;
+      line-height: 1;
     }
     .campo input {
-      background: var(--surface2);
-      border: 1.5px solid var(--border);
+      background: #1C2333;
+      border: 1px solid var(--border);
       border-radius: 10px;
       color: var(--text);
       font-family: var(--font-body);
-      font-size: 15px;
-      padding: 12px 14px;
+      font-size: 14px;
+      padding: 13px 14px;
       outline: none;
       transition: border-color .2s;
       width: 100%;
     }
     .campo input:focus { border-color: var(--accent); }
+    .campo input::placeholder { color: var(--border); }
     .campo input[type=number]::-webkit-inner-spin-button { opacity: 0.4; }
-
-    .campos-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-    /* Badge de status selecionado no step 2 */
-    #status-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-    }
+    .campo input[type=time]::-webkit-calendar-picker-indicator { display: none; }
 
     /* ========================
        BOTÕES DE AÇÃO DO MODAL
@@ -552,14 +594,14 @@
     .modal-acoes {
       display: flex;
       gap: 10px;
-      margin-top: 4px;
+      padding: 18px 20px 20px;
+      margin-top: 6px;
     }
 
     .btn-modal {
       flex: 1;
       padding: 13px;
       border-radius: 10px;
-      border: none;
       font-family: var(--font-body);
       font-size: 14px;
       font-weight: 600;
@@ -575,15 +617,16 @@
     .btn-modal.primario {
       background: var(--accent);
       color: #fff;
+      border: none;
     }
     .btn-modal.primario:hover { background: #ff8452; box-shadow: 0 4px 16px var(--accent-glow); }
 
     .btn-modal.secundario {
-      background: var(--surface2);
+      background: transparent;
       color: var(--muted);
-      border: 1px solid var(--border);
+      border: 1.5px dashed var(--border);
     }
-    .btn-modal.secundario:hover { color: var(--text); background: var(--border); }
+    .btn-modal.secundario:hover { color: var(--text); border-color: var(--muted); }
 
     /* ========================
        LOADING SPINNER
@@ -825,22 +868,16 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: rgba(17,24,39,0.88);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      background: #1A2235;
+      border: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      color: var(--text);
-      transition: border-color .2s, box-shadow .2s, opacity .3s, transform .3s;
+      transition: background .2s, box-shadow .2s, opacity .3s, transform .3s;
     }
-    #btn-busca:hover {
-      border-color: var(--accent);
-      box-shadow: 0 4px 20px var(--accent-glow);
-    }
+    #btn-busca:hover { background: #212d45; box-shadow: 0 4px 24px rgba(0,0,0,0.6); }
     #btn-busca:active { transform: scale(0.93); }
 
     /* Barra expandida — ocupa toda a largura do topo */
@@ -905,7 +942,7 @@
     /* Dropdown de resultados */
     #busca-resultados-wrap {
       position: fixed;
-      top: 64px;
+      top: 68px;
       left: 12px;
       right: 12px;
       z-index: 908;
@@ -921,10 +958,39 @@
       transition: max-height .3s cubic-bezier(.4,0,.2,1), opacity .25s ease;
     }
     #busca-resultados-wrap.visivel {
-      max-height: 380px;
+      max-height: 460px;
       opacity: 1;
       pointer-events: all;
     }
+
+    /* Chips de filtro */
+    .busca-filtros {
+      display: flex;
+      gap: 6px;
+      padding: 10px 10px 6px;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .busca-filtros::-webkit-scrollbar { display: none; }
+    .busca-chip {
+      flex-shrink: 0;
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .2s;
+      font-family: var(--font-body);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .busca-chip:hover { border-color: var(--accent); color: var(--text); }
+    .busca-chip.ativo { background: var(--accent); border-color: var(--accent); color: #fff; }
 
     #busca-resultados {
       display: flex;
@@ -940,19 +1006,35 @@
 
     .busca-item {
       display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding: 10px 12px;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
       border-radius: 8px;
       cursor: pointer;
       transition: background .15s;
       border: 1px solid transparent;
     }
     .busca-item:hover { background: var(--surface2); border-color: var(--border); }
+    .busca-item-ico {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+    .busca-item-info { display: flex; flex-direction: column; gap: 2px; overflow: hidden; flex: 1; }
     .busca-item-nome {
       font-size: 13px;
       font-weight: 600;
       color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .busca-item-detalhe {
       font-size: 11px;
@@ -961,13 +1043,22 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .busca-item-badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 50px;
+      background: rgba(255,107,43,0.15);
+      color: var(--accent);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
     .busca-status {
       font-size: 12px;
       color: var(--muted);
       text-align: center;
-      padding: 14px 0;
+      padding: 18px 0;
     }
-
+      overflow: hidden;
     /* Logo some quando busca está aberta */
     #logo {
       transition: opacity .25s ease, transform .25s ease;
@@ -1062,17 +1153,31 @@
   <!-- ========================
        BOTÃO + BARRA DE BUSCA POR BAIRRO
   ======================== -->
-  <button id="btn-busca" title="Buscar bairro">🔍</button>
+  <button id="btn-busca" title="Buscar bairro">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+  </button>
 
   <!-- Barra expandida -->
   <div id="busca-barra">
-    <span style="font-size:15px;color:var(--muted);flex-shrink:0">🔍</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
+      <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
     <input id="busca-input" type="text" placeholder="Buscar bairro ou local..." autocomplete="off" />
     <button id="busca-fechar" title="Fechar">✕</button>
   </div>
 
   <!-- Dropdown de resultados -->
   <div id="busca-resultados-wrap">
+    <div class="busca-filtros">
+      <button class="busca-chip ativo" data-modo="tudo">🔍 Tudo</button>
+      <button class="busca-chip" data-modo="bairros">🏘️ Bairros</button>
+      <button class="busca-chip" data-modo="restaurantes">🍽️ Restaurantes</button>
+      <button class="busca-chip" data-modo="mercados">🛒 Mercados</button>
+      <button class="busca-chip" data-modo="farmacias">💊 Farmácias</button>
+      <button class="busca-chip" data-modo="outros">📍 Outros</button>
+    </div>
     <div id="busca-resultados"></div>
   </div>
 
@@ -1172,36 +1277,58 @@
           <div class="step-dot ativo"></div>
           <div class="step-dot"></div>
         </div>
-        <div>
+        <div class="modal-head">
           <div class="modal-titulo">Como está o movimento aqui?</div>
           <div class="modal-subtitulo">Selecione o status da região marcada</div>
         </div>
-        <div class="coord-badge" id="coord-display">📍 Carregando coordenadas...</div>
-        <div class="status-grid">
-          <button class="btn-status verde" data-status="chamando_muito">
-            <span class="status-icon">🔥</span>
-            <div class="status-info">
-              <span class="status-nome">Chamando Muito</span>
-              <span class="status-desc">Região com alta demanda de pedidos</span>
+        <div class="modal-body">
+          <div class="coord-badge" id="coord-display">
+            <div class="coord-badge-ico">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B9BB4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/>
+              </svg>
             </div>
-          </button>
-          <button class="btn-status amarelo" data-status="chamando_pouco">
-            <span class="status-icon">📦</span>
-            <div class="status-info">
-              <span class="status-nome">Chamando Pouco</span>
-              <span class="status-desc">Fluxo moderado de pedidos</span>
-            </div>
-          </button>
-          <button class="btn-status vermelho" data-status="parado">
-            <span class="status-icon">⛔</span>
-            <div class="status-info">
-              <span class="status-nome">Parado / Sem Pedidos</span>
-              <span class="status-desc">Região sem demanda no momento</span>
-            </div>
-          </button>
+            <span>Carregando coordenadas...</span>
+          </div>
+          <div class="status-grid">
+            <button class="btn-status verde" data-status="chamando_muito">
+              <div class="status-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#00E676">
+                  <path d="M12 2C6.5 7 4 12.5 6 16.5c.6 1.2 1.5 2.1 2.5 2.7C8 17.5 8.5 15.5 10 14c0 2 1 3.5 3 4.5 2-1 3-3 3-5 0-1-.3-2-.8-3C14.5 12 14 13.5 13 14c1-3.5-.5-8-1-12z"/>
+                </svg>
+              </div>
+              <div class="status-info">
+                <span class="status-nome">Chamando muito</span>
+                <span class="status-desc">Região com alta demanda de pedidos</span>
+              </div>
+            </button>
+            <button class="btn-status amarelo" data-status="chamando_pouco">
+              <div class="status-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#FFD600">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+              </div>
+              <div class="status-info">
+                <span class="status-nome">Chamando pouco</span>
+                <span class="status-desc">Fluxo moderado de pedidos</span>
+              </div>
+            </button>
+            <button class="btn-status vermelho" data-status="parado">
+              <div class="status-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#FF1744">
+                  <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                </svg>
+              </div>
+              <div class="status-info">
+                <span class="status-nome">Parado / Sem pedidos</span>
+                <span class="status-desc">Região com baixa demanda no momento</span>
+              </div>
+            </button>
+          </div>
         </div>
         <div class="modal-acoes">
-          <button class="btn-modal secundario" id="btn-cancelar">✕ Cancelar</button>
+          <button class="btn-modal secundario" id="btn-cancelar">Cancelar</button>
         </div>
       </div>
 
@@ -1211,28 +1338,27 @@
           <div class="step-dot ativo"></div>
           <div class="step-dot ativo"></div>
         </div>
-        <div>
-          <div class="modal-titulo">Sua sessão de hoje</div>
+        <div class="modal-head">
+          <div class="modal-titulo">Registro de ponto</div>
           <div class="modal-subtitulo">Preencha os dados para registrar o ponto</div>
         </div>
-
-        <div id="status-badge"></div>
-
-        <div class="campos-row">
-          <div class="campo">
-            <label>🛵 Corridas feitas</label>
-            <input type="number" id="input-corridas" placeholder="Ex: 5" min="0" value="" />
-          </div>
-          <div class="campo">
-            <label>⏰ Horário de início</label>
-            <input type="time" id="input-horario" />
+        <div class="modal-body">
+          <div id="status-badge"></div>
+          <div class="campos-row">
+            <div class="campo">
+              <label>Corridas feitas</label>
+              <input type="number" id="input-corridas" placeholder="Ex: 5" min="0" value="" />
+            </div>
+            <div class="campo">
+              <label>Horário de início</label>
+              <input type="time" id="input-horario" />
+            </div>
           </div>
         </div>
-
         <div class="modal-acoes">
-          <button class="btn-modal secundario" id="btn-voltar">← Voltar</button>
+          <button class="btn-modal secundario" id="btn-voltar">Voltar</button>
           <button class="btn-modal primario" id="btn-salvar">
-            <span id="salvar-texto">✔ Salvar Marcação</span>
+            <span id="salvar-texto">Salvar</span>
             <div class="spinner" id="salvar-spinner"></div>
           </button>
         </div>
@@ -1277,9 +1403,9 @@
        CONSTANTES
     ================================================ */
     const STATUS = {
-      chamando_muito: { label:"Chamando Muito",      icon:"🔥", cor:"#00E676", base:0.85, badge:"rgba(0,230,118,0.15)",  borda:"rgba(0,230,118,0.5)"  },
-      chamando_pouco: { label:"Chamando Pouco",      icon:"📦", cor:"#FFD600", base:0.45, badge:"rgba(255,214,0,0.15)",  borda:"rgba(255,214,0,0.5)"  },
-      parado:         { label:"Parado / Sem Pedidos", icon:"⛔", cor:"#FF1744", base:0.10, badge:"rgba(255,23,68,0.15)",  borda:"rgba(255,23,68,0.5)"  }
+      chamando_muito: { label:"Chamando muito",       svgStroke:"#00E676", svg:`<path d="M12 2C6.5 7 4 12.5 6 16.5c.6 1.2 1.5 2.1 2.5 2.7C8 17.5 8.5 15.5 10 14c0 2 1 3.5 3 4.5 2-1 3-3 3-5 0-1-.3-2-.8-3C14.5 12 14 13.5 13 14c1-3.5-.5-8-1-12z"/>`, icon:"🔥", cor:"#00E676", base:0.85, badge:"rgba(0,230,118,0.15)",  borda:"rgba(0,230,118,0.5)",  desc:"Região com alta demanda de pedidos"  },
+      chamando_pouco: { label:"Chamando pouco",       svgStroke:"#FFD600", svg:`<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>`, icon:"📦", cor:"#FFD600", base:0.45, badge:"rgba(255,214,0,0.15)",  borda:"rgba(255,214,0,0.5)",  desc:"Fluxo moderado de pedidos"           },
+      parado:         { label:"Parado / Sem pedidos", svgStroke:"#FF1744", svg:`<circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>`,                                                                                                                                                                                                                                                                                    icon:"⛔", cor:"#FF1744", base:0.10, badge:"rgba(255,23,68,0.15)",  borda:"rgba(255,23,68,0.5)",  desc:"Região com baixa demanda no momento" }
     };
 
     /* Cache de ícones por status+isOwn — evita recriar a cada render */
@@ -1508,7 +1634,13 @@
       document.querySelectorAll(".btn-status").forEach(b => b.classList.remove("selecionado"));
       EL.inputCorridas.value = "";
       EL.inputHorario.value  = horaAtual();
-      EL.coordDisp.textContent = `📍 ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+      EL.coordDisp.innerHTML = `
+        <div class="coord-badge-ico">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B9BB4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/>
+          </svg>
+        </div>
+        <span>${lat.toFixed(5)}, ${lng.toFixed(5)}</span>`;
       irParaStep(1);
       EL.overlay.classList.add("ativo");
       criarRipple(lat, lng, "#FF6B2B");
@@ -1526,12 +1658,15 @@
       EL.step2.classList.remove("slide-back");
       if (n === 2) {
         const cfg = STATUS[statusSelecionado];
-        Object.assign(EL.statusBadge.style, {
-          background: cfg.badge, border: `1px solid ${cfg.borda}`,
-          borderRadius: "10px", padding: "10px 14px",
-          display: "flex", alignItems: "center", gap: "10px"
-        });
-        EL.statusBadge.innerHTML = `<span style="font-size:18px">${cfg.icon}</span><span style="font-weight:600;color:${cfg.cor}">${cfg.label}</span>`;
+        EL.statusBadge.style.cssText = `background:${cfg.badge};border:1px solid ${cfg.borda.replace('0.5','0.3')};border-radius:12px;`;
+        EL.statusBadge.innerHTML = `
+          <div class="badge-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${cfg.svgStroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${cfg.svg}</svg>
+          </div>
+          <div class="badge-info">
+            <span class="badge-nome">${cfg.label}</span>
+            <span class="badge-desc">${cfg.desc || ""}</span>
+          </div>`;
       }
     }
 
@@ -1725,10 +1860,12 @@
     $("painel-header").addEventListener("click", () => EL.painel.classList.toggle("fechado"));
 
     /* ================================================
-       BUSCA POR BAIRRO
+       BUSCA POR BAIRRO E ESTABELECIMENTOS
     ================================================ */
-    let bairroLayer = null;
-    let debuscaTimer = null;
+    let bairroLayer    = null;
+    let estabMarker    = null;
+    let debuscaTimer   = null;
+    let buscaModo      = "tudo";
 
     const geoCtx = { cidade: null, estado: null, pais: "BR", lat: null, lng: null, viewbox: null };
 
@@ -1749,12 +1886,92 @@
       } catch(e) { console.warn("Reverse geo:", e); }
     }
 
+    // Mapa de categorias OSM → emoji + label
+    const CAT_MAP = {
+      restaurant:   { ico: "🍽️", label: "Restaurante" },
+      fast_food:    { ico: "🍔", label: "Fast Food" },
+      cafe:         { ico: "☕", label: "Café" },
+      bar:          { ico: "🍺", label: "Bar" },
+      bakery:       { ico: "🥖", label: "Padaria" },
+      supermarket:  { ico: "🛒", label: "Supermercado" },
+      convenience:  { ico: "🏪", label: "Mercadinho" },
+      marketplace:  { ico: "🏬", label: "Feira/Mercado" },
+      pharmacy:     { ico: "💊", label: "Farmácia" },
+      hospital:     { ico: "🏥", label: "Hospital" },
+      clinic:       { ico: "🩺", label: "Clínica" },
+      fuel:         { ico: "⛽", label: "Posto de Combustível" },
+      bank:         { ico: "🏦", label: "Banco" },
+      atm:          { ico: "💳", label: "Caixa Eletrônico" },
+      school:       { ico: "🏫", label: "Escola" },
+      university:   { ico: "🎓", label: "Universidade" },
+      hotel:        { ico: "🏨", label: "Hotel" },
+      mall:         { ico: "🏬", label: "Shopping" },
+      gym:          { ico: "🏋️", label: "Academia" },
+      park:         { ico: "🌳", label: "Parque" },
+      church:       { ico: "⛪", label: "Igreja" },
+      police:       { ico: "👮", label: "Delegacia" },
+      post_office:  { ico: "📮", label: "Correios" },
+      library:      { ico: "📚", label: "Biblioteca" },
+      butcher:      { ico: "🥩", label: "Açougue" },
+      clothes:      { ico: "👕", label: "Loja de Roupas" },
+      hairdresser:  { ico: "💇", label: "Salão de Beleza" },
+      laundry:      { ico: "👗", label: "Lavanderia" },
+      car_repair:   { ico: "🔧", label: "Oficina" },
+      dentist:      { ico: "🦷", label: "Dentista" },
+      veterinary:   { ico: "🐾", label: "Veterinário" },
+      ice_cream:    { ico: "🍦", label: "Sorveteria" },
+      juice_bar:    { ico: "🥤", label: "Sorveteria/Lanchonete" },
+      food_court:   { ico: "🍱", label: "Praça de Alimentação" },
+      neighbourhood:{ ico: "🏘️", label: "Bairro" },
+      suburb:       { ico: "🏘️", label: "Bairro" },
+      residential:  { ico: "🏠", label: "Residencial" },
+      quarter:      { ico: "🏙️", label: "Quadrante" },
+      city_block:   { ico: "🏢", label: "Bloco" },
+    };
+
+    // Retorna config de ícone para um item Nominatim
+    function getCategoria(item) {
+      const t = item.type || "";
+      const c = item.class || "";
+      return CAT_MAP[t] || CAT_MAP[c] || (
+        c === "amenity"  ? { ico: "📍", label: "Estabelecimento" } :
+        c === "shop"     ? { ico: "🛍️", label: "Loja" } :
+        c === "tourism"  ? { ico: "🗺️", label: "Turismo" } :
+        c === "leisure"  ? { ico: "🎡", label: "Lazer" } :
+        c === "place"    ? { ico: "🏘️", label: "Local" } :
+        c === "highway"  ? { ico: "🛣️", label: "Via" } :
+                          { ico: "📌", label: "Local" }
+      );
+    }
+
+    // Verifica se um item é um estabelecimento (não bairro/área)
+    function isEstabelecimento(item) {
+      return ["amenity","shop","tourism","leisure","food","craft","office","healthcare"].includes(item.class);
+    }
+
+    // Constrói viewbox largo a partir da posição do usuário (±0.05°)
+    function getViewboxUsuario(raio = 0.08) {
+      if (!geoCtx.lat) return "";
+      return `&viewbox=${geoCtx.lng-raio},${geoCtx.lat+raio},${geoCtx.lng+raio},${geoCtx.lat-raio}&bounded=1`;
+    }
+
+    // Parâmetros extras por modo
+    const MODO_PARAMS = {
+      bairros:     "&featuretype=settlement,neighbourhood,suburb,quarter,city_block",
+      restaurantes:"&addresstype=amenity&amenity=restaurant,fast_food,cafe,bar,bakery,juice_bar,ice_cream,food_court",
+      mercados:    "&addresstype=amenity,shop",
+      farmacias:   "&addresstype=amenity",
+      outros:      "",
+      tudo:        "",
+    };
+
     function abrirBusca() {
       EL.buscaBarra.classList.add("aberta");
       EL.logo.classList.add("oculto");
       EL.btnBusca.style.opacity = "0";
       EL.btnBusca.style.pointerEvents = "none";
-      if (geoCtx.cidade) EL.buscaInput.placeholder = `Bairros em ${geoCtx.cidade}...`;
+      const hint = geoCtx.cidade ? `Buscar em ${geoCtx.cidade}...` : "Buscar bairro ou estabelecimento...";
+      EL.buscaInput.placeholder = hint;
       setTimeout(() => EL.buscaInput.focus(), 200);
     }
     function fecharBusca() {
@@ -1771,6 +1988,18 @@
     EL.buscaFechar.addEventListener("click", fecharBusca);
     document.addEventListener("keydown", e => { if (e.key === "Escape") fecharBusca(); });
 
+    // Chips de filtro
+    document.querySelectorAll(".busca-chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        document.querySelectorAll(".busca-chip").forEach(c => c.classList.remove("ativo"));
+        chip.classList.add("ativo");
+        buscaModo = chip.dataset.modo;
+        const t = EL.buscaInput.value.trim();
+        if (t) buscar(t);
+        else { EL.buscaRes.innerHTML = ""; EL.buscaResWrap.classList.remove("visivel"); }
+      });
+    });
+
     EL.buscaInput.addEventListener("input", () => {
       clearTimeout(debuscaTimer);
       const t = EL.buscaInput.value.trim();
@@ -1785,67 +2014,155 @@
       if (!termo) return;
       EL.buscaRes.innerHTML = `<div class="busca-status">🔍 Buscando${geoCtx.cidade ? ` em ${geoCtx.cidade}` : ""}...</div>`;
       EL.buscaResWrap.classList.add("visivel");
-      try {
-        const q  = geoCtx.cidade ? `${termo}, ${geoCtx.cidade}${geoCtx.estado?", "+geoCtx.estado:""}` : termo;
-        const vb = geoCtx.viewbox ? `&viewbox=${geoCtx.viewbox}&bounded=1` : (geoCtx.lat ? `&viewbox=${geoCtx.lng-.5},${geoCtx.lat+.5},${geoCtx.lng+.5},${geoCtx.lat-.5}&bounded=1` : "");
-        const cc = `&countrycodes=${geoCtx.pais.toLowerCase()}`;
-        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&limit=8&polygon_geojson=1${vb}${cc}&accept-language=pt-BR`;
-        let data = await (await fetch(url,{headers:{"Accept-Language":"pt-BR"}})).json();
-        if (!data.length && geoCtx.cidade) {
-          data = await (await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(termo)}&format=json&addressdetails=1&limit=6&polygon_geojson=1${cc}&accept-language=pt-BR`,{headers:{"Accept-Language":"pt-BR"}})).json();
-        }
-        if (!data.length) { EL.buscaRes.innerHTML = `<div class="busca-status">😕 Nenhum resultado</div>`; return; }
 
+      try {
+        const cc  = `&countrycodes=${geoCtx.pais.toLowerCase()}`;
+        const vb  = buscaModo === "bairros"
+          ? (geoCtx.viewbox ? `&viewbox=${geoCtx.viewbox}&bounded=1` : "")
+          : getViewboxUsuario(buscaModo === "tudo" ? 0.12 : 0.15);
+
+        // Para estabelecimentos, busca com o nome + cidade
+        const q = geoCtx.cidade && buscaModo !== "bairros"
+          ? `${termo}, ${geoCtx.cidade}${geoCtx.estado ? ", " + geoCtx.estado : ""}`
+          : geoCtx.cidade ? `${termo}, ${geoCtx.cidade}` : termo;
+
+        const limit = buscaModo === "tudo" ? 12 : 10;
+        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&limit=${limit}&polygon_geojson=1${vb}${cc}&accept-language=pt-BR`;
+        let data = await (await fetch(url, { headers: { "Accept-Language": "pt-BR" } })).json();
+
+        // Fallback sem bounded se não retornou nada
+        if (!data.length && geoCtx.cidade) {
+          const url2 = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(termo)}&format=json&addressdetails=1&limit=8&polygon_geojson=1${cc}&accept-language=pt-BR`;
+          data = await (await fetch(url2, { headers: { "Accept-Language": "pt-BR" } })).json();
+        }
+
+        // Filtrar por modo
+        if (buscaModo === "bairros") {
+          data = data.filter(i => ["place","boundary","landuse"].includes(i.class));
+        } else if (buscaModo === "restaurantes") {
+          const tipos = ["restaurant","fast_food","cafe","bar","bakery","juice_bar","ice_cream","food_court","pub"];
+          data = data.filter(i => i.class === "amenity" && tipos.includes(i.type));
+          if (!data.length) {
+            // busca direta por tipo
+            const url3 = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(termo)}&format=json&addressdetails=1&limit=10${cc}&accept-language=pt-BR${getViewboxUsuario(0.2)}`;
+            const d3 = await (await fetch(url3, { headers: { "Accept-Language": "pt-BR" } })).json();
+            data = d3.filter(i => i.class === "amenity" && tipos.includes(i.type));
+          }
+        } else if (buscaModo === "mercados") {
+          const tipos = ["supermarket","convenience","marketplace","wholesale","greengrocer","butcher","deli"];
+          data = data.filter(i => (i.class === "amenity" || i.class === "shop") && (tipos.includes(i.type) || i.type?.includes("market")));
+        } else if (buscaModo === "farmacias") {
+          data = data.filter(i => i.class === "amenity" && ["pharmacy","chemist","drugstore"].includes(i.type));
+          if (!data.length) data = data.filter(i => i.class === "shop" && i.type === "chemist");
+        } else if (buscaModo === "outros") {
+          data = data.filter(i => isEstabelecimento(i));
+        }
+
+        if (!data.length) { EL.buscaRes.innerHTML = `<div class="busca-status">😕 Nenhum resultado para "<strong>${termo}</strong>"</div>`; return; }
+
+        // Calcular score por proximidade
         const pts = data.map(item => {
-          const a = item.address||{};
-          const cidade = (a.city||a.town||a.village||a.county||"").toLowerCase();
-          const estado = (a.state||"").toLowerCase();
+          const a = item.address || {};
+          const cidade = (a.city || a.town || a.village || a.county || "").toLowerCase();
+          const estado = (a.state || "").toLowerCase();
           let score = 0;
           if (geoCtx.cidade && cidade.includes(geoCtx.cidade.toLowerCase())) score += 2;
           if (geoCtx.estado && estado.includes(geoCtx.estado.toLowerCase()))  score += 1;
+          if (geoCtx.lat && item.lat) {
+            const d = Math.hypot(+item.lat - geoCtx.lat, +item.lon - geoCtx.lng);
+            score += Math.max(0, 2 - d * 10);
+          }
           return { item, score };
-        }).sort((a,b) => b.score - a.score);
+        }).sort((a, b) => b.score - a.score);
 
         EL.buscaRes.innerHTML = "";
-        if (geoCtx.cidade) {
-          const h = document.createElement("div");
-          h.style.cssText = "font-size:11px;color:var(--muted);padding:4px 12px 8px;text-transform:uppercase;letter-spacing:0.07em;font-weight:600;";
-          h.textContent = `📍 Próximos a ${geoCtx.cidade}`;
-          EL.buscaRes.appendChild(h);
-        }
+
+        // Cabeçalho de contexto
+        const h = document.createElement("div");
+        h.style.cssText = "font-size:11px;color:var(--muted);padding:6px 10px 4px;text-transform:uppercase;letter-spacing:0.07em;font-weight:600;";
+        h.textContent = geoCtx.cidade ? `📍 Próximos a ${geoCtx.cidade}` : "Resultados";
+        EL.buscaRes.appendChild(h);
+
         pts.forEach(({ item, score }) => {
-          const a = item.address||{};
-          const nome   = item.name || item.display_name.split(",")[0];
-          const detail = [a.city||a.town||a.village||a.county||"", a.state||""].filter(Boolean).join(", ") || item.display_name;
-          const badge  = score >= 2 ? `<span style="font-size:10px;padding:1px 6px;border-radius:50px;background:rgba(255,107,43,0.15);color:var(--accent);font-weight:600;margin-left:4px;">📍 Próximo</span>` : "";
+          const a    = item.address || {};
+          const nome = item.name || item.display_name.split(",")[0];
+          const cat  = getCategoria(item);
+
+          // Detalhe: rua/bairro + cidade
+          const rua    = a.road || a.pedestrian || a.footway || "";
+          const bairro = a.suburb || a.neighbourhood || a.quarter || "";
+          const cidadeD = a.city || a.town || a.village || a.county || "";
+          const detalhe = [rua, bairro, cidadeD].filter(Boolean).join(", ") || item.display_name.split(",").slice(1, 3).join(",").trim();
+
+          const badge = score >= 3
+            ? `<span class="busca-item-badge">Próximo</span>`
+            : "";
+
           const div = document.createElement("div");
           div.className = "busca-item";
-          div.innerHTML = `<div style="display:flex;align-items:center;gap:4px;"><span class="busca-item-nome">${nome}</span>${badge}</div><span class="busca-item-detalhe">${detail}</span>`;
-          div.addEventListener("click", () => selecionarLocal(item, nome));
+          div.innerHTML = `
+            <div class="busca-item-ico">${cat.ico}</div>
+            <div class="busca-item-info">
+              <span class="busca-item-nome">${nome}</span>
+              <span class="busca-item-detalhe">${cat.label}${detalhe ? " · " + detalhe : ""}</span>
+            </div>
+            ${badge}`;
+          div.addEventListener("click", () => selecionarLocal(item, nome, cat));
           EL.buscaRes.appendChild(div);
         });
+
       } catch(e) {
         EL.buscaRes.innerHTML = `<div class="busca-status">❌ Erro na busca.</div>`;
         console.error(e);
       }
     }
 
-    function selecionarLocal(item, nome) {
+    function selecionarLocal(item, nome, cat) {
+      // Remove camadas anteriores
       if (bairroLayer) { map.removeLayer(bairroLayer); bairroLayer = null; }
-      if (item.geojson) {
-        bairroLayer = L.geoJSON(item.geojson, { style:{ color:"#FF6B2B", weight:2.5, opacity:.9, fillColor:"#FF6B2B", fillOpacity:.1, dashArray:"6 4" } }).addTo(map);
-        map.flyToBounds(bairroLayer.getBounds(), { padding:[50,50], duration:1.2 });
+      if (estabMarker) { map.removeLayer(estabMarker); estabMarker = null; }
+
+      const ehEstab = isEstabelecimento(item);
+
+      if (ehEstab || !item.geojson) {
+        // Estabelecimento: marcador temporário destacado
+        const lat = +item.lat, lng = +item.lon;
+        const icon = L.divIcon({
+          className: "",
+          html: `<div style="
+            background:#FF6B2B;
+            border:3px solid #fff;
+            border-radius:50% 50% 50% 0;
+            width:28px;height:28px;
+            transform:rotate(-45deg);
+            box-shadow:0 2px 12px rgba(255,107,43,0.6);
+            display:flex;align-items:center;justify-content:center;
+          "><span style="transform:rotate(45deg);font-size:13px;line-height:28px;margin-left:1px">${cat ? cat.ico : "📍"}</span></div>`,
+          iconSize: [28, 28],
+          iconAnchor: [14, 28],
+        });
+        estabMarker = L.marker([lat, lng], { icon })
+          .addTo(map)
+          .bindPopup(`<b>${nome}</b>${cat ? "<br><small>"+cat.label+"</small>" : ""}`, { maxWidth: 200 })
+          .openPopup();
+        map.flyTo([lat, lng], 17, { duration: 1.2 });
       } else {
-        map.flyTo([+item.lat, +item.lon], 15, { duration:1.2 });
+        // Bairro/área: polígono
+        bairroLayer = L.geoJSON(item.geojson, {
+          style: { color: "#FF6B2B", weight: 2.5, opacity: .9, fillColor: "#FF6B2B", fillOpacity: .1, dashArray: "6 4" }
+        }).addTo(map);
+        map.flyToBounds(bairroLayer.getBounds(), { padding: [50, 50], duration: 1.2 });
       }
-      EL.buscaTagNome.textContent = nome.length > 20 ? nome.slice(0,20)+"…" : nome;
+
+      EL.buscaTagNome.textContent = nome.length > 20 ? nome.slice(0, 20) + "…" : nome;
       EL.buscaTagAtivo.classList.add("visivel");
       fecharBusca();
-      mostrarToast(`📍 Mostrando: ${nome}`);
+      mostrarToast(`${cat ? cat.ico : "📍"} ${nome}`);
     }
 
     EL.buscaTagFechar.addEventListener("click", () => {
-      if (bairroLayer) { map.removeLayer(bairroLayer); bairroLayer = null; }
+      if (bairroLayer)  { map.removeLayer(bairroLayer);  bairroLayer  = null; }
+      if (estabMarker)  { map.removeLayer(estabMarker);  estabMarker  = null; }
       EL.buscaTagAtivo.classList.remove("visivel");
     });
 
