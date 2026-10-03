@@ -15,6 +15,7 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
    document.querySelectorAll('.hero-sequence, .hero-copy').forEach(root => root.getAnimations({subtree:true}).forEach(animation => {animation.pause();animation.currentTime=time;}));
    const style = selector => getComputedStyle(document.querySelector(selector));
    return {
+    light:Number(style('.hero-light').opacity),
     portrait:Number(style('.hero-portrait').opacity),
     angle:parseFloat(style('.hero-circle').getPropertyValue('--hero-ring-angle')),
     intro:Number(style('.hero-skills-intro').opacity),
@@ -30,7 +31,7 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
    };
   }, time);
   const start=await sample(0);
-  assert.equal(start.portrait,0);assert.equal(start.angle,0);assert(start.letters.every(x=>x===1));
+  assert.equal(start.light,0);assert.equal(start.portrait,0);assert.equal(start.angle,0);assert(start.letters.every(x=>x===1));
   assert(start.mask.includes('from 180deg'));assert.equal(start.titleLines[0].fill,0);assert.equal(start.titleLines[2].fill,0);
   assert.equal(start.following.length,5);assert(start.following.every(x=>x===0));
   const middle=await sample(650);assert(middle.portrait>0&&middle.portrait<1);assert.equal(middle.angle,0);assert(middle.letters[0]<1&&middle.letters.at(-1)===1);
@@ -46,10 +47,13 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
   const beforeSupporting=await sample(2400);assert(beforeSupporting.letters.every(x=>x===0));assert.equal(beforeSupporting.titleLines[2].fill,1);assert(beforeSupporting.following.every(x=>x===0));
   for(const [index,time] of [2640,3140,3540,4040,4540].entries()){
    const result=await sample(time);
+   assert.equal(result.light,0,'Light waits until the other hero elements finish');
    assert(result.following.slice(0,index).every(x=>x===1));
    assert(result.following[index]>0&&result.following[index]<1);
    assert(result.following.slice(index+1).every(x=>x===0));
   }
+  const beforeLight=await sample(5400);assert.equal(beforeLight.light,0);assert(beforeLight.rows.every(x=>x===1));assert(beforeLight.following.every(x=>x===1));
+  const lightReveal=await sample(5900);assert(lightReveal.light>0&&lightReveal.light<1,'Light fades in last');
   await sample(1250);
   await page.evaluate(() => {
    window.savedHeroAnimations = [...document.querySelectorAll('.hero-sequence, .hero-copy')].flatMap(root => root.getAnimations({subtree:true})).filter(animation => !animation.effect.target.closest('.hero-writing'));
@@ -62,7 +66,7 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
   }));
   assert(translatedProgress.times.length>0);assert(translatedProgress.times.every(time=>time===1250));assert(translatedProgress.paused);assert(translatedProgress.sameLayers);
   await page.getByRole('button',{name:'PT',exact:true}).click();
-  const final=await sample(8000);assert.equal(final.angle,360);assert(final.rows.every(x=>x===1));assert(final.dividers.every(x=>x===1));assert(final.letters.every(x=>x===0));assert(final.following.every(x=>x===1));
+  const final=await sample(8000);assert.equal(final.light,1);assert.equal(final.angle,360);assert(final.rows.every(x=>x===1));assert(final.dividers.every(x=>x===1));assert(final.letters.every(x=>x===0));assert(final.following.every(x=>x===1));
   assert.equal(final.titleLines[0].fill,1);assert.equal(final.titleLines[2].fill,1);
   await page.screenshot({path:'.qa/hero-final-desktop.png'});
   await page.getByRole('button',{name:'ENG',exact:true}).click();
@@ -91,7 +95,7 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
    ring:document.querySelector('.hero-circle').getAnimations()[0]===window.savedRing,
    followers:[...document.querySelectorAll('.hero-follow')].flatMap(el=>el.getAnimations()).every((animation,i)=>animation===window.savedFollowers[i])
   }));
-  assert(continued.time>=elapsed && continued.time<elapsed+1000);assert(continued.ring);assert(continued.followers);
+  assert(continued.time>=elapsed && continued.time<elapsed+1000,JSON.stringify({elapsed,continued}));assert(continued.ring);assert(continued.followers);
   await live.waitForFunction(() => !document.querySelector('.hero-copy').classList.contains('is-copy-animating'));
   await live.locator('[data-language="en"]').click();
   assert(await live.evaluate(() => [...document.querySelectorAll('.hero-follow')].every(el=>Number(getComputedStyle(el).opacity)===1 && el.getAnimations().length===0)));

@@ -130,8 +130,8 @@
     art.classList.add('is-animating');
     art.dataset.motionState = 'running';
   };
-  const lastText = art.querySelector('.hero-skills-list li:last-child .hero-skill-text');
-  lastText.addEventListener('animationend', event => {
+  const lastLayer = art.querySelector('.hero-light');
+  lastLayer.addEventListener('animationend', event => {
     if (event.animationName === 'hero-layer-fade') art.dataset.motionState = 'complete';
   });
   reduced.addEventListener('change', () => { if (reduced.matches) finish(); });
