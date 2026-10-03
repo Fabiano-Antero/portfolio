@@ -1,0 +1,56 @@
+.chibi-layer{position:fixed;inset:0;z-index:40;overflow:hidden;pointer-events:none;contain:layout style}
+.chibi-pet{position:absolute;left:0;top:0;width:240px;height:260px;pointer-events:none;will-change:transform}
+.chibi-pet canvas{display:block;width:240px;height:260px;pointer-events:none}
+.chibi-trigger{position:absolute;left:68px;top:42px;width:104px;height:184px;padding:0;border:0;background:transparent;pointer-events:auto;cursor:grab;touch-action:none;border-radius:45%}
+.chibi-trigger:focus-visible{outline:2px solid var(--coral);outline-offset:0}
+.chibi-pet:not([data-state="idle"]) .chibi-trigger{pointer-events:none}
+.chibi-close{position:absolute;left:36px;top:46px;width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center;border:1px solid #ffffff26;border-radius:50%;background:#101114d9;color:white;font-size:18px;line-height:1;pointer-events:auto;opacity:0;transition:opacity .2s}
+.chibi-pet[data-state="idle"]:hover .chibi-close,.chibi-pet[data-state="idle"]:focus-within .chibi-close{opacity:1}
+.chibi-pet:not([data-state="idle"]) .chibi-close{visibility:hidden;pointer-events:none}
+.chibi-pointer{position:absolute;left:0;top:0;width:28px;height:40px;transform-origin:2px 2px;filter:drop-shadow(0 2px 2px #0004);pointer-events:none;will-change:transform}
+.chibi-pointer[hidden]{display:none}
+html.chibi-cursor,html.chibi-cursor *{cursor:none!important}
+.chibi-pet[data-chat-open="true"] .chibi-trigger{pointer-events:none}
+.chibi-chat{position:absolute;inset:0;pointer-events:none;color:#f5f5f6;font-family:inherit;font-size:14px;line-height:1.5}
+.chibi-chat [hidden]{display:none!important}
+.chibi-chat button,.chibi-chat input,.chibi-chat a{font:inherit}
+.chibi-chat button{cursor:pointer;min-height:40px}
+.chibi-chat button:focus-visible,.chibi-chat a:focus-visible,.chibi-chat input:focus-visible{outline:2px solid var(--coral,#ff6b3d);outline-offset:3px}
+.chibi-chat-invite,.chibi-chat-panel{position:absolute;right:24px;bottom:var(--chat-bottom,232px);width:296px;max-width:calc(100vw - 32px);box-sizing:border-box;pointer-events:auto;background:#1b1d22;border:1px solid #ffffff1c;border-radius:18px;box-shadow:0 12px 45px #0005}
+.chibi-chat-invite{padding:20px;width:258px}
+.chibi-chat-invite::after{content:"";position:absolute;right:42px;bottom:-7px;width:12px;height:12px;background:#1b1d22;transform:rotate(45deg);border-right:1px solid #ffffff1c;border-bottom:1px solid #ffffff1c}
+.chibi-chat-invite p{margin:0 0 16px;font-size:16px}
+.chibi-chat-choices{display:flex;gap:8px}
+.chibi-chat-primary,.chibi-chat-secondary,.chibi-chat-suggestion{border:0;border-radius:10px;padding:9px 16px}
+.chibi-chat-primary{background:var(--coral,#ff6b3d);color:#101114;font-weight:600!important}
+.chibi-chat-primary:disabled{opacity:.5;cursor:wait}
+.chibi-chat-secondary{background:#ffffff0c;color:#f5f5f6}
+.chibi-chat-choices button{flex:1}
+.chibi-chat-launcher{position:absolute;right:116px;bottom:18px;border:1px solid #ffffff26;border-radius:100px;background:#1b1d22;color:#f5f5f6;padding:8px 16px;pointer-events:auto;box-shadow:0 3px 15px #0003}
+.chibi-chat-panel{width:350px;max-height:min(480px,calc(var(--chat-viewport-height,100dvh) - 252px));display:flex;flex-direction:column;overflow:hidden}
+.chibi-chat-header{padding:16px;display:flex;gap:12px;align-items:flex-start;border-bottom:1px solid #ffffff12;flex-shrink:0}
+.chibi-chat-header h2{margin:0;font-size:16px;letter-spacing:0;line-height:1.4}
+.chibi-chat-header p{margin:3px 0 0;font-size:12px;color:#acafb8}
+.chibi-chat-dismiss{margin-left:auto;flex:0 0 40px;width:40px;height:40px;padding:0;border:0;background:#ffffff08;border-radius:50%;color:#f5f5f6;font-size:22px!important}
+.chibi-chat-log{padding:16px;overflow-y:auto;overscroll-behavior:contain;min-height:48px;flex:1;scrollbar-width:thin}
+.chibi-chat-bubble{max-width:92%;padding:12px 14px;border-radius:14px;margin:0 0 12px;overflow-wrap:anywhere}
+.chibi-chat-answer{background:#292c33;border-bottom-left-radius:4px}
+.chibi-chat-visitor{margin-left:auto;background:#ff6b3d;color:#101114;border-bottom-right-radius:4px}
+.chibi-chat-speaker{display:block;font-size:10px;font-weight:600;opacity:.65;margin-bottom:4px}
+.chibi-chat-bubble p{margin:0;white-space:pre-line;font-size:13px;line-height:1.55;color:inherit}
+.chibi-chat-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chibi-chat-links a{font-size:12px;color:#ff9671;text-decoration:underline;text-underline-offset:3px}
+.chibi-chat-suggestions{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 12px;flex-shrink:0}
+.chibi-chat-suggestion{background:#ffffff06;border:1px solid #ffffff1a;color:#dadbe0;font-size:11px!important;padding:6px 9px;min-height:32px!important;text-align:left}
+.chibi-chat-form{padding:12px 16px 16px;border-top:1px solid #ffffff12;flex-shrink:0}
+.chibi-chat-form label{display:block;font-size:11px;color:#acafb8;margin-bottom:6px}
+.chibi-chat-input-row{display:flex;gap:8px}
+.chibi-chat-input-row input{width:0;flex:1;min-width:0;background:#101114;border:1px solid #ffffff22;border-radius:10px;padding:10px;color:#f5f5f6;font-size:16px}
+.chibi-chat-input-row button{padding:9px 12px}
+.chibi-chat-status{margin:6px 0 0;font-size:11px;color:#ff9671}
+.chibi-chat-status:empty{display:none}
+.chibi-chat-keyboard .chibi-chat-panel{max-height:calc(var(--chat-viewport-height,100dvh) - 24px)}
+@media(max-width:600px){.chibi-chat-invite,.chibi-chat-panel{right:16px;bottom:var(--chat-bottom,224px)}.chibi-chat-panel{max-height:calc(var(--chat-viewport-height,100dvh) - 240px)}}
+@media(max-height:560px) and (min-width:601px){.chibi-chat-invite,.chibi-chat-panel{right:180px;bottom:var(--chat-bottom,16px)}.chibi-chat-panel{max-height:calc(var(--chat-viewport-height,100dvh) - 32px)}}
+@media(prefers-reduced-motion:reduce){.chibi-close{transition:none}}
+@media(hover:none){.chibi-pet[data-state="idle"] .chibi-close{opacity:.75;width:44px;height:44px;left:20px}}

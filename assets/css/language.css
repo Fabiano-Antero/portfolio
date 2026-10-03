@@ -1,0 +1,8 @@
+.language{display:flex;align-items:center;gap:4px}
+.site-header .language{display:flex;flex-shrink:0}
+.language button{font:inherit;color:inherit;background:none;border:0;padding:8px 5px;min-height:44px;cursor:pointer;transition:color .2s}
+.language button[aria-pressed="true"]{color:var(--coral)}
+.language button:hover{color:white}
+.language button:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:3px}
+@media(max-width:767px){.site-header .language{display:flex;margin-left:auto}.mobile-projects{display:none}.case-header .header-inner{flex-wrap:wrap}.case-header nav{order:3;width:100%;justify-content:space-between}.case-header .language{order:2}}
+@media(max-width:767px){html[lang="en"] .case-opening>h1{font-size:clamp(36px,11.4vw,49px);line-height:1.08;max-width:100%}}

@@ -1,0 +1,48 @@
+/* Editorial layout for the current Cash Advance study. */
+.cash-page .site-header{padding-block:24px}
+.cash-page main>.cash-case:first-child{padding-top:48px}
+.cash-page main>.cash-case:nth-child(2){padding-block:48px}
+.cash-facts h3{font-size:28px;line-height:32px}
+.cash-case .section-heading{gap:32px}
+.cash-case .section-heading>p:last-child:not(.eyebrow){max-width:950px}
+.cash-case:not(.paper) .eyebrow,.cash-case:not(.paper) .cash-note .mono{color:var(--coral)}
+.cash-opening{gap:24px}
+.cash-opening>h1{font-size:88px;line-height:88px;letter-spacing:-3.52px}
+.cash-opening .text-link{min-height:20px}
+.cash-thesis{font-size:88px;line-height:88px;letter-spacing:-3.52px}
+.cash-opening>.cash-intro-description{max-width:800px}
+.cash-case .button{width:280px;max-width:100%;padding-block:15px}
+.cash-case .chapter-nav{max-width:1024px;row-gap:12px}
+.cash-case .cash-native{align-items:center;min-width:0}
+.cash-case .cash-native figcaption{width:100%;max-width:390px;align-self:center}
+.cash-screen-grid{display:grid;gap:48px;align-items:start}
+.cash-screen-grid-three{grid-template-columns:repeat(3,minmax(0,1fr));gap:55px}
+.cash-screen-grid-two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cash-note{display:flex;flex-direction:column;gap:12px;min-width:0}
+.cash-note h3{line-height:36px}
+.cash-case .cash-small,.cash-small p{font-size:16px;line-height:24px}
+.cash-source{max-width:1100px}
+.cash-metrics article{display:flex;flex-direction:column;gap:12px}
+.cash-metrics h3{font-size:48px;line-height:50px;letter-spacing:-1.44px;font-weight:700}
+.cash-metric-track{height:4px;background:var(--line-dark)}
+.cash-metric-track span{display:block;height:100%;background:var(--coral)}
+.cash-case:not(.paper) hr{border-color:var(--line-dark)}
+.cash-persona{display:grid;grid-template-columns:400fr 832fr;gap:48px}
+.cash-persona .stack{gap:16px}
+.cash-flow-steps{list-style:none;padding:0;display:flex;gap:48px;align-items:center;min-width:0}
+.cash-flow-steps li{position:relative;flex:1;min-width:0;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);padding:16px;font-size:16px;line-height:24px}
+.cash-flow-steps li:not(:last-child)::after{content:'→';position:absolute;left:calc(100% + 16px);top:50%;transform:translateY(-50%);font-size:32px;line-height:36px;color:var(--muted)}
+.cash-entry-flow{max-width:968px}
+.cash-journey-row{display:grid;grid-template-columns:216px minmax(0,1fr);gap:16px;align-items:center}
+.cash-journey-row>div{display:flex;flex-direction:column;gap:8px}
+.cash-pix-grid{display:grid;grid-template-columns:512fr 720fr;gap:48px;align-items:start}
+.cash-pix-notes .cash-note{gap:32px}
+.cash-palette{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:16px}
+.cash-palette>div{display:flex;flex-direction:column;gap:8px;min-width:0}
+.cash-palette span{display:block;height:88px;border-radius:8px}
+.paper .cash-palette .label{color:var(--ink)}
+.cash-type{gap:16px}
+.cash-type h3{font-family:'Roboto',Arial,sans-serif;font-size:36px;line-height:44px;color:#16421f;letter-spacing:0;font-weight:700}
+@media(min-width:768px) and (max-width:1190px){.cash-opening>h1,.cash-thesis{font-size:72px;line-height:74px;letter-spacing:-2.88px}.cash-screen-grid-three{gap:24px}.cash-journey-row{grid-template-columns:1fr;gap:16px}.cash-flow-steps{gap:40px}.cash-flow-steps li:not(:last-child)::after{left:calc(100% + 9px)}.cash-palette{grid-template-columns:repeat(4,minmax(0,1fr))}.cash-persona,.cash-pix-grid{gap:32px}}
+@media(max-width:767px){.cash-case .section-heading{gap:24px}.cash-opening>h1,.cash-thesis{font-size:49px;line-height:52px;letter-spacing:-1.47px}.cash-case .button{width:100%}.cash-opening .text-link{min-height:44px}.cash-opening .eyebrow{font-size:12px;line-height:18px}.cash-screen-grid{grid-template-columns:1fr;gap:32px}.cash-case .cash-native figcaption{font-size:11px;line-height:18px}.cash-case .cash-note h3{line-height:32px}.cash-persona,.cash-pix-grid{grid-template-columns:1fr;gap:32px}.cash-pix-notes .cash-note{gap:16px}.cash-palette{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}.cash-journey-row{grid-template-columns:1fr;gap:16px}.cash-flow-steps{flex-direction:column;align-items:stretch;gap:40px}.cash-flow-steps li{flex:auto}.cash-flow-steps li:not(:last-child)::after{content:'↓';left:50%;top:calc(100% + 2px);transform:translateX(-50%)}.cash-metrics h3{font-size:40px;line-height:44px}.cash-journeys{gap:40px}.cash-case .two-columns{gap:32px}.cash-type h3{font-size:32px;line-height:40px}}
+@media(max-width:359px){.cash-opening>h1,.cash-thesis{font-size:43px;line-height:46px;letter-spacing:-1.29px}}

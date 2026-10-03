@@ -1,491 +1,101 @@
-<!DOCTYPE html>
-<html lang="pt-br" data-bs-theme="dark">
-
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fabiano Antero UI/UX • Product Designer</title>
-  <meta name="description" content="Portfólio dark, inovador e moderno para UI/UX Designer, feito com Bootstrap." />
-
-  <!-- Bootstrap & Icons (CDN) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
-  <link rel='apple-touch-icon' type='image/png' href='assets/img/foto.png'>
-  <script type="text/javascript">
-    (function (c, l, a, r, i, t, y) {
-      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-    })(window, document, "clarity", "script", "qmp59h4qs6");
-  </script>
-  <!-- App CSS -->
-  <link rel="stylesheet" href="assets/css/main.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101114">
+  <meta name="description" content="Fabiano Antero: Product Designer e UX Engineer. Projetos de produto, UX/UI e desenvolvimento em fintech, SaaS e serviços.">
+  <title>Fabiano Antero: Product Designer × UX Engineer</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/language.css">
+  <link rel="stylesheet" href="assets/css/hero-motion.css">
+  <link rel="stylesheet" href="assets/css/chibi-pet.css">
+  <script src="assets/js/i18n.js" defer></script>
+  <script src="assets/js/hero-lettering.js" defer></script>
+  <script src="assets/js/hero-motion.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+  <script type="module" src="assets/js/chibi-pet.js"></script>
 </head>
-
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg fixed-top fade-in-top-normal ">
-    <div class="container py-2">
-      <div class="brand" aria-hidden>
-        <div class="brand__logo"><img src="/assets/img/foto.png" alt=""></div>
-      </div>
-      <a class="navbar-brand fw-bold" href="#">Fabiano Antero</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav"
-        aria-expanded="false" aria-label="Abrir navegação">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="nav">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link active" href="#inicio">Início</a></li>
-          <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
-          <li class="nav-item"><a class="nav-link" href="#projetos">Projetos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#processo">Processo</a></li>
-          <li class="nav-item"><a class="nav-link"
-              href="https://www.dropbox.com/scl/fi/ysj1cy2zpup82b61gebvd/Fabiano-Antero-CV-08-12-2023.pdf?rlkey=1yofifslkon7ub46nt2gb00hl&dl=0">Baixar
-              CV</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
-        </ul>
-      </div>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<header class="site-header"><div class="container header-inner">
+  <a class="brand" href="index.html" aria-label="Fabiano Antero, início">FABIANO ANTERO</a>
+  <nav class="desktop-nav" aria-label="Navegação principal"><a href="#projetos">Projetos</a><a href="#como-penso">Como penso</a><a href="#experiencia">Experiência</a><a href="#contato">Contato</a></nav>
+  <div class="language mono" role="group" aria-label="Idioma da página"><button type="button" data-language="pt" lang="pt-BR" aria-pressed="true">PT</button><span aria-hidden="true">/</span><button type="button" data-language="en" lang="en" aria-pressed="false">ENG</button></div>
+  <a class="mobile-projects mono" href="#projetos">PROJETOS ↓</a>
+  <nav class="mobile-nav" aria-label="Navegação mobile"><a href="#projetos">Projetos</a><a href="#experiencia">Experiência</a><a href="#contato">Contato</a></nav>
+</div></header>
+<main id="conteudo">
+  <section class="hero"><div class="container hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow accent hero-enter">PRODUCT DESIGNER × UX ENGINEER</p>
+      <h1 class="hero-title"><span class="hero-line hero-writing hero-writing-solid"><span class="hero-writing-label">DA LÓGICA</span></span><span class="hero-line outline hero-writing"><span class="hero-writing-label">AO PRODUTO</span></span><span class="hero-line accent hero-writing hero-writing-solid"><span class="hero-writing-label">EM USO.</span></span></h1>
+      <p class="hero-description hero-enter">Transformo regras complexas em experiências claras, do primeiro fluxo à interface em produção.</p>
+      <div class="actions hero-enter"><a class="button" href="#projetos">Explorar projetos ↓</a><a class="button button-outline" href="https://www.dropbox.com/scl/fi/ag2grh2o8ok2djv4wdsnp/Fabiano_curr-culo_30.09.26.pdf?rlkey=2kc88bze079axuvsi5jbhr073&amp;st=b02soaow&amp;dl=0" target="_blank" rel="noopener noreferrer">Baixar currículo ↗</a></div>
+      <p class="mono hero-enter">7+ ANOS · FINTECH · SAAS · SERVIÇOS</p>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <section id="inicio" class="hero fade-in-top-normal">
-    <div class="container position-relative">
-      <div class="row align-items-center g-4 ">
-        <div class="col-lg-7">
-          <span class="badge rounded-pill px-3 py-2 mb-3"><i class="bi bi-stars me-2"></i> UI<span
-              class="text-gradient">/</span>UX • Product Designer</span>
-          <h1 class="display-4 headline mb-3">Crio <span class="text-gradient">experiências</span> digitais que combinam
-            estética, clareza e conversão.</h1>
-          <p class="lead sub mb-4">Design centrado em pessoas, guiado por dados. Protótipos rápidos, testes sem drama e
-            interfaces elegantes que funcionam no mundo real.</p>
-          <div class="d-flex gap-3 cta-wrap">
-            <a href="#projetos" class="btn btn-accent "><i class="ph ph-rocket-launch fs-5"></i>
-              <span class="gradient-text">
-                Ver Projetos
-              </span>
-            </a>
-            <a href="#contato" class="btn btn-ghost"><i class="ph ph-paper-plane-tilt"></i> Vamos conversar?</a>
-          </div>
-          <div class="d-flex gap-2 mt-4 opacity-70 flex-wrap">
-            <span class="chip"><i class="ph ph-puzzle-piece"></i><span> Design Systems</span></span>
-            <span class="chip"><i class="bi bi-phone"></i><span> Mobile-first</span></span>
-            <span class="chip"><i class="bi bi-speedometer2"></i><span> Performance</span></span>
-          </div>
-        </div>
-        <div class="col-lg-5">
-          <a style="text-decoration: none; color: aliceblue;" href="https://salon-platform-web-staging.pages.dev/" target="_blank" >
-            <div class="card-dark p-3 p-lg-4 hover-lift">
-              <div class="project-thumb ratio ratio-4x3 mb-3">
-
-                <img src="/assets/img/Ordiny01.png" alt="Mockup de interface" />
-
-              </div>
-              <div class="d-flex align-items-center justify-content-between">
-                <div>
-                  <h5 class="mb-1">Ordiny descomplicando sua agenda</h5>
-                  <p class="mb-0 opacity-70">A Ordiny é um SaaS criado por mim de ponta a ponta, envolvendo UX/UI, front-end, back-end, arquitetura e infraestrutura. Durante o desenvolvimento, utilizei agentes de IA como apoio para acelerar a execução de código e otimizar o processo, mantendo sob minha responsabilidade todas as decisões de produto, design e tecnologia
-                  </p>
-                </div>
-              </div>
-          </a>
-        </div>
+    <div class="hero-art hero-sequence">
+      <div class="hero-circle" aria-hidden="true"><img src="assets/img/hero-circle.svg" alt="" width="460" height="459"></div>
+      <div class="hero-portrait">
+        <img class="hero-portrait-soft" src="assets/img/hero-portrait.png" alt="" aria-hidden="true" width="519" height="519">
+        <img class="hero-portrait-main" src="assets/img/hero-portrait.png" alt="Retrato de Fabiano Antero" width="519" height="519" fetchpriority="high">
+      </div>
+      <div class="hero-skills" lang="en">
+        <p class="hero-skills-intro">Thinking in journeys. Designing in systems.</p>
+        <ol class="hero-skills-list">
+          <li style="--skill-index:0"><span class="hero-skill-divider" aria-hidden="true"></span><div class="hero-skill-text"><span class="hero-skill-number" aria-hidden="true">01</span><span>Product thinking + UX strategy</span></div></li>
+          <li style="--skill-index:1"><span class="hero-skill-divider" aria-hidden="true"></span><div class="hero-skill-text"><span class="hero-skill-number" aria-hidden="true">02</span><span>UI + prototyping + design systems</span></div></li>
+          <li style="--skill-index:2"><span class="hero-skill-divider" aria-hidden="true"></span><div class="hero-skill-text"><span class="hero-skill-number" aria-hidden="true">03</span><span>HTML / CSS / JavaScript / Angular / React</span></div></li>
+          <li style="--skill-index:3"><span class="hero-skill-divider" aria-hidden="true"></span><div class="hero-skill-text"><span class="hero-skill-number" aria-hidden="true">04</span><span>Accessibility + performance</span></div></li>
+        </ol>
       </div>
     </div>
-    <div class="float-orb orb-1"></div>
-    <div class="float-orb orb-2"></div>
+  </div></section>
+  <section id="projetos" class="section paper"><div class="container stack-lg">
+    <div class="section-heading reveal"><p class="eyebrow">01 / TRABALHOS SELECIONADOS</p><h2>Decisões que viram produto.</h2><p>Três contextos. Diferentes desafios. Uma ligação entre clareza, sistema e entrega.</p></div>
+    <article class="featured-project reveal"><div class="featured-copy"><p class="mono">01 / ORDINY · SAAS</p><h2>Uma agenda.<br>Um produto inteiro.</h2><p>Da experiência à aplicação funcional: UX/UI, desenvolvimento, arquitetura e infraestrutura no mesmo projeto.</p><hr><p class="mono">MEU PAPEL</p><p class="label">Produto · UX/UI · Desenvolvimento</p><a class="button" href="ordiny.html">Ler estudo de caso ↗</a></div><a class="featured-image image-link" href="ordiny.html" aria-label="Ler estudo de caso da Ordiny"><img src="assets/figma/d0-imgOrdinyImagemOriginalDoProjeto.png" alt="Ordiny: agenda, reservas e gestão em interfaces desktop e mobile" width="766" height="575" loading="lazy"></a></article>
+    <div class="project-grid">
+      <article class="project-card reveal"><a class="cash-cover image-link" href="cash-advance.html" aria-label="Ler estudo de caso Cash Advance"><div class="cash-icon"><img src="assets/figma/d0-imgCurrencyDollar.svg" alt="" width="24" height="24"></div><div class="cash-cover-copy"><strong>CASH<br>ADVANCE</strong><p>Antecipar é simples.<br>Dar segurança antes do clique<br>é o desafio.</p></div><div class="cash-device"><img src="assets/img/smart-cash-hd.png" alt="Interface de antecipação de fretes Cash Advance" width="365" height="893" loading="lazy"></div></a><div class="project-summary"><p class="mono">02 / CASH ADVANCE · FINTECH</p><h3>Confiança antes do clique.</h3><p>Antecipação de fretes com foco em clareza e segurança na jornada financeira.</p><a class="text-link" href="cash-advance.html">Ler estudo de caso ↗</a></div></article>
+      <article class="project-card reveal"><a class="project-cover image-link" href="https://www.behance.net/gallery/234488301/Lumen-simulador-de-consumo-de-energia" target="_blank" rel="noopener noreferrer" aria-label="Ver estudo Lumen no Behance"><img src="assets/figma/d0-imgLumenImagemOriginalDoProjeto.png" alt="Lumen: telas do simulador de consumo de energia" width="624" height="320" loading="lazy"></a><div class="project-summary"><p class="mono">03 / LUMEN · UTILITIES</p><h3>Consumo que dá para entender.</h3><p>Uma interface para explorar e compreender o consumo de energia.</p><a class="text-link" href="https://www.behance.net/gallery/234488301/Lumen-simulador-de-consumo-de-energia" target="_blank" rel="noopener noreferrer">Ler estudo de caso ↗</a></div></article>
     </div>
-  </section>
-
-  <!-- SOBRE -->
-  <section id="sobre" class="py-5 fade-in-top-normal">
-    <div class="container">
-      <div class="row g-4 align-items-center">
-        <div class="col-lg-6">
-          <div class="card-dark p-4 h-100">
-            <h3 class="mb-3">Sobre mim</h3>
-            <p class="opacity-70 mb-4">Sou UI/UX designer com foco em criar produtos digitais acessíveis e escaláveis.
-              Meu trabalho equilibra <strong>pesquisa</strong>, <strong>prototipação</strong> e <strong>design
-                systems</strong> para entregar valor com consistência.</p>
-            <div class="grid grid-2">
-              <div class="p-3 rounded-4 surface">
-                <div class="d-flex align-items-center gap-3">
-                  <i class="ph-fill ph-briefcase fs-3 text-gradient"></i>
-                  <div>
-                    <div class="fw-bold">Experiência</div>
-                    <div class="opacity-70">6+ anos no mercado</div>
-                  </div>
-                </div>
-              </div>
-              <div class="p-3 rounded-4 surface">
-                <div class="d-flex align-items-center gap-3">
-                  <i class="ph-fill ph-puzzle-piece fs-3 text-gradient"></i>
-                  <div>
-                    <div class="fw-bold">Design Systems</div>
-                    <div class="opacity-70">Tokens, libs e guidelines</div>
-                  </div>
-                </div>
-              </div>
-              <div class="p-3 rounded-4 surface">
-                <div class="d-flex align-items-center gap-3">
-                  <i class="ph-fill ph-chart-line-up fs-3 text-gradient"></i>
-                  <div>
-                    <div class="fw-bold">Data-driven</div>
-                    <div class="opacity-70">Métricas e experimentos</div>
-                  </div>
-                </div>
-              </div>
-              <div class="p-3 rounded-4 surface">
-                <div class="d-flex align-items-center gap-3">
-                  <i class="ph-fill ph-person-arms-spread fs-3 text-gradient"></i>
-                  <div>
-                    <div class="fw-bold">Acessibilidade</div>
-                    <div class="opacity-70">WCAG e testes</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <h3 class="mb-3 mt-4">Habilidades</h3>
-            <div class="d-flex flex-wrap gap-2">
-              <span class="chip"><i class="ph ph-scribble-loop"></i> UI Design</span>
-              <span class="chip"><i class="ph ph-magnifying-glass"></i> UX Design</span>
-              <span class="chip"><i class="bi bi-columns"></i> Wireframes</span>
-              <span class="chip"><i class="bi bi-cpu"></i> Prototipagem</span>
-              <span class="chip"><i class="bi bi-kanban"></i> Design Ops</span>
-              <span class="chip"><i class="bi bi-hdd-network"></i> Sistemas</span>
-              <span class="chip"><i class="bi bi-eye"></i> A/B Testing</span>
-              <span class="chip"><i class="bi bi-braces"></i> HTML/CSS/JS</span>
-              <span class="chip"><i class="ph ph-angular-logo"></i> Angular</span>
-              <span class="chip"><i class="bi bi-bootstrap"></i> Bootstrap</span>
-              <span class="chip"><i class="ph ph-figma-logo"></i> Figma</span>
-            </div>
-          </div>
-
+    <div class="collection-cta reveal"><div><h3>Além dos destaques.</h3><p>Veja também Aqui Limpa na coleção completa.</p></div><a class="button" href="projetos.html">Todos os projetos ↗</a></div>
+  </div></section>
+  <section id="como-penso" class="section"><div class="container stack">
+    <div class="section-heading reveal"><p class="eyebrow accent">02 / WORKBENCH</p><h2>A interface mostra a decisão.</h2><p>Explore a ligação entre problema, escolha e entrega na Ordiny.</p></div>
+    <div class="workbench reveal"><div class="workbench-tabs" role="tablist" aria-label="Raciocínio do projeto Ordiny"><button type="button" role="tab" id="tab-problema" aria-selected="true" aria-controls="panel-problema" data-tab="problema">Problema</button><button type="button" role="tab" id="tab-decisao" aria-selected="false" aria-controls="panel-decisao" tabindex="-1" data-tab="decisao">Decisão</button><button type="button" role="tab" id="tab-entrega" aria-selected="false" aria-controls="panel-entrega" tabindex="-1" data-tab="entrega">Entrega</button></div>
+      <div class="workbench-panel" id="panel-problema" role="tabpanel" aria-labelledby="tab-problema" tabindex="0"><div class="workbench-narrative"><p class="mono">CONTEXTO / ORDINY · SAAS</p><h3>A agenda é só o começo.</h3><p>Conversa, reserva, atendimento e pagamento estavam separados. O desafio é conectar a operação.</p></div><div class="workbench-visual"><p class="mono">JORNADA / VISÃO DO PRODUTO</p><div class="visual-steps"><span>Agenda</span><span>Clientes</span><span>Gestão</span></div><p>A experiência conecta informações e tarefas.</p></div></div>
+      <div class="workbench-panel" id="panel-decisao" role="tabpanel" aria-labelledby="tab-decisao" tabindex="0" hidden><div class="workbench-narrative"><p class="mono">ATUAÇÃO / PRODUTO + DESIGN + CÓDIGO</p><h3>Conectar sem perder as regras.</h3><p>Painel, link público e WhatsApp passam pela mesma validação de disponibilidade.</p></div><div class="workbench-visual"><p class="mono">AGENDAMENTO / CANAIS</p><div class="visual-steps"><span>Painel</span><span>Link público</span><span>WhatsApp</span></div><p>Os três canais revalidam a reserva na confirmação.</p></div></div>
+      <div class="workbench-panel" id="panel-entrega" role="tabpanel" aria-labelledby="tab-entrega" tabindex="0" hidden><div class="workbench-narrative"><p class="mono">ENTREGA / APLICAÇÃO FUNCIONAL</p><h3>Do protótipo ao staging.</h3><p>Agenda, clientes, equipe, pagamentos e WhatsApp em uma aplicação em desenvolvimento.</p></div><div class="workbench-visual"><p class="mono">ENTREGA / APLICAÇÃO FUNCIONAL</p><img class="workbench-delivery" src="assets/figma/d0-imgOrdinyImagemOriginalDoProjeto.png" alt="Aplicação Ordiny apresentada no portfólio" width="216" height="162" loading="lazy"></div></div>
+    </div><p class="mono">PRODUTO + UX/UI + DESENVOLVIMENTO</p><a class="text-link" href="ordiny.html">Abrir o case completo da Ordiny ↗</a>
+  </div></section>
+  <section id="experiencia" class="section paper">
+    <div class="container experience-grid">
+      <div class="section-heading reveal">
+        <p class="eyebrow">03 / EXPERIÊNCIA</p>
+        <h2>Complexidade<br>com contexto.</h2>
+        <p>Trabalho entre produto, design e engenharia para transformar regras, restrições e necessidades em experiências utilizáveis.</p>
+        <div class="experience-summary">
+          <h3>O que essa trajetória conecta</h3>
+          <dl>
+            <div><dt>Dados e decisões</dt><dd>BI, discovery e organização da informação.</dd></div>
+            <div><dt>Jornadas financeiras</dt><dd>Pagamentos, onboarding e acessibilidade.</dd></div>
+            <div><dt>Design e desenvolvimento</dt><dd>Design systems e interfaces em produção.</dd></div>
+          </dl>
+          <a class="text-link" href="https://www.dropbox.com/scl/fi/ag2grh2o8ok2djv4wdsnp/Fabiano_curr-culo_30.09.26.pdf?rlkey=2kc88bze079axuvsi5jbhr073&amp;st=b02soaow&amp;dl=0" target="_blank" rel="noopener noreferrer">Ver currículo completo ↗</a>
         </div>
-        <div class="col-lg-6">
-          <div class="card-dark p-4 h-100">
-            <h3 class="mb-3">Experiências</h3>
-            <div class="t-item d-flex gap-3 align-items-start">
-              <div class="t-dot mt-1"></div>
-
-              <div>
-                <div class="fw-bold">Lifter Tecnologia )</div>
-                <div class="opacity-70 small">UI/UX Designer - 2024 / 2025</div>
-                <p class="mb-0 opacity-70 text">
-                  Alinhamento com stakeholders, wireframes/protótipos, evolução de design systems e melhorias de
-                  usabilidade em plataformas de apostas e pagamentos.
-                </p>
-              </div>
-
-            </div>
-            <div class="t-item d-flex gap-3 align-items-start">
-              <div class="t-dot mt-1"></div>
-
-              <div>
-                <div class="fw-bold">TbankS (TIVIT Techfin)</div>
-                <div class="opacity-70 small">UI/UX Designer - 2022 / 2023</div>
-                <p class="mb-0 opacity-70">Otimização de fluxos críticos (onboarding/KYC), acessibilidade (WCAG) e
-                  conversão em jornadas financeiras.</p>
-              </div>
-
-            </div>
-            <div class="t-item d-flex gap-3 align-items-start">
-              <div class="t-dot mt-1"></div>
-
-              <div>
-                <div class="fw-bold">Conpay Pagamento e Tecnologia S.A.</div>
-                <div class="opacity-70 small">UX Engineer - 2020 / 2023</div>
-                <p class="mb-0 opacity-70">Integração design–front-end em conta digital, PIX, e-commerce e POS;
-                  melhoria de onboarding/KYC, acessibilidade e performance de conversão.</p>
-              </div>
-
-            </div>
-            <div class="t-item d-flex gap-3 align-items-start">
-              <div class="t-dot mt-1"></div>
-
-              <div>
-                <div class="fw-bold">Grupo Energisa</div>
-                <div class="opacity-70 small">UI/UX Designer - 2019 / 2020</div>
-                <p class="mb-0 opacity-70">Arquitetura de informação e navegação para páginas de alto tráfego.
-                  fluxos críticos com foco em melhoria da jornadas de pagamento.</p>
-              </div>
-
-            </div>
-          </div>
-        </div>
+      </div>
+      <div class="experience-list">
+        <article class="reveal"><h3>Dadoteca</h3><p class="mono">Consultor UX/UI Designer · 2025 a 2026</p><p>UX/UI para soluções de BI, discovery, usabilidade e governança de design systems.</p></article>
+        <article class="reveal"><h3>Lifter Tecnologia</h3><p class="mono">UI/UX Designer · 2024 a 2025</p><p>Usabilidade e design systems em apostas e pagamentos.</p></article>
+        <article class="reveal"><h3>TbankS / TIVIT Techfin</h3><p class="mono">UI/UX Designer · 2022 a 2023</p><p>Onboarding, KYC e acessibilidade em jornadas financeiras.</p></article>
+        <article class="reveal"><h3>Conpay</h3><p class="mono">UX Engineer · 2020 a 2023</p><p>Integração entre design e front-end em conta digital, PIX e POS.</p></article>
+        <article class="reveal"><h3>Grupo Energisa</h3><p class="mono">UI/UX Designer · 2019 a 2020</p><p>Arquitetura de informação e jornadas de pagamento.</p></article>
       </div>
     </div>
   </section>
-
-  <!-- PROJETOS -->
-  <section id="projetos" class="py-5 fade-in-top-normal">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-end justify-content-between">
-        <div>
-          <h3 class="mb-3">Projetos em Destaque</h3>
-
-        </div>
-        <div class="d-flex flex-wrap gap-2 mb-3">
-          <button class="chip__button" data-filter="all">Todos</button>
-          <button class="chip__button" data-filter="fintech">Fintech</button>
-          <button class="chip__button" data-filter="saas">SaaS</button>
-          <button class="chip__button" data-filter="ecom">E-commerce</button>
-          <button class="chip__button" data-filter="util">Utilities</button>
-          <button class="chip__button" data-filter="ai">IA</button>
-        </div>
-      </div>
-
-      <div class="grid grid-3" id="projGrid">
-        <!-- Card A -->
-        <article class="card-dark p-3 hover-lift project" data-tags="ai, saas">
-          <div class="project-thumb ratio ratio-16x9 mb-3">
-            <a href="https://salon-platform-web-staging.pages.dev/" target="_blank">
-              <img src="/assets/img/ordiny.png" alt="ai" />
-            </a>
-          </div>
-          <div class="d-flex justify-content-between align-items-start gap-3">
-            <div>
-              <h5 class="mb-1">Ordiny</h5>
-              <p class="opacity-70 mb-2">
-                O projeto saiu do protótipo e evoluiu para uma solução escalável, na qual pude unir UX, UI e minhas
-                habilidades de desenvolvimento para transformar decisões de design em uma aplicação funcional.
-              </p>
-              <div class="d-flex gap-2 flex-wrap">
-                <span class="chip"><i class="bi bi-diagram-3"></i> Arquitetura</span>
-                <span class="chip"><i class="ph ph-puzzle-piece"></i> Design System</span>
-                <span class="chip"><i class="ph ph-open-ai-logo"></i> IA</span>
-                <span class="chip"><i class="ph ph-gauge"></i> SaaS</span>
-
-              </div>
-            </div>
-            <a class="btn btn-outline-light btn-sm" href="https://salon-platform-web-staging.pages.dev/"
-              target="_blank">Ver</a>
-          </div>
-        </article>
-
-        <!-- Card A -->
-        <article class="card-dark p-3 hover-lift project" data-tags="fintech">
-          <div class="project-thumb ratio ratio-16x9 mb-3">
-            <a href="https://www.behance.net/gallery/192799873/Cash-Advance-Estudo-de-caso-UX-UI-Design"
-              target="_blank">
-              <img src="/assets/img/cash_thumb.png" alt="fintech" />
-            </a>
-          </div>
-          <div class="d-flex justify-content-between align-items-start gap-3">
-            <div>
-              <h5 class="mb-1">Cash Advance</h5>
-              <p class="opacity-70 mb-2">Adiante seus fretes em poucos cliques. Dinheiro na conta em até 24 horas.
-              </p>
-              <div class="d-flex gap-2 flex-wrap">
-                <span class="chip"><i class="bi bi-diagram-3"></i> Arquitetura</span>
-                <span class="chip"><i class="ph ph-puzzle-piece"></i> Design System</span>
-                <span class="chip"><i class="ph ph-wallet"></i> Fintech</span>
-              </div>
-            </div>
-            <a class="btn btn-outline-light btn-sm"
-              href="https://www.behance.net/gallery/192799873/Cash-Advance-Estudo-de-caso-UX-UI-Design"
-              target="_blank">Ver</a>
-          </div>
-        </article>
-
-        <!-- Cards B -->
-        <article class="card-dark p-3 hover-lift project" data-tags="util">
-          <div class="project-thumb ratio ratio-16x9 mb-3">
-            <a href="https://www.behance.net/gallery/234488301/Lumen-simulador-de-consumo-de-energia" target="_blank">
-              <img src="/assets/img/lumen_thumb.png" alt="Utilities" />
-            </a>
-          </div>
-          <div class="d-flex justify-content-between align-items-start gap-3">
-            <div>
-              <h5 class="mb-1">Lumen</h5>
-              <p class="opacity-70 mb-2">Simulador de consumo</p>
-              <div class="d-flex gap-2 flex-wrap">
-                <span class="chip"><i class="bi bi-diagram-3"></i> Arquitetura</span>
-                <span class="chip"><i class="ph ph-puzzle-piece"></i> Design System</span>
-                <span class="chip"><i class="ph ph-nut"></i> Utilities</span>
-              </div>
-            </div>
-            <a class="btn btn-outline-light btn-sm"
-              href="https://www.behance.net/gallery/234488301/Lumen-simulador-de-consumo-de-energia"
-              target="_blank">Ver</a>
-          </div>
-        </article>
-        <!-- Cards c -->
-        <article class="card-dark p-3 hover-lift project" data-tags="web">
-          <div class="project-thumb ratio ratio-16x9 mb-3">
-            <a href="https://www.behance.net/gallery/234762579/Landing-Page-Aqui-Limpa" target="_blank">
-              <img src="/assets/img/aquilimpa_thumb.png" alt="Utilities" />
-            </a>
-          </div>
-          <div class="d-flex justify-content-between align-items-start gap-3">
-            <div>
-              <h5 class="mb-1">Aqui limpa</h5>
-              <p class="opacity-70 mb-2">Empresa de limpesa</p>
-              <div class="d-flex gap-2 flex-wrap">
-                <span class="chip"><i class="bi bi-diagram-3"></i> Arquitetura</span>
-                <span class="chip"><i class="ph ph-puzzle-piece"></i> Design System</span>
-                <span class="chip"><i class="ph ph-nut"></i> Utilities</span>
-              </div>
-            </div>
-            <a class="btn btn-outline-light btn-sm"
-              href="https://www.behance.net/gallery/234762579/Landing-Page-Aqui-Limpa" target="_blank">Ver</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESSO -->
-  <section id="processo" class="py-5 fade-in-top-normal">
-    <div class="container">
-      <div class="row g-4 align-items-stretch">
-        <div class="col-lg-6">
-          <div class="card-dark p-4 h-100">
-            <h3 class="mb-3">Meu processo</h3>
-            <p class="opacity-70">Ciclo contínuo com checkpoints claros e documentação leve: aprendizado rápido, impacto
-              comprovado.</p>
-            <ul class="list-unstyled mb-0 small opacity-70">
-              <li class="mb-2"><i class="bi bi-check2 me-2"></i>Descoberta e alinhamento</li>
-              <li class="mb-2"><i class="bi bi-check2 me-2"></i>Pesquisa (heurística/qualitativa/quantitativa)</li>
-              <li class="mb-2"><i class="bi bi-check2 me-2"></i>Prototipação & testes</li>
-              <li class="mb-2"><i class="bi bi-check2 me-2"></i>Design system e specs</li>
-              <li class="mb-2"><i class="bi bi-check2 me-2"></i>Entrega e monitoramento</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="card-dark p-4 h-100">
-            <h6 class="text-uppercase opacity-70">Toolkit</h6>
-            <div class="d-flex flex-wrap gap-2 mt-2">
-              <span class="chip"><i class="ph ph-figma-logo"></i> Figma</span>
-              <span class="chip"><i class="ph ph-kanban"></i> Notion/ClickUp</span>
-              <span class="chip"><i class="bi bi-bootstrap"></i> Bootstrap</span>
-              <span class="chip"><i class="ph ph-github-logo"></i> GitHub</span>
-              <span class="chip"><i class="ph ph-lightbulb"></i> Maze/Hotjar/Clarity</span>
-              <span class="chip"><i class="ph ph-open-ai-logo"></i> ChatGPT</span>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTATO -->
-  <section id="contato" class="py-5 fade-in-top-normal">
-    <div class="container">
-      <div class="row g-4">
-
-        <div class="col-lg-12 fade-in-top-normal">
-          <div class="card-dark p-4 h-100">
-            <h3 class="mb-3">Contato rápido</h3>
-            <div class="d-flex  flex-wrap gap-3">
-              <a class="text-decoration-none contato text-reset d-flex align-items-center gap-3 hover-lift p-3 rounded-4 surface"
-                href="mailto:fabiano.antero@gmail.com">
-                <i class="ph-fill ph-envelope fs-2 text-gradient"></i>
-                <div>
-                  <div class="fw-bold">E-mail</div>
-                  <div class="opacity-70 small">fabiano.antero@gmail.com</div>
-                </div>
-              </a>
-              <a class="text-decoration-none contato text-reset d-flex align-items-center gap-3 hover-lift p-3 rounded-4 surface"
-                href="https://wa.me/5583987953525" target="_blank" rel="noreferrer">
-                <i class="ph-fill ph-whatsapp-logo fs-2 text-gradient"></i>
-                <div>
-                  <div class="fw-bold">Tell / WhatsApp</div>
-                  <div class="opacity-70 small">+55 (83) 98795-3525</div>
-                </div>
-              </a>
-              <a class="text-decoration-none contato text-reset d-flex align-items-center gap-3 hover-lift p-3 rounded-4 surface"
-                href="https://wa.me/5583987953525" target="_blank" rel="noreferrer">
-                <i class="ph-fill ph-whatsapp-logo fs-2 text-gradient"></i>
-                <div>
-                  <div class="fw-bold">WhatsApp</div>
-                  <div class="opacity-70 small">+55 (83) 98234-7405</div>
-                </div>
-              </a>
-              <a class="text-decoration-none contato text-reset d-flex align-items-center gap-3 hover-lift p-3 rounded-4 surface"
-                href="https://www.linkedin.com/in/fabianoantero/" target="_blank" rel="noreferrer">
-                <i class="ph-fill ph-linkedin-logo fs-2 text-gradient"></i>
-                <div>
-                  <div class="fw-bold">LinkedIn</div>
-                  <div class="opacity-70 small">in/fabianoantero/</div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer py-4">
-    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
-      <div class="small opacity-70">© <span id="year"></span> • Fabiano Antero • Todos os direitos reservados</div>
-      <div class="d-flex gap-3 opacity-70">
-        <a class="text-reset" href="#inicio">Topo</a>
-        <a class="text-reset" href="#sobre">Sobre</a>
-        <a class="text-reset" href="#projetos">Projetos</a>
-        <a class="text-reset" href="#contato">Contato</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- MODAIS (mantidos) -->
-  <div class="modal fade" id="caseModal1" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-      <div class="modal-content bg-dark text-light">
-        <div class="modal-header border-0">
-          <h5 class="modal-title">Case • SaaS Analytics</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-4">
-            <div class="col-lg-7">
-              <div class="ratio ratio-16x9 project-thumb">
-                <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1600&auto=format&fit=crop"
-                  alt="Detalhe do dashboard" />
-              </div>
-            </div>
-            <div class="col-lg-5">
-              <h6>Objetivo</h6>
-              <p class="opacity-70">Recriar a camada de análises com foco em clareza visual e tarefas rápidas.</p>
-              <h6>Impacto</h6>
-              <ul class="opacity-70">
-                <li>+17 pontos em NPS</li>
-                <li>-28% no tempo médio por tarefa</li>
-                <li>+19% adoção de recursos avançados</li>
-              </ul>
-              <h6>Stack & entregáveis</h6>
-              <div class="d-flex flex-wrap gap-2">
-                <span class="chip">Pesquisa</span>
-                <span class="chip">Fluxos</span>
-                <span class="chip">Protótipos</span>
-                <span class="chip">Design Tokens</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer border-0">
-          <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Fechar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Outros modais comentados no original -->
-
-  <!-- SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
+  <section id="contato" class="section contact"><div class="container contact-grid"><div class="section-heading reveal"><p class="eyebrow">04 / VAMOS CONVERSAR</p><h2>Seu próximo problema<br>pode virar um<br>bom produto.</h2></div><div class="contact-links reveal"><p>Tem uma oportunidade ou um desafio de produto? Vamos conversar.</p><a href="mailto:fabiano.antero@gmail.com">fabiano.antero@gmail.com ↗</a><a href="https://www.linkedin.com/in/fabianoantero/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://wa.me/5583987953525" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div></div></section>
+</main>
+<footer class="site-footer"><div class="container"><p class="mono">FABIANO ANTERO / PORTFÓLIO 2026</p><p class="mono">Pensado como produto. Construído com código.</p></div></footer>
 </body>
-
 </html>

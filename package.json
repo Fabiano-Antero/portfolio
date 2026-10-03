@@ -1,0 +1,8 @@
+{
+  "name": "fabiano-antero-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfólio de Fabiano Antero, implementado a partir do Figma.",
+  "scripts": { "dev": "node scripts/server.cjs", "start": "node scripts/server.cjs", "build": "node scripts/build.cjs", "check": "node scripts/check.cjs", "generate": "node scripts/build-pages.cjs" },
+  "engines": { "node": ">=18" }
+}

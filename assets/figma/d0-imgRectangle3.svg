@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="622.41" height="366.555" viewBox="0 0 622.41 366.555" fill="none" xmlns="http://www.w3.org/2000/svg">
+<foreignObject x="0" y="0" width="622.41" height="366.555"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(12.61px);clip-path:url(#bgblur_0_0_52_clip_path);height:100%;width:100%"></div></foreignObject><g id="Rectangle 3" filter="url(#filter0_f_0_52)" data-figma-bg-blur-radius="25.2255">
+<path d="M91.2009 108.428L145.349 61.2854L587.177 35.2329V331.322H54.799L35.2329 168.804L91.2009 108.428Z" fill="#101114" fill-opacity="0.04"/>
+</g>
+<defs>
+<filter id="filter0_f_0_52" x="0" y="0" width="622.41" height="366.555" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="17.6165" result="effect1_foregroundBlur_0_52"/>
+</filter>
+<clipPath id="bgblur_0_0_52_clip_path" transform="translate(0 0)"><path d="M91.2009 108.428L145.349 61.2854L587.177 35.2329V331.322H54.799L35.2329 168.804L91.2009 108.428Z"/>
+</clipPath></defs>
+</svg>

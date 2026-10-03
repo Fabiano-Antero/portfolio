@@ -1,0 +1,43 @@
+@property --hero-ring-angle{syntax:'<angle>';inherits:false;initial-value:360deg}
+.hero-copy .hero-enter{animation:none}
+.hero-copy.is-copy-animating .hero-follow{animation:hero-copy-enter .4s ease-out var(--follow-delay) both}
+.hero-copy.is-copy-preparing .hero-follow{animation-play-state:paused}
+.hero-copy.is-copy-animating a.hero-follow:focus-visible{animation:none;opacity:1;transform:none}
+@keyframes hero-copy-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.hero-writing{position:relative;animation:none!important}
+.hero-writing-solid{--letter-color:var(--white)}
+.hero-writing-solid.accent{--letter-color:var(--coral)}
+.hero-writing.has-lettering .hero-writing-label{color:transparent;-webkit-text-stroke:0}
+.hero-writing-svg{position:absolute;left:0;top:50%;transform:translateY(-50%);max-width:100%;overflow:visible;fill:none;stroke:var(--letter-color,var(--soft));stroke-width:1px}
+.hero-writing-svg .hero-letter{vector-effect:non-scaling-stroke}
+.hero-letter-fill{fill:var(--letter-color);stroke:none}
+.hero-writing.is-writing .hero-letter{animation:hero-letter-draw var(--letter-duration,.3s) cubic-bezier(.4,0,.25,1) calc(var(--line-delay) + var(--letter-index)*var(--letter-stagger,.05s)) both}
+.hero-writing.is-writing .hero-letter-fill{animation:hero-layer-fade var(--letter-fill-duration,.09s) ease-out var(--line-end) both}
+.hero-writing.is-writing-preparing :is(.hero-letter,.hero-letter-fill){animation-play-state:paused}
+@keyframes hero-letter-draw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}
+.hero-sequence{aspect-ratio:597/653;isolation:isolate;--portrait-time:1s;--circle-time:1.3s}
+.hero-circle{position:absolute;z-index:0;left:11.47%;top:1.84%;width:77.05%;aspect-ratio:460/459;--hero-ring-angle:360deg;mask-image:conic-gradient(from 180deg,transparent 0deg calc(360deg - var(--hero-ring-angle)),#000 calc(360deg - var(--hero-ring-angle)) 360deg)}
+.hero-portrait{position:absolute;z-index:1;left:6.53%;top:9%;width:86.94%;aspect-ratio:1}
+.hero-portrait-main{position:relative;mask-image:linear-gradient(to bottom,#000 0%,#000 74%,#000b 86%,transparent 100%)}
+.hero-portrait-soft{position:absolute;inset:0;filter:blur(12px);mask-image:linear-gradient(to bottom,transparent 0%,transparent 68%,#0009 84%,transparent 100%)}
+.hero-skills{position:absolute;z-index:2;isolation:isolate;left:19%;top:65%;width:62%;color:white}
+.hero-skills::before{content:'';position:absolute;z-index:-1;inset:-20px -28px -12px;background:linear-gradient(to bottom,transparent,#101114c9 35%,#101114ed 78%,transparent);filter:blur(12px);pointer-events:none}
+.hero-skills-intro{font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:16px;color:#dedfe2;margin:0 0 12px}
+.hero-skills-list{list-style:none;padding:0;margin:0}
+.hero-skills-list li{position:relative;min-height:44px;display:flex;align-items:center}
+.hero-skill-divider{position:absolute;top:0;left:0;width:100%;height:1px;background:#ffffff1a;transform-origin:left}
+.hero-skills-list li:first-child .hero-skill-divider{background:#ffffff2e}
+.hero-skill-text{display:flex;align-items:center;gap:24px;width:100%;font-size:12px;line-height:18px}
+.hero-skill-number{font-family:'IBM Plex Mono',monospace;color:#777b84;font-size:8px;line-height:12px;flex:0 0 16px}
+.hero-sequence.is-preparing :is(.hero-circle,.hero-portrait,.hero-skills-intro,.hero-skill-text,.hero-skill-divider){opacity:0}
+.hero-sequence.is-animating .hero-portrait{animation:hero-layer-fade var(--portrait-time) ease-in-out both}
+.hero-sequence.is-animating .hero-circle{animation:hero-ring-draw var(--circle-time) cubic-bezier(.45,0,.25,1) var(--portrait-time) both}
+.hero-sequence.is-animating .hero-skills-intro{animation:hero-layer-fade .45s ease-out calc(var(--portrait-time) + var(--circle-time)) both}
+.hero-sequence.is-animating .hero-skill-divider{animation:hero-divider-grow .26s ease-in-out calc(2.84s + var(--skill-index)*.6s) both}
+.hero-sequence.is-animating .hero-skill-text{animation:hero-layer-fade .45s ease-out calc(3.1s + var(--skill-index)*.6s) both}
+@keyframes hero-layer-fade{from{opacity:0}to{opacity:1}}
+@keyframes hero-ring-draw{from{--hero-ring-angle:0deg}to{--hero-ring-angle:360deg}}
+@keyframes hero-divider-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(max-width:1023px){.hero-sequence{aspect-ratio:597/760}.hero-portrait{top:8.5%}.hero-skills{top:57%;left:8%;width:84%}.hero-skills-list li{min-height:40px}.hero-skills-intro{font-size:10px}.hero-skill-text{font-size:12px;gap:16px}}
+@media(max-width:767px){.hero-skills{left:5%;width:90%}.hero-skills-list li{min-height:38px}.hero-skill-text{font-size:11px;gap:12px}.hero-skills-intro{font-size:9px;line-height:15px}}
+@media(prefers-reduced-motion:reduce){.hero-writing.is-writing .hero-letter{animation:none;stroke-dashoffset:0}.hero-writing .hero-letter-fill{opacity:1}.hero-sequence.is-preparing :is(.hero-circle,.hero-portrait,.hero-skills-intro,.hero-skill-text,.hero-skill-divider){opacity:1}.hero-circle{--hero-ring-angle:360deg}.hero-skill-divider{transform:none}}

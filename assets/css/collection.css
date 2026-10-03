@@ -1,0 +1,9 @@
+.collection-grid .collection-cover{aspect-ratio:16/9;height:auto;container-type:inline-size}
+.collection-grid .collection-cover>img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.collection-grid .collection-cover-aqui{background:#f8f9fd}
+/* Frame the website hero from the original square mockup, without resizing
+   or recompressing the source asset. The surrounding canvas stays outside. */
+.collection-grid .collection-cover-aqui>img{position:absolute;left:-12.8%;top:-6.9cqw;width:164%;height:auto;max-width:none;object-fit:fill;transform-origin:38% 21%}
+.collection-cover-cash .cash-cover-copy{left:5.27cqw;top:17.34cqw}
+.collection-cover-cash .cash-cover-copy strong{font-size:9.28cqw;line-height:.9;letter-spacing:-.278cqw}
+.collection-cover-cash .cash-device{left:63.88cqw;right:auto;top:0;width:29.95cqw;height:auto}

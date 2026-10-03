@@ -1,0 +1,129 @@
+const fs=require('node:fs');
+const assert=require('node:assert/strict');
+const {PNG}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pngjs');
+const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const base=process.env.PORTFOLIO_URL||'http://localhost:4173';
+(async()=>{
+ const browser=await chromium.launch({headless:true,channel:'msedge'}),report=[];
+ try{
+  const context=await browser.newContext({viewport:{width:1440,height:1000}}),page=await context.newPage(),errors=[];
+  page.on('pageerror',error=>errors.push(error.message));
+  page.on('response',response=>{if(response.status()>=400&&response.url().startsWith(base))errors.push(response.url());});
+  await page.clock.install();await page.goto(base);
+  await page.waitForFunction(()=>document.querySelector('.chibi-pet')?.dataset.x);
+  // Pause before the first minute expires, using fastForward instead of
+  // rendering 1,200 Idle frames on a software GPU.
+  await page.clock.pauseAt(await page.evaluate(()=>Date.now()+1500));
+  const invite=page.locator('.chibi-chat-invite'),panel=page.locator('.chibi-chat-panel'),pet=page.locator('.chibi-pet');
+  assert(await invite.isHidden(),'No invitation on arrival');
+  await page.clock.fastForward(45_000);assert(await invite.isHidden(),'No invitation before one minute');
+  await page.mouse.move(1370,900);assert.equal(await pet.getAttribute('data-state'),'attached');
+  assert(await invite.isHidden(),'Carrying the character suppresses the invitation');
+  await page.keyboard.press('Escape');await page.mouse.move(900,150);await page.clock.runFor(1500);
+  await page.clock.fastForward(8400);await page.clock.runFor(64);
+  await page.clock.fastForward(Number(await pet.getAttribute('data-return-duration'))*1000+100);await page.clock.runFor(400);
+  assert.equal(await pet.getAttribute('data-state'),'idle');
+  await page.clock.fastForward(59_000);assert(await invite.isHidden(),'An interaction resets the full inactivity minute');
+  await page.clock.fastForward(1100);assert(await invite.isVisible(),'Invites after one minute without character interaction');
+  await page.screenshot({path:'.qa/chibi-chat-invite.png'});
+  await invite.getByRole('button',{name:'Sim',exact:true}).click();
+  assert(await panel.isVisible());assert.equal(await pet.getAttribute('data-chat-open'),'true');
+  assert.equal(await pet.getAttribute('data-animation'),'Talking');
+  await page.clock.runFor(600);const firstTalk=Number(await pet.getAttribute('data-animation-time'));
+  await pet.locator('canvas').screenshot({path:'.qa/chibi-chat-talking-first.png'});
+  await page.clock.runFor(900);assert(Number(await pet.getAttribute('data-animation-time'))>firstTalk+.8,'Authored Talking clip plays during conversation');
+  await pet.locator('canvas').screenshot({path:'.qa/chibi-chat-talking-second.png'});
+  const first=PNG.sync.read(fs.readFileSync('.qa/chibi-chat-talking-first.png')),second=PNG.sync.read(fs.readFileSync('.qa/chibi-chat-talking-second.png'));
+  let changed=0;for(let i=0;i<first.data.length;i+=4)if(Math.abs(first.data[i]-second.data[i])+Math.abs(first.data[i+1]-second.data[i+1])+Math.abs(first.data[i+2]-second.data[i+2])>30)changed++;
+  assert(changed>100,'Talking creates visible movement');
+  await page.clock.fastForward(4300);await page.clock.runFor(32);
+  assert.equal(await pet.getAttribute('data-animation'),'Talking');
+  assert(Number(await pet.getAttribute('data-animation-time'))<3.934,'Talking loops while the card is open');
+  assert(await panel.locator('input').evaluate(input=>input===document.activeElement));
+  const ask=async text=>{await panel.locator('input').fill(text);await panel.locator('form').getByRole('button',{name:'Enviar',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.chibi-chat-form').getAttribute('aria-busy')==='false');};
+  await ask('Em que período trabalhou na Dadoteca?');
+  assert.match(await panel.locator('.chibi-chat-answer').last().innerText(),/2025 a 2026/);
+  await ask('Quais são seus hobbies?');
+  assert.match(await panel.locator('.chibi-chat-answer').last().innerText(),/cosplay/);
+  await ask('Qual a stack da Ordiny?');
+  assert.match(await panel.locator('.chibi-chat-answer').last().innerText(),/React.*TypeScript/);
+  await ask('Quais os resultados do Cash Advance?');
+  assert.match(await panel.locator('.chibi-chat-answer').last().innerText(),/amostra.*não estão informados/);
+  await ask('Qual sua idade?');
+  assert.match(await panel.locator('.chibi-chat-answer').last().innerText(),/Ainda não tenho/);
+  await ask('<img src=x onerror=alert(1)>');
+  assert.equal(await panel.locator('.chibi-chat-visitor img').count(),0,'Visitor text cannot inject markup');
+  assert(await panel.locator('.chibi-chat-visitor').last().innerText().then(text=>text.includes('<img')));
+  await page.screenshot({path:'.qa/chibi-chat-desktop.png'});
+  const input=panel.locator('input');await input.fill('Minha pergunta ainda não enviada');
+  const count=await panel.locator('.chibi-chat-bubble').count(),idleTime=await pet.getAttribute('data-animation-time');
+  await page.locator('[data-language="en"]').click();
+  assert.equal(await input.inputValue(),'Minha pergunta ainda não enviada');
+  assert.equal(await panel.locator('.chibi-chat-bubble').count(),count);
+  assert.equal(await pet.getAttribute('data-animation-time'),idleTime,'Locale does not restart character motion');
+  assert.match(await panel.locator('h2').innerText(),/Chat with/);
+  assert.match(await panel.locator('.chibi-chat-answer').nth(1).innerText(),/2025 to 2026/);
+  await input.fill('No more questions');await input.press('Enter');
+  assert(await panel.isHidden());assert.equal(await pet.getAttribute('data-chat-open'),null);
+  await page.emulateMedia({reducedMotion:'no-preference'});await page.clock.runFor(800);
+  await page.mouse.move(1000,700);await page.mouse.move(1370,900);
+  assert.equal(await pet.getAttribute('data-state'),'attached','Ending the conversation restores normal cursor interaction');
+  await page.emulateMedia({reducedMotion:'reduce'});await page.clock.runFor(600);
+  await page.locator('.chibi-chat-launcher').click();
+  assert.equal(await panel.locator('.chibi-chat-bubble').count(),count,'Conversation can be reopened');
+  await panel.locator('.chibi-chat-dismiss').click();
+  for(const file of ['projetos','ordiny','cash-advance']){
+    await page.goto(`${base}/${file}.html`);await page.locator('.chibi-chat-launcher').waitFor();await page.locator('.chibi-chat-launcher').click();
+    assert.equal(await page.locator('.chibi-chat-bubble').count(),count,'History persists within the browser session');
+    await page.locator('.chibi-chat-panel input').fill('That is all');
+    await page.locator('.chibi-chat-dismiss').click();
+    report.push({page:file,chat:true});
+  }
+  await context.close();
+  for(const [width,height] of [[390,844],[320,568],[844,390]]){
+    const mobile=await browser.newContext({viewport:{width,height},isMobile:width<600,hasTouch:true,reducedMotion:'reduce'}),tab=await mobile.newPage();
+    await tab.clock.install();await tab.goto(base);await tab.locator('.chibi-chat').waitFor();
+    await tab.clock.pauseAt(await tab.evaluate(()=>Date.now()+1500));await tab.clock.fastForward(61_000);
+    await tab.locator('.chibi-chat-invite').getByRole('button',{name:'Não',exact:true}).click();
+    assert(await tab.locator('.chibi-chat-panel').isHidden(),'No declines without opening the dialog');
+    await tab.locator('.chibi-chat-launcher').click();
+    const fits=()=>tab.locator('.chibi-chat-panel').evaluate(node=>{const r=node.getBoundingClientRect();return r.left>=0&&r.top>=0&&r.right<=innerWidth&&r.bottom<=innerHeight;});
+    assert(await fits(),`Card fits ${width}×${height}`);
+    await tab.locator('.chibi-chat-panel input').fill('Conte sobre o Lumen');await tab.locator('.chibi-chat-panel input').press('Enter');
+    await tab.waitForFunction(()=>document.querySelector('.chibi-chat-form').getAttribute('aria-busy')==='false');
+    assert.match(await tab.locator('.chibi-chat-answer').last().innerText(),/energia/);
+    assert(await fits());assert(await tab.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+    await tab.screenshot({path:`.qa/chibi-chat-${width}-${height}.png`});
+    if(width===390){
+      await tab.evaluate(()=>{Object.defineProperty(visualViewport,'height',{value:354,configurable:true});visualViewport.dispatchEvent(new Event('resize'));});
+      const box=await tab.locator('.chibi-chat-panel').boundingBox();
+      assert(box.y>=0&&box.y+box.height<=354,'Card and input remain inside the visual viewport above a virtual keyboard');
+      await tab.screenshot({path:'.qa/chibi-chat-keyboard.png'});
+      await tab.evaluate(()=>{delete visualViewport.height;visualViewport.dispatchEvent(new Event('resize'));});
+    }
+    await tab.locator('.chibi-chat-panel input').fill('Não tenho mais perguntas');await tab.locator('.chibi-chat-panel input').press('Enter');
+    assert(await tab.locator('.chibi-chat-panel').isHidden(),'Portuguese completion closes the dialog');
+    await tab.clock.fastForward(120_000);assert(await tab.locator('.chibi-chat-invite').isHidden(),'Does not repeat the invitation after a decision');
+    report.push({viewport:[width,height],fits:true,decline:true,end:true});await mobile.close();
+  }
+  // A failed knowledge request leaves the question available for retry.
+  const retry=await browser.newPage({reducedMotion:'reduce'});await retry.clock.install();
+  let fail=true;await retry.route('**/assets/data/fabiano.json',route=>fail?route.fulfill({status:503,body:''}):route.continue());
+  await retry.goto(base);await retry.locator('.chibi-chat').waitFor();await retry.clock.pauseAt(await retry.evaluate(()=>Date.now()+1500));await retry.clock.fastForward(61_000);
+  await retry.locator('.chibi-chat-invite').getByRole('button',{name:'Sim',exact:true}).click();
+  await retry.locator('.chibi-chat-panel input').fill('Quem é você?');await retry.locator('.chibi-chat-panel input').press('Enter');
+  await retry.waitForFunction(()=>document.querySelector('.chibi-chat-status').textContent.includes('Não consegui'));
+  assert.equal(await retry.locator('.chibi-chat-panel input').inputValue(),'Quem é você?');
+  fail=false;await retry.locator('.chibi-chat-panel input').press('Enter');
+  await retry.waitForFunction(()=>document.querySelector('.chibi-chat-answer:last-child').textContent.includes('Product Designer'));
+  await retry.close();
+  const fallback=await browser.newPage();
+  await fallback.addInitScript(()=>{const getContext=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){if(type.startsWith('webgl'))return null;return getContext.call(this,type,...args);};});
+  await fallback.clock.install();await fallback.goto(base);await fallback.locator('.chibi-chat').waitFor();await fallback.clock.pauseAt(await fallback.evaluate(()=>Date.now()+1500));await fallback.clock.fastForward(61_000);
+  await fallback.locator('.chibi-chat-invite').getByRole('button',{name:'Sim',exact:true}).click();await fallback.locator('.chibi-chat-panel input').fill('Quais seus hobbies?');await fallback.locator('.chibi-chat-panel input').press('Enter');
+  await fallback.waitForFunction(()=>document.querySelector('.chibi-chat-answer:last-child').textContent.includes('cosplay'));
+  await fallback.close();
+  assert.deepEqual(errors,[]);fs.writeFileSync('.qa/chibi-chat-report.json',JSON.stringify({report,errors},null,2));
+  console.log('Passed: inactivity minute, interaction reset, invitation, decline, local answers, confirmed facts, unknown fallback, safe text, bilingual continuity, conversation end, normal cursor restoration, all pages, responsive cards and network retry.');
+ }finally{await browser.close();}
+})().catch(error=>{console.error(error);process.exitCode=1});
