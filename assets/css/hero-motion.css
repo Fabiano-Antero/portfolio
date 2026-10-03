@@ -16,6 +16,7 @@
 .hero-writing.is-writing-preparing :is(.hero-letter,.hero-letter-fill){animation-play-state:paused}
 @keyframes hero-letter-draw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}
 .hero-sequence{aspect-ratio:597/653;isolation:isolate;--portrait-time:1s;--circle-time:1.3s}
+.hero-art .hero-light{position:absolute;z-index:-1;left:-3.5%;top:-7%;width:107%;height:auto;pointer-events:none}
 .hero-circle{position:absolute;z-index:0;left:11.47%;top:1.84%;width:77.05%;aspect-ratio:460/459;--hero-ring-angle:360deg;mask-image:conic-gradient(from 180deg,transparent 0deg calc(360deg - var(--hero-ring-angle)),#000 calc(360deg - var(--hero-ring-angle)) 360deg)}
 .hero-portrait{position:absolute;z-index:1;left:6.53%;top:9%;width:86.94%;aspect-ratio:1}
 .hero-portrait-main{position:relative;mask-image:linear-gradient(to bottom,#000 0%,#000 74%,#000b 86%,transparent 100%)}
@@ -29,8 +30,8 @@
 .hero-skills-list li:first-child .hero-skill-divider{background:#ffffff2e}
 .hero-skill-text{display:flex;align-items:center;gap:24px;width:100%;font-size:12px;line-height:18px}
 .hero-skill-number{font-family:'IBM Plex Mono',monospace;color:#777b84;font-size:8px;line-height:12px;flex:0 0 16px}
-.hero-sequence.is-preparing :is(.hero-circle,.hero-portrait,.hero-skills-intro,.hero-skill-text,.hero-skill-divider){opacity:0}
-.hero-sequence.is-animating .hero-portrait{animation:hero-layer-fade var(--portrait-time) ease-in-out both}
+.hero-sequence.is-preparing :is(.hero-light,.hero-circle,.hero-portrait,.hero-skills-intro,.hero-skill-text,.hero-skill-divider){opacity:0}
+.hero-sequence.is-animating :is(.hero-light,.hero-portrait){animation:hero-layer-fade var(--portrait-time) ease-in-out both}
 .hero-sequence.is-animating .hero-circle{animation:hero-ring-draw var(--circle-time) cubic-bezier(.45,0,.25,1) var(--portrait-time) both}
 .hero-sequence.is-animating .hero-skills-intro{animation:hero-layer-fade .45s ease-out calc(var(--portrait-time) + var(--circle-time)) both}
 .hero-sequence.is-animating .hero-skill-divider{animation:hero-divider-grow .26s ease-in-out calc(2.84s + var(--skill-index)*.6s) both}
@@ -40,4 +41,4 @@
 @keyframes hero-divider-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @media(max-width:1023px){.hero-sequence{aspect-ratio:597/760}.hero-portrait{top:8.5%}.hero-skills{top:57%;left:8%;width:84%}.hero-skills-list li{min-height:40px}.hero-skills-intro{font-size:10px}.hero-skill-text{font-size:12px;gap:16px}}
 @media(max-width:767px){.hero-skills{left:5%;width:90%}.hero-skills-list li{min-height:38px}.hero-skill-text{font-size:11px;gap:12px}.hero-skills-intro{font-size:9px;line-height:15px}}
-@media(prefers-reduced-motion:reduce){.hero-writing.is-writing .hero-letter{animation:none;stroke-dashoffset:0}.hero-writing .hero-letter-fill{opacity:1}.hero-sequence.is-preparing :is(.hero-circle,.hero-portrait,.hero-skills-intro,.hero-skill-text,.hero-skill-divider){opacity:1}.hero-circle{--hero-ring-angle:360deg}.hero-skill-divider{transform:none}}
+@media(prefers-reduced-motion:reduce){.hero-writing.is-writing .hero-letter{animation:none;stroke-dashoffset:0}.hero-writing .hero-letter-fill{opacity:1}.hero-sequence.is-preparing :is(.hero-light,.hero-circle,.hero-portrait,.hero-skills-intro,.hero-skill-text,.hero-skill-divider){opacity:1}.hero-circle{--hero-ring-angle:360deg}.hero-skill-divider{transform:none}}
