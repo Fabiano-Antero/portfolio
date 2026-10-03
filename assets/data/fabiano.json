@@ -55,8 +55,8 @@
         "your role"
       ],
       "answer": {
-        "pt": "Sou Fabiano Antero, Product Designer e UX Engineer, de João Pessoa, PB. Conecto produto, UX/UI e desenvolvimento para transformar regras complexas em experiências claras, do primeiro fluxo à interface em produção. Meu portfólio reúne mais de 7 anos em fintech, SaaS e serviços.",
-        "en": "I'm Fabiano Antero, a Product Designer and UX Engineer from João Pessoa, Brazil. I connect product, UX/UI and development to turn complex rules into clear experiences, from the first flow to a production interface. My portfolio brings together over 7 years in fintech, SaaS and services."
+        "pt": "Sou Fabiano Antero, Product Designer e UX Engineer, de João Pessoa, PB. Conecto produto, UX/UI e desenvolvimento para transformar regras complexas em experiências claras, do desenho dos fluxos à interface em produção. Tenho mais de 7 anos de experiência em fintech, SaaS e serviços.",
+        "en": "I'm Fabiano Antero, a Product Designer and UX Engineer from João Pessoa, Brazil. I connect product, UX/UI and development to turn complex rules into clear experiences, from designing user flows to building production interfaces. I have over 7 years of experience in fintech, SaaS and services."
       }
     },
     {
@@ -97,8 +97,8 @@
         "business intelligence"
       ],
       "answer": {
-        "pt": "Na Dadoteca, atuei como Consultor UX/UI Designer de 2025 a 2026. Meu trabalho envolve transformar dados de BI em soluções de experiência do usuário, discovery com stakeholders, validação com Produto, wireframes, fluxos, mockups e protótipos. Também inclui governança de design systems, diagnóstico de usabilidade e ciclos de feedback com usuários e engenharia.",
-        "en": "At Dadoteca, I worked as a UX/UI Design Consultant from 2025 to 2026. My work involves turning BI data into user experience solutions, stakeholder discovery, product validation, wireframes, flows, mockups and prototypes. It also includes design system governance, usability diagnosis and feedback cycles with users and engineering."
+        "pt": "Na Dadoteca, atuei como consultor de UX/UI de 2025 a 2026. Meu trabalho envolveu o design de soluções de BI, pesquisa com stakeholders, validação com a equipe de produto, wireframes, fluxos, mockups e protótipos. Também incluiu governança de design systems, avaliações de usabilidade e ciclos de feedback com usuários e engenharia.",
+        "en": "At Dadoteca, I worked as a UX/UI Design Consultant from 2025 to 2026. My work included designing BI solutions, stakeholder research, validation with the product team, wireframes, flows, mockups and prototypes. It also covered design system governance, usability evaluations and feedback cycles with users and engineering."
       }
     },
     {
@@ -191,7 +191,7 @@
         "certifications"
       ],
       "answer": {
-        "pt": "Meu currículo lista cursos de fundamentos e prática de UX, UX Strategy, usabilidade mobile, mensuração e testes de produto, Growth Hacking, HTML5 e CSS3 avançado, Flexbox e HTTP/HTTPS. Os conteúdos incluem pesquisa, personas, cenários, UX Canvas, MVP/MLP, heurísticas, validação de ideias, métricas e desenvolvimento responsivo.",
+        "pt": "Meu currículo lista cursos de fundamentos e prática de UX, UX Strategy, usabilidade mobile, mensuração e testes de produto, Growth Hacking, HTML5 e CSS3 avançados, Flexbox e HTTP/HTTPS. Os conteúdos incluem pesquisa, personas, cenários, UX Canvas, MVP/MLP, heurísticas, validação de ideias, métricas e desenvolvimento responsivo.",
         "en": "My résumé lists courses in UX foundations and practice, UX Strategy, mobile usability, product measurement and testing, Growth Hacking, advanced HTML5 and CSS3, Flexbox and HTTP/HTTPS. Topics include research, personas, scenarios, UX Canvas, MVP/MLP, heuristics, idea validation, metrics and responsive development."
       }
     },
@@ -281,7 +281,7 @@
         "estudos"
       ],
       "answer": {
-        "pt": "Os quatro projetos apresentados aqui são Ordiny, Cash Advance, Lumen e Aqui Limpa. A Ordiny conecta produto, UX/UI e desenvolvimento em um SaaS de agendamento. Cash Advance é um estudo de jornada financeira para motoristas. Lumen ajuda a compreender consumo de energia, e Aqui Limpa apresenta serviços de limpeza com uma hierarquia clara de informação.",
+        "pt": "Os quatro projetos apresentados aqui são Ordiny, Cash Advance, Lumen e Aqui Limpa. A Ordiny conecta produto, UX/UI e desenvolvimento em um SaaS de agendamento. Cash Advance é um estudo de jornada financeira para motoristas. Lumen ajuda a compreender o consumo de energia, e Aqui Limpa apresenta serviços de limpeza com uma hierarquia clara de informação.",
         "en": "The four projects presented here are Ordiny, Cash Advance, Lumen and Aqui Limpa. Ordiny connects product, UX/UI and development in a booking SaaS. Cash Advance is a financial journey case study for drivers. Lumen helps users understand energy consumption, and Aqui Limpa presents cleaning services with a clear information hierarchy."
       },
       "links": [
@@ -356,8 +356,8 @@
         "human handoff"
       ],
       "answer": {
-        "pt": "Na Ordiny, cada unidade usa seu WhatsApp Business. O chatbot conduz o agendamento e encaminha para uma pessoa quando o cliente pede ajuda, pausando a automação. Lembretes e recuperação têm controles próprios e consentimento. A evolução com IA está desativada por padrão: ela interpreta mensagens, enquanto preços, disponibilidade e confirmação continuam sob as regras do sistema.",
-        "en": "In Ordiny, each unit uses its own WhatsApp Business. The chatbot guides booking and hands the conversation to a person when the customer asks for help, pausing automation. Reminders and re-engagement have separate controls and consent. The AI evolution is disabled by default: it interprets messages while prices, availability and confirmation remain governed by system rules."
+        "pt": "Na Ordiny, cada unidade usa seu próprio número do WhatsApp Business. O chatbot conduz o agendamento e encaminha para uma pessoa quando o cliente pede ajuda, pausando a automação. Lembretes e ações para retomar o contato com clientes têm controles próprios e exigem consentimento. O recurso de IA está desativada por padrão: ela interpreta mensagens, enquanto preços, disponibilidade e confirmação continuam sob as regras do sistema.",
+        "en": "In Ordiny, each unit uses its own WhatsApp Business number. The chatbot guides booking and hands the conversation to a person when the customer asks for help, pausing automation. Reminders and re-engagement have separate controls and consent. The AI feature is disabled by default: it interprets messages while prices, availability and confirmation remain governed by system rules."
       }
     },
     {
@@ -493,8 +493,8 @@
         "travel"
       ],
       "answer": {
-        "pt": "Fora do trabalho, gosto de assistir filmes e séries de ficção científica e animes, ir a eventos de cultura pop, viajar e passear no shopping. Também gosto de confeccionar cosplay, colocando a criatividade em prática em um projeto que posso vestir.",
-        "en": "Outside work, I enjoy science fiction movies and series, watching anime, going to pop culture events, travelling and visiting the mall. I also enjoy making cosplay costumes and bringing creativity into something I can wear."
+        "pt": "Fora do trabalho, gosto de assistir a filmes e séries de ficção científica, além de animes. Também gosto de ir a eventos de cultura pop, viajar, passear no shopping e confeccionar cosplays.",
+        "en": "Outside work, I enjoy watching science fiction movies and series, as well as anime. I also like going to pop culture events, travelling, visiting the mall and making cosplay costumes."
       }
     },
     {
@@ -606,7 +606,7 @@
         "ordiny subscription"
       ],
       "answer": {
-        "pt": "A Ordiny separa a assinatura do SaaS e o pagamento do atendimento. O estabelecimento paga pelo uso da plataforma; o cliente paga na conta Stripe da própria unidade, sem comissão da Ordiny. O checkout do provedor trata os meios elegíveis, enquanto a unidade responde por taxas, reembolsos e contestações. Referências e histórico ajudam a evitar registros duplicados.",
+        "pt": "A Ordiny separa a assinatura do SaaS e o pagamento do atendimento. O estabelecimento paga pelo uso da plataforma; o cliente paga na conta Stripe da própria unidade, sem comissão da Ordiny. O checkout do provedor oferece os meios de pagamento disponíveis, enquanto a unidade responde por taxas, reembolsos e contestações. Referências e histórico ajudam a evitar registros duplicados.",
         "en": "Ordiny separates the SaaS subscription from appointment payments. The business pays to use the platform; customers pay into the unit’s own Stripe account, without an Ordiny commission. The provider checkout handles eligible payment methods, while the unit is responsible for fees, refunds and disputes. References and history help prevent duplicate records."
       },
       "links": [
@@ -631,8 +631,8 @@
         "ordiny booking rules"
       ],
       "answer": {
-        "pt": "Na Ordiny, serviços, profissionais e disponibilidade preparam o link público e as integrações. O cliente escolhe serviços ou pacotes, profissional e horário. Painel, link público e WhatsApp revalidam a disponibilidade na confirmação para prevenir conflitos. Os perfis de proprietário, recepção e profissionais orientam ações, e a API verifica permissões em cada operação.",
-        "en": "In Ordiny, services, professionals and availability prepare the public link and integrations. Customers choose services or packages, a professional and a time. The dashboard, public link and WhatsApp revalidate availability on confirmation to prevent conflicts. Owner, reception and professional roles guide actions, and the API checks permissions for each operation."
+        "pt": "Na Ordiny, a configuração dos serviços, dos profissionais e da disponibilidade define as opções do link público e das integrações. O cliente escolhe serviços ou pacotes, profissional e horário. Painel, link público e WhatsApp revalidam a disponibilidade na confirmação para prevenir conflitos. Os perfis de proprietário, recepção e profissionais orientam ações, e a API verifica permissões em cada operação.",
+        "en": "In Ordiny, service, staff and availability settings determine the options offered through the public booking link and integrations. Customers choose services or packages, a professional and a time. The dashboard, public link and WhatsApp revalidate availability on confirmation to prevent conflicts. Owner, reception and professional roles guide actions, and the API checks permissions for each operation."
       },
       "links": [
         {

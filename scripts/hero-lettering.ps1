@@ -36,6 +36,7 @@ foreach ($word in @(('DA L' + [char]0xD3 + 'GICA'), 'AO PRODUTO', 'EM USO.', 'FR
             $paths += ($parts -join '')
         }
         $cursor += $graphics.MeasureString([string]$letter, $font, [System.Drawing.PointF]::new(0,0), $format).Width - 40
+        if ($letter -eq ' ') { $cursor += 40 }
         $outline.Dispose()
     }
     $variants[$word] = @{ paths=$paths; viewBox=((Number ($fullBounds.X - 8)) + ' ' + (Number ($fullBounds.Y - 8)) + ' ' + (Number ($fullBounds.Width + 16)) + ' ' + (Number ($fullBounds.Height + 16))); width=$fullBounds.Width + 16; height=$fullBounds.Height + 16 }

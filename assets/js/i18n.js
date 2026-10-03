@@ -11,16 +11,16 @@ PROJETOS ↓|PROJECTS ↓
 DA LÓGICA|FROM LOGIC
 AO PRODUTO|TO PRODUCT
 EM USO.|IN USE.
-Transformo regras complexas em experiências claras, do primeiro fluxo à interface em produção.|I turn complex rules into clear experiences, from the first flow to the interface in production.
+Transformo regras complexas em experiências claras, do desenho dos fluxos à interface em produção.|I turn complex rules into clear experiences, from designing user flows to building production interfaces.
 Explorar projetos ↓|Explore projects ↓
 Baixar currículo ↗|Download résumé ↗
 7+ ANOS · FINTECH · SAAS · SERVIÇOS|7+ YEARS · FINTECH · SAAS · SERVICES
 01 / TRABALHOS SELECIONADOS|01 / SELECTED WORK
 Decisões que viram produto.|Decisions that become products.
-Três contextos. Diferentes desafios. Uma ligação entre clareza, sistema e entrega.|Three contexts. Different challenges. A connection between clarity, systems and delivery.
+Três projetos, desafios diferentes. Em cada um, conecto design, tecnologia e necessidades das pessoas.|Three projects, different challenges. In each one, I connect design, technology and people’s needs.
 Uma agenda.|One calendar.
 Um produto inteiro.|An entire product.
-Da experiência à aplicação funcional: UX/UI, desenvolvimento, arquitetura e infraestrutura no mesmo projeto.|From experience to a working application: UX/UI, development, architecture and infrastructure in one project.
+Do design à aplicação funcional: UX/UI, desenvolvimento, arquitetura e infraestrutura no mesmo projeto.|From design to a working application: UX/UI, development, architecture and infrastructure in one project.
 MEU PAPEL|MY ROLE
 Produto · UX/UI · Desenvolvimento|Product · UX/UI · Development
 Ler estudo de caso ↗|Read case study ↗
@@ -41,7 +41,7 @@ Decisão|Decision
 Entrega|Delivery
 CONTEXTO / ORDINY · SAAS|CONTEXT / ORDINY · SAAS
 A agenda é só o começo.|The calendar is just the beginning.
-Conversa, reserva, atendimento e pagamento estavam separados. O desafio é conectar a operação.|Conversations, bookings, appointments and payments were disconnected. The challenge is to connect operations.
+Conversas, reservas, atendimentos e pagamentos estavam desconectados. O desafio era integrar essas etapas.|Conversations, bookings, appointments and payments were disconnected. The challenge was to bring these stages together.
 JORNADA / VISÃO DO PRODUTO|JOURNEY / PRODUCT OVERVIEW
 Agenda|Calendar
 Clientes|Customers
@@ -55,14 +55,14 @@ Painel|Dashboard
 Link público|Public link
 Os três canais revalidam a reserva na confirmação.|All three channels revalidate the booking at confirmation.
 ENTREGA / APLICAÇÃO FUNCIONAL|DELIVERY / WORKING APPLICATION
-Do protótipo ao staging.|From prototype to staging.
+Do protótipo à homologação.|From prototype to staging.
 Agenda, clientes, equipe, pagamentos e WhatsApp em uma aplicação em desenvolvimento.|Calendar, customers, team, payments and WhatsApp in an application under development.
 PRODUTO + UX/UI + DESENVOLVIMENTO|PRODUCT + UX/UI + DEVELOPMENT
-Abrir o case completo da Ordiny ↗|Read the full Ordiny case study ↗
+Ler o estudo de caso da Ordiny ↗|Read the full Ordiny case study ↗
 03 / EXPERIÊNCIA|03 / EXPERIENCE
 Complexidade|Complexity
 com contexto.|with context.
-Trabalho entre produto, design e engenharia para transformar regras, restrições e necessidades em experiências utilizáveis.|I work across product, design and engineering to turn rules, constraints and needs into usable experiences.
+Atuo em produto, design e engenharia para transformar regras, restrições e necessidades em experiências claras e fáceis de usar.|I work across product, design and engineering to turn rules, constraints and needs into clear, usable experiences.
 O que essa trajetória conecta|What this experience brings together
 Dados e decisões|Data and decisions
 BI, discovery e organização da informação.|BI, discovery and information organization.
@@ -71,18 +71,18 @@ Pagamentos, onboarding e acessibilidade.|Payments, onboarding and accessibility.
 Design e desenvolvimento|Design and development
 Design systems e interfaces em produção.|Design systems and interfaces in production.
 Ver currículo completo ↗|View full résumé ↗
-Consultor UX/UI Designer · 2025 a 2026|UX/UI Design Consultant · 2025 to 2026
-UX/UI para soluções de BI, discovery, usabilidade e governança de design systems.|UX/UI for BI solutions, discovery, usability and design system governance.
+Consultor de UX/UI · 2025 a 2026|UX/UI Design Consultant · 2025 to 2026
+Design de soluções de BI, pesquisa de necessidades, avaliações de usabilidade e governança de design systems.|Design for BI solutions, needs research, usability evaluations and design system governance.
 UI/UX Designer · 2024 a 2025|UI/UX Designer · 2024 to 2025
 Usabilidade e design systems em apostas e pagamentos.|Usability and design systems for betting and payments.
 UI/UX Designer · 2022 a 2023|UI/UX Designer · 2022 to 2023
-Onboarding, KYC e acessibilidade em jornadas financeiras.|Onboarding, KYC and accessibility in financial journeys.
+Cadastro de clientes, verificação de identidade (KYC) e acessibilidade em jornadas financeiras.|Customer onboarding, identity verification (KYC) and accessibility in financial journeys.
 UX Engineer · 2020 a 2023|UX Engineer · 2020 to 2023
-Integração entre design e front-end em conta digital, PIX e POS.|Connecting design and front-end development for digital accounts, Pix and POS.
+Integração entre design e front-end em contas digitais, Pix e terminais de pagamento (POS).|Connecting design and front-end development for digital accounts, Pix and payment terminals (POS).
 UI/UX Designer · 2019 a 2020|UI/UX Designer · 2019 to 2020
-Arquitetura de informação e jornadas de pagamento.|Information architecture and payment journeys.
+Arquitetura da informação e jornadas de pagamento.|Information architecture and payment journeys.
 04 / VAMOS CONVERSAR|04 / LET’S TALK
-Seu próximo problema|Your next challenge
+Seu próximo desafio|Your next challenge
 pode virar um|could become a
 bom produto.|great product.
 Tem uma oportunidade ou um desafio de produto? Vamos conversar.|Have an opportunity or a product challenge? Let’s talk.
@@ -105,18 +105,18 @@ Aplicação Ordiny apresentada no portfólio|Ordiny application presented in the
 Projetos: Fabiano Antero|Projects: Fabiano Antero
 PORTFÓLIO / 04 PROJETOS|PORTFOLIO / 04 PROJECTS
 Projetos,|Projects,
-por dentro.|from the inside.
+por dentro.|in detail.
 Produtos, interfaces e experiências em finanças, serviços e consumo de energia.|Products, interfaces and experiences in finance, services and energy consumption.
 Explore os trabalhos|Explore the work
 SAAS / PRODUTO DIGITAL|SAAS / DIGITAL PRODUCT
-Da experiência à aplicação: um SaaS que conecta produto, UX/UI e desenvolvimento.|From experience to application: a SaaS connecting product, UX/UI and development.
+Do design à aplicação: um SaaS que conecta produto, UX/UI e desenvolvimento.|From design to a working application: a SaaS product connecting UX/UI and development.
 FINTECH / APLICATIVO|FINTECH / APPLICATION
 UX/UI · Jornada financeira|UX/UI · Financial journey
 UTILITIES / SIMULADOR|UTILITIES / SIMULATOR
 UX/UI · Visualização de informação|UX/UI · Information visualization
 Ver projeto ↗|View project ↗
 SERVIÇOS / WEBSITE|SERVICES / WEBSITE
-Uma apresentação de serviços que organiza a informação e constrói confiança.|A service presentation that organizes information and builds trust.
+Um site que apresenta serviços de limpeza com informações claras e uma navegação organizada.|A cleaning services website with clear information and organized navigation.
 UI · Hierarquia de conteúdo|UI · Content hierarchy
 Tem outro desafio em mente?|Have another challenge in mind?
 Vamos conversar sobre produto, design e implementação.|Let’s talk about product, design and implementation.
@@ -152,20 +152,20 @@ Jornada conectada|Connected journey
 Da captação à reserva, ao atendimento e ao relacionamento.|From acquisition to booking, appointments and customer relationships.
 01 / CONTEXTO|01 / CONTEXT
 O problema era a ruptura entre etapas.|The problem was the gap between stages.
-Uma conversa virava uma anotação; um reagendamento exigia conferir profissionais; um pagamento precisava ser ligado ao atendimento. A continuidade dependia de trabalho manual.|A conversation became a note; rescheduling required checking professionals; a payment needed linking to an appointment. Continuity depended on manual work.
+Conversas precisavam ser registradas manualmente, reagendamentos exigiam novas verificações de disponibilidade e pagamentos precisavam ser vinculados aos atendimentos. A continuidade dependia de trabalho manual.|Conversations required manual records, rescheduling required new availability checks and payments needed to be linked to appointments. Keeping the process connected depended on manual work.
 O que precisava mudar|What needed to change
 Conectar reserva, atendimento e pagamento para reduzir registros repetidos e prevenir conflitos na agenda.|Connect bookings, appointments and payments to reduce duplicate records and prevent calendar conflicts.
 Dois públicos, uma operação|Two audiences, one operation
 O cliente precisa encontrar e reservar o serviço. O estabelecimento precisa cumprir a reserva e acompanhar a operação, inclusive entre unidades.|Customers need to find and book a service. Businesses need to fulfill the booking and monitor operations, including across locations.
 02 / JORNADA|02 / JOURNEY
 Cada etapa prepara a próxima.|Every stage prepares the next.
-A jornada conecta duas necessidades: o cliente conseguir agendar e a unidade conseguir realizar o atendimento.|The journey connects two needs: customers being able to book and the location being able to deliver the service.
+A jornada conecta o agendamento feito pelo cliente à realização do atendimento pela unidade.|The journey connects the customer’s booking with service delivery at the location.
 01 / ENTRAR|01 / GET STARTED
 Conhecer e começar|Discover and get started
 Site, planos, cadastro e confirmação por e-mail. Avaliação gratuita por 15 dias.|Website, plans, sign-up and email confirmation. A 15-day free trial.
 02 / PREPARAR|02 / SET UP
 Preparar a unidade|Set up the location
-Serviços, profissionais e disponibilidade preparam o link público e as integrações.|Services, professionals and availability prepare the public link and integrations.
+A configuração dos serviços, dos profissionais e da disponibilidade define as opções do link público e das integrações.|Service, staff and availability settings determine the options offered through the public booking link and integrations.
 03 / RESERVAR|03 / BOOK
 Escolher e reservar|Choose and book
 Link público ou WhatsApp. Serviço, profissional e horário validados na confirmação.|Public link or WhatsApp. Service, professional and time validated at confirmation.
@@ -175,7 +175,7 @@ A reserva entra na agenda, nas notificações e nos registros da operação.|The
 A seleção do cliente precisa se transformar em um atendimento que a unidade consegue cumprir.|The customer’s selection must become an appointment the location can fulfill.
 Mapa explicativo do produto; os fluxos abaixo aprofundam suas regras.|An explanatory product map; the flows below explore its rules.
 03 / OPERAÇÃO|03 / OPERATIONS
-Uma unidade, responsabilidades diferentes.|One location, different responsibilities.
+Uma unidade, diferentes papéis.|One location, different roles.
 Organizei a operação por responsabilidade: proprietário, recepção e profissionais. O cliente agenda pelos canais públicos.|I organized operations by responsibility: owner, reception and professionals. Customers book through public channels.
 FRENTES DA OPERAÇÃO|AREAS OF OPERATION
 Agenda + equipe|Calendar + team
@@ -203,11 +203,11 @@ TELAS DO PROJETO NO FIGMA / DADOS ILUSTRATIVOS|PROJECT SCREENS IN FIGMA / ILLUST
 DECISÃO / CONTINUIDADE|DECISION / CONTINUITY
 Confirmar com a disponibilidade atual.|Confirm using current availability.
 DESAFIO|CHALLENGE
-Serviços e pacotes juntos precisam considerar duração, valor e profissionais compatíveis.|Combining services and packages requires considering duration, price and compatible professionals.
+Reservas com serviços e pacotes precisam considerar a duração total, o valor e os profissionais habilitados.|Bookings that combine services and packages must account for total duration, price and qualified professionals.
 ESCOLHA|CHOICE
 Painel, link público e WhatsApp usam as mesmas regras de disponibilidade. A reserva é revalidada na confirmação.|The dashboard, public link and WhatsApp use the same availability rules. The booking is revalidated at confirmation.
 CUIDADO DE PRODUTO|PRODUCT CONSIDERATION
-Um horário visível pode ser ocupado por outra pessoa. “Qualquer profissional” considera elegibilidade e balanceamento.|A visible time slot may be taken by someone else. “Any professional” considers eligibility and workload balancing.
+Um horário disponível pode ser reservado por outra pessoa antes da confirmação. A opção “Qualquer profissional” considera a habilitação para o serviço e a distribuição dos atendimentos.|An available time slot may be booked by someone else before confirmation. The “Any professional” option considers service qualifications and appointment distribution.
 IDENTIFICAÇÃO PÚBLICA|PUBLIC IDENTIFICATION
 CPF identifica; não autentica.|CPF identifies; it does not authenticate.
 A consulta não revela nome, telefone nem histórico e não permite sobrescrever livremente um cadastro.|The lookup does not reveal names, phone numbers or history, and does not allow unrestricted overwriting of a customer record.
@@ -221,25 +221,25 @@ PAGAMENTO DO ATENDIMENTO|APPOINTMENT PAYMENT
 Cliente → conta da unidade|Customer → location’s account
 Conta Stripe da própria unidade, sem comissão da Ordiny.|The location’s own Stripe account, with no Ordiny commission.
 Checkout do provedor|Provider checkout
-O pagamento online segue para o checkout do provedor, com os meios elegíveis.|Online payment proceeds to the provider’s checkout with eligible payment methods.
+O pagamento online é realizado no checkout do provedor, com os meios de pagamento disponíveis.|Online payment takes place through the provider’s checkout, using the available payment methods.
 Responsabilidade da unidade|Location responsibility
 A unidade responde por taxas, reembolsos e contestações. Referências e histórico evitam registros duplicados.|The location is responsible for fees, refunds and disputes. References and history prevent duplicate records.
 06 / CONVERSAS|06 / CONVERSATIONS
 Automatizar com limites claros.|Automate with clear boundaries.
-Cada unidade usa seu número WhatsApp Business. O chatbot conduz o agendamento; lembretes e recuperação de clientes têm controles próprios.|Each location uses its own WhatsApp Business number. The chatbot guides booking; reminders and customer re-engagement have their own controls.
+Cada unidade usa seu próprio número do WhatsApp Business. O chatbot conduz o agendamento; lembretes e ações para retomar o contato com clientes têm controles próprios.|Each location uses its own WhatsApp Business number. The chatbot guides booking; reminders and customer re-engagement have separate controls.
 DECISÃO / AUTOMAÇÃO|DECISION / AUTOMATION
 Devolver o controle a uma pessoa.|Return control to a person.
 O cliente pode precisar de ajuda fora do roteiro.|Customers may need help beyond the scripted flow.
-Ao pedir um atendente, a conversa avisa operadores autorizados e pausa a automação. Desligar lembretes mantém o chatbot ativo.|Requesting an agent alerts authorized operators and pauses automation. Turning off reminders keeps the chatbot active.
+Quando o cliente pede um atendente, o sistema avisa os operadores autorizados e pausa a automação da conversa. Desativar os lembretes mantém o chatbot ativo.|When a customer requests an agent, the system alerts authorized operators and pauses conversation automation. Disabling reminders keeps the chatbot active.
 O atendimento humano termina manualmente ou após 30 minutos sem atividade do cliente.|Human assistance ends manually or after 30 minutes of customer inactivity.
 Recuperação com consentimento|Re-engagement with consent
-Recurso contratado, consentimento, elegibilidade, intervalo entre contatos e template Marketing aprovado.|Subscribed feature, consent, eligibility, time between contacts and an approved Marketing template.
-Aceita não significa entregue|Accepted does not mean delivered
+O recurso depende de contratação, consentimento do cliente, critérios de elegibilidade, intervalo entre contatos e um modelo de mensagem de marketing aprovado.|The feature requires a subscription, customer consent, eligibility checks, intervals between contacts and an approved marketing message template.
+Mensagem aceita não significa mensagem entregue|An accepted message is not necessarily delivered
 Os registros distinguem aceitação pela Meta, entrega e falha.|Records distinguish acceptance by Meta, delivery and failure.
 IA / EVOLUÇÃO DESATIVADA POR PADRÃO|AI / ENHANCEMENT DISABLED BY DEFAULT
 Interpretar a mensagem. Preservar a regra.|Interpret the message. Preserve the rule.
-Mensagens naturais alimentam o fluxo existente. Preços, disponibilidade e confirmação continuam sob as regras do sistema.|Natural language messages feed the existing flow. Prices, availability and confirmation remain governed by system rules.
-Saídas da IA passam por validação. Há encaminhamento humano e controles de acesso, orçamento, consumo e desligamento.|AI outputs are validated. Human handoff and controls for access, budget, usage and shutdown are available.
+A IA interpreta mensagens em linguagem natural e as encaminha para o fluxo existente. Preços, disponibilidade e confirmação continuam seguindo as regras do sistema.|AI interprets natural language messages and routes them into the existing flow. Prices, availability and confirmation still follow system rules.
+As respostas da IA passam por validação. Há encaminhamento para atendimento humano e controles de acesso, orçamento, consumo e desativação.|AI responses are validated. Human handoff and controls for access, budget, usage and deactivation are available.
 05 / CONTROLES DO WHATSAPP|05 / WHATSAPP CONTROLS
 Conexão, lembretes, testes e templates têm controles separados.|Connection, reminders, tests and templates have separate controls.
 TELA DE DESIGN / DADOS ILUSTRATIVOS|DESIGN SCREEN / ILLUSTRATIVE DATA
@@ -254,8 +254,8 @@ Workers + Hono validam regras; D1 armazena dados; Durable Objects coordenam oper
 TRABALHO EM SEGUNDO PLANO|BACKGROUND WORK
 Trabalho em segundo plano|Background work
 Queues e tarefas agendadas processam atividades; R2 guarda imagens; KV apoia configurações.|Queues and scheduled tasks process activities; R2 stores images; KV supports configuration.
-Cache melhora a volta à agenda|Caching improves returning to the calendar
-Datas consultadas reaparecem com atualização em segundo plano. A confirmação continua usando a disponibilidade atual.|Previously viewed dates reappear with background updates. Confirmation continues to use current availability.
+O cache agiliza o retorno à agenda|Caching speeds up returning to the calendar
+As datas já consultadas são carregadas do cache e atualizadas em segundo plano. A confirmação continua verificando a disponibilidade atual.|Previously viewed dates are loaded from the cache and refreshed in the background. Confirmation still checks current availability.
 Proteções ao longo da operação|Safeguards throughout operations
 Isolamento entre contas e unidades, permissões, validações, auditoria e verificação de webhooks.|Isolation between accounts and locations, permissions, validation, auditing and webhook verification.
 Ações sensíveis pedem confirmação adicional; imagens são validadas e reprocessadas.|Sensitive actions require additional confirmation; images are validated and reprocessed.
@@ -282,8 +282,8 @@ Configuração do WhatsApp: conexão, lembretes, testes e templates|WhatsApp set
 Cash Advance: Estudo de caso: Fabiano Antero|Cash Advance: Case study: Fabiano Antero
 ESTUDO UX/UI / ANTECIPAÇÃO DE FRETES / PROTÓTIPO|UX/UI CASE STUDY / FREIGHT PAYMENT ADVANCES / PROTOTYPE
 Antes de antecipar,|Before requesting an advance,
-entender o que entra.|understand what you receive.
-Uma experiência financeira para motoristas autônomos: avaliar recebíveis, entender o valor líquido e acompanhar o dinheiro até o próximo passo.|A financial experience for independent drivers: assess receivables, understand the net amount and follow the money to the next step.
+entenda o valor líquido.|understand the net amount.
+Uma experiência financeira para motoristas autônomos: avaliar os recebíveis, entender o valor líquido e acompanhar a solicitação de antecipação.|A financial experience for independent drivers: review receivables, understand the net amount and track the advance request.
 Abrir estudo completo ↗|Open full case study ↗
 02 Pesquisa|02 Research
 03 Jornada|03 Journey
@@ -301,7 +301,7 @@ Jornada financeira.|Financial journey.
 Protótipo de alta fidelidade e estudo de decisões.|High-fidelity prototype and a study of decisions.
 O pagamento demora.|Payment takes time.
 As despesas continuam.|Expenses continue.
-Entre concluir um frete e receber, o motorista precisa manter a operação. O Cash Advance organiza esse intervalo: apresenta recebíveis elegíveis, o custo da antecipação e o saldo disponível para uso.|Between completing a delivery and getting paid, drivers need to keep operating. Cash Advance organizes this interval: it shows eligible receivables, the advance cost and the balance available to use.
+Entre concluir um frete e receber o pagamento, o motorista precisa manter a operação. O Cash Advance organiza esse intervalo: apresenta os recebíveis elegíveis, o custo da antecipação e o saldo disponível na conta.|Between completing a delivery and getting paid, drivers need to keep operating. Cash Advance supports this period by showing eligible receivables, advance costs and the available account balance.
 Escolher com clareza.|Choose with clarity.
 A antecipação precisa ser compreendida antes de ser solicitada: quanto custa, quanto entra e para onde o dinheiro vai.|An advance must be understood before it is requested: what it costs, how much is received and where the money goes.
 DECISÃO / HOME|DECISION / HOME
@@ -315,24 +315,24 @@ Taxas competitivas|Competitive fees
 Rapidez|Speed
 Segurança|Security
 4,5/5 · Transparência das taxas|4.5/5 · Fee transparency
-65% · Uso prévio de apps de antecipação|65% · Previous use of advance apps
-Fonte: questionário documentado no estudo. Amostra, datas e recrutamento não informados. Os critérios somam mais de 100%; múltipla escolha não confirmada. Estes números não medem resultados do aplicativo.|Source: questionnaire documented in the case study. Sample, dates and recruitment were not reported. Criteria total more than 100%; multiple-choice format is unconfirmed. These figures do not measure app outcomes.
+65% · Uso prévio de aplicativos de antecipação|65% · Previous use of payment advance apps
+Fonte: questionário documentado no estudo. O estudo não informa o tamanho da amostra, as datas nem a forma de recrutamento. Os percentuais somam mais de 100%, mas o uso de múltipla escolha não está confirmado. Esses números não medem os resultados do aplicativo.|Source: questionnaire documented in the case study. Sample size, dates and recruitment methods were not reported. Percentages total more than 100%, but the use of multiple choice is unconfirmed. These figures do not measure app outcomes.
 PERSONA / SÍNTESE A VALIDAR|PERSONA / SYNTHESIS TO VALIDATE
 37 anos · 7 anos no transporte|37 years old · 7 years in transport
 Perfil ilustrativo para reunir necessidades do projeto. A persona não corresponde a uma participante identificada.|An illustrative profile bringing together project needs. The persona does not represent an identified participant.
-Precisa decidir sem perder a operação.|Needs to decide while keeping operations running.
-Entre fretes, documentos e despesas, precisa avaliar custo e valor líquido, conferir o destino e localizar o status da solicitação.|Between deliveries, documents and expenses, she needs to assess cost and net amount, verify the destination and find the request status.
+Decidir sem interromper o trabalho.|Make decisions without interrupting work.
+Entre fretes, documentos e despesas, precisa entender o custo da antecipação, conferir o valor líquido e o destino do dinheiro e acompanhar o status da solicitação.|Between deliveries, documents and expenses, she needs to understand advance costs, check the net amount and destination and track the request status.
 A validar: em quais momentos o Pix agendado e as reservas ajudam no planejamento.|To validate: when scheduled Pix payments and savings help with planning.
 PRÓXIMA PESQUISA / Instrumento proposto, sem respostas coletadas|NEXT RESEARCH / Proposed instrument, no responses collected
 Investigar prazo de recebimento, critérios de escolha, entendimento de R$ 5.000 − R$ 300 = R$ 4.700, frequência de agendamento e distinção entre pedido recebido e dinheiro liberado.|Investigate payment timing, decision criteria, understanding of R$ 5,000 − R$ 300 = R$ 4,700, scheduling frequency and the distinction between a received request and released funds.
 03 / JORNADA|03 / JOURNEY
 Uma entrada.|One entry point.
-Três caminhos de uso.|Three paths to use.
-O acesso à home depende de concluir o cadastro. A partir dela, antecipar, enviar um Pix e organizar recursos seguem jornadas próprias, com revisão e acompanhamento.|Access to the home screen requires completed registration. From there, requesting an advance, sending a Pix payment and organizing funds follow their own journeys, with review and tracking.
+Três jornadas de uso.|Three user journeys.
+O acesso à tela inicial exige a conclusão do cadastro. A partir dela, o usuário pode solicitar uma antecipação, enviar um Pix ou organizar seus recursos. Cada jornada inclui revisão e acompanhamento.|Access to the home screen requires completed registration. Users can then request an advance, send a Pix payment or organize their funds. Each journey includes review and tracking.
 Entrar / autenticar|Sign in / authenticate
 Cadastro completo?|Registration complete?
-Sim · Home financeira|Yes · Financial home
-NÃO → Concluir o cadastro e voltar à home. Sem recebível elegível, a antecipação apresenta orientação e impede seguir com a solicitação.|NO → Complete registration and return home. Without an eligible receivable, the advance flow provides guidance and blocks proceeding with the request.
+Sim · Tela inicial financeira|Yes · Financial home screen
+NÃO → Concluir o cadastro e voltar à tela inicial. Se não houver recebíveis elegíveis, o fluxo explica a situação e impede o envio da solicitação de antecipação.|NO → Complete registration and return to the home screen. If no eligible receivables are available, the flow explains the situation and prevents an advance request.
 ANTECIPAÇÃO|ADVANCE
 Com recebível elegível|With an eligible receivable
 Selecionar recebível|Select receivable
@@ -359,10 +359,10 @@ REVISÃO / CUSTO, LÍQUIDO E DESTINO|REVIEW / COST, NET AMOUNT AND DESTINATION
 STATUS / O QUE AINDA ESTÁ PENDENTE|STATUS / WHAT IS STILL PENDING
 DECISÃO / REVISÃO|DECISION / REVIEW
 Mostrar a conta completa.|Show the full calculation.
-R$ 5.000 de recebível − R$ 300 de custo = R$ 4.700 líquidos. A leitura acontece antes de autorizar.|R$ 5,000 receivable − R$ 300 cost = R$ 4,700 net. Users review this before authorizing.
+R$ 5.000 em recebíveis − R$ 300 de custo = R$ 4.700 líquidos. O usuário confere esses valores antes de autorizar a solicitação.|R$ 5,000 in receivables − R$ 300 in costs = R$ 4,700 net. Users review these amounts before authorizing the request.
 DECISÃO / ESTADO|DECISION / STATE
 Dizer em que etapa está.|Make the current stage clear.
-Recebida, em análise e resultado são estados distintos. O feedback não promete aprovação ou transferência.|Received, under assessment and outcome are distinct states. Feedback does not promise approval or a transfer.
+O fluxo diferencia a solicitação recebida, a etapa de análise e o resultado. As mensagens de status não prometem aprovação nem transferência.|The flow distinguishes receipt of the request, assessment and the outcome. Status messages do not promise approval or a transfer.
 Planejar o envio.|Plan the payment.
 Conferir antes de autorizar.|Check before authorizing.
 O Pix permite revisar destinatário e valor, escolher envio imediato ou agendado e configurar recorrência. Editar uma informação preserva o contexto das demais escolhas.|Pix lets users review the recipient and amount, choose immediate or scheduled payment and set recurrence. Editing information preserves the context of other choices.
@@ -379,19 +379,19 @@ O resumo apresenta destinatário, instituição, valor e programação. O envio 
 06 / RECURSOS|06 / FEATURES
 Receber é só uma parte|Getting paid is just one part
 da vida financeira.|of financial life.
-Cartão virtual, Caixinhas e Crédito ampliam os caminhos de uso. Cada recurso responde a uma tarefa e comunica sua própria condição.|Virtual cards, Savings pots and Credit expand the paths to use. Each feature addresses a task and communicates its own conditions.
+O cartão virtual, as Caixinhas e o crédito atendem a outras necessidades financeiras. Cada recurso apresenta suas condições e orienta o usuário em uma tarefa específica.|Virtual cards, Savings pots and credit address other financial needs. Each feature presents its terms and guides users through a specific task.
 CARTÃO VIRTUAL / ACESSO AOS DADOS|VIRTUAL CARD / DATA ACCESS
 CAIXINHAS / OBJETIVO E PROGRESSO|SAVINGS POTS / GOAL AND PROGRESS
 CRÉDITO / SIMULAÇÃO E ANÁLISE|CREDIT / SIMULATION AND ASSESSMENT
 PROTEÇÃO|PROTECTION
 Controlar o acesso.|Control access.
-O cartão virtual oferece acesso protegido e orienta conferir onde os dados serão usados.|The virtual card provides protected access and guidance to check where its details will be used.
+O cartão virtual protege o acesso aos dados e orienta o usuário a conferir onde serão utilizados.|The virtual card protects access to its details and prompts users to check where they will be used.
 PLANEJAMENTO|PLANNING
 Reservar com intenção.|Save with purpose.
-As Caixinhas organizam um objetivo e seu progresso para acompanhar a reserva.|Savings pots organize a goal and its progress to track savings.
+As Caixinhas permitem definir um objetivo, separar dinheiro e acompanhar o progresso da reserva.|Savings pots let users set a goal, put money aside and track their savings progress.
 CLAREZA|CLARITY
 Simular antes de solicitar.|Simulate before requesting.
-Crédito mantém simulação, revisão de condições e análise separadas da aprovação.|Credit keeps simulation, terms review and assessment separate from approval.
+O fluxo de crédito separa a simulação, a revisão das condições e a análise da etapa de aprovação.|The credit flow separates simulation, terms review and assessment from approval.
 07 / SISTEMA|07 / SYSTEM
 Uma linguagem consistente|A consistent language
 para escolhas financeiras.|for financial choices.
@@ -414,15 +414,15 @@ TIPOGRAFIA DO PRODUTO|PRODUCT TYPOGRAPHY
 COMPONENTES E ESTADOS|COMPONENTS AND STATES
 Botões, campos, ações rápidas, navegação e resumos seguem a mesma base. Os estados tratam cadastro parcial, ausência de recebíveis, revisão, solicitação recebida e análise.|Buttons, fields, quick actions, navigation and summaries share the same foundation. States handle partial registration, no receivables, review, received requests and assessment.
 ESPAÇAMENTO / 8 · 12 · 16 · 24 · 32   CANTOS / 8 · 16 · 24 · 32|SPACING / 8 · 12 · 16 · 24 · 32   CORNERS / 8 · 16 · 24 · 32
-Jornada percorrível.|A journey ready to explore.
-Experiência a observar.|An experience to observe.
+Um protótipo para explorar.|A prototype to explore.
+Uma experiência para validar.|An experience to validate.
 A entrega reúne pesquisa documentada, fluxo, guia de estilo e protótipo de alta fidelidade. A revisão de navegação cobriu dez cenários do protótipo, sem substituir testes com motoristas.|The delivery brings together documented research, flows, a style guide and a high-fidelity prototype. Navigation review covered ten prototype scenarios, without replacing testing with drivers.
 VERIFICAÇÃO DO PROTÓTIPO|PROTOTYPE VERIFICATION
 Manter o contexto.|Preserve context.
-Editar valores, manter destinatários, configurar envio único ou recorrente e retornar de documentos sem perder o contexto.|Edit amounts, preserve recipients, configure one-off or recurring payments and return from documents without losing context.
+A revisão verificou a edição de valores, a preservação dos destinatários, o envio único ou recorrente e o retorno da visualização de documentos sem perder o contexto.|The review checked amount editing, recipient preservation, one-off and recurring payments and returning from document views without losing context.
 PRÓXIMA VALIDAÇÃO|NEXT VALIDATION
 Observar decisões reais.|Observe real decisions.
-Avaliar compreensão de taxas e valor líquido, distinção entre solicitação e liberação, confiança no Pix e recuperação ao editar.|Assess understanding of fees and net amount, the distinction between requests and release, confidence in Pix and recovery while editing.
+Avaliar se os motoristas compreendem as taxas e o valor líquido, distinguem a solicitação da liberação do dinheiro, confiam no Pix e conseguem editar informações sem refazer o fluxo.|Assess whether drivers understand fees and net amounts, distinguish a request from the release of funds, trust Pix and can edit details without repeating the flow.
 Consultar estudo completo ↗|View full case study ↗
 CONTINUE EXPLORANDO|KEEP EXPLORING
 Da jornada financeira|From the financial journey

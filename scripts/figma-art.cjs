@@ -99,7 +99,7 @@ function extract(file, id, doc, naturalWidth, naturalHeight, name) {
     return `<${tag}${extra} style="${escape(style)}">`+(tag==='img'?'':children.map(render).join('')+`</${tag}>`);
   }
   const html=`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="stylesheet" href="../css/fonts.css"><style>*{box-sizing:border-box;border-width:0;border-style:solid}body{margin:0;overflow:hidden}p{margin:0}img{display:block}a{color:inherit;text-decoration:none}#art{position:absolute;inset:0;width:${naturalWidth}px;height:${naturalHeight}px;transform-origin:top left}#art>div{width:${naturalWidth}px!important;height:${naturalHeight}px!important}#art{pointer-events:none}</style></head><body><div id="art" inert>${render(tree)}</div><script>function fit(){document.getElementById('art').style.transform='scale('+innerWidth/${naturalWidth}+')'}fit();addEventListener('resize',fit);</script></body></html>`;
-  fs.mkdirSync(path.join(root,'assets/art'),{recursive:true});fs.writeFileSync(path.join(root,'assets/art',name+'.html'),html);
+  fs.mkdirSync(path.join(root,'assets/art'),{recursive:true});fs.writeFileSync(path.join(root,'assets/art',name+'.html'),require('./art-copy.cjs').reviewArtHtml(html));
   console.log('Native figure:',name);
 }
 extract('implementation-ordiny-1.txt','237:807','o1',1440,868,'ordiny-product');

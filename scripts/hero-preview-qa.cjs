@@ -11,6 +11,11 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
   page.on('response', r => { if(r.status()>=400 && r.url().startsWith('http://localhost:4173')) errors.push(r.url()); });
   await page.goto('http://localhost:4173');
   await page.waitForFunction(() => document.querySelector('.hero-sequence').dataset.motionState === 'running');
+  // Rewinding a paused timeline must not trigger production cleanup callbacks.
+  // Natural completion is exercised independently in the live page below.
+  await page.evaluate(()=>document.addEventListener('animationend',event=>{
+   if(event.target.closest('.hero-sequence,.hero-copy'))event.stopImmediatePropagation();
+  },true));
   const sample = async time => page.evaluate(time => {
    document.querySelectorAll('.hero-sequence, .hero-copy').forEach(root => root.getAnimations({subtree:true}).forEach(animation => {animation.pause();animation.currentTime=time;}));
    const style = selector => getComputedStyle(document.querySelector(selector));
