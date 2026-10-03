@@ -17,11 +17,11 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
   messages=messages.filter(message=>message&&['visitor','answer'].includes(message.role)&&typeof message.text==='string'&&(!message.answer?.ids||Array.isArray(message.answer.ids))).slice(-32);
   let previousTopic=messages.filter(message=>message.role==='answer').at(-1)?.answer?.ids?.[0]||'';
   const root=element('div','chibi-chat');root.dataset.noTranslate='';
-  const launcher=button('chibi-chat-launcher','',()=>open());launcher.hidden=true;
+  const launcher=button('chibi-chat-launcher','',()=>open());
   const invite=element('section','chibi-chat-invite');invite.hidden=true;
   const inviteText=element('p');const choices=element('div','chibi-chat-choices');
   const yes=button('chibi-chat-primary','',()=>open());
-  const no=button('chibi-chat-secondary','',()=>{save('portfolio-chibi-invite-seen',true);invite.hidden=true;launcher.hidden=false;});
+  const no=button('chibi-chat-secondary','',()=>{save('portfolio-chibi-invite-seen',true);invite.hidden=true;});
   choices.append(yes,no);invite.append(inviteText,choices);
   const panel=element('section','chibi-chat-panel');panel.hidden=true;
   panel.id='chibi-conversation';panel.setAttribute('role','dialog');panel.setAttribute('aria-labelledby','chibi-chat-title');
@@ -35,7 +35,7 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
   const row=element('div','chibi-chat-input-row');const send=element('button','chibi-chat-primary');send.type='submit';
   row.append(input,send);const status=element('p','chibi-chat-status');status.setAttribute('role','status');
   form.append(label,row,status);panel.append(header,log,suggestions,form);root.append(launcher,invite,panel);container.append(root);
-  launcher.setAttribute('aria-controls',panel.id);yes.setAttribute('aria-controls',panel.id);
+  launcher.setAttribute('aria-controls',panel.id);launcher.setAttribute('aria-expanded','false');yes.setAttribute('aria-controls',panel.id);
   const load=()=>{
     if(knowledge)return Promise.resolve(knowledge);
     if(!loadPromise)loadPromise=fetch(new URL('../data/fabiano.json',import.meta.url)).then(response=>{if(!response.ok)throw Error('Knowledge unavailable');return response.json();}).then(data=>{if(!Array.isArray(data.topics))throw Error('Invalid knowledge');knowledge=data;return data;}).catch(error=>{loadPromise=undefined;throw error;});
@@ -91,14 +91,15 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
     root.classList.toggle('chibi-chat-keyboard',keyboard>100);
   };
   function open(){
+    if(opened){input.focus({preventScroll:true});return;}
     opened=true;clearTimeout(inviteTimer);save('portfolio-chibi-invite-seen',true);
-    invite.hidden=true;launcher.hidden=true;panel.hidden=false;launcher.setAttribute('aria-expanded','true');
+    invite.hidden=true;panel.hidden=false;launcher.setAttribute('aria-expanded','true');
     onOpen();
     if(!messages.length)add({role:'answer',text:copy[language].welcome,answer:{type:'welcome'}});
     renderLog();fit();input.focus({preventScroll:true});
     load().then(()=>{if(alive)renderLog();}).catch(()=>{});
   }
-  function closeChat(){opened=false;panel.hidden=true;invite.hidden=true;launcher.hidden=characterState!=='idle';launcher.setAttribute('aria-expanded','false');onClose();if(!launcher.hidden)launcher.focus({preventScroll:true});}
+  function closeChat(){opened=false;panel.hidden=true;invite.hidden=true;launcher.setAttribute('aria-expanded','false');onClose();launcher.focus({preventScroll:true});}
   const translate=()=>{
     const statusKey=['error','limit'].find(key=>status.textContent===copy[language][key]);
     language=document.documentElement.lang==='en'?'en':'pt';const text=copy[language];
@@ -117,9 +118,9 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
   translate();fit();
   const setCharacterState=state=>{
     characterState=state;clearTimeout(inviteTimer);
-    if(state!=='idle'){invite.hidden=true;launcher.hidden=true;return;}
+    if(state!=='idle'){invite.hidden=true;return;}
     if(opened)return;
-    if(read('portfolio-chibi-invite-seen',false)){launcher.hidden=false;return;}
+    if(read('portfolio-chibi-invite-seen',false))return;
     inviteTimer=setTimeout(()=>{if(alive&&!opened&&characterState==='idle')invite.hidden=false;},60_000);
   };
   setCharacterState('idle');
