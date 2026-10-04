@@ -33,3 +33,6 @@ figure{margin:0}figcaption{font-size:16px;line-height:25px;color:var(--soft)}.pa
 .hero .outline{-webkit-text-stroke-color:#d0d8dd}
 .hero .button-outline{background:transparent;border-color:#91a4b2}
 .hero .button-outline:hover{background:#ffffff0d}
+.cash-device picture{display:block}.cash-device picture img{display:block;width:100%;height:auto;object-fit:contain}
+/* Mobile featured covers: proportional placement from the 342px Figma frame. */
+@media(max-width:767px){#projetos .cash-cover{height:auto;aspect-ratio:342/260}#projetos .cash-cover-copy{left:7.01754cqw;top:29.23977cqw;width:49.7076cqw}#projetos .cash-cover-copy strong{font-size:8.18713cqw;line-height:9.35673cqw;letter-spacing:-.16374cqw}#projetos .cash-device{left:59.06433cqw;right:auto;top:7.01754cqw;width:34.50292cqw;height:81.28655cqw}#projetos .cash-device picture,#projetos .cash-device img{width:100%;height:100%;object-fit:contain}}
