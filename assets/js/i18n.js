@@ -5,6 +5,7 @@
 Pular para o conteúdo|Skip to content
 Projetos|Projects
 Como penso|How I think
+Áreas de atuação|Areas of expertise
 Experiência|Experience
 Contato|Contact
 PROJETOS ↓|PROJECTS ↓

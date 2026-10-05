@@ -114,7 +114,7 @@
     const dt=previous ? Math.min((now-previous)/1000,.075) : 1/30;
     previous=now;
     const compact=imageBounds.width<360;
-    const limit=4;
+    const limit=7;
     nextBirth-=dt;
     // Emit at most one spark, then wait a new random interval. Never catch up
     // with a batch after a slow frame or a pause.
