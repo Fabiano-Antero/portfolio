@@ -21,9 +21,9 @@
     const paint = sprite.getContext('2d');
     const glow = paint.createRadialGradient(16,16,0,16,16,16);
     glow.addColorStop(0,color);
-    glow.addColorStop(.25,color);
-    glow.addColorStop(.4,color+'b0');
-    glow.addColorStop(.7,color+'24');
+    glow.addColorStop(.16,color);
+    glow.addColorStop(.24,color+'b0');
+    glow.addColorStop(.55,color+'24');
     glow.addColorStop(1,color+'00');
     paint.fillStyle = glow;
     paint.fillRect(0,0,32,32);
@@ -102,7 +102,7 @@
       vx:-(background ? random(55,80) : crossing ? random(30,48) : random(9,28))*scale,
       vy:(background ? random(-6,6) : -(crossing ? random(2,9) : random(16,37)))*scale,
       outward:source.nx,
-      radius:random(1.05,1.9)*Math.max(.65,scale),
+      radius:random(.35,1)*Math.max(.65,scale),
       distance:0,range:(background ? random(280,440) : random(14,135))*scale,fadeStart:random(.5,.8),
       age:0,phase:random(0,Math.PI*2),
       sprite:sprites[Math.floor(Math.random()*sprites.length)]

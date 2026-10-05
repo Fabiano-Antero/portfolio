@@ -1,10 +1,10 @@
 <svg width="540" height="539" viewBox="-40 -40 540 539" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="halo-rim" x1="230" y1="14.5" x2="230" y2="444.5" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FF3834"/>
-      <stop offset=".35" stop-color="#FF2027"/>
-      <stop offset=".7" stop-color="#FF2027"/>
-      <stop offset="1" stop-color="#ED101E"/>
+      <stop stop-color="#FFD16C"/>
+      <stop offset=".35" stop-color="#FFB139"/>
+      <stop offset=".7" stop-color="#FF901A"/>
+      <stop offset="1" stop-color="#FF650B"/>
     </linearGradient>
     <filter id="halo-atmosphere" x="-40" y="-40" width="540" height="539" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
       <feGaussianBlur stdDeviation="9"/>
@@ -13,8 +13,8 @@
       <feGaussianBlur stdDeviation="3.5"/>
     </filter>
   </defs>
-  <circle cx="230" cy="229.5" r="215" stroke="#FF2027" stroke-width="14" opacity=".55" filter="url(#halo-atmosphere)"/>
-  <circle cx="230" cy="229.5" r="215" stroke="#FF3834" stroke-width="7" filter="url(#halo-glow)"/>
+  <circle cx="230" cy="229.5" r="215" stroke="#FF5108" stroke-width="14" opacity=".55" filter="url(#halo-atmosphere)"/>
+  <circle cx="230" cy="229.5" r="215" stroke="#FF7C12" stroke-width="7" filter="url(#halo-glow)"/>
   <circle cx="230" cy="229.5" r="215" stroke="url(#halo-rim)" stroke-width="3"/>
-  <circle cx="230" cy="229.5" r="215" stroke="#FF3834" stroke-width=".7" opacity=".9"/>
+  <circle cx="230" cy="229.5" r="215" stroke="#FFE0A3" stroke-width=".7" opacity=".9"/>
 </svg>
