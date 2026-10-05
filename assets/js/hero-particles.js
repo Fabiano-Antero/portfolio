@@ -21,9 +21,9 @@
     const paint = sprite.getContext('2d');
     const glow = paint.createRadialGradient(16,16,0,16,16,16);
     glow.addColorStop(0,color);
-    glow.addColorStop(.16,color);
-    glow.addColorStop(.24,color+'b0');
-    glow.addColorStop(.55,color+'24');
+    glow.addColorStop(.25,color);
+    glow.addColorStop(.4,color+'b0');
+    glow.addColorStop(.7,color+'24');
     glow.addColorStop(1,color+'00');
     paint.fillStyle = glow;
     paint.fillRect(0,0,32,32);
@@ -43,7 +43,7 @@
     canvas.height = Math.max(1,Math.round(bounds.height*dpr));
     ctx.setTransform(dpr,0,0,dpr,0,0);
     particles = [];
-    nextBirth = random(.18,.65);
+    nextBirth = random(.5,1.2);
   };
   const loadPoints = () => {
     if (loading) return loading;
@@ -88,7 +88,10 @@
     return band[Math.floor(Math.random()*band.length)];
   };
   const emit = () => {
-    const source=sourcePoint();
+    // A few sparks start beyond the portrait, in the right background.
+    // Their longer range lets them drift across the image before fading.
+    const background=Math.random()<.22;
+    const source=background ? {x:random(1.02,1.12),y:random(.12,.7),side:'right',nx:-1} : sourcePoint();
     const scale=imageBounds.width/519;
     const crossing=source.side==='right';
     particles.push({
@@ -96,11 +99,11 @@
       y:imageBounds.y+source.y*imageBounds.height,
       // Right-rim sparks move inward across the portrait's foreground,
       // while the existing left-rim sparks continue drifting up and outward.
-      vx:-(crossing ? random(30,48) : random(9,28))*scale,
-      vy:-(crossing ? random(2,9) : random(16,37))*scale,
+      vx:-(background ? random(55,80) : crossing ? random(30,48) : random(9,28))*scale,
+      vy:(background ? random(-6,6) : -(crossing ? random(2,9) : random(16,37)))*scale,
       outward:source.nx,
-      radius:random(.35,1)*Math.max(.65,scale),
-      distance:0,range:random(14,135)*scale,fadeStart:random(.5,.8),
+      radius:random(1.05,1.9)*Math.max(.65,scale),
+      distance:0,range:(background ? random(280,440) : random(14,135))*scale,fadeStart:random(.5,.8),
       age:0,phase:random(0,Math.PI*2),
       sprite:sprites[Math.floor(Math.random()*sprites.length)]
     });
@@ -111,13 +114,13 @@
     const dt=previous ? Math.min((now-previous)/1000,.075) : 1/30;
     previous=now;
     const compact=imageBounds.width<360;
-    const limit=compact ? 8 : 12;
+    const limit=compact ? 2 : 3;
     nextBirth-=dt;
     // Emit at most one spark, then wait a new random interval. Never catch up
     // with a batch after a slow frame or a pause.
     if (nextBirth<=0) {
       if (particles.length<limit) emit();
-      nextBirth=random(compact ? .24 : .16,compact ? 1 : .75);
+      nextBirth=random(compact ? 1.3 : 1,compact ? 2.8 : 2.4);
     }
     ctx.clearRect(0,0,bounds.width,bounds.height);
     ctx.globalCompositeOperation='lighter';

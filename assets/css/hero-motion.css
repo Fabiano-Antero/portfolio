@@ -16,8 +16,8 @@
 .hero-writing.is-writing-preparing :is(.hero-letter,.hero-letter-fill){animation-play-state:paused}
 @keyframes hero-letter-draw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}
 .hero-sequence{aspect-ratio:597/653;isolation:isolate;--portrait-time:1s;--circle-time:1.3s;--light-delay:var(--portrait-time);--light-time:.8s}
-.hero-sequence::before{content:'';position:absolute;z-index:-2;left:50%;top:1.84%;margin-top:38.44%;width:145%;aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle closest-side,#841c061a 0%,#841c0629 28%,#a735084d 39%,#ed60005c 50%,#ac290640 63%,#4c0d2426 78%,transparent 100%);pointer-events:none}
-.hero-art .hero-light{position:absolute;z-index:-1;left:50%;top:1.84%;margin-top:38.44%;width:140%;height:auto;transform:translate(-50%,-50%);filter:hue-rotate(18deg) saturate(.85);mix-blend-mode:screen;pointer-events:none}
+.hero-sequence::before{content:'';position:absolute;z-index:-2;left:50%;top:1.84%;margin-top:38.44%;width:145%;aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle closest-side,#6b09171a 0%,#6b091729 28%,#a713244d 39%,#ff20275c 50%,#a8142040 63%,#460c2026 78%,transparent 100%);pointer-events:none}
+.hero-art .hero-light{position:absolute;z-index:-1;left:50%;top:1.84%;margin-top:38.44%;width:140%;height:auto;transform:translate(-50%,-50%);filter:saturate(.9);mix-blend-mode:screen;pointer-events:none}
 /* Extra SVG padding lets the glow spread without changing the rim geometry. */
 .hero-circle{position:absolute;z-index:0;left:4.77%;top:1.84%;margin-top:-6.7%;width:90.45%;aspect-ratio:540/539;--hero-ring-angle:360deg;mask-image:conic-gradient(from 180deg,transparent 0deg calc(360deg - var(--hero-ring-angle)),#000 calc(360deg - var(--hero-ring-angle)) 360deg)}
 .hero-portrait{position:absolute;z-index:1;left:6.53%;top:9%;width:86.94%;aspect-ratio:1}
