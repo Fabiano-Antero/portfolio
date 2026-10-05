@@ -42,7 +42,8 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
   const middle=await sample(650);assert(middle.portrait>0&&middle.portrait<1);assert.equal(middle.angle,0);assert(middle.letters[0]<1&&middle.letters.at(-1)===1);
   assert(middle.titleLines[1].letters.every(x=>x===1));assert(middle.titleLines[2].letters.every(x=>x===1));
   await page.screenshot({path:'.qa/hero-writing-progress.png'});
-  const circle=await sample(1650);assert.equal(circle.portrait,1);assert(circle.angle>0&&circle.angle<360);assert.equal(circle.intro,0);
+  const immediate=await sample(1050);assert.equal(immediate.portrait,1);assert(immediate.angle>0);assert(immediate.light>0,'Ring and ambient light start immediately after the portrait');
+  const circle=await sample(1650);assert.equal(circle.portrait,1);assert(circle.angle>0&&circle.angle<360);assert.equal(circle.intro,0);assert(circle.light>0&&circle.light<1);
   assert(circle.titleLines[0].letters.every(x=>x===0));assert.equal(circle.titleLines[0].fill,1);assert(circle.titleLines[1].letters.every(x=>x===0));
   const secondLine=await sample(1150);assert(secondLine.titleLines[1].letters.some(x=>x<1));assert(secondLine.titleLines[2].letters.every(x=>x===1));
   const beforeThird=await sample(1650);assert(beforeThird.titleLines[1].letters.every(x=>x===0));assert(beforeThird.titleLines[2].letters.every(x=>x===1));
@@ -52,13 +53,14 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
   const beforeSupporting=await sample(2400);assert(beforeSupporting.letters.every(x=>x===0));assert.equal(beforeSupporting.titleLines[2].fill,1);assert(beforeSupporting.following.every(x=>x===0));
   for(const [index,time] of [2640,3140,3540,4040,4540].entries()){
    const result=await sample(time);
-   assert.equal(result.light,0,'Light waits until the other hero elements finish');
+   assert.equal(result.light,1,'Ambient light is already visible while supporting content enters');
    assert(result.following.slice(0,index).every(x=>x===1));
    assert(result.following[index]>0&&result.following[index]<1);
    assert(result.following.slice(index+1).every(x=>x===0));
   }
-  const beforeLight=await sample(5400);assert.equal(beforeLight.light,0);assert(beforeLight.rows.every(x=>x===1));assert(beforeLight.following.every(x=>x===1));
-  const lightReveal=await sample(5900);assert(lightReveal.light>0&&lightReveal.light<1,'Light fades in last');
+  const beforeLight=await sample(950);assert.equal(beforeLight.light,0);assert.equal(beforeLight.angle,0);
+  const lightReveal=await sample(1400);assert(lightReveal.light>0&&lightReveal.light<1,'Light fades in alongside the circle');
+  const afterSequence=await sample(5400);assert.equal(afterSequence.light,1);assert(afterSequence.rows.every(x=>x===1));assert(afterSequence.following.every(x=>x===1));
   await sample(1250);
   await page.evaluate(() => {
    window.savedHeroAnimations = [...document.querySelectorAll('.hero-sequence, .hero-copy')].flatMap(root => root.getAnimations({subtree:true})).filter(animation => !animation.effect.target.closest('.hero-writing'));

@@ -130,7 +130,8 @@
     art.classList.add('is-animating');
     art.dataset.motionState = 'running';
   };
-  const lastLayer = art.querySelector('.hero-light');
+  // The ambient light now enters with the ring; the last skill still finishes last.
+  const lastLayer = art.querySelector('.hero-skills-list li:last-child .hero-skill-text');
   lastLayer.addEventListener('animationend', event => {
     if (event.animationName === 'hero-layer-fade') art.dataset.motionState = 'complete';
   });
