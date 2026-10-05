@@ -102,7 +102,7 @@
       vx:-(background ? random(55,80) : crossing ? random(30,48) : random(9,28))*scale,
       vy:(background ? random(-6,6) : -(crossing ? random(2,9) : random(16,37)))*scale,
       outward:source.nx,
-      radius:random(.35,1)*Math.max(.65,scale),
+      radius:random(.35,1)*scale,
       distance:0,range:(background ? random(280,440) : random(14,135))*scale,fadeStart:random(.5,.8),
       age:0,phase:random(0,Math.PI*2),
       sprite:sprites[Math.floor(Math.random()*sprites.length)]
@@ -113,14 +113,13 @@
     if (previous && now-previous<1000/30) return;
     const dt=previous ? Math.min((now-previous)/1000,.075) : 1/30;
     previous=now;
-    const compact=imageBounds.width<360;
     const limit=7;
     nextBirth-=dt;
     // Emit at most one spark, then wait a new random interval. Never catch up
     // with a batch after a slow frame or a pause.
     if (nextBirth<=0) {
       if (particles.length<limit) emit();
-      nextBirth=random(compact ? 1.3 : 1,compact ? 2.8 : 2.4);
+      nextBirth=random(1,2.4);
     }
     ctx.clearRect(0,0,bounds.width,bounds.height);
     ctx.globalCompositeOperation='lighter';
@@ -132,8 +131,8 @@
       if (p.distance>=p.range) return false;
       p.x+=dx;
       p.y+=dy;
-      p.vx+=p.outward*1.4*dt;
-      p.vy-=1.5*dt;
+      p.vx+=p.outward*1.4*scale*dt;
+      p.vy-=1.5*scale*dt;
       const remaining=Math.min(1,(1-p.distance/p.range)/(1-p.fadeStart));
       const fade=Math.min(1,p.age/.14)*remaining**1.2;
       const shimmer=.65+.35*Math.sin(p.age*7+p.phase)**2;
