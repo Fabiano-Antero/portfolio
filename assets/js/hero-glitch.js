@@ -13,12 +13,19 @@
   let cleanup = null;
   let run = 0;
   const random = (min, max) => min + Math.random() * (max - min);
+  const titleFinished = () => {
+    const lastLine = title.querySelector('.hero-writing:last-child');
+    const fill = lastLine?.querySelector('.hero-letter-fill');
+    return fill && !lastLine.classList.contains('is-writing-preparing') && Number(getComputedStyle(fill).opacity) >= .99;
+  };
   const eligible = () => loaded && visible && !suspended && !document.hidden && !reduced.matches
-    && art.dataset.motionState === 'complete' && !copy.classList.contains('is-copy-animating');
+    && titleFinished();
   const clearEffect = () => {
     clearTimeout(cleanup);
     cleanup = null;
     title.classList.remove('is-glitching');
+    title.style.removeProperty('--glitch-duration');
+    title.style.removeProperty('--glitch-jolt');
     title.querySelectorAll('.hero-glitch-svg').forEach(svg => svg.remove());
   };
   const stop = () => {
@@ -28,18 +35,19 @@
   };
   const schedule = () => {
     if (!eligible() || pending !== null || cleanup !== null) return;
-    // Brief bursts, with an unpredictable pause; the opening finishes first.
-    pending = setTimeout(burst, first ? random(6000, 12000) : random(18000, 38000));
+    // Start as soon as the title is drawn, without waiting for the portrait.
+    pending = setTimeout(burst, first ? random(150, 450) : random(4000, 8500));
   };
   const burst = () => {
     pending = null;
     if (!eligible()) return;
-    const duration = random(280, 380);
+    const duration = random(420, 560);
     let layers = 0;
     title.querySelectorAll('.hero-writing').forEach((line, lineIndex) => {
       const source = line.querySelector('.hero-writing-svg');
       if (!source) return;
-      const shift = random(3, 7);
+      const fontSize = parseFloat(getComputedStyle(line).fontSize);
+      const shift = random(fontSize * .16, fontSize * .26);
       ['#22ddff', '#f331da', '#fff7bf'].forEach((color, channel) => {
         const svg = source.cloneNode(true);
         const suffix = `-glitch-${++run}-${lineIndex}-${channel}`;
@@ -67,10 +75,13 @@
     });
     if (!layers) { schedule(); return; }
     first = false;
+    title.style.setProperty('--glitch-duration', `${duration}ms`);
+    title.style.setProperty('--glitch-jolt', `${random(2, 4)}px`);
     title.classList.add('is-glitching');
     cleanup = setTimeout(() => { clearEffect(); schedule(); }, duration + 60);
   };
   const reconcile = () => { if (eligible()) schedule(); else stop(); };
+  title.addEventListener('animationend', reconcile);
   const observer = new MutationObserver(reconcile);
   observer.observe(art, {attributes:true, attributeFilter:['data-motion-state']});
   observer.observe(copy, {attributes:true, attributeFilter:['class']});

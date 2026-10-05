@@ -10,7 +10,8 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
       window.glitchTasks = new Map();
       const set = window.setTimeout.bind(window), clear = window.clearTimeout.bind(window);
       window.setTimeout = (callback, delay, ...args) => {
-        const id = set(() => { window.glitchTasks.delete(id); callback(...args); }, delay);
+        // Hold only scheduled bursts so fast production timings cannot race assertions.
+        const id = set(() => { window.glitchTasks.delete(id); callback(...args); }, callback.name === 'burst' ? 60000 : delay);
         if (callback.name === 'burst') window.glitchTasks.set(id, {callback, delay});
         return id;
       };
@@ -35,7 +36,7 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
         return {width:box.width,height:box.height,font:getComputedStyle(title).fontFamily, paths:[...title.querySelectorAll('.hero-writing-svg .hero-letter')].map(path=>path.getAttribute('d'))};
       });
       const delay = await page.evaluate(() => window.triggerScheduledGlitch());
-      assert.ok(delay >= 6000 && delay <= 12000);
+      assert.ok(delay >= 150 && delay <= 450);
       assert.equal(await page.locator('.hero-glitch-svg').count(), 9);
       await page.evaluate(() => {
         const ids=[...document.querySelectorAll('svg [id]')].map(node=>node.id);
@@ -51,7 +52,8 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
       await page.waitForFunction(() => !document.querySelector('.hero-title').classList.contains('is-glitching'));
       assert.equal(await page.locator('.hero-glitch-svg').count(), 0, 'Burst cleans up its layers');
       const repeated = await page.evaluate(() => [...window.glitchTasks.values()][0].delay);
-      assert.ok(repeated >= 18000 && repeated <= 38000);
+      assert.ok(repeated >= 4000 && repeated <= 8500);
+      await page.waitForFunction(() => !document.querySelector('.hero-copy').classList.contains('is-copy-animating'));
       // Switching language during a burst removes stale glyphs without replaying the opening.
       await page.evaluate(() => window.triggerScheduledGlitch());
       await page.locator('[data-language="en"]').click();
@@ -77,5 +79,26 @@ const {chromium} = require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary
       console.log(`PASS ${width}px: random brief bursts, unchanged font/layout, PT/ENG, offscreen and reduced motion`);
     }
     assert.deepEqual(errors,[]);
+    const naturalContext = await browser.newContext({viewport:{width:1440,height:1000}});
+    await naturalContext.route('https://www.clarity.ms/**', route => route.abort());
+    await naturalContext.addInitScript(() => {
+      sessionStorage.setItem('portfolio-chibi-hidden','true');
+      window.glitchTiming = {};
+      document.addEventListener('animationend', event => {
+        if(event.target.matches('.hero-writing:last-child .hero-letter-fill') && !window.glitchTiming.title)window.glitchTiming.title=performance.now();
+      });
+      document.addEventListener('DOMContentLoaded',()=>{
+        const title=document.querySelector('.hero-title');
+        new MutationObserver(()=>{
+          if(title.classList.contains('is-glitching') && !window.glitchTiming.burst)window.glitchTiming.burst=performance.now();
+        }).observe(title,{attributes:true,attributeFilter:['class']});
+      });
+    });
+    const natural = await naturalContext.newPage();
+    await natural.goto('http://localhost:4173',{waitUntil:'domcontentloaded'});
+    await natural.waitForFunction(()=>window.glitchTiming.burst);
+    const timing=await natural.evaluate(()=>window.glitchTiming);
+    assert.ok(timing.burst-timing.title>=140 && timing.burst-timing.title<850,JSON.stringify(timing));
+    console.log(`PASS natural first appearance: ${Math.round(timing.burst-timing.title)}ms after title drawing`);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode=1; });
