@@ -8,16 +8,14 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
   await context.addInitScript(()=>{
    sessionStorage.setItem('portfolio-chibi-hidden','true');
    window.particleDraws=0;window.smokeDraws=0;window.particleStarts=[];
-   window.particleFrame=[];window.previousSparkCount=0;
+   window.sparkTracks=new Map();window.travelled=[];window.frameNumber=0;
    const clear=CanvasRenderingContext2D.prototype.clearRect;
    CanvasRenderingContext2D.prototype.clearRect=function(...args){
     if(this.canvas.classList.contains('hero-particles')){
-     // Newly emitted sparks are appended to each drawing pass. Capture their
-     // first rendered position, not their later low-opacity fading positions.
-     const added=window.particleFrame.length-window.previousSparkCount;
-     if(added>0&&window.particleStarts.length<200)window.particleStarts.push(...window.particleFrame.slice(-added).slice(0,200-window.particleStarts.length));
-     window.previousSparkCount=window.particleFrame.length;
-     window.particleFrame=[];
+     for(const [key,p] of window.sparkTracks){
+      if(p.frame<window.frameNumber){window.travelled.push(Math.hypot(p.x-p.startX,p.y-p.startY));window.sparkTracks.delete(key);}
+     }
+     window.frameNumber++;
     }
     return clear.apply(this,args);
    };
@@ -26,7 +24,15 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
     if(this.canvas.classList.contains('hero-particles')){
      window.particleDraws++;
      if(args[0].width>32)window.smokeDraws++;
-     else window.particleFrame.push({x:args[1]+args[3]/2,y:args[2]+args[4]/2});
+     else{
+      const x=args[1]+args[3]/2,y=args[2]+args[4]/2,key=args[3];
+      // Each spark has a unique continuous size, retained throughout its life.
+      if(!window.sparkTracks.has(key)){
+       window.sparkTracks.set(key,{startX:x,startY:y});
+       if(window.particleStarts.length<80)window.particleStarts.push({x,y,frame:window.frameNumber});
+      }
+      Object.assign(window.sparkTracks.get(key),{x,y,frame:window.frameNumber});
+     }
     }
     return draw.apply(this,args);
    };
@@ -46,7 +52,7 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
    await page.waitForFunction(()=>document.querySelector('.hero-particles').dataset.state==='running');
    assert.equal(await page.locator('.hero-sequence').getAttribute('data-motion-state'),'complete');
    await page.waitForFunction(()=>Number(document.querySelector('.hero-particles').dataset.count)>30);
-   await page.waitForFunction(()=>window.particleStarts.length===200);
+   await page.waitForFunction(()=>window.particleStarts.length===80&&window.travelled.length>=20);
    const anchor=await page.evaluate(()=>{
     const photo=document.querySelector('.hero-portrait-main'),layer=document.querySelector('.hero-particles');
     const image=photo.getBoundingClientRect(),box=layer.getBoundingClientRect();
@@ -66,9 +72,16 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
    });
    assert.ok(anchor.total>=20);assert.ok(anchor.matches/anchor.total>.85,JSON.stringify(anchor));assert.equal(anchor.overflow,false);
    assert.ok(anchor.minY<.63&&anchor.maxY>.87,'Emission spans the whole left shoulder-to-arm edge');
-   const a=await snapshot();await page.waitForTimeout(160);const b=await snapshot();assert.ok(b.visible>50);assert.notEqual(a.hash,b.hash,'Particles actually move');
-   assert.ok(b.red/b.visible>.98,'All visible smoke and sparks remain red');
-   assert.ok(await page.evaluate(()=>window.smokeDraws>10),'The effect includes a separate soft smoke layer');
+   const variation=await page.evaluate(()=>{
+    const gaps=window.particleStarts.slice(1).map((p,i)=>p.frame-window.particleStarts[i].frame);
+    return {shortest:Math.min(...window.travelled),longest:Math.max(...window.travelled),cluster:gaps.includes(0),gap:gaps.some(n=>n>=2)};
+   });
+   assert.ok(variation.longest/variation.shortest>2.5,'Sparks disappear at visibly different distances');
+   assert.ok(variation.cluster&&variation.gap,'Births include irregular gaps and small clusters');
+   const a=await snapshot();await page.waitForTimeout(160);const b=await snapshot();assert.ok(b.visible>20);assert.notEqual(a.hash,b.hash,'Particles actually move');
+   assert.ok(b.red/b.visible>.98,'All visible sparks remain red');
+   assert.equal(await page.evaluate(()=>window.smokeDraws),0,'No smoke layer is rendered');
+   assert.ok(Number(await page.locator('.hero-particles').getAttribute('data-count'))<=(width<768?90:150),'Particle density is reduced');
    assert.equal(await page.locator('.hero-particles').getAttribute('aria-hidden'),'true');
    assert.equal(await page.locator('.hero-particles').evaluate(c=>getComputedStyle(c).pointerEvents),'none');
    await page.evaluate(()=>window.savedParticleLayer=document.querySelector('.hero-particles'));
@@ -77,9 +90,9 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
    assert.equal(await page.locator('.hero-particles').getAttribute('data-state'),'running');
    assert.ok(Number(await page.locator('.hero-particles').getAttribute('data-count'))>20,'Language does not reset the particle flow');
    await page.locator('[data-language="pt"]').evaluate(b=>b.click());
-   await page.waitForFunction(()=>Number(document.querySelector('.hero-particles').dataset.count)>(innerWidth<768?220:360));
+   await page.waitForFunction(()=>Number(document.querySelector('.hero-particles').dataset.count)>25);
    await page.locator('.hero-sequence').screenshot({path:`.qa/hero-particles-${width}.png`});
-   await page.screenshot({path:`.qa/hero-smoke-page-${width}.png`});
+   await page.screenshot({path:`.qa/hero-particles-page-${width}.png`});
    await page.locator('#contato').scrollIntoViewIfNeeded();
    await page.waitForFunction(()=>document.querySelector('.hero-particles').dataset.state==='paused');
    const stopped=await page.evaluate(()=>window.particleDraws);await page.waitForTimeout(120);assert.equal(await page.evaluate(()=>window.particleDraws),stopped);
@@ -90,7 +103,7 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
    assert.equal(await page.locator('.hero-particles').getAttribute('data-count'),'0');
    assert.equal(await page.locator('.hero-particles').evaluate(c=>getComputedStyle(c).display),'none');
    await page.emulateMedia({reducedMotion:'no-preference'});
-   console.log(`PASS ${width}px: delayed start, left shoulder/arm origins, red smoke and sparks, motion, PT/ENG continuity, offscreen pause and reduced motion`);
+   console.log(`PASS ${width}px: delayed start, left shoulder/arm origins, fewer red sparks without smoke, random intervals and distances, PT/ENG continuity, offscreen pause and reduced motion`);
   }
   assert.deepEqual(errors,[]);
  }finally{await browser.close()}
