@@ -31,7 +31,7 @@
   });
   let points = [], bands = [], particles = [], bounds, imageBounds;
   let loading = null, loaded = false, visible = true, suspended = false;
-  let raf = null, previous = 0, nextBirth = 0, elapsed = 0;
+  let raf = null, previous = 0, nextBirth = 0;
   const eligible = () => !reduced.matches && visible && !suspended && !document.hidden
     && art.dataset.motionState === 'complete' && !copy.classList.contains('is-copy-animating');
   const resize = () => {
@@ -43,7 +43,7 @@
     canvas.height = Math.max(1,Math.round(bounds.height*dpr));
     ctx.setTransform(dpr,0,0,dpr,0,0);
     particles = [];
-    nextBirth = 0;
+    nextBirth = random(.18,.65);
   };
   const loadPoints = () => {
     if (loading) return loading;
@@ -56,14 +56,14 @@
       paint.drawImage(portrait,0,0);
       const {data,width,height} = paint.getImageData(0,0,sample.width,sample.height);
       const alpha = (x,y) => x<0 || y<0 || x>=width || y>=height ? 0 : data[(y*width+x)*4+3];
-      // Only the left shoulder-to-arm rim emits. Include its dim lower red
-      // edge, and distribute births by height so the whole arm contributes.
+      // Follow the red rim on the entire left silhouette, from cap to arm.
+      // Height bands give each part a chance to emit a single isolated spark.
       const rows=new Map();
-      for (let y=Math.ceil(height*.56);y<height*.94;y+=2) for (let x=0;x<width*.33;x+=2) {
+      for (let y=0;y<height*.94;y+=2) for (let x=0;x<width*.56;x+=2) {
         const i=(y*width+x)*4, r=data[i], g=data[i+1], b=data[i+2], a=data[i+3];
         if (a<70 || r<60 || r<g*1.7 || r<b*1.5) continue;
         const left=alpha(x-8,y), right=alpha(x+8,y), up=alpha(x,y-8), down=alpha(x,y+8);
-        if (left>=a-50) continue;
+        if (left>=a-50 && up>=a-50) continue;
         let nx=left-right, ny=up-down;
         const length=Math.hypot(nx,ny);
         if (length) { nx/=length; ny/=length; }
@@ -104,15 +104,14 @@
     if (previous && now-previous<1000/30) return;
     const dt=previous ? Math.min((now-previous)/1000,.075) : 1/30;
     previous=now;
-    elapsed+=dt;
     const compact=imageBounds.width<360;
-    const limit=compact ? 90 : 150;
-    const ramp=Math.min(1,elapsed/.8);
-    nextBirth-=dt*ramp;
-    // Random arrival times leave irregular gaps and occasional small clusters.
-    while (nextBirth<=0) {
+    const limit=compact ? 8 : 12;
+    nextBirth-=dt;
+    // Emit at most one spark, then wait a new random interval. Never catch up
+    // with a batch after a slow frame or a pause.
+    if (nextBirth<=0) {
       if (particles.length<limit) emit();
-      nextBirth+=Math.max(.003,-Math.log(Math.max(.0001,Math.random()))/(compact ? 28 : 42));
+      nextBirth=random(compact ? .24 : .16,compact ? 1 : .75);
     }
     ctx.clearRect(0,0,bounds.width,bounds.height);
     ctx.globalCompositeOperation='lighter';
@@ -154,7 +153,6 @@
     if (!eligible() || raf !== null || !loaded || !points.length) return;
     resize();
     previous=0;
-    elapsed=0;
     canvas.dataset.state='running';
     raf=requestAnimationFrame(frame);
   };
