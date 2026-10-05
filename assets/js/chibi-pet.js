@@ -149,7 +149,9 @@ export async function createPet({layer:sharedLayer,chat:sharedChat,onReady}={}) 
       if(next==='idle'&&chat?.isOpen)next='talking';
       // Keep the actual departing pose so authored clips and the cursor grip
       // meet smoothly, including the final falling pose before standing up.
-      transitionPose=new Map([...bones].map(([name,entry])=>[name,{quaternion:entry.node.quaternion.clone(),position:entry.node.position.clone(),scale:entry.node.scale.clone()}]));
+      // The first visible frame must already use the idle/talking clip, never
+      // blend in the model's unanimated bind pose with its arms outstretched.
+      transitionPose=poseVersion===0?new Map():new Map([...bones].map(([name,entry])=>[name,{quaternion:entry.node.quaternion.clone(),position:entry.node.position.clone(),scale:entry.node.scale.clone()}]));
       transitionRotation.copy(pivot.quaternion);
       if(next==='landed')impactRotation.copy(pivot.rotation);
       mixer.stopAllAction();

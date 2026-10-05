@@ -6,7 +6,7 @@ if(!dismissed) {
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const layer=document.createElement('div');layer.className='chibi-layer';
   const preview=document.createElement('div');preview.className='chibi-pet chibi-placeholder';preview.dataset.state='idle';
-  const image=document.createElement('img');image.src=new URL('../img/chibi-preview.webp',import.meta.url).href;
+  const image=document.createElement('img');image.src=new URL('../img/chibi-preview.webp?v=20261005-idle',import.meta.url).href;
   image.alt='';image.width=240;image.height=260;image.setAttribute('aria-hidden','true');
   const trigger=document.createElement('button');trigger.className='chibi-trigger';trigger.type='button';
   const close=document.createElement('button');close.className='chibi-close';close.type='button';close.textContent='×';
@@ -23,7 +23,7 @@ if(!dismissed) {
   async function loadPet(event) {
     if(!alive||reduced.matches)return;
     if(!loading)loading=(async()=>{
-      const {createPet}=await import('./chibi-pet.js?v=20261005-perf');
+      const {createPet}=await import('./chibi-pet.js?v=20261005-idle');
       if(!alive)return;
       pet=await createPet({layer,chat,onReady:removePreview});
       if(!alive)pet?.destroy();
