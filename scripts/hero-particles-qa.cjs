@@ -8,12 +8,12 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
   await context.addInitScript(()=>{
    sessionStorage.setItem('portfolio-chibi-hidden','true');
    window.particleDraws=0;window.smokeDraws=0;window.beforeOpeningDraws=0;window.particleStarts=[];
-   window.sparkTracks=new Map();window.travelled=[];window.frameNumber=0;
+   window.sparkTracks=new Map();window.travelled=[];window.paths=[];window.frameNumber=0;
    const clear=CanvasRenderingContext2D.prototype.clearRect;
    CanvasRenderingContext2D.prototype.clearRect=function(...args){
     if(this.canvas.classList.contains('hero-particles')){
      for(const [key,p] of window.sparkTracks){
-      if(p.frame<window.frameNumber){window.travelled.push(Math.hypot(p.x-p.startX,p.y-p.startY));window.sparkTracks.delete(key);}
+      if(p.frame<window.frameNumber){window.travelled.push(Math.hypot(p.x-p.startX,p.y-p.startY));window.paths.push(p);window.sparkTracks.delete(key);}
      }
      window.frameNumber++;
     }
@@ -29,10 +29,11 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
       const x=args[1]+args[3]/2,y=args[2]+args[4]/2,key=args[3];
       // Each spark has a unique continuous size, retained throughout its life.
       if(!window.sparkTracks.has(key)){
-       window.sparkTracks.set(key,{startX:x,startY:y});
+       window.sparkTracks.set(key,{startX:x,startY:y,history:[]});
        if(window.particleStarts.length<24)window.particleStarts.push({x,y,frame:window.frameNumber});
       }
       Object.assign(window.sparkTracks.get(key),{x,y,frame:window.frameNumber});
+      window.sparkTracks.get(key).history.push({x,y});
      }
     }
     return draw.apply(this,args);
@@ -62,7 +63,7 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
     const paint=sample.getContext('2d');paint.drawImage(photo,0,0);const pixels=paint.getImageData(0,0,sample.width,sample.height).data;
     const matches=window.particleStarts.filter(point=>{
      const x=Math.round((point.x-(image.left-box.left))/image.width*sample.width),y=Math.round((point.y-(image.top-box.top))/image.height*sample.height);
-     if(x>sample.width*.57||y<0||y>sample.height*.95)return false;
+     if(x<0||x>=sample.width||y<0||y>sample.height*.95)return false;
      for(let dy=-5;dy<=5;dy++)for(let dx=-5;dx<=5;dx++){
       const sx=x+dx,sy=y+dy;if(sx<0||sy<0||sx>=sample.width||sy>=sample.height)continue;
       const i=(sy*sample.width+sx)*4;if(pixels[i]>60&&pixels[i]>pixels[i+1]*1.6&&pixels[i+3]>70)return true;
@@ -70,10 +71,25 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
      return false;
     }).length;
     const heights=window.particleStarts.map(point=>(point.y-(image.top-box.top))/image.height);
-    return {matches,total:window.particleStarts.length,minY:Math.min(...heights),maxY:Math.max(...heights),overflow:document.documentElement.scrollWidth>innerWidth};
+    const startX=p=>(p.x-(image.left-box.left))/image.width;
+    const left=window.particleStarts.filter(p=>startX(p)<.5).length;
+    const right=window.particleStarts.filter(p=>startX(p)>.6).length;
+    const foreground=window.paths.filter(p=>{
+     const origin=(p.startX-(image.left-box.left))/image.width;
+     return origin>.6&&p.history.some(position=>{
+      const u=(position.x-(image.left-box.left))/image.width,v=(position.y-(image.top-box.top))/image.height;
+      if(u>=origin-.025||u<0||u>=1||v<0||v>=1)return false;
+      return pixels[(Math.floor(v*sample.height)*sample.width+Math.floor(u*sample.width))*4+3]>230;
+     });
+    }).length;
+    const portrait=document.querySelector('.hero-portrait');
+    const abovePhoto=Number(getComputedStyle(layer).zIndex)>=Number(getComputedStyle(portrait).zIndex)&&Boolean(portrait.compareDocumentPosition(layer)&Node.DOCUMENT_POSITION_FOLLOWING);
+    return {matches,total:window.particleStarts.length,left,right,foreground,abovePhoto,minY:Math.min(...heights),maxY:Math.max(...heights),overflow:document.documentElement.scrollWidth>innerWidth};
    });
    assert.ok(anchor.total>=20);assert.ok(anchor.matches/anchor.total>.85,JSON.stringify(anchor));assert.equal(anchor.overflow,false);
    assert.ok(anchor.minY<.4&&anchor.maxY>.7,'Emission spans the left cap, hair, shoulder and arm');
+   assert.ok(anchor.left>=3&&anchor.right>=3,'Both red rims emit isolated sparks');
+   assert.ok(anchor.foreground>=2&&anchor.abovePhoto,JSON.stringify(anchor));
    const variation=await page.evaluate(()=>{
     const gaps=window.particleStarts.slice(1).map((p,i)=>p.frame-window.particleStarts[i].frame);
     return {shortest:Math.min(...window.travelled),longest:Math.max(...window.travelled),single:gaps.every(n=>n>0),differentGaps:new Set(gaps).size};
@@ -105,7 +121,7 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
    assert.equal(await page.locator('.hero-particles').getAttribute('data-count'),'0');
    assert.equal(await page.locator('.hero-particles').evaluate(c=>getComputedStyle(c).display),'none');
    await page.emulateMedia({reducedMotion:'no-preference'});
-   console.log(`PASS ${width}px: delayed start, entire left rim, sparse individual red sparks, random intervals and distances, PT/ENG continuity, offscreen pause and reduced motion`);
+   console.log(`PASS ${width}px: delayed start, both red rims, sparse individual sparks, right-to-left motion in front of portrait, varied distances, PT/ENG continuity, offscreen pause and reduced motion`);
   }
   assert.deepEqual(errors,[]);
  }finally{await browser.close()}

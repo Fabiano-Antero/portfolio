@@ -29,7 +29,7 @@
     paint.fillRect(0,0,32,32);
     return sprite;
   });
-  let points = [], bands = [], particles = [], bounds, imageBounds;
+  let points = [], bands = {left:[],right:[]}, sides = [], particles = [], bounds, imageBounds;
   let loading = null, loaded = false, visible = true, suspended = false;
   let raf = null, previous = 0, nextBirth = 0;
   const eligible = () => !reduced.matches && visible && !suspended && !document.hidden
@@ -56,42 +56,48 @@
       paint.drawImage(portrait,0,0);
       const {data,width,height} = paint.getImageData(0,0,sample.width,sample.height);
       const alpha = (x,y) => x<0 || y<0 || x>=width || y>=height ? 0 : data[(y*width+x)*4+3];
-      // Follow the red rim on the entire left silhouette, from cap to arm.
-      // Height bands give each part a chance to emit a single isolated spark.
-      const rows=new Map();
-      for (let y=0;y<height*.94;y+=2) for (let x=0;x<width*.56;x+=2) {
+      // Sample both red rims. One shared timer keeps the total emission sparse;
+      // choosing a side and a height band varies each isolated spark's origin.
+      const rows={left:new Map(),right:new Map()};
+      for (let y=0;y<height*.94;y+=2) for (let x=0;x<width;x+=2) {
         const i=(y*width+x)*4, r=data[i], g=data[i+1], b=data[i+2], a=data[i+3];
         if (a<70 || r<60 || r<g*1.7 || r<b*1.5) continue;
         const left=alpha(x-8,y), right=alpha(x+8,y), up=alpha(x,y-8), down=alpha(x,y+8);
-        if (left>=a-50 && up>=a-50) continue;
+        const side=x<width*.56 ? 'left' : 'right';
+        if ((side==='left' ? left : right)>=a-50 && up>=a-50) continue;
         let nx=left-right, ny=up-down;
         const length=Math.hypot(nx,ny);
         if (length) { nx/=length; ny/=length; }
         else { nx=x<width*.5 ? -1 : 1; ny=-.3; }
-        const point={x:x/width,y:y/height,nx:Math.min(-.3,nx),ny};
+        const point={x:x/width,y:y/height,nx:Math.min(-.3,nx),ny,side};
         points.push(point);
         const row=Math.floor(y/16);
-        if (!rows.has(row)) rows.set(row,[]);
-        rows.get(row).push(point);
+        if (!rows[side].has(row)) rows[side].set(row,[]);
+        rows[side].get(row).push(point);
       }
-      bands=[...rows.values()];
+      for(const side of ['left','right']) bands[side]=[...rows[side].values()];
+      sides=['left','right'].filter(side=>bands[side].length);
       loaded = true;
       canvas.dataset.emitters = String(points.length);
     })().catch(() => { canvas.dataset.state='unavailable'; });
     return loading;
   };
   const sourcePoint = () => {
-    const band=bands[Math.floor(Math.random()*bands.length)];
+    const side=sides[Math.floor(Math.random()*sides.length)];
+    const band=bands[side][Math.floor(Math.random()*bands[side].length)];
     return band[Math.floor(Math.random()*band.length)];
   };
   const emit = () => {
     const source=sourcePoint();
     const scale=imageBounds.width/519;
+    const crossing=source.side==='right';
     particles.push({
       x:imageBounds.x+source.x*imageBounds.width,
       y:imageBounds.y+source.y*imageBounds.height,
-      vx:-random(9,28)*scale,
-      vy:-random(16,37)*scale,
+      // Right-rim sparks move inward across the portrait's foreground,
+      // while the existing left-rim sparks continue drifting up and outward.
+      vx:-(crossing ? random(30,48) : random(9,28))*scale,
+      vy:-(crossing ? random(2,9) : random(16,37))*scale,
       outward:source.nx,
       radius:random(.35,1)*Math.max(.65,scale),
       distance:0,range:random(14,135)*scale,fadeStart:random(.5,.8),
