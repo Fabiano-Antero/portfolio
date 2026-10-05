@@ -8,9 +8,11 @@ for(const file of [...pages,...art]){
   const source=fs.readFileSync(path.join(root,file),'utf8');
   const refs=[...source.matchAll(/(?:src|href)="([^"#]+)(?:#[^"]*)?"/g)].map(match=>match[1]);
   const cssUrls=[...source.matchAll(/url\((?:&quot;|['"])?([^)'"&]+)(?:&quot;|['"])?\)/g)].map(match=>match[1]);
-  for(const ref of [...refs,...cssUrls]){
+  const responsiveRefs=[...source.matchAll(/\bsrcset="([^"]+)"/g)].flatMap(match=>match[1].split(',').map(image=>image.trim().split(/\s+/)[0]));
+  for(const ref of [...refs,...cssUrls,...responsiveRefs]){
     if(/^(https?:|mailto:|data:)/.test(ref))continue;
-    const target=path.resolve(path.dirname(path.join(root,file)),ref.split(/[?#]/,1)[0]);
+    const resource=ref.split(/[?#]/,1)[0];
+    const target=resource.startsWith('/')?path.resolve(root,'.'+resource):path.resolve(path.dirname(path.join(root,file)),resource);
     if(!fs.existsSync(target)||!fs.statSync(target).size)errors.push(`${file}: recurso ausente ${ref}`);
   }
   const ids=[...source.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]);

@@ -12,11 +12,14 @@
   let pending = null;
   let cleanup = null;
   let run = 0;
+  let titleReady = false;
   const random = (min, max) => min + Math.random() * (max - min);
   const titleFinished = () => {
+    if(titleReady)return true;
     const lastLine = title.querySelector('.hero-writing:last-child');
     const fill = lastLine?.querySelector('.hero-letter-fill');
-    return fill && !lastLine.classList.contains('is-writing-preparing') && Number(getComputedStyle(fill).opacity) >= .99;
+    titleReady = !!fill && !lastLine.classList.contains('is-writing-preparing') && Number(getComputedStyle(fill).opacity) >= .99;
+    return titleReady;
   };
   const eligible = () => loaded && visible && !suspended && !document.hidden && !reduced.matches
     && titleFinished();
@@ -43,10 +46,12 @@
     if (!eligible()) return;
     const duration = random(420, 560);
     let layers = 0;
-    title.querySelectorAll('.hero-writing').forEach((line, lineIndex) => {
+    const lines=[...title.querySelectorAll('.hero-writing')];
+    const fontSizes=lines.map(line=>parseFloat(getComputedStyle(line).fontSize));
+    lines.forEach((line, lineIndex) => {
       const source = line.querySelector('.hero-writing-svg');
       if (!source) return;
-      const fontSize = parseFloat(getComputedStyle(line).fontSize);
+      const fontSize = fontSizes[lineIndex];
       const shift = random(fontSize * .16, fontSize * .26);
       ['#22ddff', '#f331da', '#fff7bf'].forEach((color, channel) => {
         const svg = source.cloneNode(true);

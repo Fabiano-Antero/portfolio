@@ -1,6 +1,8 @@
 .chibi-layer{position:fixed;inset:0;z-index:40;overflow:hidden;pointer-events:none;contain:layout style}
 .chibi-pet{position:absolute;left:0;top:0;width:240px;height:260px;pointer-events:none;will-change:transform}
 .chibi-pet canvas{display:block;width:240px;height:260px;pointer-events:none}
+.chibi-placeholder{left:auto;top:auto;right:-56px;bottom:-26px;will-change:auto}
+.chibi-placeholder>img{display:block;width:240px;height:260px;pointer-events:none}
 .chibi-trigger{position:absolute;left:68px;top:42px;width:104px;height:184px;padding:0;border:0;background:transparent;pointer-events:auto;cursor:grab;touch-action:none;border-radius:45%}
 .chibi-trigger:focus-visible{outline:2px solid var(--coral);outline-offset:0}
 .chibi-pet:not([data-state="idle"]) .chibi-trigger{pointer-events:none}

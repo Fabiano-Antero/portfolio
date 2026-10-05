@@ -1,6 +1,7 @@
 import * as THREE from '../vendor/three/three.module.js';
 import { GLTFLoader } from '../vendor/three/loaders/GLTFLoader.js';
-import { createCharacterChat } from './chibi-chat.js';
+import { createCharacterChat } from './chibi-chat.js?v=20261005-perf';
+import { createCharacterBounds } from './chibi-bounds.js';
 
 const mouse = matchMedia('(any-hover: hover) and (any-pointer: fine)');
 const clamp = THREE.MathUtils.clamp;
@@ -8,19 +9,19 @@ const smooth = value => { const t=clamp(value,0,1); return t*t*(3-2*t); };
 let dismissed = false;
 try { dismissed = sessionStorage.getItem('portfolio-chibi-hidden') === 'true'; } catch {}
 
-async function createPet() {
+export async function createPet({layer:sharedLayer,chat:sharedChat,onReady}={}) {
   if (dismissed) return;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  let renderer, chat;
+  let renderer, chat=sharedChat;
   try {
     renderer = new THREE.WebGLRenderer({alpha:true,antialias:true,stencil:false,powerPreference:'low-power'});
     renderer.setSize(240,260);
-    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
     renderer.setClearColor(0,0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     const [asset,{default:hangingData},{default:fallingData},{default:walkingData},{default:standingData},{default:idleData},{default:talkingData}] = await Promise.all([
-      new GLTFLoader().loadAsync(new URL('../models/fabiano-chibi.glb',import.meta.url).href),
+      new GLTFLoader().loadAsync(new URL('../models/fabiano-chibi-web.glb',import.meta.url).href),
       import('../models/hanging-idle.js'),
       import('../models/falling.js'),
       import('../models/sad-walk.js'),
@@ -61,7 +62,7 @@ async function createPet() {
     standAction.clampWhenFinished = true;
     const idleAction = mixer.clipAction(idleClip).setLoop(THREE.LoopRepeat,Infinity);
     const talkAction = mixer.clipAction(talkClip).setLoop(THREE.LoopRepeat,Infinity);
-    const layer = document.createElement('div');
+    const layer = sharedLayer || document.createElement('div');
     layer.className = 'chibi-layer';
     const pet = document.createElement('div');
     pet.className = 'chibi-pet';
@@ -81,7 +82,7 @@ async function createPet() {
     pointer.setAttribute('aria-hidden','true');
     pointer.innerHTML = '<svg viewBox="0 0 28 40" width="28" height="40"><path d="M2 2 2 30 9 24 15 37 21 34 15 22 25 22Z" fill="#101114" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>';
     layer.append(pet,pointer);
-    document.body.append(layer);
+    if(!sharedLayer)document.body.append(layer);
 
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-.73,.73,.79,-.79,.1,20);
@@ -114,7 +115,8 @@ async function createPet() {
       if(node.isBone)bones.set(node.name.replace(/^mixamorig:?/,''),{node,quaternion:node.quaternion.clone(),position:node.position.clone(),scale:node.scale.clone()});
     });
     const world = new THREE.Vector3(), localRotation = new THREE.Quaternion();
-    const bounds = new THREE.Box3();
+    const characterBounds = createCharacterBounds(model);
+    let poseVersion=0, boundsVersion=-1, cachedBounds;
     const handLeft = new THREE.Vector3(), handRight = new THREE.Vector3();
     const turn = new THREE.Euler();
     const bone = name => bones.get(name)?.node;
@@ -164,6 +166,7 @@ async function createPet() {
       close.tabIndex = next==='idle'?0:-1;
     };
     const pose = (now,dt) => {
+      poseVersion++;
       const elapsed = (now-stateSince)/1000;
       bones.forEach(entry => {entry.node.quaternion.copy(entry.quaternion);entry.node.position.copy(entry.position);entry.node.scale.copy(entry.scale);});
       pivot.rotation.set(0,0,0);
@@ -237,11 +240,12 @@ async function createPet() {
       return {x:(handRight.x+1)*120,y:(1-handRight.y)*130};
     };
     const bodyBounds = () => {
-      model.updateWorldMatrix(true,true);
-      model.traverse(node=>{if(node.isSkinnedMesh)node.computeBoundingBox();});
-      bounds.setFromObject(model);
+      if(boundsVersion===poseVersion)return cachedBounds;
+      const bounds = characterBounds();
       handLeft.copy(bounds.min).project(camera);handRight.copy(bounds.max).project(camera);
-      return {left:(handLeft.x+1)*120,right:(handRight.x+1)*120,top:(1-handRight.y)*130,bottom:(1-handLeft.y)*130};
+      boundsVersion=poseVersion;
+      cachedBounds={left:(handLeft.x+1)*120,right:(handRight.x+1)*120,top:(1-handRight.y)*130,bottom:(1-handLeft.y)*130};
+      return cachedBounds;
     };
     const beginFall = () => {
       if(state!=='attached')return;
@@ -340,6 +344,7 @@ async function createPet() {
       pet.dataset.x=x.toFixed(1);pet.dataset.y=y.toFixed(1);
       if(state!=='idle' || now-lastRender>50 || reduced.matches) {
         renderer.render(scene,camera);lastRender=now;
+        if(onReady){const ready=onReady;onReady=undefined;ready();}
       }
       if(!reduced.matches)schedule();
     };
@@ -390,8 +395,11 @@ async function createPet() {
     reduced.addEventListener('change',onMotionChange);
     preferenceCheck=setInterval(()=>{if(reduced.matches!==lastReduced)motion();},500);
     renderer.domElement.addEventListener('webglcontextlost',event=>{event.preventDefault();destroy();},{once:true});
-    chat=createCharacterChat(layer,{onOpen:()=>{pet.dataset.chatOpen='true';if(state==='idle')setState('talking');else beginFall();schedule();},onClose:()=>{delete pet.dataset.chatOpen;if(state==='talking')setState('idle');schedule();}});
+    const callbacks={onOpen:()=>{pet.dataset.chatOpen='true';if(state==='idle')setState('talking');else beginFall();schedule();},onClose:()=>{delete pet.dataset.chatOpen;if(state==='talking')setState('idle');schedule();}};
+    if(chat)chat.setCallbacks(callbacks);else chat=createCharacterChat(layer,callbacks);
+    if(chat.isOpen)pet.dataset.chatOpen='true';
     setState('idle');language();motion();schedule();
+    return {attach,destroy};
   } catch(error) {
     renderer?.dispose();
     console.warn('Character unavailable:',error.message);
@@ -399,5 +407,9 @@ async function createPet() {
   }
 }
 
-if('requestIdleCallback' in window)requestIdleCallback(createPet,{timeout:1500});
-else setTimeout(createPet,600);
+// Direct module previews still work. The site loader mounts an immediate
+// lightweight preview and chat, then imports this renderer after the opening.
+if(!document.querySelector('script[data-character-loader]')) {
+  if('requestIdleCallback' in window)requestIdleCallback(()=>createPet(),{timeout:1500});
+  else setTimeout(()=>createPet(),600);
+}

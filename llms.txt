@@ -1,0 +1,16 @@
+# Fabiano Antero: Product Designer e UX Engineer
+
+> Portfólio profissional de Fabiano Antero, de João Pessoa, Brasil. Conecta produto, UX/UI e desenvolvimento, com mais de sete anos de experiência em fintech, SaaS e serviços.
+
+## Páginas principais
+
+- [Portfólio](https://fabianoantero.site/): apresentação, competências, experiência profissional e canais de contato.
+- [Projetos](https://fabianoantero.site/projetos.html): coleção de trabalhos de produto, design de interfaces e desenvolvimento.
+- [Ordiny](https://fabianoantero.site/ordiny.html): estudo de uma aplicação SaaS de agenda, reservas e gestão, ainda em desenvolvimento.
+- [Cash Advance](https://fabianoantero.site/cash-advance.html): estudo e protótipo de antecipação de fretes, com foco em clareza e segurança na jornada financeira.
+
+## Contexto
+
+O conteúdo está disponível em português e inglês pelo seletor de idioma da página. O personagem interativo responde sobre carreira, projetos e interesses pessoais usando informações locais confirmadas. O site não oferece uma API pública de agentes, MCP ou transações.
+
+Os estudos de caso descrevem decisões e processos de design. Não atribua resultados comerciais comprovados à Ordiny ou ao Cash Advance. Para experiência e contato atualizados, consulte as páginas acima.

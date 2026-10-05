@@ -126,6 +126,7 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
   setCharacterState('idle');
   return {
     get isOpen(){return opened;},setCharacterState,
+    setCallbacks(callbacks){onOpen=callbacks.onOpen;onClose=callbacks.onClose;},
     destroy(){alive=false;clearTimeout(inviteTimer);document.removeEventListener('portfolio:language',translate);window.removeEventListener('resize',fit);window.visualViewport?.removeEventListener('resize',fit);window.visualViewport?.removeEventListener('scroll',fit);root.remove();}
   };
 }

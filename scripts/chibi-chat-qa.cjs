@@ -8,6 +8,8 @@ const base=process.env.PORTFOLIO_URL||'http://localhost:4173';
  try{
   const context=await browser.newContext({viewport:{width:1440,height:1000}}),page=await context.newPage(),errors=[];
   page.on('pageerror',error=>errors.push(error.message));
+  await page.route('https://www.clarity.ms/**',route=>route.abort());
+  await page.route('https://scripts.clarity.ms/**',route=>route.abort());
   page.on('response',response=>{if(response.status()>=400&&response.url().startsWith(base))errors.push(response.url());});
   await page.clock.install();await page.goto(base);
   await page.waitForFunction(()=>document.querySelector('.chibi-pet')?.dataset.x);

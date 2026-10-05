@@ -32,6 +32,10 @@ npm run build
 
 O build copia o site estático para `dist/`, que pode ser publicado em hospedagens estáticas. Nenhum serviço externo é necessário para executar o site.
 
+Os estilos publicados são `assets/css/site.css` e `assets/css/home.css`, gerados a partir dos arquivos de origem por `npm run styles`. O servidor e o build também geram esses arquivos. Após editar CSS com o servidor já aberto, execute `npm run styles`. As fontes usam WOFF2, e as imagens dos projetos têm versões WebP e tamanhos responsivos descritos em `assets/data/image-variants.json`. Os PNGs originais continuam disponíveis como fontes.
+
+`robots.txt` e `sitemap.xml` descrevem o rastreamento e as quatro páginas públicas. `llms.txt` apresenta o conteúdo para leitores de IA. `/.well-known/ai-catalog.json` é um catálogo válido, sem serviços externos de agentes, pois o portfólio oferece apenas uma conversa local. Esses arquivos também fazem parte de `dist/`.
+
 No repositório `Fabiano-Antero/portfolio`, o GitHub Pages publica os arquivos da raiz da branch `master`. O arquivo `CNAME` mantém o domínio `fabianoantero.site` e `.nojekyll` permite servir o site estático diretamente. As figuras prontas em `assets/art/` são versionadas; `npm run generate` atualiza as páginas sem exigir os arquivos internos da exportação do Figma. Capturas, caches e registros internos não fazem parte da publicação.
 
 ## Animações e acessibilidade
@@ -57,6 +61,8 @@ O personagem é carregado de `assets/models/fabiano-chibi.glb`, com a malha e o 
 
 
 A conversa do personagem usa `assets/data/fabiano.json`: perfil, carreira, formação, cursos, competências, quatro projetos, contatos e interesses pessoais informados pelo Fabiano. A base reúne fatos do portfólio e do currículo e preserva a correção da Dadoteca para 2025 a 2026. Os interesses incluem ficção científica, animes, eventos de cultura pop, viagens, shopping e cosplay. Não publica o endereço residencial do currículo nem supõe informações ausentes.
+
+`chibi-loader.js` disponibiliza imediatamente uma prévia estática e a conversa, carregando o renderizador 3D após a abertura da hero ou quando o visitante interage com o personagem. O modelo publicado usa `fabiano-chibi-web.glb`, com a mesma malha, UVs e esqueleto do original e texturas de até 1024 px. `chibi-bounds.js` reutiliza as matrizes dos ossos para calcular os limites exatos da malha; `scripts/chibi-bounds-qa.cjs` compara 96 poses com a deformação original. Movimento reduzido mantém a prévia estática e a conversa acessível.
 
 Após um minuto sem interação com o personagem, um convite apresenta Sim e Não. Sim abre o campo de pergunta e o histórico em balões; Não mantém a brincadeira normal e deixa um botão para conversar depois. A escolha do convite e até 32 mensagens ficam apenas na sessão do navegador. O convite não interrompe o personagem pendurado ou em recuperação. Enquanto a conversa está aberta, o clipe Talking repete com transição de pose; o cursor fica livre para digitar e usar a página. Frases como “Não tenho mais perguntas” e “No more questions” fecham o card e restauram o repouso e a brincadeira. Também há botão de fechar e Escape. PT / ENG preserva histórico, pergunta em edição e progresso do clipe. Movimento reduzido mantém o personagem estático e permite conversar.
 

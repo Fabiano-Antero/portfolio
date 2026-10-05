@@ -29,6 +29,7 @@
     letteringResizes.forEach(observer => observer.disconnect());
     letteringResizes = [];
     let lineDelay = .06;
+    const fontSizes=writings.map(writing=>parseFloat(getComputedStyle(writing).fontSize));
     writings.forEach((writing, lineIndex) => {
       const word = writing.querySelector('.hero-writing-label').textContent.trim();
       const lettering = window.heroLettering[word];
@@ -70,13 +71,16 @@
       writing.querySelector('svg')?.remove();
       writing.classList.remove('is-writing', 'is-writing-preparing');
       writing.append(svg);
-      const sizeMask = () => {
-        const radius = 1200 / parseFloat(getComputedStyle(writing).fontSize);
+      let previousFontSize;
+      const sizeMask = (fontSize= parseFloat(getComputedStyle(writing).fontSize)) => {
+        if(previousFontSize===fontSize)return;
+        previousFontSize=fontSize;
+        const radius = 1200 / fontSize;
         svg.querySelectorAll('feMorphology').forEach(node => node.setAttribute('radius', radius));
       };
-      sizeMask();
+      sizeMask(fontSizes[lineIndex]);
       if ('ResizeObserver' in window) {
-        const observer = new ResizeObserver(sizeMask);
+        const observer = new ResizeObserver(()=>sizeMask());
         observer.observe(writing);
         letteringResizes.push(observer);
       }
