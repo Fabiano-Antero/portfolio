@@ -20,6 +20,7 @@
   <script src="assets/js/hero-motion.js" defer></script>
   <script src="assets/js/hero-glitch.js" defer></script>
   <script src="assets/js/hero-particles.js" defer></script>
+  <script src="assets/js/hero-blueprint.js" defer></script>
   <script src="assets/js/skills-marquee.js" defer></script>
   <script src="assets/js/app.js" defer></script>
   <script type="module" src="assets/js/chibi-pet.js"></script>
@@ -42,40 +43,32 @@
 </div></header>
 <main id="conteudo">
   <section class="hero"><div class="container hero-inner">
-    <div class="hero-blueprint" aria-hidden="true" data-no-translate>
-      <div class="blueprint-field-heading"><span>01 / PRODUCT LOGIC</span><i></i></div>
-      <svg class="blueprint-field-rail" viewBox="0 0 40 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g class="blueprint-line"><path d="M1 0V96L25 120V226M19 254H31M25 248V260"/><rect x="22" y="225" width="6" height="6"/></g>
-        <path class="blueprint-accent" d="M1 30V46"/>
-      </svg>
-      <span class="blueprint-field-symbol">{ }</span>
-      <div class="blueprint-field-footer"><span>BUILD / ITERATE</span><i></i></div>
+    <div class="hero-blueprint" aria-hidden="true" data-no-translate data-motion-state="preparing">
+      <div class="blueprint-field-heading"><span data-blueprint-text>01 / INTENT TO INTERFACE</span><i></i></div>
+      <div class="blueprint-field-footer"><span data-blueprint-text>BUILD / ITERATE</span><i></i></div>
+      <div class="blueprint-field-right">
+        <span data-blueprint-text>SYSTEMS / INTERFACES</span>
+        <svg class="blueprint-right-bracket" viewBox="0 0 28 60" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="blueprint-line blueprint-growth" d="M26 0V32L0 58"/><path class="blueprint-accent" d="M26 20V32L14 44"/></svg>
+        <svg class="blueprint-right-cross blueprint-shape" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="blueprint-line" d="M8 2V14M2 8H14"/></svg>
+      </div>
       <svg class="hero-blueprint-desktop" viewBox="0 0 1280 552" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text class="blueprint-word" x="1045" y="166">UX</text>
         <g class="blueprint-line">
-          <path d="M656 28H744L780 64H815M1270 50H1280V60M1280 366V398L1254 424M630 462L678 510H730"/>
-          <path d="M672 111V123M666 117H678M1268 453V465M1262 459H1274"/>
-          <rect x="648" y="25" width="6" height="6"/>
-          <circle cx="735" cy="510" r="3"/>
+          <path class="blueprint-growth" d="M656 28H744L780 64H815"/>
+          <path class="blueprint-shape" d="M672 111V123M666 117H678"/>
         </g>
         <g class="blueprint-label">
-          <text x="648" y="14">DESIGN × CODE</text>
-          <text x="678" y="532">FLOW / 01</text>
-          <text transform="translate(1300 350) rotate(-90)">SYSTEMS / INTERFACES</text>
+          <text x="648" y="14" data-blueprint-text>DESIGN × CODE</text>
         </g>
         <g class="blueprint-accent">
-          <path d="M648 25H654V31H648ZM1280 386V398L1268 410"/>
-          <path d="M672 504L685 491M679 511L692 498"/>
+          <path d="M648 25H654V31H648Z"/>
         </g>
       </svg>
       <svg class="hero-blueprint-mobile" viewBox="0 0 342 436" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <text class="blueprint-word" x="216" y="111">UX</text>
         <g class="blueprint-line">
-          <path d="M2 42H22L43 63M330 86H340V96M9 236V248M3 242H15M339 208V237L327 249"/>
-          <rect x="0" y="39" width="5" height="5"/>
+          <path class="blueprint-growth" d="M2 42H22L43 63"/>
+          <path class="blueprint-shape" d="M9 236V248M3 242H15"/>
+          <rect class="blueprint-shape" x="0" y="39" width="5" height="5"/>
         </g>
-        <g class="blueprint-label"><text transform="translate(350 230) rotate(-90)">DESIGN × CODE</text></g>
-        <g class="blueprint-accent"><path d="M339 225V237L333 243"/></g>
       </svg>
     </div>
     <div class="hero-copy">

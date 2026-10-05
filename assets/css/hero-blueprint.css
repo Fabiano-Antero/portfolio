@@ -4,27 +4,42 @@
 .hero-blueprint>svg{display:block;position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .blueprint-line{stroke:#c6c1cd;stroke-opacity:.2;stroke-width:1}
 .blueprint-label{fill:#bdb3bf;fill-opacity:.5;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.4px}
-.blueprint-word{fill:none;stroke:#d0bdc9;stroke-opacity:.09;stroke-width:1;font-family:'Instrument Sans',sans-serif;font-size:166px;font-weight:700;letter-spacing:-8px}
 .blueprint-accent{stroke:var(--coral);stroke-opacity:.5;stroke-width:1.5}
 .hero-blueprint .hero-blueprint-mobile{display:none}
-.blueprint-field-heading,.blueprint-field-footer{position:absolute;left:0;font-family:'IBM Plex Mono',monospace;font-size:8px;line-height:12px;letter-spacing:1.5px;color:#bdb3bf70}
-.blueprint-field-heading{top:-28px;display:flex;align-items:center;gap:20px}
-.blueprint-field-heading i{width:140px;height:1px;background:linear-gradient(90deg,#c6c1cd29,transparent)}
-.hero-blueprint .blueprint-field-rail{inset:110px auto auto -36px;width:40px;height:260px}
-.blueprint-field-symbol{position:absolute;bottom:-20px;left:32px;font-family:'IBM Plex Mono',monospace;font-size:100px;line-height:1;letter-spacing:12px;color:transparent;-webkit-text-stroke:1px #d0bdc910}
-.blueprint-field-footer{bottom:-32px;display:flex;align-items:center;gap:20px}
-.blueprint-field-footer i{position:relative;width:200px;height:1px;background:#c6c1cd1a}
+.blueprint-field-heading{position:absolute;left:0;top:-28px;display:flex;align-items:center;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:8px;line-height:12px;letter-spacing:1.5px;color:#bdb3bf70}
+.blueprint-field-heading i{position:relative;width:140px;height:1px}
+.blueprint-field-heading i::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#c6c1cd29,transparent);transform-origin:left}
+.blueprint-field-footer{position:absolute;left:0;bottom:-32px;height:16px;display:flex;align-items:center;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:8px;line-height:12px;letter-spacing:1.5px;color:#bdb3bf70}
+.blueprint-field-footer i{position:relative;width:200px;height:1px}
+.blueprint-field-footer i::before{content:'';position:absolute;inset:0;background:#c6c1cd1a;transform-origin:left}
 .blueprint-field-footer i::after{content:'';position:absolute;right:0;top:-2px;width:5px;height:5px;border:1px solid #ff66334d}
+.blueprint-field-right{position:absolute;right:-20px;bottom:-32px;width:28px;height:270px}
+.blueprint-field-right>span{position:absolute;right:-2px;bottom:114px;writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;font-family:'IBM Plex Mono',monospace;font-size:9px;line-height:12px;letter-spacing:1.4px;color:#bdb3bf80}
+.blueprint-field-right svg{position:absolute}
+.blueprint-right-bracket{right:0;bottom:40px;width:28px;height:60px}
+.blueprint-right-cross{right:6px;bottom:0;width:16px;height:16px}
 @media(min-width:1024px) and (max-width:1190px){.hero-blueprint-desktop{opacity:.65}}
 @media(max-width:1023px){
  .hero-blueprint .hero-blueprint-desktop{display:none}
  .hero-blueprint .hero-blueprint-mobile{display:block;top:auto;bottom:0;left:50%;width:min(100%,440px);height:auto;aspect-ratio:342/436;transform:translateX(-50%)}
- .hero-blueprint-mobile .blueprint-word{font-size:96px;letter-spacing:-5px;stroke-opacity:.1}
- .hero-blueprint-mobile .blueprint-label{font-size:7px;letter-spacing:1.2px}
  .blueprint-field-heading{top:-16px;font-size:7px;gap:12px}
  .blueprint-field-heading i{width:72px}
- .hero-blueprint .blueprint-field-rail{left:-16px;top:100px;width:20px;height:230px}
- .blueprint-field-symbol{bottom:auto;top:340px;left:auto;right:0;font-size:76px;letter-spacing:8px;-webkit-text-stroke-color:#d0bdc90c}
  .blueprint-field-footer{bottom:-16px;font-size:7px;gap:12px}
  .blueprint-field-footer i{width:100px}
+ .blueprint-field-right{bottom:-16px}
+ .blueprint-field-right>span{font-size:7px;letter-spacing:1.2px}
 }
+@media(max-width:767px){.blueprint-field-footer,.blueprint-field-right{bottom:-40px}.blueprint-field-footer i{width:100px}}
+.hero-blueprint[data-motion-state=preparing]{visibility:hidden}
+.blueprint-character{white-space:pre}
+.hero-blueprint.is-blueprint-running .blueprint-accent,.hero-blueprint.is-blueprint-running .blueprint-field-footer i::after{animation:blueprint-fade .18s ease-out both}
+.hero-blueprint.is-blueprint-running .blueprint-growth{stroke-dasharray:1;animation:blueprint-line-grow .9s cubic-bezier(.3,0,.2,1) .2s both}
+.hero-blueprint.is-blueprint-running :is(.blueprint-field-heading,.blueprint-field-footer) i::before{animation:blueprint-rule-grow .9s cubic-bezier(.3,0,.2,1) .2s both}
+.hero-blueprint.is-blueprint-running .blueprint-shape{animation:blueprint-fade .2s ease-out 1.12s both}
+.hero-blueprint.is-blueprint-running .blueprint-character{animation:blueprint-type-in .001s steps(1,end) calc(1.12s + var(--text-delay) + var(--character-index)*.035s) both}
+.hero-blueprint.is-blueprint-running *,.hero-blueprint.is-blueprint-running *::before,.hero-blueprint.is-blueprint-running *::after{animation-play-state:var(--blueprint-play-state,running)}
+@keyframes blueprint-fade{from{opacity:0}to{opacity:1}}
+@keyframes blueprint-line-grow{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes blueprint-rule-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes blueprint-type-in{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.hero-blueprint[data-motion-state=preparing]{visibility:visible}}
