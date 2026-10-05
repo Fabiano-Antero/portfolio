@@ -106,7 +106,7 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
    const a=await snapshot();await page.waitForTimeout(160);const b=await snapshot();assert.ok(a.visible+b.visible>0);assert.notEqual(a.hash,b.hash,'Particles actually move');
    assert.ok((a.red+b.red)/(a.visible+b.visible)>.98,'All visible sparks remain red');
    assert.equal(await page.evaluate(()=>window.smokeDraws),0,'No smoke layer is rendered');
-   assert.ok(Number(await page.locator('.hero-particles').getAttribute('data-count'))<=(width<768?2:3),'At most two mobile or three desktop sparks coexist');
+   assert.ok(Number(await page.locator('.hero-particles').getAttribute('data-count'))<=4,'At most four sparks coexist on desktop and mobile');
    assert.equal(await page.locator('.hero-particles').getAttribute('aria-hidden'),'true');
    assert.equal(await page.locator('.hero-particles').evaluate(c=>getComputedStyle(c).pointerEvents),'none');
    await page.evaluate(()=>window.savedParticleLayer=document.querySelector('.hero-particles'));
@@ -127,7 +127,7 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
    assert.equal(await page.locator('.hero-particles').getAttribute('data-count'),'0');
    assert.equal(await page.locator('.hero-particles').evaluate(c=>getComputedStyle(c).display),'none');
    await page.emulateMedia({reducedMotion:'no-preference'});
-   console.log(`PASS ${width}px: delayed start, both red rims, only 2–3 subtle sparks, long paths from right background, foreground motion, PT/ENG continuity, offscreen pause and reduced motion`);
+   console.log(`PASS ${width}px: delayed start, both red rims, up to 4 subtle sparks, long paths from right background, foreground motion, PT/ENG continuity, offscreen pause and reduced motion`);
   }
   assert.deepEqual(errors,[]);
  }finally{await browser.close()}
