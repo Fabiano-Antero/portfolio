@@ -1,0 +1,3 @@
+.hero-particles{position:absolute;z-index:1;left:-18%;top:-24%;width:136%;height:124%;pointer-events:none;opacity:0;transition:opacity .5s ease-out}
+.hero-particles[data-state="running"]{opacity:1}
+@media(prefers-reduced-motion:reduce){.hero-particles{display:none!important;transition:none}}
