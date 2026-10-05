@@ -13,15 +13,15 @@
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
   art.append(canvas);
-  const colors = ['#ff3458', '#ff7042', '#ffb05a', '#ffd9a0', '#ff6ead'];
+  const colors = ['#ff2027', '#ff3834', '#ed101e'];
   const random = (min, max) => min + Math.random() * (max - min);
   const sprites = colors.map(color => {
     const sprite = document.createElement('canvas');
     sprite.width = sprite.height = 32;
     const paint = sprite.getContext('2d');
     const glow = paint.createRadialGradient(16,16,0,16,16,16);
-    glow.addColorStop(0,'#fff5e9');
-    glow.addColorStop(.1,color);
+    glow.addColorStop(0,color);
+    glow.addColorStop(.16,color);
     glow.addColorStop(.24,color+'b0');
     glow.addColorStop(.55,color+'24');
     glow.addColorStop(1,color+'00');
@@ -29,9 +29,43 @@
     paint.fillRect(0,0,32,32);
     return sprite;
   });
-  let points = [], particles = [], bounds, imageBounds;
+  // Bake soft, uneven density into the smoke, then apply Gaussian blur once.
+  // Animated billows reuse these textures rather than blurring every frame.
+  const smokeSprites = Array.from({length:4}, (_,variant) => {
+    const size=192, sprite=document.createElement('canvas');
+    sprite.width=sprite.height=size;
+    const paint=sprite.getContext('2d'), pixels=paint.createImageData(size,size);
+    const grids=[4,8,16,32].map(side => ({side,values:Float32Array.from({length:(side+1)**2},()=>Math.random())}));
+    const noise=(grid,x,y) => {
+      const gx=x*grid.side, gy=y*grid.side, ix=Math.floor(gx), iy=Math.floor(gy);
+      const smooth=t=>t*t*(3-2*t), fx=smooth(gx-ix), fy=smooth(gy-iy), stride=grid.side+1;
+      const a=grid.values[iy*stride+ix], b=grid.values[iy*stride+ix+1];
+      const c=grid.values[(iy+1)*stride+ix], d=grid.values[(iy+1)*stride+ix+1];
+      return (a+(b-a)*fx)*(1-fy)+(c+(d-c)*fx)*fy;
+    };
+    for(let y=0;y<size;y++) for(let x=0;x<size;x++) {
+      const u=x/size, v=y/size, i=(y*size+x)*4;
+      const density=grids.reduce((sum,grid,k)=>sum+noise(grid,u,v)*[.55,.27,.13,.05][k],0);
+      const distance=((u-.5)/.39)**2+((v-.5)/.43)**2;
+      const edge=Math.max(0,1-distance);
+      const alpha=Math.max(0,density-.24)*edge**1.7;
+      const highlight=Math.max(0,Math.min(1,(density-.38)*3));
+      pixels.data[i]=255;
+      pixels.data[i+1]=70+variant*12+highlight*125;
+      pixels.data[i+2]=65+variant*12+highlight*120;
+      pixels.data[i+3]=Math.min(255,alpha*460);
+    }
+    paint.putImageData(pixels,0,0);
+    const blurred=document.createElement('canvas');
+    blurred.width=blurred.height=size;
+    const blur=blurred.getContext('2d');
+    blur.filter='blur(5px)';
+    blur.drawImage(sprite,0,0);
+    return blurred;
+  });
+  let points = [], bands = [], particles = [], smoke = [], bounds, imageBounds;
   let loading = null, loaded = false, visible = true, suspended = false;
-  let raf = null, previous = 0, carry = 0, elapsed = 0;
+  let raf = null, previous = 0, carry = 0, smokeCarry = 0, elapsed = 0;
   const eligible = () => !reduced.matches && visible && !suspended && !document.hidden
     && art.dataset.motionState === 'complete' && !copy.classList.contains('is-copy-animating');
   const resize = () => {
@@ -43,7 +77,8 @@
     canvas.height = Math.max(1,Math.round(bounds.height*dpr));
     ctx.setTransform(dpr,0,0,dpr,0,0);
     particles = [];
-    carry = 0;
+    smoke = [];
+    carry = smokeCarry = 0;
   };
   const loadPoints = () => {
     if (loading) return loading;
@@ -56,37 +91,57 @@
       paint.drawImage(portrait,0,0);
       const {data,width,height} = paint.getImageData(0,0,sample.width,sample.height);
       const alpha = (x,y) => x<0 || y<0 || x>=width || y>=height ? 0 : data[(y*width+x)*4+3];
-      // Sample only bright red pixels near transparency: the actual rim light,
-      // rather than skin, clothing interiors or an estimated silhouette.
-      for (let y=0;y<height*.8;y+=2) for (let x=0;x<width;x+=2) {
+      // Only the left shoulder-to-arm rim emits. Include its dim lower red
+      // edge, and distribute births by height so the whole arm contributes.
+      const rows=new Map();
+      for (let y=Math.ceil(height*.56);y<height*.94;y+=2) for (let x=0;x<width*.33;x+=2) {
         const i=(y*width+x)*4, r=data[i], g=data[i+1], b=data[i+2], a=data[i+3];
-        if (a<80 || r<125 || r<g*1.7 || r<b*1.5) continue;
+        if (a<70 || r<60 || r<g*1.7 || r<b*1.5) continue;
         const left=alpha(x-8,y), right=alpha(x+8,y), up=alpha(x,y-8), down=alpha(x,y+8);
-        if (Math.min(left,right,up,down)>=a-50) continue;
+        if (left>=a-50) continue;
         let nx=left-right, ny=up-down;
         const length=Math.hypot(nx,ny);
         if (length) { nx/=length; ny/=length; }
         else { nx=x<width*.5 ? -1 : 1; ny=-.3; }
-        points.push({x:x/width,y:y/height,nx,ny});
+        const point={x:x/width,y:y/height,nx:Math.min(-.3,nx),ny};
+        points.push(point);
+        const row=Math.floor(y/16);
+        if (!rows.has(row)) rows.set(row,[]);
+        rows.get(row).push(point);
       }
+      bands=[...rows.values()];
       loaded = true;
       canvas.dataset.emitters = String(points.length);
     })().catch(() => { canvas.dataset.state='unavailable'; });
     return loading;
   };
+  const sourcePoint = () => {
+    const band=bands[Math.floor(Math.random()*bands.length)];
+    return band[Math.floor(Math.random()*band.length)];
+  };
   const emit = () => {
-    const source=points[Math.floor(Math.random()*points.length)];
+    const source=sourcePoint();
     const scale=imageBounds.width/519;
-    const haze=Math.random()<.06;
     particles.push({
       x:imageBounds.x+source.x*imageBounds.width,
       y:imageBounds.y+source.y*imageBounds.height,
-      vx:(source.nx*random(12,28)+random(-3,3))*scale,
-      vy:(source.ny*random(5,10)-random(16,29))*scale,
+      vx:-random(9,28)*scale,
+      vy:-random(16,37)*scale,
       outward:source.nx,
-      radius:(haze ? random(5,9) : random(.65,2))*Math.max(.65,scale),
-      life:random(2.4,4.5),age:0,phase:random(0,Math.PI*2),
-      sprite:sprites[Math.floor(Math.random()*sprites.length)],haze
+      radius:random(.35,1)*Math.max(.65,scale),
+      life:random(4,6),age:0,phase:random(0,Math.PI*2),
+      sprite:sprites[Math.floor(Math.random()*sprites.length)]
+    });
+  };
+  const emitSmoke = () => {
+    const source=sourcePoint(), scale=imageBounds.width/519;
+    smoke.push({
+      x:imageBounds.x+source.x*imageBounds.width,
+      y:imageBounds.y+source.y*imageBounds.height,
+      vx:-random(7,14)*scale,vy:-random(17,30)*scale,
+      size:random(38,68)*scale,life:random(4.5,7),age:0,angle:random(-.3,.3),
+      phase:random(0,Math.PI*2),opacity:random(.45,.7),
+      sprite:smokeSprites[Math.floor(Math.random()*smokeSprites.length)]
     });
   };
   const frame = now => {
@@ -96,13 +151,36 @@
     previous=now;
     elapsed+=dt;
     const compact=imageBounds.width<360;
-    const limit=compact ? 150 : 280;
-    carry+=(compact ? 46 : 82)*dt*Math.min(1,elapsed/.6);
+    const limit=compact ? 300 : 500;
+    const ramp=Math.min(1,elapsed/.8);
+    carry+=(compact ? 65 : 100)*dt*ramp;
     while (carry>=1) {
       if (particles.length<limit) emit();
       carry--;
     }
+    smokeCarry+=18*dt*ramp;
+    while(smokeCarry>=1) {
+      if(smoke.length<120) emitSmoke();
+      smokeCarry--;
+    }
     ctx.clearRect(0,0,bounds.width,bounds.height);
+    ctx.globalCompositeOperation='source-over';
+    smoke=smoke.filter(p => {
+      p.age+=dt;
+      if(p.age>=p.life) return false;
+      const scale=imageBounds.width/519;
+      p.x+=(p.vx+Math.sin(p.age*1.5+p.phase)*5*scale)*dt;
+      p.y+=p.vy*dt;
+      const fade=Math.sin(Math.PI*p.age/p.life)**1.2;
+      ctx.globalAlpha=fade*p.opacity;
+      const width=p.size*(1+p.age*.21), height=width*(1.65+Math.sin(p.age+p.phase)*.2);
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.angle+Math.sin(p.age*.7+p.phase)*.3);
+      ctx.drawImage(p.sprite,-width*.6,-height*.6,width,height);
+      ctx.restore();
+      return true;
+    });
     ctx.globalCompositeOperation='lighter';
     particles=particles.filter(p => {
       p.age+=dt;
@@ -113,8 +191,8 @@
       p.vy-=1.5*dt;
       const fade=Math.min(1,p.age/.14)*Math.pow(1-p.age/p.life,.8);
       const shimmer=.65+.35*Math.sin(p.age*7+p.phase)**2;
-      ctx.globalAlpha=fade*shimmer*(p.haze ? .08 : .85);
-      const size=p.radius*(p.haze ? 8 : 6);
+      ctx.globalAlpha=fade*shimmer*.9;
+      const size=p.radius*6;
       ctx.drawImage(p.sprite,p.x-size/2,p.y-size/2,size,size);
       return true;
     });
@@ -128,6 +206,7 @@
     canvas.dataset.state=state;
     if (reduced.matches) {
       particles=[];
+      smoke=[];
       ctx.clearRect(0,0,canvas.width,canvas.height);
       canvas.dataset.count='0';
     }

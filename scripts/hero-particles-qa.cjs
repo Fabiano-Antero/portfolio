@@ -7,12 +7,26 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
   await context.route('https://www.clarity.ms/**',r=>r.abort());
   await context.addInitScript(()=>{
    sessionStorage.setItem('portfolio-chibi-hidden','true');
-   window.particleDraws=0;window.particleStarts=[];
+   window.particleDraws=0;window.smokeDraws=0;window.particleStarts=[];
+   window.particleFrame=[];window.previousSparkCount=0;
+   const clear=CanvasRenderingContext2D.prototype.clearRect;
+   CanvasRenderingContext2D.prototype.clearRect=function(...args){
+    if(this.canvas.classList.contains('hero-particles')){
+     // Newly emitted sparks are appended to each drawing pass. Capture their
+     // first rendered position, not their later low-opacity fading positions.
+     const added=window.particleFrame.length-window.previousSparkCount;
+     if(added>0&&window.particleStarts.length<200)window.particleStarts.push(...window.particleFrame.slice(-added).slice(0,200-window.particleStarts.length));
+     window.previousSparkCount=window.particleFrame.length;
+     window.particleFrame=[];
+    }
+    return clear.apply(this,args);
+   };
    const draw=CanvasRenderingContext2D.prototype.drawImage;
    CanvasRenderingContext2D.prototype.drawImage=function(...args){
     if(this.canvas.classList.contains('hero-particles')){
      window.particleDraws++;
-     if(window.particleStarts.length<32)window.particleStarts.push({x:args[1]+args[3]/2,y:args[2]+args[4]/2});
+     if(args[0].width>32)window.smokeDraws++;
+     else window.particleFrame.push({x:args[1]+args[3]/2,y:args[2]+args[4]/2});
     }
     return draw.apply(this,args);
    };
@@ -21,8 +35,8 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
   page.on('pageerror',e=>errors.push(e.message));
   const snapshot=()=>page.locator('.hero-particles').evaluate(c=>{
    const p=c.getContext('2d').getImageData(0,0,c.width,c.height).data;
-   let visible=0,hash=0;for(let i=0;i<p.length;i+=4){if(p[i+3]>20)visible++;hash=(hash*31+p[i]+p[i+3])|0;}
-   return {visible,hash};
+   let visible=0,red=0,hash=0;for(let i=0;i<p.length;i+=4){if(p[i+3]>20){visible++;if(p[i]>p[i+1]*1.1&&p[i]>p[i+2]*1.1)red++;}hash=(hash*31+p[i]+p[i+3])|0;}
+   return {visible,red,hash};
   });
   for(const width of [1440,390,320]){
    await page.setViewportSize({width,height:1000});await page.goto('http://localhost:4173',{waitUntil:'domcontentloaded'});
@@ -32,6 +46,7 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
    await page.waitForFunction(()=>document.querySelector('.hero-particles').dataset.state==='running');
    assert.equal(await page.locator('.hero-sequence').getAttribute('data-motion-state'),'complete');
    await page.waitForFunction(()=>Number(document.querySelector('.hero-particles').dataset.count)>30);
+   await page.waitForFunction(()=>window.particleStarts.length===200);
    const anchor=await page.evaluate(()=>{
     const photo=document.querySelector('.hero-portrait-main'),layer=document.querySelector('.hero-particles');
     const image=photo.getBoundingClientRect(),box=layer.getBoundingClientRect();
@@ -39,16 +54,21 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
     const paint=sample.getContext('2d');paint.drawImage(photo,0,0);const pixels=paint.getImageData(0,0,sample.width,sample.height).data;
     const matches=window.particleStarts.filter(point=>{
      const x=Math.round((point.x-(image.left-box.left))/image.width*sample.width),y=Math.round((point.y-(image.top-box.top))/image.height*sample.height);
+     if(x>sample.width*.34||y<sample.height*.55||y>sample.height*.95)return false;
      for(let dy=-5;dy<=5;dy++)for(let dx=-5;dx<=5;dx++){
       const sx=x+dx,sy=y+dy;if(sx<0||sy<0||sx>=sample.width||sy>=sample.height)continue;
-      const i=(sy*sample.width+sx)*4;if(pixels[i]>125&&pixels[i]>pixels[i+1]*1.6&&pixels[i+3]>70)return true;
+      const i=(sy*sample.width+sx)*4;if(pixels[i]>60&&pixels[i]>pixels[i+1]*1.6&&pixels[i+3]>70)return true;
      }
      return false;
     }).length;
-    return {matches,total:window.particleStarts.length,overflow:document.documentElement.scrollWidth>innerWidth};
+    const heights=window.particleStarts.map(point=>(point.y-(image.top-box.top))/image.height);
+    return {matches,total:window.particleStarts.length,minY:Math.min(...heights),maxY:Math.max(...heights),overflow:document.documentElement.scrollWidth>innerWidth};
    });
    assert.ok(anchor.total>=20);assert.ok(anchor.matches/anchor.total>.85,JSON.stringify(anchor));assert.equal(anchor.overflow,false);
+   assert.ok(anchor.minY<.63&&anchor.maxY>.87,'Emission spans the whole left shoulder-to-arm edge');
    const a=await snapshot();await page.waitForTimeout(160);const b=await snapshot();assert.ok(b.visible>50);assert.notEqual(a.hash,b.hash,'Particles actually move');
+   assert.ok(b.red/b.visible>.98,'All visible smoke and sparks remain red');
+   assert.ok(await page.evaluate(()=>window.smokeDraws>10),'The effect includes a separate soft smoke layer');
    assert.equal(await page.locator('.hero-particles').getAttribute('aria-hidden'),'true');
    assert.equal(await page.locator('.hero-particles').evaluate(c=>getComputedStyle(c).pointerEvents),'none');
    await page.evaluate(()=>window.savedParticleLayer=document.querySelector('.hero-particles'));
@@ -57,8 +77,9 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
    assert.equal(await page.locator('.hero-particles').getAttribute('data-state'),'running');
    assert.ok(Number(await page.locator('.hero-particles').getAttribute('data-count'))>20,'Language does not reset the particle flow');
    await page.locator('[data-language="pt"]').evaluate(b=>b.click());
-   await page.waitForFunction(()=>Number(document.querySelector('.hero-particles').dataset.count)>(innerWidth<768?90:165));
+   await page.waitForFunction(()=>Number(document.querySelector('.hero-particles').dataset.count)>(innerWidth<768?220:360));
    await page.locator('.hero-sequence').screenshot({path:`.qa/hero-particles-${width}.png`});
+   await page.screenshot({path:`.qa/hero-smoke-page-${width}.png`});
    await page.locator('#contato').scrollIntoViewIfNeeded();
    await page.waitForFunction(()=>document.querySelector('.hero-particles').dataset.state==='paused');
    const stopped=await page.evaluate(()=>window.particleDraws);await page.waitForTimeout(120);assert.equal(await page.evaluate(()=>window.particleDraws),stopped);
@@ -69,7 +90,7 @@ const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-r
    assert.equal(await page.locator('.hero-particles').getAttribute('data-count'),'0');
    assert.equal(await page.locator('.hero-particles').evaluate(c=>getComputedStyle(c).display),'none');
    await page.emulateMedia({reducedMotion:'no-preference'});
-   console.log(`PASS ${width}px: delayed start, red-rim origins, visible motion, PT/ENG continuity, offscreen pause and reduced motion`);
+   console.log(`PASS ${width}px: delayed start, left shoulder/arm origins, red smoke and sparks, motion, PT/ENG continuity, offscreen pause and reduced motion`);
   }
   assert.deepEqual(errors,[]);
  }finally{await browser.close()}
