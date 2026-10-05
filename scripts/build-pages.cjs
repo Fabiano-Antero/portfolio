@@ -1,6 +1,13 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname,'..');
+const clarityTag = `<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yspilqirp9");
+</script>`;
 const esc = value => String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const ordinyUrl='https://salon-platform-web-staging.pages.dev/';
 const cashUrl='https://www.behance.net/gallery/192799873/Cash-Advance-Estudo-de-caso-UX-UI-Design';
@@ -15,7 +22,7 @@ const info=(title,body)=>`<article class="info-block reveal"><h3>${title}</h3><p
 const decision=(label,title,challenge,choice,care)=>`<article class="case-decision reveal"><p class="eyebrow accent">${label}</p><h3>${title}</h3>${[['DESAFIO',challenge],['ESCOLHA',choice],['CUIDADO DE PRODUTO',care]].map(([label,body])=>`<div><p class="mono">${label}</p><p>${body}</p></div>`).join('')}</article>`;
 function page(file,title,description,body){
   const html=`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101114"><title>${esc(title)}: Fabiano Antero</title><meta name="description" content="${esc(description)}"><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/language.css"><link rel="stylesheet" href="assets/css/chibi-pet.css">${file==='projetos.html'?'<link rel="stylesheet" href="assets/css/collection.css">':''}${file==='cash-advance.html'?'<link rel="stylesheet" href="assets/css/cash-case.css">':''}<script src="assets/js/i18n.js" defer></script><script src="assets/js/app.js" defer></script><script type="module" src="assets/js/chibi-pet.js"></script></head><body${file==='cash-advance.html'?' class="cash-page"':''}><a class="skip-link" href="#conteudo">Pular para o conteúdo</a><header class="site-header case-header"><div class="container header-inner"><a class="brand" href="index.html">FABIANO ANTERO</a><nav aria-label="Navegação principal"><a href="index.html">Home</a><a href="projetos.html" ${file==='projetos.html'?'aria-current="page"':''}>Projetos</a></nav><div class="language mono" role="group" aria-label="Idioma da página"><button type="button" data-language="pt" lang="pt-BR" aria-pressed="true">PT</button><span aria-hidden="true">/</span><button type="button" data-language="en" lang="en" aria-pressed="false">ENG</button></div></div></header><main id="conteudo">${body}</main><footer class="site-footer"><div class="container"><p class="mono">FABIANO ANTERO / PORTFÓLIO 2026</p><div class="footer-actions">${link('projetos.html','Todos os projetos ↗','text-link')}</div></div></footer></body></html>`;
-  fs.writeFileSync(path.join(root,file),html);
+  fs.writeFileSync(path.join(root,file),html.replace('</head>',`${clarityTag}</head>`));
 }
 const projects=[
   {title:'Ordiny',category:'SAAS / PRODUTO DIGITAL',summary:'Do design à aplicação: um SaaS que conecta produto, UX/UI e desenvolvimento.',role:'Produto · UX/UI · Desenvolvimento',href:'ordiny.html',src:'d2-imgImagemDoProjeto.png',alt:'Ordiny: interfaces da agenda e da gestão de atendimentos',cover:'ordiny',width:1440,height:1080},
