@@ -1,16 +1,30 @@
 /* Decorative annotations sit behind the existing hero content and light. */
 .hero-inner{isolation:isolate}
 .hero-blueprint{position:absolute;inset:0;z-index:-1;pointer-events:none;user-select:none}
-.hero-blueprint svg{display:block;position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.hero-blueprint>svg{display:block;position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .blueprint-line{stroke:#c6c1cd;stroke-opacity:.2;stroke-width:1}
 .blueprint-label{fill:#bdb3bf;fill-opacity:.5;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.4px}
 .blueprint-word{fill:none;stroke:#d0bdc9;stroke-opacity:.09;stroke-width:1;font-family:'Instrument Sans',sans-serif;font-size:166px;font-weight:700;letter-spacing:-8px}
 .blueprint-accent{stroke:var(--coral);stroke-opacity:.5;stroke-width:1.5}
 .hero-blueprint .hero-blueprint-mobile{display:none}
+.blueprint-field-heading,.blueprint-field-footer{position:absolute;left:0;font-family:'IBM Plex Mono',monospace;font-size:8px;line-height:12px;letter-spacing:1.5px;color:#bdb3bf70}
+.blueprint-field-heading{top:-28px;display:flex;align-items:center;gap:20px}
+.blueprint-field-heading i{width:140px;height:1px;background:linear-gradient(90deg,#c6c1cd29,transparent)}
+.hero-blueprint .blueprint-field-rail{inset:110px auto auto -36px;width:40px;height:260px}
+.blueprint-field-symbol{position:absolute;bottom:-20px;left:32px;font-family:'IBM Plex Mono',monospace;font-size:100px;line-height:1;letter-spacing:12px;color:transparent;-webkit-text-stroke:1px #d0bdc910}
+.blueprint-field-footer{bottom:-32px;display:flex;align-items:center;gap:20px}
+.blueprint-field-footer i{position:relative;width:200px;height:1px;background:#c6c1cd1a}
+.blueprint-field-footer i::after{content:'';position:absolute;right:0;top:-2px;width:5px;height:5px;border:1px solid #ff66334d}
 @media(min-width:1024px) and (max-width:1190px){.hero-blueprint-desktop{opacity:.65}}
 @media(max-width:1023px){
  .hero-blueprint .hero-blueprint-desktop{display:none}
  .hero-blueprint .hero-blueprint-mobile{display:block;top:auto;bottom:0;left:50%;width:min(100%,440px);height:auto;aspect-ratio:342/436;transform:translateX(-50%)}
  .hero-blueprint-mobile .blueprint-word{font-size:96px;letter-spacing:-5px;stroke-opacity:.1}
  .hero-blueprint-mobile .blueprint-label{font-size:7px;letter-spacing:1.2px}
+ .blueprint-field-heading{top:-16px;font-size:7px;gap:12px}
+ .blueprint-field-heading i{width:72px}
+ .hero-blueprint .blueprint-field-rail{left:-16px;top:100px;width:20px;height:230px}
+ .blueprint-field-symbol{bottom:auto;top:340px;left:auto;right:0;font-size:76px;letter-spacing:8px;-webkit-text-stroke-color:#d0bdc90c}
+ .blueprint-field-footer{bottom:-16px;font-size:7px;gap:12px}
+ .blueprint-field-footer i{width:100px}
 }
