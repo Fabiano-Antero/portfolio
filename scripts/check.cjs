@@ -10,7 +10,7 @@ for(const file of [...pages,...art]){
   const cssUrls=[...source.matchAll(/url\((?:&quot;|['"])?([^)'"&]+)(?:&quot;|['"])?\)/g)].map(match=>match[1]);
   for(const ref of [...refs,...cssUrls]){
     if(/^(https?:|mailto:|data:)/.test(ref))continue;
-    const target=path.resolve(path.dirname(path.join(root,file)),ref);
+    const target=path.resolve(path.dirname(path.join(root,file)),ref.split(/[?#]/,1)[0]);
     if(!fs.existsSync(target)||!fs.statSync(target).size)errors.push(`${file}: recurso ausente ${ref}`);
   }
   const ids=[...source.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]);
