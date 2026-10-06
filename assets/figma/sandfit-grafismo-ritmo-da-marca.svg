@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="54" height="14" viewBox="0 0 54 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Grafismo / Ritmo da marca" clip-path="url(#clip0_0_25)">
+<path id="Grafismo / Faixa 1" d="M8 0H15L7 14H0L8 0Z" fill="#D5FF5F" stroke="black"/>
+<path id="Grafismo / Faixa 2" d="M27 0H34L26 14H19L27 0Z" fill="#D5FF5F" stroke="black"/>
+<path id="Grafismo / Faixa 3" d="M46 0H53L45 14H38L46 0Z" fill="#6B41C7" stroke="black"/>
+</g>
+<defs>
+<clipPath id="clip0_0_25">
+<rect width="54" height="14" fill="white"/>
+</clipPath>
+</defs>
+</svg>

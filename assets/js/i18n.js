@@ -441,6 +441,143 @@ Dados do cartão virtual e orientação de acesso protegido|Virtual card details
 Caixinha para equipamento, valor separado e progresso da meta|Equipment savings pot, reserved amount and goal progress
 Revisão e autorização de análise de crédito, com contratação em etapa posterior|Review and authorization of credit assessment, with contracting at a later stage
 Amostras do sistema visual Cash Advance: botão Antecipar e ação rápida Pix|Cash Advance visual system samples: Advance button and Pix quick action
+PROJETO PARA CLIENTE / BEM-ESTAR / UX E UI|CLIENT PROJECT / WELLNESS / UX AND UI
+Sandfit Arena.|Sandfit Arena.
+Treino na areia.|Training on sand.
+Reserva com clareza.|Booking with clarity.
+Uma experiência para conectar a descoberta de uma academia com areia à escolha do treino, à reserva e à organização da rotina.|An experience connecting the discovery of a gym with sand to choosing a workout, booking a spot and organizing a routine.
+Treino e reserva|Training and booking
+Academia com areia de praia.|A gym with beach sand.
+Design de produto|Product design
+UX, UI, fluxos e sistema visual.|UX, UI, flows and visual system.
+Experiência integrada|An integrated experience
+App, site, DS e protótipo.|App, website, design system and prototype.
+O treino acontece na areia.|Training happens on sand.
+A escolha começa na tela.|The choice starts on screen.
+A primeira visita reúne dúvidas sobre a arena, o horário, o preparo e a dinâmica da aula. A proposta conecta essas informações à reserva, para que a pessoa escolha com contexto e chegue sabendo o que esperar.|A first visit brings questions about the arena, the schedule, preparation and how the class works. The proposal connects this information to booking, so people can choose with context and arrive knowing what to expect.
+Diminuir a incerteza.|Reduce uncertainty.
+Modalidade, duração, instrutor, vagas e custo em créditos precisam aparecer antes da confirmação.|Activity, duration, instructor, available spots and cost in credits need to appear before confirmation.
+DIREÇÃO DE PRODUTO|PRODUCT DIRECTION
+Organizar a continuidade.|Connect the next steps.
+Agenda, lista de espera e reagendamento acompanham mudanças na rotina sem obrigar a pessoa a começar de novo.|The calendar, waitlist and rescheduling follow changes in routine without making people start again.
+02 / PERFIL E CRITÉRIOS|02 / PROFILE AND CRITERIA
+A rotina decide o horário.|Routine sets the time.
+A clareza orienta a reserva.|Clarity guides the booking.
+Milla é o perfil de referência da proposta: uma pessoa que concilia trabalho e treino, procura horários compatíveis e precisa entender as condições antes de reservar.|Milla is the reference profile for the proposal: someone who balances work and training, looks for compatible times and needs to understand the conditions before booking.
+NECESSIDADE|NEED
+Encontrar o que cabe na semana.|Find what fits into the week.
+Consultar dia, horário e disponibilidade na mesma leitura, com filtros que ajudam a reduzir as opções.|Read the day, time and availability together, with filters that help narrow down the options.
+CONTROLE|CONTROL
+Alterar sem perder o contexto.|Make changes with context.
+Reagendar com a reserva atual preservada e ver a regra de cancelamento antes de confirmar a decisão.|Reschedule while preserving the current booking and see the cancellation rule before confirming the decision.
+PRIMEIRA VISITA|FIRST VISIT
+Chegar com orientação.|Arrive with guidance.
+Saber duração, preparo, unidade e posição na arena para reduzir as dúvidas da chegada.|Know the duration, preparation, location and position in the arena to reduce questions on arrival.
+03 / JORNADA|03 / JOURNEY
+Escolher. Conferir.|Choose. Review.
+Chegar com contexto.|Arrive with context.
+O site apresenta a arena. O app organiza a escolha do treino e a gestão da reserva. A operação consulta disponibilidade, créditos e condições antes de concluir cada ação.|The website introduces the arena. The app organizes the choice of workout and booking management. The operation checks availability, credits and conditions before completing each action.
+Agenda|Calendar
+Encontrar dia, modalidade e horário.|Find the day, activity and time.
+Posição|Position
+Selecionar uma vaga disponível.|Choose an available spot.
+Revisão|Review
+Conferir crédito, prazo e informações.|Check credits, deadlines and information.
+Confirmação|Confirmation
+Receber a reserva e a orientação.|Receive the booking and guidance.
+TURMA LOTADA|FULL CLASS
+Registrar interesse.|Register interest.
+A lista de espera informa que uma vaga pode surgir. A confirmação depende de uma nova escolha e da disponibilidade.|The waitlist indicates that a spot may become available. Confirmation depends on a new choice and availability.
+SEM CRÉDITOS|NO CREDITS
+Retomar a intenção.|Resume the plan.
+Após escolher um pacote e acompanhar o pagamento, a pessoa retorna ao contexto da aula para revisar a reserva.|After choosing a package and tracking payment, the person returns to the class context to review the booking.
+04 / DESCOBERTA|04 / DISCOVERY
+Horário, disponibilidade|Time, availability
+e identidade na mesma leitura.|and identity in one view.
+A home aproxima a pessoa da arena. A agenda apresenta escolhas comparáveis. As fotos identificam as modalidades e acompanham os dados necessários para decidir.|The home brings people closer to the arena. The calendar presents comparable choices. Photos identify activities and accompany the information needed to decide.
+HOME / SEU PRÓXIMO TREINO|HOME / YOUR NEXT WORKOUT
+AGENDA / HORÁRIO E DISPONIBILIDADE|CALENDAR / TIME AND AVAILABILITY
+DECISÃO / HOME|DECISION / HOME
+Uma ação principal.|One primary action.
+O próximo treino reúne horário, instrutor, duração e acesso à reserva. A foto apresenta a atmosfera da academia.|The next workout brings together time, instructor, duration and access to booking. The photo presents the atmosphere of the gym.
+DECISÃO / AGENDA|DECISION / CALENDAR
+Comparar sem esconder dados.|Compare without hiding details.
+Lista vertical com miniaturas, horário, modalidade, instrutor e vagas. A imagem complementa a informação de cada aula.|A vertical list with thumbnails, time, activity, instructor and available spots. The image complements the information for each class.
+05 / RESERVA|05 / BOOKING
+Regras visíveis|Visible rules
+antes de confirmar.|before confirming.
+O mapa numerado orienta a escolha do lugar. A revisão reúne o custo, o saldo após a reserva e o prazo de cancelamento. A confirmação confere novamente a disponibilidade.|The numbered map guides the choice of spot. The review brings together the cost, remaining balance and cancellation deadline. Confirmation checks availability again.
+POSIÇÃO / ESTADOS E ESCOLHA|POSITION / STATES AND CHOICE
+REVISÃO / CRÉDITO E PRAZO|REVIEW / CREDIT AND DEADLINE
+DECISÃO / MAPA|DECISION / MAP
+Estado além da cor.|State beyond color.
+Número e rótulo distinguem posições livres, ocupadas e selecionadas. A pessoa entende onde ficará na arena.|A number and label distinguish available, occupied and selected spots. People understand where they will be in the arena.
+DECISÃO / CONFIRMAÇÃO|DECISION / CONFIRMATION
+Explicitar o impacto.|Make the impact explicit.
+Uma aula utiliza 1 crédito. O resumo apresenta o saldo resultante e o horário limite para cancelar com devolução.|A class uses 1 credit. The summary shows the resulting balance and the deadline for cancellation with a refund.
+06 / RECUPERAÇÃO|06 / RECOVERY
+Quando a rotina muda,|When the routine changes,
+a experiência acompanha.|the experience follows.
+Estados específicos orientam conflitos de vaga, turmas lotadas, saldo insuficiente e pagamentos pendentes. Cada situação mantém uma saída coerente com o contexto.|Specific states guide spot conflicts, full classes, insufficient balance and pending payments. Each situation keeps a way forward that fits the context.
+REAGENDAMENTO|RESCHEDULING
+Preservar a reserva atual.|Preserve the current booking.
+A aula original permanece ativa durante a escolha. A substituição acontece após a disponibilidade do novo horário ser conferida.|The original class remains active while choosing. Replacement happens after availability for the new time has been checked.
+LISTA DE ESPERA|WAITLIST
+Separar interesse e reserva.|Separate interest from booking.
+Entrar na lista não ocupa uma vaga nem debita créditos. Quando há disponibilidade, a pessoa decide se quer confirmar.|Joining the list neither occupies a spot nor deducts credits. When availability opens up, the person decides whether to confirm.
+CRÉDITOS|CREDITS
+Comunicar o que aconteceu.|Explain what happened.
+Saldo, validade e extrato organizam o acompanhamento. Pagamento pendente e pacote ativado têm mensagens e ações próprias.|Balance, validity and transaction history organize tracking. Pending payments and activated packages have their own messages and actions.
+07 / SISTEMA VISUAL|07 / VISUAL SYSTEM
+Uma marca reconhecível.|A recognizable brand.
+Uma interface consistente.|A consistent interface.
+A identidade da Sandfit combina fundos escuros, verde lima e roxo. Cor, tipografia e componentes tornam a experiência reconhecível entre o site e o app.|Sandfit’s identity combines dark backgrounds, lime green and purple. Color, typography and components make the experience recognizable across the website and app.
+Base|Base
+Superfície|Surface
+Verde lima|Lime green
+Roxo|Purple
+Texto|Text
+Borda|Border
+TIPOGRAFIA DO PRODUTO|PRODUCT TYPOGRAPHY
+Manrope + Barlow Condensed.|Manrope + Barlow Condensed.
+Manrope organiza títulos, campos e ações. Barlow Condensed dá expressão às chamadas da marca. O lettering original da logo foi preservado.|Manrope organizes headings, fields and actions. Barlow Condensed gives expression to brand messages. The original logo lettering was preserved.
+COMPONENTES|COMPONENTS
+Mesmas regras entre telas.|The same rules across screens.
+Botões, chips, campos com rótulos permanentes, foco, erro, carregamento e navegação usam uma base compartilhada.|Buttons, chips, fields with persistent labels, focus, errors, loading and navigation use a shared foundation.
+LINGUAGEM VISUAL|VISUAL LANGUAGE
+Fotografia e grafismos.|Photography and graphics.
+Fotos da arena identificam o contexto do treino. Faixas inspiradas no símbolo da marca acrescentam ritmo. Os ícones utilizados são Phosphor.|Arena photos identify the workout context. Stripes inspired by the brand symbol add rhythm. The icons used are Phosphor.
+08 / ENCERRAMENTO|08 / CLOSING
+Entrega concluída.|Delivery completed.
+Identidade preservada.|Identity preserved.
+Projeto realizado sob confidencialidade. Por decisão do cliente, o trabalho foi concluído após a entrega do design. Este case apresenta a experiência e o sistema visual, preservando informações confidenciais do projeto.|A project carried out under confidentiality. At the client’s decision, work concluded after the design delivery. This case presents the experience and visual system while preserving confidential project information.
+A entrega reúne fluxos, interface, sistema visual e protótipo, conectando a descoberta da arena à organização do treino.|The delivery brings together flows, interface, visual system and prototype, connecting discovery of the arena to organizing training.
+03 / SANDFIT ARENA · BEM-ESTAR|03 / SANDFIT ARENA · WELLNESS
+Uma experiência que conecta a descoberta da arena à escolha do treino e à reserva.|An experience connecting discovery of the arena to choosing a workout and booking a spot.
+Veja também Lumen e Aqui Limpa na coleção completa.|Discover Lumen and Aqui Limpa in the full collection.
+PORTFÓLIO / 05 PROJETOS|PORTFOLIO / 05 PROJECTS
+BEM-ESTAR / UX E UI|WELLNESS / UX AND UI
+UX/UI · Fluxos · Design system|UX/UI · Flows · Design system
+Produtos, interfaces e experiências em finanças, serviços, bem-estar e consumo de energia.|Products, interfaces and experiences in finance, services, wellness and energy consumption.
+Explore os trabalhos de Fabiano Antero em finanças, serviços, bem-estar e consumo de energia.|Explore Fabiano Antero’s work in finance, services, wellness and energy consumption.
+Treino na areia e reserva com clareza: UX/UI, jornada e sistema visual da Sandfit Arena.|Training on sand and booking with clarity: UX/UI, journey and visual system for Sandfit Arena.
+Explorar protótipo ↗|Explore prototype ↗
+Voltar aos projetos|Back to projects
+Capítulos do estudo Sandfit Arena|Sandfit Arena case study chapters
+01 Contexto|01 Context
+02 Perfil e critérios|02 Profile and criteria
+03 Jornada|03 Journey
+04 Descoberta|04 Discovery
+05 Reserva|05 Booking
+06 Recuperação|06 Recovery
+07 Sistema|07 System
+08 Encerramento|08 Closing
+Ler estudo de caso Sandfit Arena|Read the Sandfit Arena case study
+Sandfit Arena: areia no treino, clareza na reserva|Sandfit Arena: training on sand, booking with clarity
+Sandfit: home com próximo treino, créditos e acesso à reserva|Sandfit: home with the next workout, credits and access to booking
+Sandfit: agenda com dias, filtros, horários e disponibilidade|Sandfit: calendar with days, filters, times and availability
+Sandfit: mapa com posições livres, ocupadas e selecionadas|Sandfit: map with available, occupied and selected spots
+Sandfit: revisão da reserva, crédito, saldo e prazo de cancelamento|Sandfit: booking review, credit, balance and cancellation deadline
 `.trim().split('\n').map(row => row.split('|').map(normalize)));
 
   // Save original nodes once: toggling language preserves markup, listeners,

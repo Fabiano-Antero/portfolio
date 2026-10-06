@@ -1,4 +1,4 @@
-import {findCharacterAnswer,isConversationEnding} from './chibi-answers.js';
+import {findCharacterAnswer,isConversationEnding} from './chibi-answers.js?v=20261006-sandfit';
 
 const copy={
   pt:{invite:'Oi! Quer saber um pouco sobre mim?',yes:'Sim',no:'Não',title:'Converse com o Fabiano',subtitle:'Carreira, projetos e um pouco de mim.',open:'Conversar',close:'Fechar conversa',label:'Sua pergunta',placeholder:'O que você quer saber?',send:'Enviar',welcome:'Pode perguntar! Quer conhecer minha trajetória, meus projetos ou o que gosto de fazer?',unknown:'Ainda não tenho essa informação sobre mim. Posso contar sobre minha carreira, formação, competências, projetos e hobbies. Para outros detalhes, podemos conversar pelos canais de contato.',greeting:'Oi! É bom ter você por aqui. O que quer saber sobre minha carreira, meus projetos ou meus hobbies?',thanks:'Por nada! Se quiser, podemos conversar sobre outro projeto ou sobre minha trajetória.',loading:'Um instante…',error:'Não consegui carregar minhas respostas. Tente enviar sua pergunta novamente.',suggestions:['Quem é você?','Conte sobre a Ordiny','Quais são seus hobbies?'],you:'Você',avatar:'Fabiano',limit:'Escreva uma pergunta com até 350 caracteres.'},
@@ -38,7 +38,7 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
   launcher.setAttribute('aria-controls',panel.id);launcher.setAttribute('aria-expanded','false');yes.setAttribute('aria-controls',panel.id);
   const load=()=>{
     if(knowledge)return Promise.resolve(knowledge);
-    if(!loadPromise)loadPromise=fetch(new URL('../data/fabiano.json',import.meta.url)).then(response=>{if(!response.ok)throw Error('Knowledge unavailable');return response.json();}).then(data=>{if(!Array.isArray(data.topics))throw Error('Invalid knowledge');knowledge=data;return data;}).catch(error=>{loadPromise=undefined;throw error;});
+    if(!loadPromise)loadPromise=fetch(new URL('../data/fabiano.json?v=20261006-sandfit',import.meta.url)).then(response=>{if(!response.ok)throw Error('Knowledge unavailable');return response.json();}).then(data=>{if(!Array.isArray(data.topics))throw Error('Invalid knowledge');knowledge=data;return data;}).catch(error=>{loadPromise=undefined;throw error;});
     return loadPromise;
   };
   const safeLink=url=>{try{const parsed=new URL(url,location.href);return ['https:','mailto:'].includes(parsed.protocol)||(parsed.origin===location.origin&&parsed.protocol===location.protocol);}catch{return false;}};

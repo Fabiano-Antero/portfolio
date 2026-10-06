@@ -13,7 +13,7 @@ export function findCharacterAnswer(question,knowledge,previousTopic='') {
   if(/^(obrigad[oa]|valeu|thanks|thank you)$/.test(q))return {type:'thanks'};
   const topics=knowledge.topics;
   const topic=id=>({type:'topic',ids:[id]});
-  const namedContext=has(['ordiny','cash','lumen','aqui limpa','dadoteca','lifter','lifters','tbanks','tbank','tivit','conpay','energisa']);
+  const namedContext=has(['ordiny','cash','sandfit','lumen','aqui limpa','dadoteca','lifter','lifters','tbanks','tbank','tivit','conpay','energisa']);
   const ordiny=has(['ordiny'])||(!namedContext&&previousTopic.startsWith('ordiny'));
   if(ordiny&&has(['stack','tecnologia','tecnologias','arquitetura','ferramentas','technology','technologies','tools','architecture','react','typescript']))return topic('ordiny-build');
   if(ordiny&&has(['whatsapp','chatbot','automacao','ia','ai','automation']))return topic('ordiny-whatsapp');
@@ -22,7 +22,7 @@ export function findCharacterAnswer(question,knowledge,previousTopic='') {
   const cash=has(['cash','cash advance'])||(!namedContext&&previousTopic.startsWith('cash'));
   if(cash&&has(['resultado','resultados','pesquisa','validacao','research','results','validation','metricas']))return topic('cash-validation');
   if(cash&&has(['cores','sistema visual','identidade','colors','visual system','identity']))return topic('cash-system');
-  const named=['dadoteca','lifter','tbanks','conpay','energisa','ordiny','cash','lumen','aqui-limpa','interests','resume'];
+  const named=['dadoteca','lifter','tbanks','conpay','energisa','ordiny','cash','sandfit','lumen','aqui-limpa','interests','resume'];
   const ranked=topics.map(entry=>{
     const matches=entry.keywords.filter(word=>includes(q,word));
     const longest=Math.max(0,...matches.map(word=>normalizeQuestion(word).split(' ').length));

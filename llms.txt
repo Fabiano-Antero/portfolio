@@ -8,6 +8,7 @@
 - [Projetos](https://fabianoantero.site/projetos.html): coleção de trabalhos de produto, design de interfaces e desenvolvimento.
 - [Ordiny](https://fabianoantero.site/ordiny.html): estudo de uma aplicação SaaS de agenda, reservas e gestão, ainda em desenvolvimento.
 - [Cash Advance](https://fabianoantero.site/cash-advance.html): estudo e protótipo de antecipação de fretes, com foco em clareza e segurança na jornada financeira.
+- [Sandfit Arena](https://fabianoantero.site/sandfit.html): projeto para cliente de UX/UI, fluxos, sistema visual e protótipo para treino na areia e reserva. O trabalho foi concluído após a entrega do design; informações confidenciais foram preservadas.
 
 ## Contexto
 

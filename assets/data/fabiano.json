@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-03",
+  "updatedAt": "2026-10-06",
   "profile": {
     "name": "Fabiano Antero da Silva",
     "publicName": "Fabiano Antero",
@@ -22,7 +22,8 @@
     "Conteúdo do portfólio e estudos de caso locais",
     "Fabiano_Currículo_09-2026.pdf",
     "Correções do Fabiano nesta conversa: Dadoteca de 2025 a 2026",
-    "Interesses pessoais informados pelo Fabiano nesta conversa"
+    "Interesses pessoais informados pelo Fabiano nesta conversa",
+    "Caso Sandfit Arena no Figma: FjwyOTJe5Ym7kjnML55s22 / 340:930"
   ],
   "rules": {
     "unknown": "Não inventar informações ausentes",
@@ -281,14 +282,19 @@
         "estudos"
       ],
       "answer": {
-        "pt": "Os quatro projetos apresentados aqui são Ordiny, Cash Advance, Lumen e Aqui Limpa. A Ordiny conecta produto, UX/UI e desenvolvimento em um SaaS de agendamento. Cash Advance é um estudo de jornada financeira para motoristas. Lumen ajuda a compreender o consumo de energia, e Aqui Limpa apresenta serviços de limpeza com uma hierarquia clara de informação.",
-        "en": "The four projects presented here are Ordiny, Cash Advance, Lumen and Aqui Limpa. Ordiny connects product, UX/UI and development in a booking SaaS. Cash Advance is a financial journey case study for drivers. Lumen helps users understand energy consumption, and Aqui Limpa presents cleaning services with a clear information hierarchy."
+        "pt": "Os cinco projetos apresentados aqui são Ordiny, Cash Advance, Sandfit Arena, Lumen e Aqui Limpa. A Ordiny conecta produto, UX/UI e desenvolvimento em um SaaS de agendamento. Cash Advance é um estudo de jornada financeira para motoristas. Lumen ajuda a compreender o consumo de energia, e Aqui Limpa apresenta serviços de limpeza com uma hierarquia clara de informação. Sandfit Arena conecta a descoberta de uma academia com areia à escolha do treino e à reserva, com UX/UI, fluxos e sistema visual.",
+        "en": "The five projects presented here are Ordiny, Cash Advance, Sandfit Arena, Lumen and Aqui Limpa. Ordiny connects product, UX/UI and development in a booking SaaS. Cash Advance is a financial journey case study for drivers. Lumen helps users understand energy consumption, and Aqui Limpa presents cleaning services with a clear information hierarchy. Sandfit Arena connects discovery of a gym with sand to choosing a workout and booking, with UX/UI, flows and a visual system."
       },
       "links": [
         {
           "url": "projetos.html",
           "pt": "Explorar projetos",
           "en": "Explore projects"
+        },
+        {
+          "url": "sandfit.html",
+          "pt": "Conhecer Sandfit Arena",
+          "en": "Discover Sandfit Arena"
         }
       ]
     },
@@ -661,6 +667,28 @@
           "url": "cash-advance.html#sistema",
           "pt": "Ver sistema visual",
           "en": "View visual system"
+        }
+      ]
+    },
+    {
+      "id": "sandfit",
+      "category": "projetos",
+      "keywords": [
+        "sandfit",
+        "sandfit arena",
+        "treino na areia",
+        "academia com areia",
+        "sand training"
+      ],
+      "answer": {
+        "pt": "Sandfit Arena é um projeto para cliente na área de bem-estar. Atuei em design de produto, UX/UI, fluxos e sistema visual para conectar a descoberta de uma academia com areia à escolha do treino, à reserva e à organização da rotina. A entrega reúne app, site, design system e protótipo, com regras de disponibilidade, créditos, cancelamento, lista de espera e reagendamento. O projeto foi realizado sob confidencialidade e, por decisão do cliente, concluído após a entrega do design. O case preserva informações confidenciais e não apresenta resultados comerciais mensurados.",
+        "en": "Sandfit Arena is a client project in wellness. I worked on product design, UX/UI, flows and the visual system, connecting discovery of a gym with sand to choosing workouts, booking and organizing a routine. The delivery includes an app, website, design system and prototype, with rules for availability, credits, cancellation, waitlists and rescheduling. The project was carried out under confidentiality and, at the client’s decision, concluded after design delivery. The case preserves confidential information and does not claim measured commercial results."
+      },
+      "links": [
+        {
+          "url": "sandfit.html",
+          "pt": "Conhecer Sandfit Arena",
+          "en": "Discover Sandfit Arena"
         }
       ]
     }

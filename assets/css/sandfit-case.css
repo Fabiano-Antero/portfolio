@@ -1,0 +1,44 @@
+/* Case editorial follows Figma 340:930; the product figures scale uniformly. */
+.sandfit-case{padding:64px 0}
+.sandfit-case .stack{gap:32px}
+.sandfit-case .section-heading{gap:32px}
+.sandfit-case .section-heading h2{font-size:48px;line-height:50px;letter-spacing:-1.44px}
+.sandfit-case .section-heading>p:not(.eyebrow){max-width:1000px}
+.sandfit-case .section-heading .eyebrow{color:var(--coral)}
+.sandfit-case.paper .section-heading .eyebrow{color:var(--muted)}
+.sandfit-intro{padding-top:48px}
+.sandfit-opening{gap:24px}
+.sandfit-opening>h1,.sandfit-opening>.sandfit-thesis{font-size:88px;line-height:88px;letter-spacing:-3.52px;margin:0}
+.sandfit-description,.sandfit-opening>.sandfit-description{max-width:900px}
+.sandfit-actions{display:flex;gap:16px;flex-wrap:wrap}
+.sandfit-actions .button{min-width:280px;padding-block:15px}
+.sandfit-chapters{display:grid;grid-template-columns:repeat(4,minmax(0,244px));gap:12px 16px;width:100%;padding-top:0}
+.sandfit-chapters .chapter-link{min-height:52px;justify-content:center;border:1px solid var(--line-dark,#38393d);border-radius:8px;padding:16px 24px}
+.sandfit-showcase{padding:48px 0}
+.sandfit-banner{width:100%;margin:0}
+.sandfit-banner .native-art{display:block;width:100%;border:0;aspect-ratio:16/9}
+.sandfit-facts{padding:32px 0;background:white;color:var(--ink)}
+.sandfit-facts .sandfit-note{gap:8px}
+.sandfit-facts .sandfit-note>p:not(.mono){font-size:16px;line-height:24px;color:var(--muted)}
+.sandfit-note{display:flex;flex-direction:column;gap:12px;min-width:0}
+.sandfit-note h3{font-size:32px;line-height:36px;letter-spacing:-.64px}
+.sandfit-case .sandfit-note p:not(.mono){font-size:18px;line-height:28px}
+.sandfit-case:not(.paper) .sandfit-note .mono{color:var(--coral)}
+.sandfit-notes{gap:32px}
+.sandfit-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;list-style:none;padding:0;margin:0}
+.sandfit-flow li{padding:24px;background:white;color:var(--ink);display:flex;flex-direction:column;gap:12px;border:1px solid var(--line);border-radius:8px}
+.sandfit-flow h3{font-size:28px;line-height:32px;letter-spacing:-.56px}
+.sandfit-flow p:not(.mono){font-size:16px;line-height:24px;color:var(--muted)}
+.sandfit-screen-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px;width:100%;align-items:start}
+.sandfit-screen{display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0;margin:0}
+.sandfit-screen .native-art{display:block;width:390px;max-width:100%;border:0;aspect-ratio:390/844}
+.sandfit-screen figcaption{align-self:center;font-size:12px;line-height:18px;max-width:100%}
+.sandfit-palette{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+.sandfit-palette>div{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sandfit-palette span{display:block;height:96px;border:1px solid #10111410}
+.sandfit-palette .label{font-size:14px;line-height:20px}
+.sandfit-palette .mono{font-size:12px;line-height:18px}
+@media(max-width:1190px){.sandfit-opening>h1,.sandfit-opening>.sandfit-thesis{font-size:72px;line-height:74px}.sandfit-flow{grid-template-columns:repeat(2,minmax(0,1fr))}.sandfit-chapters .chapter-link{padding:14px 8px}}
+@media(max-width:767px){.sandfit-case{padding:56px 0}.sandfit-intro{padding-top:32px}.sandfit-case .section-heading{gap:24px}.sandfit-opening>h1,.sandfit-opening>.sandfit-thesis{font-size:clamp(36px,10.5vw,48px);line-height:1.06;letter-spacing:-1.5px}.sandfit-case .section-heading h2{font-size:36px;line-height:39px;letter-spacing:-1.08px}.sandfit-actions{flex-direction:column}.sandfit-actions .button{width:100%;min-width:0}.sandfit-chapters{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.sandfit-chapters .chapter-link{font-size:12px;padding:12px 6px}.sandfit-showcase{padding:32px 0}.sandfit-facts .three-columns{gap:24px}.sandfit-notes{gap:32px}.sandfit-note h3{font-size:28px;line-height:32px}.sandfit-screen-grid{grid-template-columns:1fr;gap:40px}.sandfit-screen figcaption{align-self:start}.sandfit-palette{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 12px}.sandfit-palette span{height:72px}.sandfit-flow{grid-template-columns:1fr;gap:16px}.sandfit-flow li{padding:24px}}
+@media(prefers-reduced-motion:reduce){.sandfit-page{scroll-behavior:auto}}
+@media(max-width:767px){.sandfit-actions{width:100%}}

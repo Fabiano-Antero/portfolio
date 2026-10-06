@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname,'..');
 const errors=[];
-const pages=['index.html','projetos.html','ordiny.html','cash-advance.html'];
+const pages=['index.html','projetos.html','ordiny.html','cash-advance.html','sandfit.html'];
 const art=fs.readdirSync(path.join(root,'assets/art')).filter(file=>file.endsWith('.html')).map(file=>'assets/art/'+file);
 for(const file of [...pages,...art]){
   const source=fs.readFileSync(path.join(root,file),'utf8');

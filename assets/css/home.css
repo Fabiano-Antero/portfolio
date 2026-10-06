@@ -134,3 +134,6 @@
 @keyframes skills-marquee-slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:767px){.skills-marquee{height:96px;padding-block:32px}.skills-marquee-group{font-size:28px}}
 @media(prefers-reduced-motion:reduce){.skills-marquee{height:auto;min-height:96px;padding:24px}.skills-marquee-track{display:block;width:100%;animation:none;will-change:auto}.skills-marquee-group{white-space:normal;font-size:clamp(18px,3vw,28px);line-height:1.5}.skills-marquee-group[aria-hidden=true]{display:none}}
+
+.sandfit-home-cover{height:auto;aspect-ratio:16/9;background:#121a15}
+.sandfit-home-cover .native-art{display:block;width:100%;height:auto;aspect-ratio:16/9;border:0;pointer-events:none}
