@@ -553,7 +553,7 @@ Entrega concluída.|Delivery completed.
 Identidade preservada.|Identity preserved.
 Projeto realizado sob confidencialidade. Por decisão do cliente, o trabalho foi concluído após a entrega do design. Este case apresenta a experiência e o sistema visual, preservando informações confidenciais do projeto.|A project carried out under confidentiality. At the client’s decision, work concluded after the design delivery. This case presents the experience and visual system while preserving confidential project information.
 A entrega reúne fluxos, interface, sistema visual e protótipo, conectando a descoberta da arena à organização do treino.|The delivery brings together flows, interface, visual system and prototype, connecting discovery of the arena to organizing training.
-03 / SANDFIT ARENA · BEM-ESTAR|03 / SANDFIT ARENA · WELLNESS
+SANDFIT ARENA · BEM-ESTAR|SANDFIT ARENA · WELLNESS
 Uma experiência que conecta a descoberta da arena à escolha do treino e à reserva.|An experience connecting discovery of the arena to choosing a workout and booking a spot.
 Veja também Lumen e Aqui Limpa na coleção completa.|Discover Lumen and Aqui Limpa in the full collection.
 PORTFÓLIO / 05 PROJETOS|PORTFOLIO / 05 PROJECTS
