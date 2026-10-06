@@ -87,7 +87,7 @@ Seu próximo desafio|Your next challenge
 pode virar um|could become a
 bom produto.|great product.
 Tem uma oportunidade ou um desafio de produto? Vamos conversar.|Have an opportunity or a product challenge? Let’s talk.
-FABIANO ANTERO / PORTFÓLIO 2026|FABIANO ANTERO / PORTFOLIO 2026
+FABIANO ANTERO / PORTFÓLIO 2019 / 2026|FABIANO ANTERO / PORTFOLIO 2019 / 2026
 Pensado como produto. Construído com código.|Conceived as a product. Built with code.
 Fabiano Antero: Product Designer e UX Engineer. Projetos de produto, UX/UI e desenvolvimento em fintech, SaaS e serviços.|Fabiano Antero: Product Designer and UX Engineer. Product, UX/UI and development projects in fintech, SaaS and services.
 Fabiano Antero, início|Fabiano Antero, home
