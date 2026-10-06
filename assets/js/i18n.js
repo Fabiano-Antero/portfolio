@@ -444,6 +444,7 @@ Amostras do sistema visual Cash Advance: botão Antecipar e ação rápida Pix|C
 PROJETO PARA CLIENTE / BEM-ESTAR / UX E UI|CLIENT PROJECT / WELLNESS / UX AND UI
 Sandfit Arena.|Sandfit Arena.
 Treino na areia.|Training on sand.
+Treino na areia. Reserva com clareza.|Training on sand. Booking with clarity.
 Reserva com clareza.|Booking with clarity.
 Uma experiência para conectar a descoberta de uma academia com areia à escolha do treino, à reserva e à organização da rotina.|An experience connecting the discovery of a gym with sand to choosing a workout, booking a spot and organizing a routine.
 Treino e reserva|Training and booking
