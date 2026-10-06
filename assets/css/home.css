@@ -135,5 +135,6 @@
 @media(max-width:767px){.skills-marquee{height:96px;padding-block:32px}.skills-marquee-group{font-size:28px}}
 @media(prefers-reduced-motion:reduce){.skills-marquee{height:auto;min-height:96px;padding:24px}.skills-marquee-track{display:block;width:100%;animation:none;will-change:auto}.skills-marquee-group{white-space:normal;font-size:clamp(18px,3vw,28px);line-height:1.5}.skills-marquee-group[aria-hidden=true]{display:none}}
 
-.sandfit-home-cover{height:auto;aspect-ratio:16/9;background:#121a15}
-.sandfit-home-cover .native-art{display:block;width:100%;height:auto;aspect-ratio:16/9;border:0;pointer-events:none}
+.sandfit-home-cover{height:auto;aspect-ratio:624/320;background:#121a15}
+.sandfit-home-cover .native-art{display:block;position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;height:auto;aspect-ratio:16/9;border:0;pointer-events:none}
+@media(max-width:767px){.sandfit-home-cover{aspect-ratio:16/9}}

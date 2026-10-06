@@ -1,2 +1,3 @@
-.sandfit-home-cover{height:auto;aspect-ratio:16/9;background:#121a15}
-.sandfit-home-cover .native-art{display:block;width:100%;height:auto;aspect-ratio:16/9;border:0;pointer-events:none}
+.sandfit-home-cover{height:auto;aspect-ratio:624/320;background:#121a15}
+.sandfit-home-cover .native-art{display:block;position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;height:auto;aspect-ratio:16/9;border:0;pointer-events:none}
+@media(max-width:767px){.sandfit-home-cover{aspect-ratio:16/9}}
