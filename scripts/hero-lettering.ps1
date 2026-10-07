@@ -10,7 +10,7 @@ $format.FormatFlags = $format.FormatFlags -bor [System.Drawing.StringFormatFlags
 $culture = [System.Globalization.CultureInfo]::InvariantCulture
 function Number($value) { return $value.ToString('0.###', $culture) }
 $variants = @{}
-foreach ($word in @(('DA L' + [char]0xD3 + 'GICA'), 'AO PRODUTO', 'EM USO.', 'FROM LOGIC', 'TO PRODUCT', 'IN USE.')) {
+foreach ($word in @(('DA L' + [char]0xD3 + 'GICA'), 'AO PRODUTO', 'EM USO.', 'FROM LOGIC', 'TO PRODUCT', 'IN USE.', ('DE LA L' + [char]0xD3 + 'GICA'), 'AL PRODUCTO', 'EN USO.')) {
     $cursor = 0.0
     $paths = @()
     $fullBounds = $null

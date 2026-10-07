@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-07",
   "profile": {
     "name": "Fabiano Antero da Silva",
     "publicName": "Fabiano Antero",
@@ -53,11 +53,20 @@
         "profissao",
         "qual seu trabalho",
         "what do you do",
-        "your role"
+        "your role",
+        "quien eres",
+        "quien es fabiano",
+        "sobre ti",
+        "sobre el",
+        "presentate",
+        "a que te dedicas",
+        "cual es tu trabajo",
+        "profesion"
       ],
       "answer": {
         "pt": "Sou Fabiano Antero, Product Designer e UX Engineer, de João Pessoa, PB. Conecto produto, UX/UI e desenvolvimento para transformar regras complexas em experiências claras, do desenho dos fluxos à interface em produção. Tenho mais de 7 anos de experiência em fintech, SaaS e serviços.",
-        "en": "I'm Fabiano Antero, a Product Designer and UX Engineer from João Pessoa, Brazil. I connect product, UX/UI and development to turn complex rules into clear experiences, from designing user flows to building production interfaces. I have over 7 years of experience in fintech, SaaS and services."
+        "en": "I'm Fabiano Antero, a Product Designer and UX Engineer from João Pessoa, Brazil. I connect product, UX/UI and development to turn complex rules into clear experiences, from designing user flows to building production interfaces. I have over 7 years of experience in fintech, SaaS and services.",
+        "es": "Soy Fabiano Antero, Product Designer y UX Engineer, de João Pessoa, PB. Conecto producto, UX/UI y desarrollo para transformar reglas complejas en experiencias claras, desde el diseño de los flujos hasta la interfaz en producción. Tengo más de 7 años de experiencia en fintech, SaaS y servicios."
       }
     },
     {
@@ -75,17 +84,25 @@
         "experience",
         "companies",
         "work history",
-        "years"
+        "years",
+        "carrera",
+        "trayectoria",
+        "experiencia profesional",
+        "donde trabajaste",
+        "empleos anteriores",
+        "cuantos anos de experiencia"
       ],
       "answer": {
         "pt": "Minha trajetória inclui Grupo Energisa (2019 a 2020), Conpay (2020 a 2023), TbankS / TIVIT Techfin (2022 a 2023), Lifter Tecnologia (2024 a 2025) e Dadoteca (2025 a 2026). Atuei em design de produto e interfaces, discovery, design systems e desenvolvimento front-end, com jornadas financeiras, serviços e soluções de BI.",
-        "en": "My experience includes Grupo Energisa (2019 to 2020), Conpay (2020 to 2023), TbankS / TIVIT Techfin (2022 to 2023), Lifter Tecnologia (2024 to 2025) and Dadoteca (2025 to 2026). My work spans product and interface design, discovery, design systems and front-end development across financial journeys, services and BI solutions."
+        "en": "My experience includes Grupo Energisa (2019 to 2020), Conpay (2020 to 2023), TbankS / TIVIT Techfin (2022 to 2023), Lifter Tecnologia (2024 to 2025) and Dadoteca (2025 to 2026). My work spans product and interface design, discovery, design systems and front-end development across financial journeys, services and BI solutions.",
+        "es": "Mi trayectoria incluye Grupo Energisa (2019 a 2020), Conpay (2020 a 2023), TbankS / TIVIT Techfin (2022 a 2023), Lifter Tecnologia (2024 a 2025) y Dadoteca (2025 a 2026). Trabajé en diseño de producto e interfaces, discovery, sistemas de diseño y desarrollo front-end, con recorridos financieros, servicios y soluciones de BI."
       },
       "links": [
         {
           "url": "index.html#experiencia",
           "pt": "Ver experiência",
-          "en": "View experience"
+          "en": "View experience",
+          "es": "Ver experiencia"
         }
       ]
     },
@@ -99,7 +116,8 @@
       ],
       "answer": {
         "pt": "Na Dadoteca, atuei como consultor de UX/UI de 2025 a 2026. Meu trabalho envolveu o design de soluções de BI, pesquisa com stakeholders, validação com a equipe de produto, wireframes, fluxos, mockups e protótipos. Também incluiu governança de design systems, avaliações de usabilidade e ciclos de feedback com usuários e engenharia.",
-        "en": "At Dadoteca, I worked as a UX/UI Design Consultant from 2025 to 2026. My work included designing BI solutions, stakeholder research, validation with the product team, wireframes, flows, mockups and prototypes. It also covered design system governance, usability evaluations and feedback cycles with users and engineering."
+        "en": "At Dadoteca, I worked as a UX/UI Design Consultant from 2025 to 2026. My work included designing BI solutions, stakeholder research, validation with the product team, wireframes, flows, mockups and prototypes. It also covered design system governance, usability evaluations and feedback cycles with users and engineering.",
+        "es": "En Dadoteca trabajé como consultor de UX/UI de 2025 a 2026. Mi trabajo incluyó diseño de soluciones de BI, investigación con stakeholders, validación con el equipo de producto, wireframes, flujos, mockups y prototipos. También incluyó gobernanza de sistemas de diseño, evaluaciones de usabilidad y ciclos de feedback con usuarios e ingeniería."
       }
     },
     {
@@ -109,11 +127,13 @@
         "lifter",
         "lifters",
         "apostas",
-        "betting"
+        "betting",
+        "apuestas"
       ],
       "answer": {
         "pt": "Na Lifter Tecnologia, de março de 2024 a setembro de 2025, trabalhei com UI/UX e front-end. Atuei em usabilidade e design systems para apostas e pagamentos, convertendo requisitos de negócio em fluxos e protótipos, conduzindo discovery e alinhando melhorias com Produto, stakeholders e engenharia.",
-        "en": "At Lifter Tecnologia, from March 2024 to September 2025, I worked in UI/UX and front-end development. I focused on usability and design systems for betting and payments, turning business requirements into flows and prototypes, conducting discovery and aligning improvements with product, stakeholders and engineering."
+        "en": "At Lifter Tecnologia, from March 2024 to September 2025, I worked in UI/UX and front-end development. I focused on usability and design systems for betting and payments, turning business requirements into flows and prototypes, conducting discovery and aligning improvements with product, stakeholders and engineering.",
+        "es": "En Lifter Tecnologia, de marzo de 2024 a septiembre de 2025, trabajé con UI/UX y front-end. Participé en usabilidad y sistemas de diseño para apuestas y pagos, convirtiendo requisitos de negocio en flujos y prototipos, realizando discovery y coordinando mejoras con Producto, stakeholders e ingeniería."
       }
     },
     {
@@ -128,7 +148,8 @@
       ],
       "answer": {
         "pt": "Na TbankS / TIVIT Techfin, de junho de 2022 a dezembro de 2023, trabalhei com UI/UX e front-end em jornadas financeiras, incluindo onboarding, KYC e acessibilidade. Atuei em discovery, arquitetura da informação, fluxos completos, prototipação, documentação para handoff, design systems, avaliações de usabilidade e implementação responsiva em HTML, CSS e JavaScript.",
-        "en": "At TbankS / TIVIT Techfin, from June 2022 to December 2023, I worked in UI/UX and front-end development for financial journeys, including onboarding, KYC and accessibility. My work covered discovery, information architecture, complete flows, prototyping, handoff documentation, design systems, usability evaluation and responsive HTML, CSS and JavaScript implementation."
+        "en": "At TbankS / TIVIT Techfin, from June 2022 to December 2023, I worked in UI/UX and front-end development for financial journeys, including onboarding, KYC and accessibility. My work covered discovery, information architecture, complete flows, prototyping, handoff documentation, design systems, usability evaluation and responsive HTML, CSS and JavaScript implementation.",
+        "es": "En TbankS / TIVIT Techfin, de junio de 2022 a diciembre de 2023, trabajé con UI/UX y front-end en recorridos financieros, incluyendo incorporación de clientes, KYC y accesibilidad. Participé en discovery, arquitectura de la información, flujos completos, prototipado, documentación para handoff, sistemas de diseño, evaluaciones de usabilidad e implementación adaptable en HTML, CSS y JavaScript."
       }
     },
     {
@@ -138,11 +159,13 @@
         "conpay",
         "pos",
         "conta digital",
-        "digital account"
+        "digital account",
+        "cuenta digital"
       ],
       "answer": {
         "pt": "Na Conpay Instituição de Pagamento, de agosto de 2020 a dezembro de 2023, conectei design e front-end em conta digital, Pix e POS. Planejei demandas com Produto, Operações e Tecnologia, desenhei fluxos financeiros, evoluí componentes e tokens, participei de testes com usuários e alinhei entregas com Engenharia e QA. O desenvolvimento priorizou performance e consistência.",
-        "en": "At Conpay Instituição de Pagamento, from August 2020 to December 2023, I connected design and front-end development for digital accounts, Pix and POS. I planned work with product, operations and technology, designed financial flows, evolved components and tokens, participated in user testing and aligned deliveries with engineering and QA. Development focused on performance and consistency."
+        "en": "At Conpay Instituição de Pagamento, from August 2020 to December 2023, I connected design and front-end development for digital accounts, Pix and POS. I planned work with product, operations and technology, designed financial flows, evolved components and tokens, participated in user testing and aligned deliveries with engineering and QA. Development focused on performance and consistency.",
+        "es": "En Conpay Instituição de Pagamento, de agosto de 2020 a diciembre de 2023, conecté diseño y front-end en cuenta digital, Pix y POS. Planifiqué tareas con Producto, Operaciones y Tecnología, diseñé flujos financieros, evolucioné componentes y tokens, participé en pruebas con usuarios y coordiné entregas con Ingeniería y QA. El desarrollo priorizó rendimiento y consistencia."
       }
     },
     {
@@ -152,11 +175,14 @@
         "energisa",
         "totem",
         "totens",
-        "self service"
+        "self service",
+        "autoservicio",
+        "terminales"
       ],
       "answer": {
         "pt": "Na Energisa Paraíba / Grupo Energisa, de agosto de 2019 a agosto de 2020, trabalhei com UI/UX e front-end para web, mobile e totens de autoatendimento. Atuei em arquitetura da informação, jornadas de pagamento, wireframes, fluxos, protótipos, testes de usabilidade e integração com tecnologia para implementar interfaces responsivas.",
-        "en": "At Energisa Paraíba / Grupo Energisa, from August 2019 to August 2020, I worked in UI/UX and front-end development for web, mobile and self-service kiosks. My work covered information architecture, payment journeys, wireframes, flows, prototypes, usability testing and collaboration with technology to implement responsive interfaces."
+        "en": "At Energisa Paraíba / Grupo Energisa, from August 2019 to August 2020, I worked in UI/UX and front-end development for web, mobile and self-service kiosks. My work covered information architecture, payment journeys, wireframes, flows, prototypes, usability testing and collaboration with technology to implement responsive interfaces.",
+        "es": "En Energisa Paraíba / Grupo Energisa, de agosto de 2019 a agosto de 2020, trabajé con UI/UX y front-end para web, móvil y terminales de autoservicio. Participé en arquitectura de la información, recorridos de pago, wireframes, flujos, prototipos, pruebas de usabilidad e integración con tecnología para implementar interfaces adaptables."
       }
     },
     {
@@ -173,11 +199,18 @@
         "education",
         "university",
         "degree",
-        "studied"
+        "studied",
+        "formacion",
+        "donde estudiaste",
+        "que estudiaste",
+        "ciencias de la computacion",
+        "estudios",
+        "universidad"
       ],
       "answer": {
         "pt": "Minha formação informada no currículo é Ciência da Computação no UNIPÊ, Centro Universitário de João Pessoa. Essa base se conecta à minha atuação entre design e desenvolvimento. O currículo não informa a data ou o status de conclusão.",
-        "en": "The education listed in my résumé is Computer Science at UNIPÊ, Centro Universitário de João Pessoa. This background connects with my work across design and development. The résumé does not specify a completion date or status."
+        "en": "The education listed in my résumé is Computer Science at UNIPÊ, Centro Universitário de João Pessoa. This background connects with my work across design and development. The résumé does not specify a completion date or status.",
+        "es": "La formación indicada en mi currículum es Ciencias de la Computación en UNIPÊ, Centro Universitário de João Pessoa. Esa base se conecta con mi trabajo entre diseño y desarrollo. El currículum no indica la fecha ni el estado de finalización."
       }
     },
     {
@@ -189,11 +222,14 @@
         "certificacoes",
         "courses",
         "training",
-        "certifications"
+        "certifications",
+        "capacitacion",
+        "certificaciones"
       ],
       "answer": {
         "pt": "Meu currículo lista cursos de fundamentos e prática de UX, UX Strategy, usabilidade mobile, mensuração e testes de produto, Growth Hacking, HTML5 e CSS3 avançados, Flexbox e HTTP/HTTPS. Os conteúdos incluem pesquisa, personas, cenários, UX Canvas, MVP/MLP, heurísticas, validação de ideias, métricas e desenvolvimento responsivo.",
-        "en": "My résumé lists courses in UX foundations and practice, UX Strategy, mobile usability, product measurement and testing, Growth Hacking, advanced HTML5 and CSS3, Flexbox and HTTP/HTTPS. Topics include research, personas, scenarios, UX Canvas, MVP/MLP, heuristics, idea validation, metrics and responsive development."
+        "en": "My résumé lists courses in UX foundations and practice, UX Strategy, mobile usability, product measurement and testing, Growth Hacking, advanced HTML5 and CSS3, Flexbox and HTTP/HTTPS. Topics include research, personas, scenarios, UX Canvas, MVP/MLP, heuristics, idea validation, metrics and responsive development.",
+        "es": "Mi currículum incluye cursos de fundamentos y práctica de UX, UX Strategy, usabilidad móvil, medición y pruebas de producto, Growth Hacking, HTML5 y CSS3 avanzados, Flexbox y HTTP/HTTPS. Los contenidos incluyen investigación, personas, escenarios, UX Canvas, MVP/MLP, heurísticas, validación de ideas, métricas y desarrollo adaptable."
       }
     },
     {
@@ -217,11 +253,14 @@
         "adobe",
         "photoshop",
         "illustrator",
-        "codex"
+        "codex",
+        "herramientas",
+        "habilidades tecnicas"
       ],
       "answer": {
         "pt": "Trabalho com Figma, Adobe XD, Illustrator e Photoshop, prototipação, design systems, acessibilidade e responsividade. No código, uso HTML, CSS, JavaScript, Angular e React; na Ordiny, React e TypeScript. Meu currículo também registra desenvolvimento assistido por IA com Codex para código, refatoração e documentação.",
-        "en": "I work with Figma, Adobe XD, Illustrator and Photoshop, prototyping, design systems, accessibility and responsive design. In code, I use HTML, CSS, JavaScript, Angular and React; Ordiny uses React and TypeScript. My résumé also lists AI-assisted development with Codex for coding, refactoring and documentation."
+        "en": "I work with Figma, Adobe XD, Illustrator and Photoshop, prototyping, design systems, accessibility and responsive design. In code, I use HTML, CSS, JavaScript, Angular and React; Ordiny uses React and TypeScript. My résumé also lists AI-assisted development with Codex for coding, refactoring and documentation.",
+        "es": "Trabajo con Figma, Adobe XD, Illustrator y Photoshop, prototipado, sistemas de diseño, accesibilidad y adaptación a diferentes pantallas. En código uso HTML, CSS, JavaScript, Angular y React; en Ordiny, React y TypeScript. Mi currículum también recoge desarrollo asistido por IA con Codex para código, refactorización y documentación."
       }
     },
     {
@@ -237,11 +276,18 @@
         "proatividade",
         "teamwork",
         "collaboration",
-        "strengths"
+        "strengths",
+        "colaboracion",
+        "flexibilidad",
+        "pensamiento critico",
+        "proactividad",
+        "trabajo en equipo",
+        "fortalezas"
       ],
       "answer": {
         "pt": "Minhas competências comportamentais registradas no currículo são colaboração, empatia, flexibilidade, pensamento crítico, inteligência emocional, resiliência e proatividade. Na prática, trabalho junto de Produto, stakeholders, usuários e engenharia para conectar decisões e implementação.",
-        "en": "The soft skills listed in my résumé are collaboration, empathy, flexibility, critical thinking, emotional intelligence, resilience and proactivity. In practice, I work with product, stakeholders, users and engineering to connect decisions with implementation."
+        "en": "The soft skills listed in my résumé are collaboration, empathy, flexibility, critical thinking, emotional intelligence, resilience and proactivity. In practice, I work with product, stakeholders, users and engineering to connect decisions with implementation.",
+        "es": "Las competencias personales registradas en mi currículum son colaboración, empatía, flexibilidad, pensamiento crítico, inteligencia emocional, resiliencia y proactividad. En la práctica trabajo con Producto, stakeholders, usuarios e ingeniería para conectar decisiones e implementación."
       }
     },
     {
@@ -262,11 +308,19 @@
         "prototipo",
         "design system",
         "acessibilidade",
-        "performance"
+        "performance",
+        "como trabajas",
+        "proceso",
+        "investigacion",
+        "usabilidad",
+        "sistema de diseno",
+        "accesibilidad",
+        "rendimiento"
       ],
       "answer": {
         "pt": "Começo pelo contexto, pelas regras do negócio e pelas necessidades das pessoas. Conecto discovery, arquitetura da informação, fluxos, protótipos, validação e design systems à implementação. Meu foco é manter a jornada clara e consistente, com acessibilidade, responsividade e performance, trabalhando com Produto e engenharia ao longo da entrega.",
-        "en": "I start with context, business rules and people's needs. I connect discovery, information architecture, flows, prototypes, validation and design systems with implementation. My focus is on clear and consistent journeys, accessibility, responsive design and performance, working with product and engineering throughout delivery."
+        "en": "I start with context, business rules and people's needs. I connect discovery, information architecture, flows, prototypes, validation and design systems with implementation. My focus is on clear and consistent journeys, accessibility, responsive design and performance, working with product and engineering throughout delivery.",
+        "es": "Empiezo por el contexto, las reglas del negocio y las necesidades de las personas. Conecto discovery, arquitectura de la información, flujos, prototipos, validación y sistemas de diseño con la implementación. Mi enfoque es mantener el recorrido claro y consistente, con accesibilidad, adaptación a diferentes pantallas y rendimiento, trabajando con Producto e ingeniería durante la entrega."
       }
     },
     {
@@ -279,22 +333,29 @@
         "projects",
         "portfolio work",
         "cases",
-        "estudos"
+        "estudos",
+        "proyectos",
+        "portafolio",
+        "casos de estudio",
+        "tus trabajos"
       ],
       "answer": {
         "pt": "Os cinco projetos apresentados aqui são Ordiny, Cash Advance, Sandfit Arena, Lumen e Aqui Limpa. A Ordiny conecta produto, UX/UI e desenvolvimento em um SaaS de agendamento. Cash Advance é um estudo de jornada financeira para motoristas. Lumen ajuda a compreender o consumo de energia, e Aqui Limpa apresenta serviços de limpeza com uma hierarquia clara de informação. Sandfit Arena conecta a descoberta de uma academia com areia à escolha do treino e à reserva, com UX/UI, fluxos e sistema visual.",
-        "en": "The five projects presented here are Ordiny, Cash Advance, Sandfit Arena, Lumen and Aqui Limpa. Ordiny connects product, UX/UI and development in a booking SaaS. Cash Advance is a financial journey case study for drivers. Lumen helps users understand energy consumption, and Aqui Limpa presents cleaning services with a clear information hierarchy. Sandfit Arena connects discovery of a gym with sand to choosing a workout and booking, with UX/UI, flows and a visual system."
+        "en": "The five projects presented here are Ordiny, Cash Advance, Sandfit Arena, Lumen and Aqui Limpa. Ordiny connects product, UX/UI and development in a booking SaaS. Cash Advance is a financial journey case study for drivers. Lumen helps users understand energy consumption, and Aqui Limpa presents cleaning services with a clear information hierarchy. Sandfit Arena connects discovery of a gym with sand to choosing a workout and booking, with UX/UI, flows and a visual system.",
+        "es": "Los cinco proyectos presentados aquí son Ordiny, Cash Advance, Sandfit Arena, Lumen y Aqui Limpa. Ordiny conecta producto, UX/UI y desarrollo en un SaaS de reservas. Cash Advance es un caso de estudio de recorrido financiero para transportistas. Lumen ayuda a comprender el consumo de energía y Aqui Limpa presenta servicios de limpieza con una jerarquía clara de información. Sandfit Arena conecta el descubrimiento de un gimnasio con arena con la elección del entrenamiento y la reserva, con UX/UI, flujos y sistema visual."
       },
       "links": [
         {
           "url": "projetos.html",
           "pt": "Explorar projetos",
-          "en": "Explore projects"
+          "en": "Explore projects",
+          "es": "Explorar proyectos"
         },
         {
           "url": "sandfit.html",
           "pt": "Conhecer Sandfit Arena",
-          "en": "Discover Sandfit Arena"
+          "en": "Discover Sandfit Arena",
+          "es": "Conocer Sandfit Arena"
         }
       ]
     },
@@ -307,17 +368,21 @@
         "agendamento",
         "saas",
         "booking",
-        "appointment"
+        "appointment",
+        "reservas",
+        "citas"
       ],
       "answer": {
         "pt": "A Ordiny é meu projeto pessoal de SaaS para serviços agendados. Projetei e desenvolvi produto, UX/UI, front-end, back-end, arquitetura e infraestrutura. Ela conecta reserva, agenda, clientes, profissionais, pagamentos e WhatsApp, usando as mesmas regras de disponibilidade no painel, link público e conversa. Está em desenvolvimento e homologação; os benefícios ainda precisam ser medidos em uso real.",
-        "en": "Ordiny is my personal SaaS project for appointment-based services. I designed and developed the product, UX/UI, front-end, back-end, architecture and infrastructure. It connects bookings, calendars, customers, professionals, payments and WhatsApp, with shared availability rules across the dashboard, public link and conversation. It is under development and staging; benefits still need to be measured in real use."
+        "en": "Ordiny is my personal SaaS project for appointment-based services. I designed and developed the product, UX/UI, front-end, back-end, architecture and infrastructure. It connects bookings, calendars, customers, professionals, payments and WhatsApp, with shared availability rules across the dashboard, public link and conversation. It is under development and staging; benefits still need to be measured in real use.",
+        "es": "Ordiny es mi proyecto personal de SaaS para servicios con reserva. Diseñé y desarrollé producto, UX/UI, front-end, back-end, arquitectura e infraestructura. Conecta reserva, agenda, clientes, profesionales, pagos y WhatsApp, utilizando las mismas reglas de disponibilidad en el panel, el enlace público y la conversación. Está en desarrollo y pruebas; los beneficios aún deben medirse en uso real."
       },
       "links": [
         {
           "url": "ordiny.html",
           "pt": "Conhecer a Ordiny",
-          "en": "Discover Ordiny"
+          "en": "Discover Ordiny",
+          "es": "Conocer Ordiny"
         }
       ]
     },
@@ -336,17 +401,20 @@
         "arquitetura ordiny",
         "stack ordiny",
         "ordiny architecture",
-        "ordiny stack"
+        "ordiny stack",
+        "arquitectura ordiny"
       ],
       "answer": {
         "pt": "A Ordiny usa React e TypeScript no Cloudflare Pages, com componentes para desktop, mobile e PWA. Workers e Hono validam regras, D1 armazena dados e Durable Objects coordenam operações críticas. Queues e tarefas agendadas processam atividades, R2 guarda imagens e KV apoia configurações. Há isolamento entre contas, permissões, validações, auditoria e verificação de webhooks.",
-        "en": "Ordiny uses React and TypeScript on Cloudflare Pages, with shared desktop, mobile and PWA components. Workers and Hono validate rules, D1 stores data and Durable Objects coordinate critical operations. Queues and scheduled tasks process work, R2 stores images and KV supports configuration. Protections include account isolation, permissions, validation, auditing and webhook verification."
+        "en": "Ordiny uses React and TypeScript on Cloudflare Pages, with shared desktop, mobile and PWA components. Workers and Hono validate rules, D1 stores data and Durable Objects coordinate critical operations. Queues and scheduled tasks process work, R2 stores images and KV supports configuration. Protections include account isolation, permissions, validation, auditing and webhook verification.",
+        "es": "Ordiny utiliza React y TypeScript en Cloudflare Pages, con componentes para escritorio, móvil y PWA. Workers y Hono validan reglas, D1 almacena datos y Durable Objects coordinan operaciones críticas. Queues y tareas programadas procesan actividades, R2 almacena imágenes y KV apoya la configuración. Hay aislamiento entre cuentas, permisos, validaciones, auditoría y verificación de webhooks."
       },
       "links": [
         {
           "url": "ordiny.html#construcao",
           "pt": "Ver construção",
-          "en": "View implementation"
+          "en": "View implementation",
+          "es": "Ver desarrollo"
         }
       ]
     },
@@ -359,11 +427,14 @@
         "automacao",
         "inteligencia artificial",
         "artificial intelligence",
-        "human handoff"
+        "human handoff",
+        "automatizacion",
+        "atencion humana"
       ],
       "answer": {
         "pt": "Na Ordiny, cada unidade usa seu próprio número do WhatsApp Business. O chatbot conduz o agendamento e encaminha para uma pessoa quando o cliente pede ajuda, pausando a automação. Lembretes e ações para retomar o contato com clientes têm controles próprios e exigem consentimento. O recurso de IA está desativada por padrão: ela interpreta mensagens, enquanto preços, disponibilidade e confirmação continuam sob as regras do sistema.",
-        "en": "In Ordiny, each unit uses its own WhatsApp Business number. The chatbot guides booking and hands the conversation to a person when the customer asks for help, pausing automation. Reminders and re-engagement have separate controls and consent. The AI feature is disabled by default: it interprets messages while prices, availability and confirmation remain governed by system rules."
+        "en": "In Ordiny, each unit uses its own WhatsApp Business number. The chatbot guides booking and hands the conversation to a person when the customer asks for help, pausing automation. Reminders and re-engagement have separate controls and consent. The AI feature is disabled by default: it interprets messages while prices, availability and confirmation remain governed by system rules.",
+        "es": "En Ordiny, cada sucursal utiliza su propio número de WhatsApp Business. El chatbot guía la reserva y deriva a una persona cuando el cliente pide ayuda, pausando la automatización. Los recordatorios y las acciones para retomar el contacto con clientes tienen controles propios y requieren consentimiento. La función de IA está desactivada por defecto: interpreta mensajes, mientras que precios, disponibilidad y confirmación siguen las reglas del sistema."
       }
     },
     {
@@ -379,17 +450,24 @@
         "recebiveis",
         "drivers",
         "freight",
-        "advance"
+        "advance",
+        "anticipo",
+        "anticipos",
+        "transporte",
+        "transportistas",
+        "pagos por cobrar"
       ],
       "answer": {
         "pt": "Cash Advance é um estudo UX/UI e protótipo de alta fidelidade para motoristas autônomos. Atuei em pesquisa, fluxos, identidade visual, componentes e prototipação. A jornada apresenta recebíveis elegíveis, custo, valor líquido e destino antes de autorizar; depois distingue solicitação recebida, análise e resultado. Também inclui Pix, cartão virtual, Caixinhas e crédito. É um estudo, sem resultados comerciais medidos.",
-        "en": "Cash Advance is a UX/UI case study and high-fidelity prototype for independent drivers. My role covered research, flows, visual identity, components and prototyping. The journey shows eligible receivables, cost, net amount and destination before authorization, then distinguishes request received, assessment and outcome. It also includes Pix, virtual cards, Savings pots and credit. It is a case study, without measured commercial results."
+        "en": "Cash Advance is a UX/UI case study and high-fidelity prototype for independent drivers. My role covered research, flows, visual identity, components and prototyping. The journey shows eligible receivables, cost, net amount and destination before authorization, then distinguishes request received, assessment and outcome. It also includes Pix, virtual cards, Savings pots and credit. It is a case study, without measured commercial results.",
+        "es": "Cash Advance es un caso de estudio de UX/UI y un prototipo de alta fidelidad para transportistas autónomos. Trabajé en investigación, flujos, identidad visual, componentes y prototipado. El recorrido presenta pagos por cobrar elegibles, coste, importe neto y destino antes de autorizar; después distingue entre solicitud recibida, análisis y resultado. También incluye Pix, tarjeta virtual, Caixinhas y crédito. Es un estudio, sin resultados comerciales medidos."
       },
       "links": [
         {
           "url": "cash-advance.html",
           "pt": "Conhecer Cash Advance",
-          "en": "Discover Cash Advance"
+          "en": "Discover Cash Advance",
+          "es": "Conocer Cash Advance"
         }
       ]
     },
@@ -404,11 +482,14 @@
         "credito cash",
         "scheduled pix",
         "savings pots",
-        "virtual card"
+        "virtual card",
+        "pix programado",
+        "tarjeta virtual"
       ],
       "answer": {
         "pt": "No Cash Advance, o Pix permite enviar agora, agendar ou configurar recorrência. Editar o valor preserva destinatário, data e contexto. O cartão virtual orienta o acesso protegido aos dados; as Caixinhas mostram objetivos e progresso; o crédito separa simulação, revisão de condições, análise e aprovação.",
-        "en": "In Cash Advance, Pix supports immediate transfers, scheduling and recurrence. Editing the amount preserves the recipient, date and context. Virtual cards guide protected access to card details; Savings pots show goals and progress; credit separates simulation, terms review, assessment and approval."
+        "en": "In Cash Advance, Pix supports immediate transfers, scheduling and recurrence. Editing the amount preserves the recipient, date and context. Virtual cards guide protected access to card details; Savings pots show goals and progress; credit separates simulation, terms review, assessment and approval.",
+        "es": "En Cash Advance, Pix permite enviar ahora, programar o configurar recurrencia. Editar el importe conserva destinatario, fecha y contexto. La tarjeta virtual orienta el acceso protegido a los datos; Caixinhas muestra objetivos y progreso; el crédito separa simulación, revisión de condiciones, análisis y aprobación."
       }
     },
     {
@@ -421,11 +502,15 @@
         "cash results",
         "cash research",
         "cash validation",
-        "metricas"
+        "metricas",
+        "investigacion cash",
+        "validacion cash",
+        "metricas cash"
       ],
       "answer": {
         "pt": "O estudo Cash Advance documenta pesquisa, fluxo, guia de estilo e protótipo. Os números do questionário orientam hipóteses, mas a amostra, as datas e o recrutamento não estão informados. A revisão de navegação cobriu dez cenários do protótipo, sem substituir testes com motoristas. O próximo passo é observar compreensão de taxas, valor líquido, status da solicitação e confiança no Pix.",
-        "en": "The Cash Advance study documents research, flows, a style guide and a prototype. Questionnaire figures guide hypotheses, but sample size, dates and recruitment are unspecified. Navigation review covered ten prototype scenarios, without replacing tests with drivers. Next steps include observing understanding of fees, net amounts, request status and confidence in Pix."
+        "en": "The Cash Advance study documents research, flows, a style guide and a prototype. Questionnaire figures guide hypotheses, but sample size, dates and recruitment are unspecified. Navigation review covered ten prototype scenarios, without replacing tests with drivers. Next steps include observing understanding of fees, net amounts, request status and confidence in Pix.",
+        "es": "El caso Cash Advance documenta investigación, flujo, guía de estilo y prototipo. Los datos del cuestionario orientan hipótesis, pero no se indican la muestra, las fechas ni la selección de participantes. La revisión de navegación cubrió diez escenarios del prototipo, sin sustituir pruebas con transportistas. El próximo paso es observar la comprensión de comisiones, importe neto, estado de la solicitud y confianza en Pix."
       }
     },
     {
@@ -436,17 +521,20 @@
         "energia",
         "consumo",
         "energy",
-        "electricity"
+        "electricity",
+        "electricidad"
       ],
       "answer": {
         "pt": "Lumen é um simulador de consumo de energia apresentado no meu portfólio. Meu papel reúne UX/UI e visualização de informação, com uma interface para explorar e compreender o consumo. O estudo completo está no Behance.",
-        "en": "Lumen is an energy consumption simulator presented in my portfolio. My role combines UX/UI and information visualization, with an interface for exploring and understanding consumption. The full case study is on Behance."
+        "en": "Lumen is an energy consumption simulator presented in my portfolio. My role combines UX/UI and information visualization, with an interface for exploring and understanding consumption. The full case study is on Behance.",
+        "es": "Lumen es un simulador de consumo de energía presentado en mi portafolio. Mi papel incluye UX/UI y visualización de información, con una interfaz para explorar y comprender el consumo. El caso completo está en Behance."
       },
       "links": [
         {
           "url": "https://www.behance.net/gallery/234488301/Lumen-simulador-de-consumo-de-energia",
           "pt": "Ver Lumen",
-          "en": "View Lumen"
+          "en": "View Lumen",
+          "es": "Ver Lumen"
         }
       ]
     },
@@ -457,17 +545,20 @@
         "aqui limpa",
         "limpa",
         "limpeza",
-        "cleaning"
+        "cleaning",
+        "limpieza"
       ],
       "answer": {
         "pt": "Aqui Limpa é um website de apresentação de serviços de limpeza. Meu papel é UI e hierarquia de conteúdo, organizando a informação para tornar os serviços compreensíveis e construir confiança. O projeto está na coleção do portfólio e no Behance.",
-        "en": "Aqui Limpa is a website presenting cleaning services. My role is UI and content hierarchy, organizing information to make the services understandable and build confidence. The project is in the portfolio collection and on Behance."
+        "en": "Aqui Limpa is a website presenting cleaning services. My role is UI and content hierarchy, organizing information to make the services understandable and build confidence. The project is in the portfolio collection and on Behance.",
+        "es": "Aqui Limpa es un sitio de presentación de servicios de limpieza. Mi papel es UI y jerarquía de contenido, organizando la información para que los servicios sean comprensibles y generen confianza. El proyecto está en la colección del portafolio y en Behance."
       },
       "links": [
         {
           "url": "https://www.behance.net/gallery/234762579/Landing-Page-Aqui-Limpa",
           "pt": "Ver Aqui Limpa",
-          "en": "View Aqui Limpa"
+          "en": "View Aqui Limpa",
+          "es": "Ver Aqui Limpa"
         }
       ]
     },
@@ -496,11 +587,22 @@
         "viagem",
         "shopping",
         "science fiction",
-        "travel"
+        "travel",
+        "aficiones",
+        "pasatiempos",
+        "que te gusta hacer",
+        "tiempo libre",
+        "intereses personales",
+        "ciencia ficcion",
+        "peliculas",
+        "series",
+        "viajes",
+        "centro comercial"
       ],
       "answer": {
         "pt": "Fora do trabalho, gosto de assistir a filmes e séries de ficção científica, além de animes. Também gosto de ir a eventos de cultura pop, viajar, passear no shopping e confeccionar cosplays.",
-        "en": "Outside work, I enjoy watching science fiction movies and series, as well as anime. I also like going to pop culture events, travelling, visiting the mall and making cosplay costumes."
+        "en": "Outside work, I enjoy watching science fiction movies and series, as well as anime. I also like going to pop culture events, travelling, visiting the mall and making cosplay costumes.",
+        "es": "Fuera del trabajo me gusta ver películas y series de ciencia ficción, además de anime. También me gusta asistir a eventos de cultura pop, viajar, pasear por centros comerciales y confeccionar cosplays."
       }
     },
     {
@@ -516,11 +618,16 @@
         "where do you live",
         "where are you from",
         "location",
-        "city"
+        "city",
+        "donde vives",
+        "de donde eres",
+        "ciudad",
+        "ubicacion"
       ],
       "answer": {
         "pt": "Sou de João Pessoa, na Paraíba, conforme a localização informada no meu currículo.",
-        "en": "I'm based in João Pessoa, Paraíba, Brazil, according to the location listed in my résumé."
+        "en": "I'm based in João Pessoa, Paraíba, Brazil, according to the location listed in my résumé.",
+        "es": "Soy de João Pessoa, en Paraíba, según la ubicación indicada en mi currículum."
       }
     },
     {
@@ -532,11 +639,15 @@
         "ingles fluente",
         "languages",
         "speak english",
-        "english fluency"
+        "english fluency",
+        "hablas ingles",
+        "hablas espanol",
+        "lenguas"
       ],
       "answer": {
-        "pt": "Meu currículo informa português fluente. Ele não informa um nível de inglês. O portfólio pode ser consultado em português e inglês pelo seletor PT / ENG.",
-        "en": "My résumé lists fluent Portuguese. It doesn't specify an English proficiency level. The portfolio is available in Portuguese and English through the PT / ENG selector."
+        "pt": "Meu currículo informa português fluente. Ele não informa um nível de inglês ou espanhol. O portfólio pode ser consultado em português, espanhol e inglês pelo seletor PT / ESP / ENG.",
+        "en": "My résumé lists fluent Portuguese. It does not specify a level of English or Spanish. The portfolio is available in Portuguese, Spanish and English through the PT / ESP / ENG selector.",
+        "es": "Mi currículum indica portugués fluido. No indica un nivel de inglés o español. El portafolio puede consultarse en portugués, español e inglés mediante el selector PT / ESP / ENG."
       }
     },
     {
@@ -555,27 +666,37 @@
         "contact",
         "hire",
         "availability",
-        "reach you"
+        "reach you",
+        "contacto",
+        "correo",
+        "telefono",
+        "oportunidad",
+        "disponibilidad laboral",
+        "contactarte"
       ],
       "answer": {
         "pt": "Para conversar sobre uma oportunidade ou desafio de produto, você pode escrever para fabiano.antero@gmail.com, usar o LinkedIn ou falar comigo no WhatsApp. Minha disponibilidade atual pode ser combinada diretamente nesses canais.",
-        "en": "To discuss an opportunity or product challenge, email fabiano.antero@gmail.com, use LinkedIn or contact me on WhatsApp. My current availability can be discussed directly through those channels."
+        "en": "To discuss an opportunity or product challenge, email fabiano.antero@gmail.com, use LinkedIn or contact me on WhatsApp. My current availability can be discussed directly through those channels.",
+        "es": "Para conversar sobre una oportunidad o un desafío de producto puedes escribir a fabiano.antero@gmail.com, usar LinkedIn o contactarme por WhatsApp. Mi disponibilidad actual puede acordarse directamente por esos canales."
       },
       "links": [
         {
           "url": "mailto:fabiano.antero@gmail.com",
           "pt": "E-mail",
-          "en": "Email"
+          "en": "Email",
+          "es": "Correo electrónico"
         },
         {
           "url": "https://www.linkedin.com/in/fabianoantero/",
           "pt": "LinkedIn",
-          "en": "LinkedIn"
+          "en": "LinkedIn",
+          "es": "LinkedIn"
         },
         {
           "url": "https://wa.me/5583987953525",
           "pt": "WhatsApp",
-          "en": "WhatsApp"
+          "en": "WhatsApp",
+          "es": "WhatsApp"
         }
       ]
     },
@@ -586,17 +707,21 @@
         "curriculo",
         "cv",
         "resume",
-        "résumé"
+        "résumé",
+        "curriculum",
+        "hoja de vida"
       ],
       "answer": {
         "pt": "Você pode consultar meu currículo completo para conhecer a formação, as experiências, os cursos e as competências. O link é o mesmo disponível na hero do portfólio.",
-        "en": "You can view my full résumé for education, experience, courses and skills. This is the same link available in the portfolio hero."
+        "en": "You can view my full résumé for education, experience, courses and skills. This is the same link available in the portfolio hero.",
+        "es": "Puedes consultar mi currículum completo para conocer la formación, la experiencia, los cursos y las competencias. El enlace es el mismo disponible en la hero del portafolio."
       },
       "links": [
         {
           "url": "https://www.dropbox.com/scl/fi/ag2grh2o8ok2djv4wdsnp/Fabiano_curr-culo_30.09.26.pdf?rlkey=2kc88bze079axuvsi5jbhr073&st=b02soaow&dl=0",
           "pt": "Abrir currículo",
-          "en": "View résumé"
+          "en": "View résumé",
+          "es": "Abrir currículum"
         }
       ]
     },
@@ -609,17 +734,21 @@
         "pagamento ordiny",
         "pagamentos ordiny",
         "ordiny payments",
-        "ordiny subscription"
+        "ordiny subscription",
+        "pagos ordiny",
+        "suscripcion ordiny"
       ],
       "answer": {
         "pt": "A Ordiny separa a assinatura do SaaS e o pagamento do atendimento. O estabelecimento paga pelo uso da plataforma; o cliente paga na conta Stripe da própria unidade, sem comissão da Ordiny. O checkout do provedor oferece os meios de pagamento disponíveis, enquanto a unidade responde por taxas, reembolsos e contestações. Referências e histórico ajudam a evitar registros duplicados.",
-        "en": "Ordiny separates the SaaS subscription from appointment payments. The business pays to use the platform; customers pay into the unit’s own Stripe account, without an Ordiny commission. The provider checkout handles eligible payment methods, while the unit is responsible for fees, refunds and disputes. References and history help prevent duplicate records."
+        "en": "Ordiny separates the SaaS subscription from appointment payments. The business pays to use the platform; customers pay into the unit’s own Stripe account, without an Ordiny commission. The provider checkout handles eligible payment methods, while the unit is responsible for fees, refunds and disputes. References and history help prevent duplicate records.",
+        "es": "Ordiny separa la suscripción al SaaS y el pago del servicio. El establecimiento paga por utilizar la plataforma; el cliente paga en la cuenta Stripe de la propia sucursal, sin comisión de Ordiny. El checkout del proveedor ofrece los medios de pago disponibles, mientras la sucursal responde por comisiones, reembolsos y disputas. Las referencias y el historial ayudan a evitar registros duplicados."
       },
       "links": [
         {
           "url": "ordiny.html#pagamentos",
           "pt": "Ver pagamentos",
-          "en": "View payments"
+          "en": "View payments",
+          "es": "Ver pagos"
         }
       ]
     },
@@ -634,17 +763,22 @@
         "profissional ordiny",
         "public link",
         "ordiny availability",
-        "ordiny booking rules"
+        "ordiny booking rules",
+        "enlace publico",
+        "disponibilidad ordiny",
+        "profesional ordiny"
       ],
       "answer": {
         "pt": "Na Ordiny, a configuração dos serviços, dos profissionais e da disponibilidade define as opções do link público e das integrações. O cliente escolhe serviços ou pacotes, profissional e horário. Painel, link público e WhatsApp revalidam a disponibilidade na confirmação para prevenir conflitos. Os perfis de proprietário, recepção e profissionais orientam ações, e a API verifica permissões em cada operação.",
-        "en": "In Ordiny, service, staff and availability settings determine the options offered through the public booking link and integrations. Customers choose services or packages, a professional and a time. The dashboard, public link and WhatsApp revalidate availability on confirmation to prevent conflicts. Owner, reception and professional roles guide actions, and the API checks permissions for each operation."
+        "en": "In Ordiny, service, staff and availability settings determine the options offered through the public booking link and integrations. Customers choose services or packages, a professional and a time. The dashboard, public link and WhatsApp revalidate availability on confirmation to prevent conflicts. Owner, reception and professional roles guide actions, and the API checks permissions for each operation.",
+        "es": "En Ordiny, la configuración de servicios, profesionales y disponibilidad define las opciones del enlace público y de las integraciones. El cliente elige servicios o paquetes, profesional y horario. El panel, el enlace público y WhatsApp vuelven a validar la disponibilidad al confirmar para evitar conflictos. Los perfiles de propietario, recepción y profesionales orientan las acciones y la API comprueba permisos en cada operación."
       },
       "links": [
         {
           "url": "ordiny.html#reserva",
           "pt": "Ver reservas",
-          "en": "View booking"
+          "en": "View booking",
+          "es": "Ver reservas"
         }
       ]
     },
@@ -656,17 +790,21 @@
         "sistema visual cash",
         "identidade cash",
         "cash colors",
-        "cash design system"
+        "cash design system",
+        "colores cash",
+        "identidad cash"
       ],
       "answer": {
         "pt": "A identidade do Cash Advance combina verde profundo (#16421F), lima (#CDF545) e superfícies claras. A tipografia é Roboto. Botões, campos, ações rápidas, navegação e resumos compartilham a mesma base, com estados para cadastro parcial, ausência de recebíveis, revisão, solicitação recebida e análise.",
-        "en": "Cash Advance’s identity combines deep green (#16421F), lime (#CDF545) and light surfaces. It uses Roboto typography. Buttons, fields, quick actions, navigation and summaries share a foundation, with states for partial registration, no receivables, review, received requests and assessment."
+        "en": "Cash Advance’s identity combines deep green (#16421F), lime (#CDF545) and light surfaces. It uses Roboto typography. Buttons, fields, quick actions, navigation and summaries share a foundation, with states for partial registration, no receivables, review, received requests and assessment.",
+        "es": "La identidad de Cash Advance combina verde profundo (#16421F), lima (#CDF545) y superficies claras. La tipografía es Roboto. Botones, campos, acciones rápidas, navegación y resúmenes comparten la misma base, con estados para registro parcial, ausencia de pagos por cobrar, revisión, solicitud recibida y análisis."
       },
       "links": [
         {
           "url": "cash-advance.html#sistema",
           "pt": "Ver sistema visual",
-          "en": "View visual system"
+          "en": "View visual system",
+          "es": "Ver sistema visual"
         }
       ]
     },
@@ -678,17 +816,21 @@
         "sandfit arena",
         "treino na areia",
         "academia com areia",
-        "sand training"
+        "sand training",
+        "entrenamiento en la arena",
+        "gimnasio con arena"
       ],
       "answer": {
         "pt": "Sandfit Arena é um projeto para cliente na área de bem-estar. Atuei em design de produto, UX/UI, fluxos e sistema visual para conectar a descoberta de uma academia com areia à escolha do treino, à reserva e à organização da rotina. A entrega reúne app, site, design system e protótipo, com regras de disponibilidade, créditos, cancelamento, lista de espera e reagendamento. O projeto foi realizado sob confidencialidade e, por decisão do cliente, concluído após a entrega do design. O case preserva informações confidenciais e não apresenta resultados comerciais mensurados.",
-        "en": "Sandfit Arena is a client project in wellness. I worked on product design, UX/UI, flows and the visual system, connecting discovery of a gym with sand to choosing workouts, booking and organizing a routine. The delivery includes an app, website, design system and prototype, with rules for availability, credits, cancellation, waitlists and rescheduling. The project was carried out under confidentiality and, at the client’s decision, concluded after design delivery. The case preserves confidential information and does not claim measured commercial results."
+        "en": "Sandfit Arena is a client project in wellness. I worked on product design, UX/UI, flows and the visual system, connecting discovery of a gym with sand to choosing workouts, booking and organizing a routine. The delivery includes an app, website, design system and prototype, with rules for availability, credits, cancellation, waitlists and rescheduling. The project was carried out under confidentiality and, at the client’s decision, concluded after design delivery. The case preserves confidential information and does not claim measured commercial results.",
+        "es": "Sandfit Arena es un proyecto para cliente en el área de bienestar. Trabajé en diseño de producto, UX/UI, flujos y sistema visual para conectar el descubrimiento de un gimnasio con arena con la elección del entrenamiento, la reserva y la organización de la rutina. La entrega reúne app, sitio, sistema de diseño y prototipo, con reglas de disponibilidad, créditos, cancelación, lista de espera y cambios de fecha. El proyecto se realizó bajo confidencialidad y, por decisión del cliente, concluyó tras la entrega del diseño. El caso preserva la información confidencial y no presenta resultados comerciales medidos."
       },
       "links": [
         {
           "url": "sandfit.html",
           "pt": "Conhecer Sandfit Arena",
-          "en": "Discover Sandfit Arena"
+          "en": "Discover Sandfit Arena",
+          "es": "Conocer Sandfit Arena"
         }
       ]
     }

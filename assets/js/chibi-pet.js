@@ -1,6 +1,6 @@
 import * as THREE from '../vendor/three/three.module.js';
 import { GLTFLoader } from '../vendor/three/loaders/GLTFLoader.js';
-import { createCharacterChat } from './chibi-chat.js?v=20261006-sandfit';
+import { createCharacterChat } from './chibi-chat.js?v=20261007-es';
 import { createCharacterBounds } from './chibi-bounds.js';
 
 const mouse = matchMedia('(any-hover: hover) and (any-pointer: fine)');
@@ -135,10 +135,10 @@ export async function createPet({layer:sharedLayer,chat:sharedChat,onReady}={}) 
     const transitionRotation=new THREE.Quaternion();
     const home = () => ({x:innerWidth-184,y:innerHeight-234});
     const language = () => {
-      const english = document.documentElement.lang === 'en';
-      trigger.setAttribute('aria-label',english?'Play with the 3D character. Carry him for 10 seconds. Escape releases him.':'Brincar com o personagem 3D. Carregue por 10 segundos. Escape faz ele soltar.');
-      close.setAttribute('aria-label',english?'Hide character':'Ocultar personagem');
-      trigger.title = english?'Move the pointer over me':'Passe o cursor sobre mim';
+      const locale = document.documentElement.lang;
+      trigger.setAttribute('aria-label',locale==='es'?'Jugar con el personaje 3D. Llévalo durante 10 segundos. Escape lo suelta.':locale==='en'?'Play with the 3D character. Carry him for 10 seconds. Escape releases him.':'Brincar com o personagem 3D. Carregue por 10 segundos. Escape faz ele soltar.');
+      close.setAttribute('aria-label',locale==='es'?'Ocultar personaje':locale==='en'?'Hide character':'Ocultar personagem');
+      trigger.title = locale==='es'?'Mueve el cursor sobre mí':locale==='en'?'Move the pointer over me':'Passe o cursor sobre mim';
     };
     const cursorVisible = visible => {
       const active = visible && mouse.matches && pointerType==='mouse';

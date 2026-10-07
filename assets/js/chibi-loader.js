@@ -1,4 +1,4 @@
-import {createCharacterChat} from './chibi-chat.js?v=20261006-sandfit';
+import {createCharacterChat} from './chibi-chat.js?v=20261007-es';
 
 let dismissed=false;
 try{dismissed=sessionStorage.getItem('portfolio-chibi-hidden')==='true';}catch{}
@@ -14,16 +14,16 @@ if(!dismissed) {
   let alive=true, loading, pet, queued=false, idleTask, observer;
   const chat=createCharacterChat(layer,{onOpen:()=>{preview.dataset.chatOpen='true';loadPet();},onClose:()=>{delete preview.dataset.chatOpen;}});
   const language=()=>{
-    const english=document.documentElement.lang==='en';
-    trigger.setAttribute('aria-label',english?'Play with the 3D character':'Brincar com o personagem 3D');
-    close.setAttribute('aria-label',english?'Hide character':'Ocultar personagem');
+    const locale=document.documentElement.lang;
+    trigger.setAttribute('aria-label',locale==='es'?'Jugar con el personaje 3D':locale==='en'?'Play with the 3D character':'Brincar com o personagem 3D');
+    close.setAttribute('aria-label',locale==='es'?'Ocultar personaje':locale==='en'?'Hide character':'Ocultar personagem');
   };
   language();document.addEventListener('portfolio:language',language);
   const removePreview=()=>{preview.remove();document.removeEventListener('portfolio:language',language);};
   async function loadPet(event) {
     if(!alive||reduced.matches)return;
     if(!loading)loading=(async()=>{
-      const {createPet}=await import('./chibi-pet.js?v=20261006-sandfit');
+      const {createPet}=await import('./chibi-pet.js?v=20261007-es');
       if(!alive)return;
       pet=await createPet({layer,chat,onReady:removePreview});
       if(!alive)pet?.destroy();

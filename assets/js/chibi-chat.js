@@ -1,6 +1,7 @@
-import {findCharacterAnswer,isConversationEnding} from './chibi-answers.js?v=20261006-sandfit';
+import {findCharacterAnswer,isConversationEnding} from './chibi-answers.js?v=20261007-es';
 
 const copy={
+  es:{invite:'¡Hola! ¿Quieres saber un poco sobre mí?',yes:'Sí',no:'No',title:'Conversa con Fabiano',subtitle:'Carrera, proyectos y un poco de mí.',open:'Conversar',close:'Cerrar conversación',label:'Tu pregunta',placeholder:'¿Qué quieres saber?',send:'Enviar',welcome:'¡Puedes preguntar! ¿Quieres conocer mi trayectoria, mis proyectos o lo que me gusta hacer?',unknown:'Todavía no tengo esa información sobre mí. Puedo contarte sobre mi carrera, formación, competencias, proyectos y aficiones. Para otros detalles, podemos conversar por los canales de contacto.',greeting:'¡Hola! Me alegra verte por aquí. ¿Qué quieres saber sobre mi carrera, mis proyectos o mis aficiones?',thanks:'¡De nada! Si quieres, podemos conversar sobre otro proyecto o sobre mi trayectoria.',loading:'Un momento…',error:'No pude cargar mis respuestas. Intenta enviar tu pregunta de nuevo.',suggestions:['¿Quién eres?','Cuéntame sobre Ordiny','¿Cuáles son tus aficiones?'],you:'Tú',avatar:'Fabiano',limit:'Escribe una pregunta de hasta 350 caracteres.'},
   pt:{invite:'Oi! Quer saber um pouco sobre mim?',yes:'Sim',no:'Não',title:'Converse com o Fabiano',subtitle:'Carreira, projetos e um pouco de mim.',open:'Conversar',close:'Fechar conversa',label:'Sua pergunta',placeholder:'O que você quer saber?',send:'Enviar',welcome:'Pode perguntar! Quer conhecer minha trajetória, meus projetos ou o que gosto de fazer?',unknown:'Ainda não tenho essa informação sobre mim. Posso contar sobre minha carreira, formação, competências, projetos e hobbies. Para outros detalhes, podemos conversar pelos canais de contato.',greeting:'Oi! É bom ter você por aqui. O que quer saber sobre minha carreira, meus projetos ou meus hobbies?',thanks:'Por nada! Se quiser, podemos conversar sobre outro projeto ou sobre minha trajetória.',loading:'Um instante…',error:'Não consegui carregar minhas respostas. Tente enviar sua pergunta novamente.',suggestions:['Quem é você?','Conte sobre a Ordiny','Quais são seus hobbies?'],you:'Você',avatar:'Fabiano',limit:'Escreva uma pergunta com até 350 caracteres.'},
   en:{invite:'Hi! Would you like to know a little about me?',yes:'Yes',no:'No',title:'Chat with Fabiano',subtitle:'Career, projects and a little about me.',open:'Chat',close:'Close conversation',label:'Your question',placeholder:'What would you like to know?',send:'Send',welcome:'Ask away! Would you like to hear about my career, projects or what I enjoy doing?',unknown:"I don't have that information about myself yet. I can tell you about my career, education, skills, projects and hobbies. For other details, let's talk through the contact channels.",greeting:'Hi! Glad to have you here. What would you like to know about my career, projects or hobbies?',thanks:"You're welcome! We can talk about another project or my experience if you'd like.",loading:'One moment…',error:"I couldn't load my answers. Please try sending your question again.",suggestions:['Who are you?','Tell me about Ordiny','What are your hobbies?'],you:'You',avatar:'Fabiano',limit:'Write a question with up to 350 characters.'}
 };
@@ -10,7 +11,8 @@ const element=(tag,className,text)=>{const node=document.createElement(tag);if(c
 const button=(className,text,handler)=>{const node=element('button',className,text);node.type='button';node.addEventListener('click',handler);return node;};
 
 export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={}) {
-  let language=document.documentElement.lang==='en'?'en':'pt',knowledge,loadPromise;
+  const currentLanguage=()=>['es','en'].includes(document.documentElement.lang)?document.documentElement.lang:'pt';
+  let language=currentLanguage(),knowledge,loadPromise;
   let opened=false,alive=true,busy=false,characterState='idle',inviteTimer;
   let messages=read('portfolio-chibi-messages',[]);
   if(!Array.isArray(messages))messages=[];
@@ -38,7 +40,7 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
   launcher.setAttribute('aria-controls',panel.id);launcher.setAttribute('aria-expanded','false');yes.setAttribute('aria-controls',panel.id);
   const load=()=>{
     if(knowledge)return Promise.resolve(knowledge);
-    if(!loadPromise)loadPromise=fetch(new URL('../data/fabiano.json?v=20261006-sandfit',import.meta.url)).then(response=>{if(!response.ok)throw Error('Knowledge unavailable');return response.json();}).then(data=>{if(!Array.isArray(data.topics))throw Error('Invalid knowledge');knowledge=data;return data;}).catch(error=>{loadPromise=undefined;throw error;});
+    if(!loadPromise)loadPromise=fetch(new URL('../data/fabiano.json?v=20261007-es',import.meta.url)).then(response=>{if(!response.ok)throw Error('Knowledge unavailable');return response.json();}).then(data=>{if(!Array.isArray(data.topics))throw Error('Invalid knowledge');knowledge=data;return data;}).catch(error=>{loadPromise=undefined;throw error;});
     return loadPromise;
   };
   const safeLink=url=>{try{const parsed=new URL(url,location.href);return ['https:','mailto:'].includes(parsed.protocol)||(parsed.origin===location.origin&&parsed.protocol===location.protocol);}catch{return false;}};
@@ -102,7 +104,7 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
   function closeChat(){opened=false;panel.hidden=true;invite.hidden=true;launcher.setAttribute('aria-expanded','false');onClose();launcher.focus({preventScroll:true});}
   const translate=()=>{
     const statusKey=['error','limit'].find(key=>status.textContent===copy[language][key]);
-    language=document.documentElement.lang==='en'?'en':'pt';const text=copy[language];
+    language=currentLanguage();const text=copy[language];
     inviteText.textContent=text.invite;invite.setAttribute('aria-label',text.invite);yes.textContent=text.yes;no.textContent=text.no;
     launcher.textContent=text.open;launcher.setAttribute('aria-label',text.title);title.textContent=text.title;subtitle.textContent=text.subtitle;
     close.setAttribute('aria-label',text.close);label.textContent=text.label;input.placeholder=text.placeholder;send.textContent=text.send;

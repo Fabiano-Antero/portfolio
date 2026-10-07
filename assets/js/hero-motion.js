@@ -13,7 +13,7 @@
   let letteringResizes = [];
   // Reserve the same time for each translated line so the supporting content
   // keeps its original schedule when the language changes during the reveal.
-  const titleVariants = [['DA LÓGICA', 'FROM LOGIC'], ['AO PRODUTO', 'TO PRODUCT'], ['EM USO.', 'IN USE.']];
+  const titleVariants = [['DA LÓGICA', 'DE LA LÓGICA', 'FROM LOGIC'], ['AO PRODUTO', 'AL PRODUCTO', 'TO PRODUCT'], ['EM USO.', 'EN USO.', 'IN USE.']];
   const drawTitle = async ({preserveMotion = false} = {}) => {
     if (!writings.length || !window.heroLettering) return;
     const previousAnimations = preserveMotion ? writings.flatMap(writing => writing.getAnimations({subtree:true})) : [];

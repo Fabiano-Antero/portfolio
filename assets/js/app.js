@@ -9,6 +9,7 @@
       comparison.style.setProperty('--comparison-position', value + '%');
       control.setAttribute('aria-valuetext', document.documentElement.lang === 'en'
         ? `Light theme: ${value}%. Dark theme: ${100 - value}%.`
+        : document.documentElement.lang === 'es' ? `Tema claro: ${value}%. Tema oscuro: ${100 - value}%.`
         : `Tema claro: ${value}%. Tema escuro: ${100 - value}%.`);
     };
     let dragging = false;
