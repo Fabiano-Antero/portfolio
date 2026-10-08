@@ -1,0 +1,4 @@
+.hero-gaze{position:absolute;inset:-3%;width:106%;height:106%;pointer-events:none;opacity:0}
+.hero-portrait[data-gaze="active"] .hero-gaze{opacity:1}
+.hero-portrait[data-gaze="active"] .hero-portrait-main{opacity:0}
+@media(prefers-reduced-motion:reduce){.hero-gaze{display:none}.hero-portrait[data-gaze="active"] .hero-portrait-main{opacity:1}}
