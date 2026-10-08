@@ -249,3 +249,15 @@ html.chibi-cursor,html.chibi-cursor *{cursor:none!important}
 @media(max-height:560px) and (min-width:601px){.chibi-chat-invite,.chibi-chat-panel{right:180px;bottom:var(--chat-bottom,16px)}.chibi-chat-panel{max-height:calc(var(--chat-viewport-height,100dvh) - 32px)}}
 @media(prefers-reduced-motion:reduce){.chibi-close{transition:none}}
 @media(hover:none){.chibi-pet[data-state="idle"] .chibi-close{opacity:.75;width:44px;height:44px;left:20px}}
+
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/ibm-plex-mono-bold.woff2') format('woff2')}
+.project-transition{position:fixed;inset:0;z-index:100000;overflow:hidden;contain:strict;touch-action:none;cursor:progress;isolation:isolate}
+.project-transition-plane{position:absolute;left:50%;top:50%;width:var(--transition-width);height:var(--transition-height);transform:translate(-50%,-50%) rotate(-14deg)}
+.project-transition-band{position:absolute;left:0;top:calc(var(--band-index)*var(--band-height));width:100%;height:calc(var(--band-height) + 2px);display:flex;align-items:center;overflow:hidden;background:#d7ff49;color:#101114;transform:translate3d(var(--band-offset),0,0);will-change:transform;backface-visibility:hidden}
+.project-transition-band:nth-child(even){background:#101114;color:#d7ff49}
+.project-transition-track{display:flex;flex:none;width:max-content;animation:project-transition-words 32s linear infinite;animation-delay:var(--word-delay);will-change:transform}
+.project-transition-band:nth-child(even) .project-transition-track{animation-direction:reverse}
+.project-transition-words{flex:none;margin:0;padding:0;font-family:'IBM Plex Mono',monospace;font-size:48px;font-weight:700;line-height:1;letter-spacing:0;white-space:pre;color:inherit}
+@keyframes project-transition-words{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@media(max-width:767px){.project-transition-words{font-size:28px}.project-transition-track{animation-duration:26s}}
+@media(prefers-reduced-motion:reduce){.project-transition{display:none}.project-transition-track{animation:none}}
