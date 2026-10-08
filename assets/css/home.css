@@ -49,11 +49,6 @@
 @media(max-width:767px){.hero-skills{left:5%;width:90%}.hero-skills-list li{min-height:38px}.hero-skill-text{font-size:11px;gap:12px}.hero-skills-intro{font-size:9px;line-height:15px}}
 @media(prefers-reduced-motion:reduce){.hero-writing.is-writing .hero-letter{animation:none;stroke-dashoffset:0}.hero-writing .hero-letter-fill{opacity:1}.hero-sequence.is-preparing :is(.hero-light,.hero-circle,.hero-portrait,.hero-skills-intro,.hero-skill-text,.hero-skill-divider){opacity:1}.hero-circle{--hero-ring-angle:360deg}.hero-skill-divider{transform:none}}
 
-.hero-gaze{position:absolute;inset:-3%;width:106%;height:106%;pointer-events:none;opacity:0}
-.hero-portrait[data-gaze="active"] .hero-gaze{opacity:1}
-.hero-portrait[data-gaze="active"] .hero-portrait-main{opacity:0}
-@media(prefers-reduced-motion:reduce){.hero-gaze{display:none}.hero-portrait[data-gaze="active"] .hero-portrait-main{opacity:1}}
-
 .hero-glitch-svg{position:absolute;left:0;top:50%;max-width:100%;overflow:visible;pointer-events:none;fill:none;stroke:var(--glitch-color);stroke-width:1px;opacity:0;transform:translateY(-50%)}
 .hero-glitch-svg .hero-glitch-glyph{vector-effect:non-scaling-stroke;stroke-dasharray:none;stroke-dashoffset:0}
 .hero-glitch-svg .hero-glitch-fill{fill:var(--glitch-color);stroke:none}
