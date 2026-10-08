@@ -2,6 +2,10 @@ const fs=require('node:fs'),assert=require('node:assert/strict');
 const {chromium}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const {PNG}=require('C:/Users/Fabiano/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/pngjs');
 const base=process.env.PORTFOLIO_URL||'http://localhost:4177';
+async function headerLink(page,selector){
+ if(!await page.locator(selector).filter({visible:true}).count())await page.locator('[data-mobile-menu-toggle]').click();
+ await page.locator(selector).filter({visible:true}).first().click();
+}
 (async()=>{
  const browser=await chromium.launch({headless:true,channel:'msedge'}),report=[];
  try{
@@ -20,8 +24,8 @@ const base=process.env.PORTFOLIO_URL||'http://localhost:4177';
     });observer.observe(document,{subtree:true,childList:true,attributes:true,attributeFilter:['data-phase']});
    });
    await page.goto(base,{waitUntil:'domcontentloaded'});await page.evaluate(()=>document.fonts.ready);
-   await page.locator('[data-language=es]').click();
-   await page.locator('.desktop-nav a[href="#projetos"], .mobile-nav a[href="#projetos"]').filter({visible:true}).first().click();
+   if(width<768){await page.locator('[data-mobile-language]').click();await page.locator('[data-mobile-language-option=es]').click();}else await page.locator('[data-language=es]').click();
+   await headerLink(page,'.site-header a[href="#projetos"]');
    assert.equal(await page.locator('.project-transition').count(),0,'Home navbar goes directly to Projects');
    await page.evaluate(()=>history.replaceState(history.state,'',location.pathname));
    await page.locator('.hero .actions a[href="#projetos"]').click();
@@ -57,11 +61,11 @@ const base=process.env.PORTFOLIO_URL||'http://localhost:4177';
    const range=page.locator('.comparison-control');await range.evaluate(node=>{node.value=42;node.dispatchEvent(new Event('input'));});
    await page.locator('.chapter-link[href="#operacao"]').click();assert.equal(await page.locator('.project-transition').count(),0,'Chapter controls stay immediate');
    assert.equal(await range.inputValue(),'42');
-   await page.locator('.site-header a[href="projetos.html"]').click();await page.waitForURL('**/projetos.html');await page.waitForSelector('.project-transition',{state:'detached'});
+   await headerLink(page,'.site-header a[href="projetos.html"]');await page.waitForURL('**/projetos.html');await page.waitForSelector('.project-transition',{state:'detached'});
    for(const file of ['cash-advance.html','sandfit.html']){
     await page.locator(`a[href="${file}"]`).first().click();await page.waitForURL('**/'+file);await page.waitForSelector('.project-transition',{state:'detached'});
     assert.equal(await page.locator('html').getAttribute('lang'),'es');
-    await page.locator('.site-header a[href="projetos.html"]').click();await page.waitForURL('**/projetos.html');await page.waitForSelector('.project-transition',{state:'detached'});
+    await headerLink(page,'.site-header a[href="projetos.html"]');await page.waitForURL('**/projetos.html');await page.waitForSelector('.project-transition',{state:'detached'});
    }
    await page.goBack();await page.waitForSelector('.project-transition',{state:'detached'});assert.equal(await page.evaluate(()=>document.body.inert),false,'Back restores normal controls');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
@@ -82,7 +86,7 @@ const base=process.env.PORTFOLIO_URL||'http://localhost:4177';
   await page.emulateMedia({reducedMotion:'no-preference'});
   await page.addInitScript(()=>{Storage.prototype.setItem=function(){throw Error('Storage disabled');};});
   await page.evaluate(()=>{Storage.prototype.setItem=function(){throw Error('Storage disabled');};});
-  await page.locator('.site-header a[href="projetos.html"]').click();await page.waitForURL('**/projetos.html');await page.waitForSelector('.project-transition',{state:'detached'});
+  await headerLink(page,'.site-header a[href="projetos.html"]');await page.waitForURL('**/projetos.html');await page.waitForSelector('.project-transition',{state:'detached'});
   assert.equal(await page.evaluate(()=>document.body.inert),false,'Unavailable storage still allows navigation');
   await page.close();
   const extra=await browser.newPage({viewport:{width:1440,height:1000}}),extraErrors=[];
@@ -98,10 +102,12 @@ const base=process.env.PORTFOLIO_URL||'http://localhost:4177';
   await extra.evaluate(()=>{const link=document.createElement('a');link.href='index.html#projetos';document.body.append(link);link.click();});
   await extra.waitForURL('**/index.html#projetos');await extra.waitForSelector('.project-transition',{state:'detached'});
   assert.equal(await extra.evaluate(()=>document.activeElement.id),'projetos','An anchor on another page is revealed at its destination');
-  await extra.locator('a[href="cash-advance.html"]').first().click();await extra.waitForSelector('.project-transition[data-phase=closing]');
+  await extra.locator('a[href="cash-advance.html"]').first().evaluate(link=>{
+   link.click();for(const band of document.querySelectorAll('.project-transition-band'))for(const animation of band.getAnimations())animation.pause();
+  });await extra.waitForSelector('.project-transition[data-phase=closing]');
   await extra.emulateMedia({reducedMotion:'reduce'});await extra.waitForURL('**/cash-advance.html');assert.equal(await extra.locator('.project-transition').count(),0,'Changing the motion preference still completes navigation');
   await extra.emulateMedia({reducedMotion:'no-preference'});
-  await extra.locator('.site-header a[href="projetos.html"]').click();await extra.waitForURL('**/projetos.html');await extra.waitForSelector('.project-transition',{state:'detached'});
+  await headerLink(extra,'.site-header a[href="projetos.html"]');await extra.waitForURL('**/projetos.html');await extra.waitForSelector('.project-transition',{state:'detached'});
   await extra.context().route('https://www.behance.net/**',route=>route.fulfill({body:'External case destination',contentType:'text/html'}));
   const opened=extra.waitForEvent('popup');await extra.locator('a[href*="234488301"]').first().click();const popup=await opened;
   await popup.waitForLoadState('domcontentloaded');assert(popup.url().includes('behance.net'));await popup.close();

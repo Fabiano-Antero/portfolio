@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname,'../assets/css');
 const groups = {
-  'site.css':['fonts.css','style.css','language.css','chibi-pet.css','project-transition.css'],
+  'site.css':['fonts.css','style.css','language.css','mobile-navigation.css','chibi-pet.css','project-transition.css'],
   'home.css':['hero-motion.css','hero-glitch.css','hero-particles.css','hero-blueprint.css','skills-marquee.css','home-projects.css']
 };
 function buildStyles() {

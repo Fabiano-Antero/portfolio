@@ -44,13 +44,14 @@ const pages=['projetos','ordiny','cash-advance','sandfit'];
    });
    await page.goto(base,{waitUntil:'domcontentloaded'});
    const homeLinks=page.locator('.site-header a[href="#projetos"]');
-   assert.equal(await homeLinks.count(),3);
+   assert.equal(await homeLinks.count(),2);
    await homeLinks.evaluateAll(links=>{for(const link of links)link.click();});
    assert.equal(await page.locator('.project-transition').count(),0,'All home navbar variants skip the curtain');
    for(const destination of ['ordiny','home','projetos','home','cash-advance','home','sandfit','home']){
     const previous=new URL(page.url()).pathname;
     const selector=destination==='home'?(previous==='/projetos'?'.site-header .brand[href="index.html"]':'.site-header nav a[href="index.html"]'):`a[href="${destination}.html"]`;
-    await page.locator(selector).first().evaluate(link=>link.click());
+    if(!await page.locator(selector).filter({visible:true}).count())await page.locator('[data-mobile-menu-toggle]').click();
+    await page.locator(selector).filter({visible:true}).first().click();
     await page.waitForURL(url=>url.pathname===(destination==='home'?'/':'/'+destination));
     await page.waitForLoadState('domcontentloaded');
     await page.waitForSelector('.project-transition',{state:'detached'});

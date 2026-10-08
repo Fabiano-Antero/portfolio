@@ -11,12 +11,16 @@ const translations=new Map(rows.map(([pt,en,es])=>[pt.trim().replace(/\s+/g,' ')
   const results=[],unmapped={};
   for(const width of [1440,1024,768,390,320]){
    const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'}),errors=[];
+   const choose=async locale=>{
+    if(width<768){await page.locator('[data-mobile-language]').click();await page.locator(`[data-mobile-language-option="${locale}"]`).click();}
+    else await page.locator(`[data-language="${locale}"]`).click();
+   };
    page.on('pageerror',error=>errors.push(error.message));await page.route('https://www.clarity.ms/**',r=>r.abort());
    await page.addInitScript(()=>sessionStorage.setItem('portfolio-chibi-hidden','true'));
    for(const file of pages){
     await page.goto(base+'/'+file,{waitUntil:'domcontentloaded'});await page.evaluate(()=>document.fonts.ready);
     assert.deepEqual(await page.locator('.language button').allTextContents(),['PT','ESP','ENG']);
-    await page.getByRole('button',{name:'PT',exact:true}).click();
+    await choose('pt');
     const originals=await page.evaluate(()=>{
      const nodes=[],walker=document.createTreeWalker(document.documentElement,NodeFilter.SHOW_TEXT);
      while(walker.nextNode())if(!walker.currentNode.parentElement.closest('script,style,svg,[data-no-translate],.chibi-chat'))nodes.push(walker.currentNode.textContent.trim().replace(/\s+/g,' '));
@@ -26,7 +30,7 @@ const translations=new Map(rows.map(([pt,en,es])=>[pt.trim().replace(/\s+/g,' ')
     assert(englishCount>20,'Page has translated content');
     if(width===1440)unmapped[file]=[...new Set(originals.filter(text=>text&&!translations.has(text)))];
     for(const [button,locale] of [['ESP','es'],['ENG','en'],['PT','pt-BR']]){
-     await page.getByRole('button',{name:button,exact:true}).click();
+     await choose(locale==='pt-BR'?'pt':locale);
      assert.equal(await page.locator('html').getAttribute('lang'),locale);
      assert.equal(await page.locator('.language button[aria-pressed=true]').innerText(),button);
      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`${width} ${file} ${locale} fits viewport`);
@@ -39,7 +43,7 @@ const translations=new Map(rows.map(([pt,en,es])=>[pt.trim().replace(/\s+/g,' ')
      assert.equal(translated.length,originals.length,'Language preserves text nodes');
      originals.forEach((original,i)=>{const expected=translations.get(original)?.[locale];assert.equal(translated[i],expected||original,`${file} ${locale}: ${original}`);});
     }
-    await page.getByRole('button',{name:'ESP',exact:true}).click();await page.reload({waitUntil:'domcontentloaded'});assert.equal(await page.locator('html').getAttribute('lang'),'es','Language survives reload');
+    await choose('es');await page.reload({waitUntil:'domcontentloaded'});assert.equal(await page.locator('html').getAttribute('lang'),'es','Language survives reload');
     if((width===1440||width===390)&&file==='index.html')await page.locator('.hero').screenshot({path:`.qa/spanish-hero-${width}.png`,style:'.skip-link{display:none!important}'});
     if((width===1440||width===390)&&file==='sandfit.html')await page.locator('.sandfit-intro').screenshot({path:`.qa/spanish-sandfit-${width}.png`,style:'.skip-link{display:none!important}'});
     results.push({width,file,languages:3,translated:englishCount});

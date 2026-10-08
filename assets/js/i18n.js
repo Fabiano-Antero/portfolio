@@ -94,6 +94,8 @@ Fabiano Antero, início|Fabiano Antero, home|Fabiano Antero, inicio
 Navegação principal|Main navigation|Navegación principal
 Idioma da página|Page language|Idioma de la página
 Navegação mobile|Mobile navigation|Navegación móvil
+Abrir menu|Open menu|Abrir menú
+Fechar menu|Close menu|Cerrar menú
 Retrato de Fabiano Antero|Portrait of Fabiano Antero|Retrato de Fabiano Antero
 Ler estudo de caso da Ordiny|Read the Ordiny case study|Leer el caso de estudio de Ordiny
 Ordiny: agenda, reservas e gestão em interfaces desktop e mobile|Ordiny: calendar, bookings and management in desktop and mobile interfaces|Ordiny: agenda, reservas y gestión en interfaces de escritorio y móviles
@@ -614,10 +616,13 @@ Sandfit Arena: Estudo de caso: Fabiano Antero|Sandfit Arena: Case study: Fabiano
     nodes.forEach(({node,original,translated}) => { node.textContent = translated[locale] || original; });
     attributes.forEach(({element,name,original,translated}) => element.setAttribute(name, translated[locale] || original));
     document.querySelectorAll('[data-language]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.language === locale)));
+    document.querySelectorAll('[data-mobile-language-value]').forEach(node => { node.textContent = locale === 'es' ? 'ESP' : locale === 'en' ? 'ENG' : 'PT'; });
+    document.querySelectorAll('[data-mobile-language-option]').forEach(button => { button.setAttribute('aria-selected', String(button.dataset.mobileLanguageOption === locale)); });
     try { localStorage.setItem('portfolio-language', locale); } catch { /* Browsing without storage still supports switching. */ }
     document.dispatchEvent(new CustomEvent('portfolio:language', {detail:{language:locale}}));
   };
   document.querySelectorAll('[data-language]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.language)));
+  document.querySelectorAll('[data-mobile-language-option]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.mobileLanguageOption)));
   let saved = 'pt';
   try { saved = localStorage.getItem('portfolio-language') || 'pt'; } catch { /* Default to the authored language. */ }
   setLanguage(saved);
