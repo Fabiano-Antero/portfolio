@@ -1,9 +1,14 @@
 (() => {
   'use strict';
+  // Embedded previews must not consume the top-level navigation handoff.
+  if(window.self!==window.top)return;
   const key='portfolio-project-transition';
   const defaultWords='PRODUCT THINKING   ✦   UX STRATEGY   ✦   UI DESIGN   ✦   DESIGN SYSTEMS   ✦   PROTOTYPING   ✦   FRONT-END   ✦   ACCESSIBILITY   ✦   ';
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-  const canonical=url=>url.origin+url.pathname.replace(/\/index\.html$/,'/')+url.search+url.hash;
+  // Production redirects .html links to clean URLs; both identify one document.
+  const documentPath=url=>url.pathname.replace(/\.html$/,'').replace(/\/index\/?$/,'/').replace(/\/$/,'')||'/';
+  const sameDocument=(a,b)=>a.origin===b.origin&&documentPath(a)===documentPath(b)&&a.search===b.search;
+  const canonical=url=>url.origin+documentPath(url)+url.search+url.hash;
   const clearPending=()=>{try{sessionStorage.removeItem(key);}catch{}};
   let pending;
   try{pending=JSON.parse(sessionStorage.getItem(key));}catch{}
@@ -101,12 +106,12 @@
     if(link.target&&link.target!=='_self')return;
     let url;try{url=new URL(link.href,location.href);}catch{return;}
     if(url.origin!==location.origin||!['http:','https:'].includes(url.protocol))return;
-    const file=url.pathname.split('/').pop();
-    const isProjectPage=['projetos.html','ordiny.html','cash-advance.html','sandfit.html'].includes(file);
-    const isProjectSection=(file==='index.html'||!file)&&url.hash==='#projetos';
+    const file=documentPath(url).split('/').pop();
+    const isProjectPage=['projetos','ordiny','cash-advance','sandfit'].includes(file);
+    const isProjectSection=documentPath(url)==='/'&&url.hash==='#projetos';
     if(!(isProjectPage||isProjectSection)||canonical(url)===canonical(new URL(location.href)))return;
     // Chapter links inside a case are controls, rather than page transitions.
-    if(url.hash&&!isProjectSection&&url.pathname===location.pathname&&url.search===location.search)return;
+    if(url.hash&&!isProjectSection&&sameDocument(url,new URL(location.href)))return;
     return url;
   }
   async function navigate(url){
@@ -115,7 +120,7 @@
     try{
       if(!await animate(false))return;
       const current=new URL(location.href);
-      if(url.pathname.replace(/\/index\.html$/,'/')===current.pathname.replace(/\/index\.html$/,'/')&&url.search===current.search){
+      if(sameDocument(url,current)){
         const target=document.getElementById(decodeURIComponent(url.hash.slice(1)));
         history.pushState(history.state,'',url.href);
         if(target){
@@ -138,9 +143,10 @@
   const prefetched=new Set();
   const prefetch=event=>{
     const url=destination(event.target.closest?.('a[href]'));if(!url||reduced.matches)return;
-    if(url.pathname===location.pathname||prefetched.has(url.pathname)||prefetched.size>=4)return;
+    const path=documentPath(url);
+    if(sameDocument(url,new URL(location.href))||prefetched.has(path)||prefetched.size>=4)return;
     const hint=document.createElement('link');hint.rel='prefetch';hint.as='document';hint.href=url.origin+url.pathname+url.search;
-    document.head.append(hint);prefetched.add(url.pathname);
+    document.head.append(hint);prefetched.add(path);
   };
   document.addEventListener('pointerover',prefetch,{passive:true});document.addEventListener('focusin',prefetch);
   window.addEventListener('resize',size);
