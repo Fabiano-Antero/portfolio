@@ -136,7 +136,7 @@
       const remaining=Math.min(1,(1-p.distance/p.range)/(1-p.fadeStart));
       const fade=Math.min(1,p.age/.14)*remaining**1.2;
       const shimmer=.65+.35*Math.sin(p.age*7+p.phase)**2;
-      ctx.globalAlpha=fade*shimmer*.9;
+      ctx.globalAlpha=fade*shimmer;
       const size=p.radius*6;
       ctx.drawImage(p.sprite,p.x-size/2,p.y-size/2,size,size);
       return true;

@@ -9,6 +9,7 @@ const pages=['projetos','ordiny','cash-advance','sandfit'];
   const root=path.resolve(__dirname,'..');
   server=http.createServer((request,response)=>{
    const url=new URL(request.url,'http://localhost'),file=url.pathname.slice(1);
+   if(file==='index.html'){response.writeHead(302,{Location:'/'+url.search});return response.end();}
    if(pages.some(name=>file===name+'.html')){response.writeHead(302,{Location:'/'+file.slice(0,-5)+url.search});return response.end();}
    const filename=path.join(root,pages.includes(file)?file+'.html':file||'index.html');
    const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.woff2':'font/woff2'};
@@ -46,9 +47,11 @@ const pages=['projetos','ordiny','cash-advance','sandfit'];
    assert.equal(await homeLinks.count(),3);
    await homeLinks.evaluateAll(links=>{for(const link of links)link.click();});
    assert.equal(await page.locator('.project-transition').count(),0,'All home navbar variants skip the curtain');
-   for(const destination of ['ordiny','projetos','cash-advance','projetos','sandfit']){
-    await page.locator(`a[href="${destination}.html"]`).first().evaluate(link=>link.click());
-    await page.waitForURL(url=>url.pathname==='/'+destination);
+   for(const destination of ['ordiny','home','projetos','home','cash-advance','home','sandfit','home']){
+    const previous=new URL(page.url()).pathname;
+    const selector=destination==='home'?(previous==='/projetos'?'.site-header .brand[href="index.html"]':'.site-header nav a[href="index.html"]'):`a[href="${destination}.html"]`;
+    await page.locator(selector).first().evaluate(link=>link.click());
+    await page.waitForURL(url=>url.pathname===(destination==='home'?'/':'/'+destination));
     await page.waitForLoadState('domcontentloaded');
     await page.waitForSelector('.project-transition',{state:'detached'});
     const frames=await page.evaluate(()=>window.revealFrames);
@@ -60,9 +63,13 @@ const pages=['projetos','ordiny','cash-advance','sandfit'];
     assert(continuity.actual[0]>100,'Text resumes beyond its original starting phase');
     assert.equal(await page.evaluate(()=>document.body.inert),false);
     console.log('Reverse animation verified:',width,destination,frames.length,'frames');
+    if(destination==='sandfit'){
+     await page.locator('.chapter-link').first().evaluate(link=>link.click());
+     assert.equal(await page.locator('.project-transition').count(),0,'Clean URL chapter links remain immediate');
+    }
    }
-   await page.locator('.chapter-link').first().evaluate(link=>link.click());
-   assert.equal(await page.locator('.project-transition').count(),0,'Clean URL chapter links remain immediate');
+   await page.locator('.site-header a[href="#projetos"]').evaluateAll(links=>{for(const link of links)link.click();});
+   assert.equal(await page.locator('.project-transition').count(),0,'Returning home keeps its navbar free of the curtain');
    assert.deepEqual(errors,[]);await page.close();
   }
  }finally{await browser.close();if(server)await new Promise(resolve=>server.close(resolve));}

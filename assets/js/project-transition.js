@@ -116,7 +116,8 @@
     const file=documentPath(url).split('/').pop();
     const isProjectPage=['projetos','ordiny','cash-advance','sandfit'].includes(file);
     const isProjectSection=documentPath(url)==='/'&&url.hash==='#projetos';
-    if(!(isProjectPage||isProjectSection)||canonical(url)===canonical(new URL(location.href)))return;
+    const isHomeReturn=documentPath(url)==='/'&&!sameDocument(url,new URL(location.href));
+    if(!(isProjectPage||isProjectSection||isHomeReturn)||canonical(url)===canonical(new URL(location.href)))return;
     // Chapter links inside a case are controls, rather than page transitions.
     if(url.hash&&!isProjectSection&&sameDocument(url,new URL(location.href)))return;
     return url;
