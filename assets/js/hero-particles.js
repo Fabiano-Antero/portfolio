@@ -113,13 +113,13 @@
     if (previous && now-previous<1000/30) return;
     const dt=previous ? Math.min((now-previous)/1000,.075) : 1/30;
     previous=now;
-    const limit=7;
+    const limit=9;
     nextBirth-=dt;
     // Emit at most one spark, then wait a new random interval. Never catch up
     // with a batch after a slow frame or a pause.
     if (nextBirth<=0) {
       if (particles.length<limit) emit();
-      nextBirth=random(1,2.4);
+      nextBirth=random(.8,1.9);
     }
     ctx.clearRect(0,0,bounds.width,bounds.height);
     ctx.globalCompositeOperation='lighter';
