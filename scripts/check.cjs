@@ -6,7 +6,7 @@ const pages=['index.html','projetos.html','ordiny.html','cash-advance.html','san
 const art=fs.readdirSync(path.join(root,'assets/art')).filter(file=>file.endsWith('.html')).map(file=>'assets/art/'+file);
 for(const file of [...pages,...art]){
   const source=fs.readFileSync(path.join(root,file),'utf8');
-  const refs=[...source.matchAll(/(?:src|href)="([^"#]+)(?:#[^"]*)?"/g)].map(match=>match[1]);
+  const refs=[...source.matchAll(/(?:src|href|poster)="([^"#]+)(?:#[^"]*)?"/g)].map(match=>match[1]);
   const cssUrls=[...source.matchAll(/url\((?:&quot;|['"])?([^)'"&]+)(?:&quot;|['"])?\)/g)].map(match=>match[1]);
   const responsiveRefs=[...source.matchAll(/\bsrcset="([^"]+)"/g)].flatMap(match=>match[1].split(',').map(image=>image.trim().split(/\s+/)[0]));
   for(const ref of [...refs,...cssUrls,...responsiveRefs]){

@@ -2,6 +2,12 @@
   'use strict';
   const normalize = value => value.trim().replace(/\s+/g, ' ');
   const translations = new Map(`
+VISÃO DO PRODUTO · 16 S|PRODUCT OVERVIEW · 16 S|VISIÓN DEL PRODUCTO · 16 S
+Home, antecipação, Pix e Caixinhas em movimento.|Home, advances, Pix and savings goals in motion.|Inicio, anticipos, Pix y metas de ahorro en movimiento.
+Reproduzir|Play|Reproducir
+Pausar|Pause|Pausar
+Apresentação do Cash Advance|Cash Advance presentation|Presentación de Cash Advance
+Abrir vídeo do Cash Advance|Open the Cash Advance video|Abrir el video de Cash Advance
 Pular para o conteúdo|Skip to content|Saltar al contenido
 Projetos|Projects|Proyectos
 Como penso|How I think|Cómo pienso

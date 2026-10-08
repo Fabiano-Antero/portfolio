@@ -18,6 +18,7 @@ Abra http://localhost:4173. Para usar outra porta, defina a variável de ambient
 - `projetos.html`: coleção dos cinco projetos.
 - `ordiny.html`: estudo completo, navegação por capítulos e comparação interativa dos temas.
 - `cash-advance.html`: oito capítulos com pesquisa, jornada, antecipação, Pix, recursos, sistema visual e entrega; telas atuais do protótipo.
+- O case Cash Advance inclui uma apresentação em vídeo de 16 segundos após a introdução, em 16:9. O botão central usa o laranja do portfólio, permanece visível na pausa e aparece por hover ou foco de teclado durante a reprodução. O vídeo começa por ação do visitante, preserva o áudio fornecido e mantém os controles nativos. A capa da home e da coleção permanece independente do pôster do vídeo. O bloco compartilhado fica em `scripts/cash-motion.cjs`, o comportamento em `assets/js/cash-motion.js` e os arquivos em `assets/media/`.
 - `sandfit.html`: oito capítulos sobre contexto, perfil, jornada, descoberta, reserva, recuperação, sistema visual e encerramento, conforme o Figma. Inclui quatro telas do produto e links para estudo e protótipo.
 
 A home apresenta Ordiny, Cash Advance e Sandfit Arena. Lumen e Aqui Limpa ficam na coleção completa e levam aos estudos originais no Behance. O botão de currículo usa o PDF de 30/09/2026 fornecido pelo autor. Os canais de contato mantêm os endereços do portfólio original.
