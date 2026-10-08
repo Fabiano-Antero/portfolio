@@ -24,10 +24,13 @@ const pages=['projetos','ordiny','cash-advance','sandfit'];
    if(process.env.TRANSITION_QA_DEBUG)page.on('console',message=>console.log(message.text()));
    await page.route('https://www.clarity.ms/**',route=>route.abort());
    await page.addInitScript(()=>{
+    try{window.incomingHandoff=JSON.parse(sessionStorage.getItem('portfolio-project-transition'));}catch{}
     sessionStorage.setItem('portfolio-chibi-hidden','true');
-    window.revealFrames=[];
+    window.revealFrames=[];window.incomingWordTimes=[];
     let sampling=false;
     const observer=new MutationObserver(()=>{
+     const covered=document.querySelector('.project-transition[data-phase="covered"]');
+     if(covered&&window.incomingHandoff&&!window.incomingWordTimes.length)window.incomingWordTimes=[...covered.querySelectorAll('.project-transition-band')].map(band=>-parseFloat(band.style.getPropertyValue('--word-delay'))*1000);
      const root=document.querySelector('.project-transition[data-phase="opening"]');
      if(!root||sampling)return;sampling=true;
      function sample(){
@@ -39,6 +42,10 @@ const pages=['projetos','ordiny','cash-advance','sandfit'];
     });observer.observe(document,{subtree:true,childList:true,attributes:true,attributeFilter:['data-phase']});
    });
    await page.goto(base,{waitUntil:'domcontentloaded'});
+   const homeLinks=page.locator('.site-header a[href="#projetos"]');
+   assert.equal(await homeLinks.count(),3);
+   await homeLinks.evaluateAll(links=>{for(const link of links)link.click();});
+   assert.equal(await page.locator('.project-transition').count(),0,'All home navbar variants skip the curtain');
    for(const destination of ['ordiny','projetos','cash-advance','projetos','sandfit']){
     await page.locator(`a[href="${destination}.html"]`).first().evaluate(link=>link.click());
     await page.waitForURL(url=>url.pathname==='/'+destination);
@@ -47,6 +54,10 @@ const pages=['projetos','ordiny','cash-advance','sandfit'];
     const frames=await page.evaluate(()=>window.revealFrames);
     assert(frames.length>2,'Destination must render the reverse animation: '+destination+' frames='+frames.length+' errors='+errors.join(','));
     for(let band=0;band<8;band++)assert(Math.max(...frames.map(frame=>Math.abs(frame[band])))>100,'Every band must visibly retract: '+destination+' / '+band);
+    const continuity=await page.evaluate(()=>({expected:window.incomingHandoff.wordTimes,actual:window.incomingWordTimes}));
+    assert.equal(continuity.actual.length,8);
+    for(let band=0;band<8;band++)assert(Math.abs(continuity.expected[band]-continuity.actual[band])<.01,'Marquee resumes the phase saved by the outgoing page');
+    assert(continuity.actual[0]>100,'Text resumes beyond its original starting phase');
     assert.equal(await page.evaluate(()=>document.body.inert),false);
     console.log('Reverse animation verified:',width,destination,frames.length,'frames');
    }

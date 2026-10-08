@@ -16,8 +16,7 @@
   let incoming=false;
   try{incoming=!!pending&&typeof pending.url==='string'&&Date.now()-pending.created>=0&&Date.now()-pending.created<20000
     &&canonical(new URL(pending.url,location.href))===canonical(new URL(location.href))&&!reduced.matches;}catch{}
-  let overlay,bands=[],animations=[],busy=false,run=0,watchdog,locked=false,previousInert=false,previousFocus,activeDestination;
-  const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+  let overlay,bands=[],animations=[],busy=false,run=0,watchdog,locked=false,previousInert=false,previousFocus,activeDestination,handoff;
   const frame=()=>new Promise(resolve=>requestAnimationFrame(resolve));
   const blockScroll=event=>event.preventDefault();
   function lock(){
@@ -25,7 +24,7 @@
   }
   function cleanup(){
     run++;clearTimeout(watchdog);animations.forEach(animation=>animation.cancel());animations=[];
-    overlay?.remove();overlay=undefined;bands=[];busy=false;activeDestination=undefined;
+    overlay?.remove();overlay=undefined;bands=[];busy=false;activeDestination=undefined;handoff=undefined;
     window.removeEventListener('wheel',blockScroll);window.removeEventListener('touchmove',blockScroll);
     if(locked){document.body.inert=previousInert;locked=false;}
     if(previousFocus?.isConnected)previousFocus.focus?.({preventScroll:true});previousFocus=undefined;
@@ -40,7 +39,7 @@
     overlay.style.setProperty('--transition-height',`${height}px`);
     overlay.style.setProperty('--band-height',`${height/8}px`);
   }
-  function create(closed=false,words){
+  function create(closed=false,words,wordTimes){
     busy=true;previousFocus=document.activeElement;
     window.addEventListener('wheel',blockScroll,{passive:false});window.addEventListener('touchmove',blockScroll,{passive:false});
     overlay=document.createElement('div');overlay.className='project-transition';
@@ -51,7 +50,8 @@
     for(let index=0;index<8;index++){
       const band=document.createElement('div');band.className='project-transition-band';
       band.style.setProperty('--band-index',index);band.style.setProperty('--band-offset',index%2?'110%':'-110%');
-      band.style.setProperty('--word-delay',`${-index*2.5}s`);
+      const elapsed=Array.isArray(wordTimes)&&Number.isFinite(wordTimes[index])&&wordTimes[index]>=0?wordTimes[index]:index*2500;
+      band.style.setProperty('--word-delay',`${-elapsed/1000}s`);
       if(closed)band.style.transform='translate3d(0,0,0)';
       const track=document.createElement('div');track.className='project-transition-track';
       for(let copy=0;copy<2;copy++){
@@ -64,6 +64,15 @@
     (document.body||document.documentElement).append(overlay);size();lock();
     watchdog=setTimeout(()=>{clearPending();cleanup();},10000);
     return text;
+  }
+  function saveHandoff(){
+    if(!handoff||!overlay)return;
+    // Preserve the actual marquee phase at the last frame of the old document.
+    const wordTimes=bands.map((band,index)=>{
+      const animation=band.firstElementChild.getAnimations().find(item=>item.animationName==='project-transition-words');
+      return animation&&Number.isFinite(animation.currentTime)?Math.max(0,animation.currentTime-animation.effect.getTiming().delay):index*2500;
+    });
+    try{sessionStorage.setItem(key,JSON.stringify({...handoff,wordTimes}));}catch{}
   }
   async function animate(opening){
     const active=++run;
@@ -86,19 +95,17 @@
   async function reveal(){if(overlay&&await animate(true))cleanup();}
   async function ready(){
     if(!overlay)return;
-    if(document.body&&overlay.parentElement!==document.body)document.body.append(overlay);
+    // Keep the incoming curtain mounted: reparenting restarts its CSS animations.
     lock();
     let target;
     try{target=document.getElementById(decodeURIComponent(location.hash.slice(1)));}catch{}
     if(target){target.scrollIntoView({behavior:'instant',block:'start'});if(!target.hasAttribute('tabindex'))target.tabIndex=-1;}
-    const images=[...document.images].filter(image=>{const bounds=image.getBoundingClientRect();return bounds.bottom>0&&bounds.top<innerHeight;}).slice(0,6);
-    await Promise.race([Promise.allSettled([document.fonts.ready,...images.map(image=>image.decode())]),wait(450)]);
-    if(!overlay)return;
+    // Reveal as soon as the document is ready, without an extra image/font wait.
     await frame();if(!overlay)return;
     await reveal();target?.focus({preventScroll:true});
   }
   if(incoming){
-    create(true,typeof pending.words==='string'?pending.words.slice(0,1000):defaultWords);
+    create(true,typeof pending.words==='string'?pending.words.slice(0,1000):defaultWords,pending.wordTimes);
     if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
   }
   function destination(link){
@@ -116,6 +123,7 @@
   }
   async function navigate(url){
     activeDestination=url;
+    warm(url);
     const words=create();
     try{
       if(!await animate(false))return;
@@ -129,7 +137,7 @@
         }
         await reveal();target?.focus({preventScroll:true});return;
       }
-      try{sessionStorage.setItem(key,JSON.stringify({url:url.href,created:Date.now(),words}));}catch{}
+      handoff={url:url.href,created:Date.now(),words};saveHandoff();
       location.assign(url.href);
     }catch{clearPending();cleanup();location.assign(url.href);}
   }
@@ -141,13 +149,14 @@
   });
   // Warm only HTML destinations the visitor actually approaches.
   const prefetched=new Set();
-  const prefetch=event=>{
-    const url=destination(event.target.closest?.('a[href]'));if(!url||reduced.matches)return;
+  function warm(url){
+    if(!url||reduced.matches)return;
     const path=documentPath(url);
     if(sameDocument(url,new URL(location.href))||prefetched.has(path)||prefetched.size>=4)return;
     const hint=document.createElement('link');hint.rel='prefetch';hint.as='document';hint.href=url.origin+url.pathname+url.search;
     document.head.append(hint);prefetched.add(path);
-  };
+  }
+  const prefetch=event=>warm(destination(event.target.closest?.('a[href]')));
   document.addEventListener('pointerover',prefetch,{passive:true});document.addEventListener('focusin',prefetch);
   window.addEventListener('resize',size);
   document.addEventListener('keydown',event=>{
@@ -156,6 +165,6 @@
     else if([' ','ArrowDown','ArrowUp','PageDown','PageUp','Home','End'].includes(event.key))event.preventDefault();
   });
   reduced.addEventListener('change',()=>{if(reduced.matches){const url=activeDestination;clearPending();cleanup();if(url)location.assign(url.href);}});
-  window.addEventListener('pagehide',cleanup);
+  window.addEventListener('pagehide',()=>{saveHandoff();cleanup();});
   window.addEventListener('pageshow',event=>{if(event.persisted){clearPending();cleanup();}});
 })();

@@ -22,6 +22,9 @@ const base=process.env.PORTFOLIO_URL||'http://localhost:4177';
    await page.goto(base,{waitUntil:'domcontentloaded'});await page.evaluate(()=>document.fonts.ready);
    await page.locator('[data-language=es]').click();
    await page.locator('.desktop-nav a[href="#projetos"], .mobile-nav a[href="#projetos"]').filter({visible:true}).first().click();
+   assert.equal(await page.locator('.project-transition').count(),0,'Home navbar goes directly to Projects');
+   await page.evaluate(()=>history.replaceState(history.state,'',location.pathname));
+   await page.locator('.hero .actions a[href="#projetos"]').click();
    await page.waitForSelector('.project-transition[data-phase=closing]');
    assert.equal(await page.evaluate(()=>document.body.inert),true,'Curtain blocks repeat interactions');
    assert.equal(await page.locator('.project-transition-band').count(),8);
@@ -67,8 +70,10 @@ const base=process.env.PORTFOLIO_URL||'http://localhost:4177';
   }
   const page=await browser.newPage({viewport:{width:1440,height:1000}});
   await page.addInitScript(()=>sessionStorage.setItem('portfolio-chibi-hidden','true'));
-  await page.goto(base);await page.locator('.desktop-nav a[href="#projetos"]').click();await page.waitForSelector('.project-transition[data-phase=closing]');
-  await page.keyboard.press('Escape');assert.equal(await page.locator('.project-transition').count(),0);assert.equal(await page.evaluate(()=>document.body.inert),false);
+  await page.goto(base);await page.locator('.hero .actions a[href="#projetos"]').evaluate(link=>{
+   link.click();document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+  });
+  assert.equal(await page.locator('.project-transition').count(),0);assert.equal(await page.evaluate(()=>document.body.inert),false);
   assert.equal(new URL(page.url()).hash,'','Escape cancels the pending navigation');
   await page.locator('.collection-cta a[href="projetos.html"]').click({modifiers:['Control']});assert.equal(await page.locator('.project-transition').count(),0,'Modified click keeps browser behavior');
   await page.emulateMedia({reducedMotion:'reduce'});await page.locator('.desktop-nav a[href="#projetos"]').click();assert.equal(await page.locator('.project-transition').count(),0);
