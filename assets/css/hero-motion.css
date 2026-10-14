@@ -38,9 +38,9 @@
 .hero-sequence.is-animating .hero-light{animation:hero-layer-fade var(--light-time) ease-in-out var(--light-delay) both}
 .hero-sequence.is-animating::before{animation:hero-layer-fade var(--light-time) ease-in-out var(--light-delay) both}
 .hero-sequence.is-animating .hero-circle{animation:hero-ring-draw var(--circle-time) cubic-bezier(.2,.6,.25,1) var(--portrait-time) both}
-.hero-sequence.is-animating .hero-skills-intro{animation:hero-layer-fade .45s ease-out calc(var(--portrait-time) + var(--circle-time)) both}
-.hero-sequence.is-animating .hero-skill-divider{animation:hero-divider-grow .26s ease-in-out calc(2.84s + var(--skill-index)*.6s) both}
-.hero-sequence.is-animating .hero-skill-text{animation:hero-layer-fade .45s ease-out calc(3.1s + var(--skill-index)*.6s) both}
+.hero-sequence.is-animating .hero-skills-intro{animation:hero-layer-fade .35s ease-out calc(var(--portrait-time) + var(--circle-time)) both}
+.hero-sequence.is-animating .hero-skill-divider{animation:hero-divider-grow .22s ease-in-out calc(var(--portrait-time) + var(--circle-time) + .42s + var(--skill-index)*.48s) both}
+.hero-sequence.is-animating .hero-skill-text{animation:hero-layer-fade .35s ease-out calc(var(--portrait-time) + var(--circle-time) + .64s + var(--skill-index)*.48s) both}
 @keyframes hero-layer-fade{from{opacity:0}to{opacity:1}}
 @keyframes hero-ring-draw{from{--hero-ring-angle:0deg}to{--hero-ring-angle:360deg}}
 @keyframes hero-divider-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}

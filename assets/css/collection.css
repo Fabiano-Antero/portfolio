@@ -9,3 +9,6 @@
 .collection-cover-cash .cash-device{left:63.88cqw;right:auto;top:0;width:29.95cqw;height:auto}
 .collection-grid .collection-cover-sandfit{background:#121a15}
 .collection-cover-sandfit .native-art{display:block;width:100%;height:auto;aspect-ratio:16/9;border:0;pointer-events:none}
+.collection-cover-sandfit .native-art{transition:scale .7s var(--ease)}
+.collection-cover-sandfit:is(:hover,:focus-visible) .native-art{scale:1.035}
+@media(prefers-reduced-motion:reduce){.collection-cover-sandfit .native-art{transition:none}.collection-cover-sandfit:is(:hover,:focus-visible) .native-art{scale:1}}
