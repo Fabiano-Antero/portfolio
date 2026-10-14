@@ -30,14 +30,24 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
   const header=element('div','chibi-chat-header');
   const titles=element('div');const title=element('h2');title.id='chibi-chat-title';const subtitle=element('p');titles.append(title,subtitle);
   const close=button('chibi-chat-dismiss','×',()=>closeChat());header.append(titles,close);
+  const play=button('chibi-chat-play','',()=>{closeChat();container.dataset.characterExpanded='true';});
   const log=element('div','chibi-chat-log');log.setAttribute('role','log');log.setAttribute('aria-live','polite');log.setAttribute('aria-relevant','additions');
   const suggestions=element('div','chibi-chat-suggestions');
   const form=element('form','chibi-chat-form');const label=element('label');label.htmlFor='chibi-question';
   const input=element('input');input.id='chibi-question';input.name='question';input.type='text';input.maxLength=350;input.required=true;input.autocomplete='off';
   const row=element('div','chibi-chat-input-row');const send=element('button','chibi-chat-primary');send.type='submit';
   row.append(input,send);const status=element('p','chibi-chat-status');status.setAttribute('role','status');
-  form.append(label,row,status);panel.append(header,log,suggestions,form);root.append(launcher,invite,panel);container.append(root);
+  form.append(label,row,status);panel.append(header,log,suggestions,play,form);root.append(launcher,invite,panel);container.append(root);
   launcher.setAttribute('aria-controls',panel.id);launcher.setAttribute('aria-expanded','false');yes.setAttribute('aria-controls',panel.id);
+  const compact=matchMedia('(max-width:767px)');
+  let launcherHeader;
+  const placeLauncher=()=>{
+    if(launcherHeader){launcherHeader.classList.remove('has-chibi-control');launcherHeader=undefined;}
+    const header=compact.matches&&document.querySelector('.site-header .header-inner');
+    if(header){header.insertBefore(launcher,header.querySelector('[data-mobile-menu-toggle]'));header.classList.add('has-chibi-control');launcher.classList.add('chibi-navbar-launcher');launcherHeader=header;}
+    else{root.prepend(launcher);launcher.classList.remove('chibi-navbar-launcher');}
+  };
+  compact.addEventListener('change',placeLauncher);placeLauncher();
   const load=()=>{
     if(knowledge)return Promise.resolve(knowledge);
     if(!loadPromise)loadPromise=fetch(new URL('../data/fabiano.json?v=20261007-es',import.meta.url)).then(response=>{if(!response.ok)throw Error('Knowledge unavailable');return response.json();}).then(data=>{if(!Array.isArray(data.topics))throw Error('Invalid knowledge');knowledge=data;return data;}).catch(error=>{loadPromise=undefined;throw error;});
@@ -94,20 +104,21 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
   };
   function open(){
     if(opened){input.focus({preventScroll:true});return;}
-    opened=true;clearTimeout(inviteTimer);save('portfolio-chibi-invite-seen',true);
+    opened=true;container.dataset.chatOpen='true';clearTimeout(inviteTimer);save('portfolio-chibi-invite-seen',true);
     invite.hidden=true;panel.hidden=false;launcher.setAttribute('aria-expanded','true');
     onOpen();
     if(!messages.length)add({role:'answer',text:copy[language].welcome,answer:{type:'welcome'}});
     renderLog();fit();input.focus({preventScroll:true});
     load().then(()=>{if(alive)renderLog();}).catch(()=>{});
   }
-  function closeChat(){opened=false;panel.hidden=true;invite.hidden=true;launcher.setAttribute('aria-expanded','false');onClose();launcher.focus({preventScroll:true});}
+  function closeChat(){opened=false;delete container.dataset.chatOpen;panel.hidden=true;invite.hidden=true;launcher.setAttribute('aria-expanded','false');onClose();launcher.focus({preventScroll:true});}
   const translate=()=>{
     const statusKey=['error','limit'].find(key=>status.textContent===copy[language][key]);
     language=currentLanguage();const text=copy[language];
     inviteText.textContent=text.invite;invite.setAttribute('aria-label',text.invite);yes.textContent=text.yes;no.textContent=text.no;
-    launcher.textContent=text.open;launcher.setAttribute('aria-label',text.title);title.textContent=text.title;subtitle.textContent=text.subtitle;
+    launcher.textContent=text.open;launcher.setAttribute('aria-label',text.title);launcher.title=text.title;title.textContent=text.title;subtitle.textContent=text.subtitle;
     close.setAttribute('aria-label',text.close);label.textContent=text.label;input.placeholder=text.placeholder;send.textContent=text.send;
+    play.textContent=language==='es'?'Mostrar personaje para jugar':language==='en'?'Show character to play':'Mostrar personagem para brincar';
     if(busy)status.textContent=text.loading;
     else if(statusKey)status.textContent=text[statusKey];
     suggestions.replaceChildren(...text.suggestions.map(question=>button('chibi-chat-suggestion',question,()=>ask(question))));
@@ -129,6 +140,6 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
   return {
     get isOpen(){return opened;},setCharacterState,
     setCallbacks(callbacks){onOpen=callbacks.onOpen;onClose=callbacks.onClose;},
-    destroy(){alive=false;clearTimeout(inviteTimer);document.removeEventListener('portfolio:language',translate);window.removeEventListener('resize',fit);window.visualViewport?.removeEventListener('resize',fit);window.visualViewport?.removeEventListener('scroll',fit);root.remove();}
+    destroy(){alive=false;clearTimeout(inviteTimer);compact.removeEventListener('change',placeLauncher);launcherHeader?.classList.remove('has-chibi-control');launcher.remove();document.removeEventListener('portfolio:language',translate);window.removeEventListener('resize',fit);window.visualViewport?.removeEventListener('resize',fit);window.visualViewport?.removeEventListener('scroll',fit);root.remove();}
   };
 }

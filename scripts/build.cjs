@@ -4,6 +4,7 @@ require('./certifications-section.cjs')();
 require('./build-styles.cjs')();
 require('./aquilimpa-page.cjs')();
 require('./aquilimpa-case.cjs')();
+require('./case-evidence.cjs')();
 const root = path.resolve(__dirname, '..');
 const output = path.join(root, 'dist');
 fs.mkdirSync(output, { recursive:true });

@@ -2,6 +2,15 @@
   'use strict';
   const normalize = value => value.trim().replace(/\s+/g, ' ');
   const translations = new Map(`
+Conecto produto, UX/UI e código para transformar regras complexas em experiências claras.|I connect product, UX/UI and code to turn complex rules into clear experiences.|Conecto producto, UX/UI y código para transformar reglas complejas en experiencias claras.
+Três projetos em que conecto produto, design e desenvolvimento.|Three projects connecting product, design and development.|Tres proyectos en los que conecto producto, diseño y desarrollo.
+Um SaaS de agendamento e gestão que projetei e desenvolvi.|A booking and management SaaS I designed and developed.|Un SaaS de reservas y gestión que diseñé y desarrollé.
+Antecipação e Pix com custos e estados visíveis.|Advances and Pix with visible costs and statuses.|Anticipación y Pix con costes y estados visibles.
+App, site e design system para descobrir o treino e reservar.|An app, website and design system to discover workouts and book.|App, sitio web y sistema de diseño para descubrir entrenamientos y reservar.
+Produto, UX/UI e desenvolvimento em fintech, SaaS e soluções de BI.|Product, UX/UI and development across fintech, SaaS and BI solutions.|Producto, UX/UI y desarrollo en fintech, SaaS y soluciones de BI.
+UX/UI para soluções de BI, pesquisa e governança de design systems.|UX/UI for BI solutions, research and design system governance.|UX/UI para soluciones de BI, investigación y gobernanza de sistemas de diseño.
+Onboarding, KYC e acessibilidade em jornadas financeiras.|Onboarding, KYC and accessibility across financial journeys.|Onboarding, KYC y accesibilidad en recorridos financieros.
+Formação complementar em UX, produto e desenvolvimento.|Further education in UX, product and development.|Formación complementaria en UX, producto y desarrollo.
 CERTIFICAÇÕES|CERTIFICATIONS|CERTIFICACIONES
 Aprender faz parte|Learning is part|Aprender es parte
 de construir.|of building.|de construir.
@@ -284,14 +293,14 @@ Proteções ao longo da operação|Safeguards throughout operations|Protecciones
 Isolamento entre contas e unidades, permissões, validações, auditoria e verificação de webhooks.|Isolation between accounts and locations, permissions, validation, auditing and webhook verification.|Aislamiento entre cuentas y sucursales, permisos, validaciones, auditoría y verificación de webhooks.
 Ações sensíveis pedem confirmação adicional; imagens são validadas e reprocessadas.|Sensitive actions require additional confirmation; images are validated and reprocessed.|Las acciones sensibles requieren confirmación adicional; las imágenes se validan y reprocesan.
 ENTREGA|DELIVERY|ENTREGA
-Em desenvolvimento. Impacto a avaliar.|In development. Impact to be evaluated.|En desarrollo. Impacto por evaluar.
-A jornada está implementada em ambiente de homologação. O projeto continua em desenvolvimento; os benefícios abaixo ainda precisam ser avaliados em uso real.|The journey is implemented in a staging environment. The project remains in development; the benefits below still need evaluation in real use.|El recorrido está implementado en un entorno de pruebas. El proyecto sigue en desarrollo; los beneficios siguientes todavía deben evaluarse en uso real.
-OBJETIVOS DO PRODUTO / SEM RESULTADOS COMERCIAIS MENSURADOS|PRODUCT GOALS / NO MEASURED COMMERCIAL RESULTS|OBJETIVOS DEL PRODUCTO / SIN RESULTADOS COMERCIALES MEDIDOS
-Menos retrabalho|Less rework|Menos trabajo repetido
-Reduzir registros repetidos entre conversa, reserva, atendimento e pagamento.|Reduce duplicate records across conversations, bookings, appointments and payments.|Reducir registros repetidos entre conversación, reserva, servicio y pago.
+Do design à implementação.|From design to implementation.|Del diseño a la implementación.
+Projetei e desenvolvi a jornada de agendamento e gestão, conectando interface, regras de negócio e integrações. A plataforma está implementada em ambiente de homologação e continua em desenvolvimento.|I designed and developed the booking and management journey, connecting the interface, business rules and integrations. The platform is implemented in a staging environment and remains in development.|Diseñé y desarrollé el recorrido de reservas y gestión, conectando interfaz, reglas de negocio e integraciones. La plataforma está implementada en un entorno de pruebas y sigue en desarrollo.
+DESIGN, DESENVOLVIMENTO E INTEGRAÇÕES|DESIGN, DEVELOPMENT AND INTEGRATIONS|DISEÑO, DESARROLLO E INTEGRACIONES
+Uma jornada conectada|A connected journey|Un recorrido conectado
+Conectei conversa, reserva, atendimento e pagamento na mesma jornada, compartilhando as regras de disponibilidade entre os canais.|I connected conversations, booking, appointments and payment in one journey, sharing availability rules across channels.|Conecté conversación, reserva, atención y pago en un mismo recorrido, compartiendo las reglas de disponibilidad entre los canales.
 Uma operação mais clara|Clearer operations|Una operación más clara
-Tornar agenda, responsabilidades e relacionamento mais fáceis de acompanhar.|Make the calendar, responsibilities and customer relationships easier to follow.|Facilitar el seguimiento de la agenda, las responsabilidades y la relación con clientes.
-Próximo passo: observar clientes e operadores usando a jornada, concluir a homologação e medir o efeito na rotina.|Next step: observe customers and operators using the journey, complete staging validation and measure its impact on daily work.|Próximo paso: observar a clientes y operadores usando el recorrido, completar la validación en pruebas y medir el efecto en la rutina.
+Organizei agenda, responsabilidades e relacionamento em interfaces para acompanhar a rotina de cada unidade.|I organized the calendar, responsibilities and customer relationships in interfaces for following each location’s daily operations.|Organicé la agenda, las responsabilidades y la relación con clientes en interfaces para seguir la rutina de cada unidad.
+A versão de homologação permite explorar a interface e os fluxos implementados.|The staging version lets visitors explore the interface and implemented flows.|La versión de pruebas permite explorar la interfaz y los flujos implementados.
 Outros contextos.|Other contexts.|Otros contextos.
 Outras decisões.|Other decisions.|Otras decisiones.
 Explorar todos os projetos ↗|Explore all projects ↗|Explorar todos los proyectos ↗
@@ -334,21 +343,19 @@ Recebíveis elegíveis ficam separados do saldo disponível na conta. Essa hiera
 PESQUISA|RESEARCH|INVESTIGACIÓN
 Custo, prazo e segurança|Cost, timing and security|Coste, plazo y seguridad
 orientam a escolha.|guide the choice.|orientan la elección.
-Os critérios registrados no questionário ajudam a formular hipóteses de UX. Eles orientam a proposta e a próxima avaliação com motoristas.|The criteria recorded in the questionnaire help formulate UX hypotheses. They guide the proposal and the next evaluation with drivers.|Los criterios recogidos en el cuestionario ayudan a formular hipótesis de UX. Orientan la propuesta y la próxima evaluación con transportistas.
+Usei os critérios registrados no questionário para orientar o desenho da experiência: apresentar o custo com clareza, organizar as etapas e tornar o acompanhamento da solicitação visível.|I used the criteria recorded in the questionnaire to guide the experience design: show fees clearly, organize the steps and make request tracking visible.|Utilicé los criterios registrados en el cuestionario para orientar el diseño de la experiencia: presentar el coste con claridad, organizar las etapas y hacer visible el seguimiento de la solicitud.
 Taxas competitivas|Competitive fees|Comisiones competitivas
 Rapidez|Speed|Rapidez
 Segurança|Security|Seguridad
 4,5/5 · Transparência das taxas|4.5/5 · Fee transparency|4,5/5 · Transparencia de las comisiones
 65% · Uso prévio de aplicativos de antecipação|65% · Previous use of payment advance apps|65% · Uso previo de aplicaciones de anticipos
 Fonte: questionário documentado no estudo. O estudo não informa o tamanho da amostra, as datas nem a forma de recrutamento. Os percentuais somam mais de 100%, mas o uso de múltipla escolha não está confirmado. Esses números não medem os resultados do aplicativo.|Source: questionnaire documented in the case study. Sample size, dates and recruitment methods were not reported. Percentages total more than 100%, but the use of multiple choice is unconfirmed. These figures do not measure app outcomes.|Fuente: cuestionario documentado en el estudio. El estudio no informa del tamaño de la muestra, las fechas ni el método de selección de participantes. Los porcentajes suman más del 100%, pero no se confirma el uso de selección múltiple. Estos datos no miden los resultados de la aplicación.
-PERSONA / SÍNTESE A VALIDAR|PERSONA / SYNTHESIS TO VALIDATE|PERSONA / SÍNTESIS POR VALIDAR
+PERSONA / PERFIL DE REFERÊNCIA|PERSONA / REFERENCE PROFILE|PERSONA / PERFIL DE REFERENCIA
 37 anos · 7 anos no transporte|37 years old · 7 years in transport|37 años · 7 años en el transporte
 Perfil ilustrativo para reunir necessidades do projeto. A persona não corresponde a uma participante identificada.|An illustrative profile bringing together project needs. The persona does not represent an identified participant.|Perfil ilustrativo que reúne necesidades del proyecto. La persona no corresponde a una participante identificada.
 Decidir sem interromper o trabalho.|Make decisions without interrupting work.|Decidir sin interrumpir el trabajo.
 Entre fretes, documentos e despesas, precisa entender o custo da antecipação, conferir o valor líquido e o destino do dinheiro e acompanhar o status da solicitação.|Between deliveries, documents and expenses, she needs to understand advance costs, check the net amount and destination and track the request status.|Entre transportes, documentos y gastos, necesita entender el coste del anticipo, comprobar el importe neto y el destino del dinero y seguir el estado de la solicitud.
-A validar: em quais momentos o Pix agendado e as reservas ajudam no planejamento.|To validate: when scheduled Pix payments and savings help with planning.|Por validar: en qué momentos Pix programado y los fondos reservados ayudan a planificar.
-PRÓXIMA PESQUISA / Instrumento proposto, sem respostas coletadas|NEXT RESEARCH / Proposed instrument, no responses collected|PRÓXIMA INVESTIGACIÓN / Instrumento propuesto, sin respuestas recogidas
-Investigar prazo de recebimento, critérios de escolha, entendimento de R$ 5.000 − R$ 300 = R$ 4.700, frequência de agendamento e distinção entre pedido recebido e dinheiro liberado.|Investigate payment timing, decision criteria, understanding of R$ 5,000 − R$ 300 = R$ 4,700, scheduling frequency and the distinction between a received request and released funds.|Investigar plazos de cobro, criterios de elección, comprensión de R$ 5.000 − R$ 300 = R$ 4.700, frecuencia de programación y distinción entre solicitud recibida y dinero disponible.
+Pix agendado e reservas complementam a proposta de organização financeira.|Scheduled Pix and savings pots complement the financial organization proposal.|Pix programado y las reservas complementan la propuesta de organización financiera.
 JORNADA|JOURNEY|RECORRIDO
 Uma entrada.|One entry point.|Un punto de entrada.
 Três jornadas de uso.|Three user journeys.|Tres recorridos de uso.
@@ -438,15 +445,15 @@ TIPOGRAFIA DO PRODUTO|PRODUCT TYPOGRAPHY|TIPOGRAFÍA DEL PRODUCTO
 COMPONENTES E ESTADOS|COMPONENTS AND STATES|COMPONENTES Y ESTADOS
 Botões, campos, ações rápidas, navegação e resumos seguem a mesma base. Os estados tratam cadastro parcial, ausência de recebíveis, revisão, solicitação recebida e análise.|Buttons, fields, quick actions, navigation and summaries share the same foundation. States handle partial registration, no receivables, review, received requests and assessment.|Botones, campos, acciones rápidas, navegación y resúmenes siguen la misma base. Los estados contemplan registro parcial, ausencia de pagos por cobrar, revisión, solicitud recibida y análisis.
 ESPAÇAMENTO / 8 · 12 · 16 · 24 · 32   CANTOS / 8 · 16 · 24 · 32|SPACING / 8 · 12 · 16 · 24 · 32   CORNERS / 8 · 16 · 24 · 32|ESPACIADO / 8 · 12 · 16 · 24 · 32   ESQUINAS / 8 · 16 · 24 · 32
-Um protótipo para explorar.|A prototype to explore.|Un prototipo para explorar.
-Uma experiência para validar.|An experience to validate.|Una experiencia para validar.
-A entrega reúne pesquisa documentada, fluxo, guia de estilo e protótipo de alta fidelidade. A revisão de navegação cobriu dez cenários do protótipo, sem substituir testes com motoristas.|The delivery brings together documented research, flows, a style guide and a high-fidelity prototype. Navigation review covered ten prototype scenarios, without replacing testing with drivers.|La entrega reúne investigación documentada, flujo, guía de estilo y prototipo de alta fidelidad. La revisión de navegación cubrió diez escenarios del prototipo, sin sustituir las pruebas con transportistas.
-VERIFICAÇÃO DO PROTÓTIPO|PROTOTYPE VERIFICATION|VERIFICACIÓN DEL PROTOTIPO
-Manter o contexto.|Preserve context.|Mantener el contexto.
-A revisão verificou a edição de valores, a preservação dos destinatários, o envio único ou recorrente e o retorno da visualização de documentos sem perder o contexto.|The review checked amount editing, recipient preservation, one-off and recurring payments and returning from document views without losing context.|La revisión comprobó la edición de importes, la conservación de destinatarios, el envío único o recurrente y el regreso desde la vista de documentos sin perder el contexto.
-PRÓXIMA VALIDAÇÃO|NEXT VALIDATION|PRÓXIMA VALIDACIÓN
-Observar decisões reais.|Observe real decisions.|Observar decisiones reales.
-Avaliar se os motoristas compreendem as taxas e o valor líquido, distinguem a solicitação da liberação do dinheiro, confiam no Pix e conseguem editar informações sem refazer o fluxo.|Assess whether drivers understand fees and net amounts, distinguish a request from the release of funds, trust Pix and can edit details without repeating the flow.|Evaluar si los transportistas comprenden las comisiones y el importe neto, distinguen la solicitud de la disponibilidad del dinero, confían en Pix y pueden editar datos sin repetir el flujo.
+Da pesquisa ao protótipo.|From research to prototype.|De la investigación al prototipo.
+Uma experiência conectada.|A connected experience.|Una experiencia conectada.
+Minha entrega reúne pesquisa, desenho das jornadas, identidade visual, componentes e um protótipo de alta fidelidade para antecipação, Pix e organização financeira.|My delivery brings together research, journey design, visual identity, components and a high-fidelity prototype for advances, Pix and financial organization.|Mi entrega reúne investigación, diseño de recorridos, identidad visual, componentes y un prototipo de alta fidelidad para anticipos, Pix y organización financiera.
+O QUE ENTREGUEI|WHAT I DELIVERED|LO QUE ENTREGUÉ
+Do fluxo à interface.|From flow to interface.|Del flujo a la interfaz.
+Desenhei os fluxos de antecipação e Pix, os recursos de organização financeira e os estados de cada jornada. O guia de estilo reúne a tipografia, as cores e os componentes usados no protótipo.|I designed the advance and Pix flows, financial organization features and states for each journey. The style guide brings together the typography, colors and components used in the prototype.|Diseñé los flujos de anticipos y Pix, las funciones de organización financiera y los estados de cada recorrido. La guía de estilo reúne la tipografía, los colores y los componentes utilizados en el prototipo.
+DECISÃO DE DESIGN|DESIGN DECISION|DECISIÓN DE DISEÑO
+Clareza antes de autorizar.|Clarity before authorizing.|Claridad antes de autorizar.
+Priorizei a apresentação do custo, do valor líquido e do destino antes da autorização. No acompanhamento, diferenciei solicitação recebida, análise e liberação; na edição, preservei as escolhas anteriores para manter o contexto.|I prioritized showing fees, the net amount and destination before authorization. In tracking, I distinguished a received request, assessment and release of funds; when editing, I retained previous choices to preserve context.|Prioricé la presentación del coste, del importe neto y del destino antes de autorizar. En el seguimiento, distinguí solicitud recibida, análisis y liberación; al editar, conservé las elecciones anteriores para mantener el contexto.
 Consultar estudo completo ↗|View full case study ↗|Consultar caso de estudio completo ↗
 CONTINUE EXPLORANDO|KEEP EXPLORING|SIGUE EXPLORANDO
 Da jornada financeira|From the financial journey|Del recorrido financiero

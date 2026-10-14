@@ -1,6 +1,6 @@
 import * as THREE from '../vendor/three/three.module.js';
 import { GLTFLoader } from '../vendor/three/loaders/GLTFLoader.js';
-import { createCharacterChat } from './chibi-chat.js?v=20261007-es';
+import { createCharacterChat } from './chibi-chat.js?v=20261014-local-review';
 import { createCharacterBounds } from './chibi-bounds.js';
 
 const mouse = matchMedia('(any-hover: hover) and (any-pointer: fine)');
@@ -350,7 +350,7 @@ export async function createPet({layer:sharedLayer,chat:sharedChat,onReady}={}) 
       }
       if(!reduced.matches)schedule();
     };
-    const schedule = () => {if(alive && !document.hidden && frame===undefined)frame=requestAnimationFrame(renderFrame);};
+    const schedule = () => {if(alive && !document.hidden && !(innerWidth<768&&!chat?.isOpen&&!layer.dataset.characterExpanded) && frame===undefined)frame=requestAnimationFrame(renderFrame);};
     const reset = () => {
       clearTimeout(timer);cursorVisible(false);shake=0;
       setState('idle');schedule();
@@ -400,7 +400,7 @@ export async function createPet({layer:sharedLayer,chat:sharedChat,onReady}={}) 
     const callbacks={onOpen:()=>{pet.dataset.chatOpen='true';if(state==='idle')setState('talking');else beginFall();schedule();},onClose:()=>{delete pet.dataset.chatOpen;if(state==='talking')setState('idle');schedule();}};
     if(chat)chat.setCallbacks(callbacks);else chat=createCharacterChat(layer,callbacks);
     if(chat.isOpen)pet.dataset.chatOpen='true';
-    setState('idle');language();motion();schedule();
+    setState(chat.isOpen?'talking':'idle');language();motion();schedule();
     return {attach,destroy};
   } catch(error) {
     renderer?.dispose();

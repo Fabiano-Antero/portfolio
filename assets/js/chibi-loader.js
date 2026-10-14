@@ -1,9 +1,10 @@
-import {createCharacterChat} from './chibi-chat.js?v=20261007-es';
+import {createCharacterChat} from './chibi-chat.js?v=20261014-local-review';
 
 let dismissed=false;
 try{dismissed=sessionStorage.getItem('portfolio-chibi-hidden')==='true';}catch{}
 if(!dismissed) {
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  const mobile=matchMedia('(max-width:767px)');
   const layer=document.createElement('div');layer.className='chibi-layer';
   const preview=document.createElement('div');preview.className='chibi-pet chibi-placeholder';preview.dataset.state='idle';
   const image=document.createElement('img');image.src=new URL('../img/chibi-preview.webp?v=20261005-idle',import.meta.url).href;
@@ -23,7 +24,7 @@ if(!dismissed) {
   async function loadPet(event) {
     if(!alive||reduced.matches)return;
     if(!loading)loading=(async()=>{
-      const {createPet}=await import('./chibi-pet.js?v=20261007-es');
+      const {createPet}=await import('./chibi-pet.js?v=20261014-local-review');
       if(!alive)return;
       pet=await createPet({layer,chat,onReady:removePreview});
       if(!alive)pet?.destroy();
@@ -41,7 +42,7 @@ if(!dismissed) {
     document.removeEventListener('portfolio:language',language);chat.destroy();layer.remove();
   });
   const queue=()=>{
-    if(queued||!alive||reduced.matches||document.hidden)return;
+    if(queued||!alive||reduced.matches||mobile.matches||document.hidden)return;
     const art=document.querySelector('.hero-sequence'),copy=document.querySelector('.hero-copy');
     if(art&&(art.dataset.motionState!=='complete'||copy?.classList.contains('is-copy-animating')))return;
     queued=true;observer?.disconnect();
@@ -52,4 +53,5 @@ if(!dismissed) {
   for(const element of document.querySelectorAll('.hero-sequence,.hero-copy'))observer.observe(element,{attributes:true,attributeFilter:['data-motion-state','class']});
   if(document.readyState==='complete')queue();else window.addEventListener('load',queue,{once:true});
   document.addEventListener('visibilitychange',queue);reduced.addEventListener('change',queue);
+  mobile.addEventListener('change',queue);
 }

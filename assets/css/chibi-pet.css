@@ -57,3 +57,22 @@ html.chibi-cursor,html.chibi-cursor *{cursor:none!important}
 @media(prefers-reduced-motion:reduce){.chibi-close{transition:none}}
 @media(hover:none){.chibi-pet[data-state="idle"] .chibi-close{opacity:.75;width:44px;height:44px;left:20px}}
 @media(min-width:768px){.chibi-pet[data-state="idle"] .chibi-close{opacity:1}}
+.chibi-chat-play{display:none}
+.chibi-layer[data-chat-open]{z-index:1100}
+@media(max-width:767px){
+ .chibi-layer:not([data-chat-open]):not([data-character-expanded]) .chibi-pet,.chibi-layer:not([data-chat-open]):not([data-character-expanded]) .chibi-pointer{visibility:hidden;pointer-events:none}
+ .chibi-layer:not([data-chat-open]):not([data-character-expanded]) .chibi-trigger,.chibi-layer:not([data-chat-open]):not([data-character-expanded]) .chibi-close{pointer-events:none}
+ .chibi-layer:not([data-chat-open]) .chibi-chat-invite{display:none}
+ .chibi-chat-launcher{right:16px;bottom:12px;min-height:40px!important;padding:8px 12px;font-size:12px!important}
+ .chibi-layer[data-character-expanded] .chibi-chat-launcher{right:116px;bottom:18px}
+ .chibi-layer[data-chat-open] .chibi-chat-launcher{visibility:hidden}
+ .chibi-chat-play{display:block;margin:0 16px 12px;padding:8px 12px;border:1px solid #ffffff26;border-radius:8px;background:transparent;color:var(--soft);font-size:12px!important;min-height:36px!important;text-align:left}
+ .chibi-chat-panel{max-height:calc(var(--chat-viewport-height,100dvh) - var(--navbar-height,92px) - 240px)}
+ .chibi-chat-keyboard .chibi-chat-panel{max-height:calc(var(--chat-viewport-height,100dvh) - 24px)}
+ .chibi-chat-keyboard .chibi-chat-suggestions,.chibi-chat-keyboard .chibi-chat-play{display:none}
+ .site-header .header-inner.has-chibi-control{grid-template-columns:minmax(0,1fr) 46px 32px 44px;gap:8px}
+ .site-header .header-inner.has-chibi-control .mobile-menu-toggle{grid-column:4;grid-row:1}
+ .chibi-navbar-launcher{grid-column:3;grid-row:1}
+ .chibi-chat-launcher.chibi-navbar-launcher{position:static;flex:0 0 32px;width:32px;height:32px;min-height:32px!important;padding:0;border:0;background:transparent;box-shadow:none;color:inherit;font-size:0!important;display:grid;place-items:center}
+ .chibi-navbar-launcher::before{content:'';width:21px;height:21px;background:currentColor;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' d='M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-5 3V6a2 2 0 0 1 2-2Z'/%3E%3Cpath stroke='black' stroke-width='1.6' stroke-linecap='round' d='M7 9h10M7 13h7'/%3E%3C/svg%3E") center/contain no-repeat}
+}
