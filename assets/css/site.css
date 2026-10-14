@@ -274,6 +274,7 @@ html.chibi-cursor,html.chibi-cursor *{cursor:none!important}
 @media(max-height:560px) and (min-width:601px){.chibi-chat-invite,.chibi-chat-panel{right:180px;bottom:var(--chat-bottom,16px)}.chibi-chat-panel{max-height:calc(var(--chat-viewport-height,100dvh) - 32px)}}
 @media(prefers-reduced-motion:reduce){.chibi-close{transition:none}}
 @media(hover:none){.chibi-pet[data-state="idle"] .chibi-close{opacity:.75;width:44px;height:44px;left:20px}}
+@media(min-width:768px){.chibi-pet[data-state="idle"] .chibi-close{opacity:1}}
 
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/ibm-plex-mono-bold.woff2') format('woff2')}
 .project-transition{position:fixed;inset:0;z-index:100000;overflow:hidden;contain:strict;touch-action:none;cursor:progress;isolation:isolate}
