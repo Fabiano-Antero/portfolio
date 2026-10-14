@@ -59,3 +59,4 @@ require('./aquilimpa-page.cjs')();
 require('./aquilimpa-case.cjs')();
 require('./certifications-section.cjs')();
 require('./case-evidence.cjs')();
+require('./social-preview.cjs')();
