@@ -153,7 +153,7 @@
 @media(max-width:767px){.workbench-journey{gap:8px;margin-block:0 4px}.workbench-journey figure{gap:4px}.workbench-journey figcaption{font-size:12px;line-height:18px}}
 
 .certifications-section{overflow:hidden}
-.certifications-grid{display:grid;grid-template-columns:678fr 515fr;gap:80px;align-items:center}
+.certifications-grid{display:grid;grid-template-columns:minmax(0,418fr) minmax(0,766fr);gap:64px;align-items:center}
 .certifications-copy{gap:24px;align-items:flex-start}
 .certifications-copy>p:not(.eyebrow){max-width:420px}
 .certifications-copy .certification-topics{color:var(--coral);margin-top:8px}
@@ -183,6 +183,7 @@
 .certification-arrow{display:grid;place-items:center;width:48px;height:48px;padding:0;border:1px solid var(--soft);border-radius:50%;background:transparent;color:var(--white);transition:color .2s,border-color .2s,background .2s}
 .certification-arrow:hover{border-color:var(--coral);color:var(--coral);background:#ff6b3d0a}
 .certifications-position{color:var(--soft);font-variant-numeric:tabular-nums}
-@media(min-width:768px) and (max-width:1190px){.certifications-grid{grid-template-columns:1fr 1fr;gap:40px}.certification-card{flex-basis:calc(100% - 32px);padding:24px}.certification-card h3{font-size:25px;line-height:29px}}
+@media(min-width:1024px) and (max-width:1190px){.certifications-grid{gap:40px}.certification-card{padding:24px}.certification-card h3{font-size:25px;line-height:29px}}
+@media(min-width:768px) and (max-width:1023px){.certifications-grid{grid-template-columns:1fr;gap:24px}.certifications-copy>p:not(.eyebrow){max-width:600px}}
 @media(max-width:767px){.certifications-grid{grid-template-columns:1fr;gap:24px}.certifications-copy{gap:24px}.certifications-copy h2{font-size:38px;line-height:41px;letter-spacing:-1.14px}.certifications-copy>p:not(.mono):not(.eyebrow){font-size:16px;line-height:25px}.certification-card{flex-basis:calc(100% - 24px);min-height:450px;padding:24px}.certification-card h3{font-size:25px;line-height:29px}.certifications-controls{margin-top:4px}}
 @media(prefers-reduced-motion:reduce){.certification-card:is(:hover,:focus-visible){scale:1}.certifications-viewport{touch-action:auto}}
