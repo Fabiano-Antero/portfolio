@@ -1,5 +1,20 @@
 window.portfolioTranslations=[
   [
+    "O DESAFIO DO CLIENTE",
+    "THE CLIENT’S CHALLENGE",
+    "EL DESAFÍO DEL CLIENTE"
+  ],
+  [
+    "O projeto foi desenvolvido para uma empresa de limpeza em Portugal, com atuação em hotéis, hospitais, pós-construção e outros segmentos. O cliente queria transmitir mais credibilidade: o site existente havia sido criado por ele próprio em WordPress.",
+    "The project was developed for a cleaning company in Portugal, serving hotels, hospitals, post-construction sites and other sectors. The client wanted to convey greater credibility: he had built the existing website himself using WordPress.",
+    "El proyecto se desarrolló para una empresa de limpieza en Portugal que atendía hoteles, hospitales, obras terminadas y otros sectores. El cliente quería transmitir mayor credibilidad: había creado él mismo el sitio existente en WordPress."
+  ],
+  [
+    "A proposta foi reconstruir a página do zero, preservando a identidade visual da empresa e respeitando as preferências do cliente, com uma apresentação mais clara dos serviços.",
+    "The approach was to rebuild the page from scratch, preserving the company’s visual identity and respecting the client’s preferences, with a clearer presentation of its services.",
+    "La propuesta fue reconstruir la página desde cero, conservando la identidad visual de la empresa y respetando las preferencias del cliente, con una presentación más clara de los servicios."
+  ],
+  [
     "Ação principal",
     "Primary action",
     "Acción principal"

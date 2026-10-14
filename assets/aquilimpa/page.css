@@ -30,4 +30,19 @@ source{display:none}
 @media(max-width:767px){.hero-heading{width:100%;height:91px}.hero-underline{position:absolute;left:50%;top:74px;transform:translateX(-50%);margin:0}.hero-copy>p .desktop-break{display:initial}}
 @media(min-width:768px) and (max-width:1199px){.al-header{background-image:url('./tablet/nav-navbar.png')}.deadline-badge>.badge-surface,.deadline-desktop{display:flex}.deadline-mobile{display:none}.al-contact::before{background:radial-gradient(ellipse at 70% 50%,#dbecee00,#dbecee 72%),url('./tablet/image10.png') center/cover no-repeat}}
 @media(max-width:767px){.al-header{background-image:url('./mobile/nav-navbar.png')}.deadline-badge{transform:scale(1.625)}.al-contact::before{background:radial-gradient(ellipse at 70% 50%,#dbecee00,#dbecee 72%),url('./mobile/image10.png') center/cover no-repeat}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+/* Fade layers use only opacity and transform, without changing the layout. */
+.al-motion{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s var(--ease)}
+.al-motion-visible{opacity:1;transform:none}
+.hero-visual.al-motion{transform:none}
+.reviews-scroller{padding-block:20px;scroll-snap-type:none;overflow-x:hidden;touch-action:pan-y}
+.review-track.is-looping{animation:al-review-loop var(--review-loop-duration) linear infinite}
+.reviews-scroller:is(:hover,:focus-within) .review-track,.reviews-scroller[data-review-paused] .review-track{animation-play-state:paused}
+.review-card{transition:transform .3s var(--ease);transform-origin:center}
+@media(hover:hover){.review-card:hover{transform:scale(1.04);z-index:1}}
+@keyframes al-review-loop{to{transform:translateX(calc(-1 * var(--review-loop-distance)))}}
+.service-dialog{opacity:0;transform:translateY(10px);transition:opacity .2s ease,transform .2s var(--ease),display .2s allow-discrete,overlay .2s allow-discrete}
+.service-dialog[open]{opacity:1;transform:none}
+.service-dialog::backdrop{opacity:0;transition:opacity .2s ease,display .2s allow-discrete,overlay .2s allow-discrete}
+.service-dialog[open]::backdrop{opacity:1}
+@starting-style{.service-dialog[open]{opacity:0;transform:translateY(10px)}.service-dialog[open]::backdrop{opacity:0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.al-motion{opacity:1;transform:none}.reviews-scroller{overflow-x:auto;scroll-snap-type:x mandatory;touch-action:auto}.review-card[data-review-clone]{display:none}.review-card:hover{transform:none}}
