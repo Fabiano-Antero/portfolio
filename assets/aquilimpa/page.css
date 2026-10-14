@@ -16,6 +16,8 @@
 @media(min-width:768px) and (max-width:819px){.footer-columns{grid-template-columns:1.2fr 1fr 1fr;gap:20px}.footer-brand{min-width:0}.footer-brand>p{max-width:100%}.footer-columns h3{font-size:18px}.social-links{gap:8px}}
 picture{display:contents}
 source{display:none}
+.al-button:disabled{background:#e7eafb;color:#5c688c;box-shadow:none;transform:none}
+.contact-form input[aria-invalid="true"],.contact-form textarea[aria-invalid="true"]{border-color:#b42318;box-shadow:0 0 0 1px #b42318}
 .al-skip:not(:focus){clip-path:inset(50%)}
 .contact-form{background:#f8f8f8}
 .contact-form input{height:50px;padding-block:14px}

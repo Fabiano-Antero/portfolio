@@ -21,7 +21,7 @@ Abra http://localhost:4173. Para usar outra porta, defina a variável de ambient
 - O case Cash Advance inclui uma apresentação em vídeo de 16 segundos após a introdução, em 16:9. O botão central usa o laranja do portfólio, permanece visível na pausa e aparece por hover ou foco de teclado durante a reprodução. O vídeo começa por ação do visitante, preserva o áudio fornecido e mantém os controles nativos. A capa da home e da coleção permanece independente do pôster do vídeo. O bloco compartilhado fica em `scripts/cash-motion.cjs`, o comportamento em `assets/js/cash-motion.js` e os arquivos em `assets/media/`.
 - `sandfit.html`: oito capítulos sobre contexto, perfil, jornada, descoberta, reserva, recuperação, sistema visual e encerramento, conforme o Figma. Inclui quatro telas do produto e links para estudo e protótipo.
 
-A home apresenta Ordiny, Cash Advance e Sandfit Arena. Lumen e Aqui Limpa ficam na coleção completa e levam aos estudos originais no Behance. O botão de currículo usa o PDF de 30/09/2026 fornecido pelo autor. Os canais de contato mantêm os endereços do portfólio original.
+A home apresenta Ordiny, Cash Advance e Sandfit Arena. Lumen e Aqui Limpa ficam na coleção completa. Lumen leva ao estudo original no Behance; Aqui Limpa abre o mini design system, com acesso à landing page implementada. O botão de currículo usa o PDF de 30/09/2026 fornecido pelo autor. Os canais de contato mantêm os endereços do portfólio original.
 
 ## Editar e preparar para hospedagem
 
@@ -43,6 +43,8 @@ No repositório `Fabiano-Antero/portfolio`, o GitHub Pages publica os arquivos d
 ## Animações e acessibilidade
 
 ### Aqui Limpa
+
+`aquilimpa.html` apresenta o mini design system no padrão editorial do portfólio: identidade, paleta, amostras Inter, espaçamento, raios, breakpoints e uma prévia interativa dos componentes. `scripts/aquilimpa-case.cjs` reutiliza o cabeçalho e rodapé da página Ordiny para gerar o documento, as traduções em PT / ESP / ENG e o showcase `assets/art/aquilimpa-components.html`. O showcase usa diretamente o CSS da landing page. Seu tamanho acompanha o conteúdo e a troca de idioma preserva os campos e os estados. A coleção aponta para o guia; os CTAs do guia abrem `/aquilimpa/page/`, e a landing page oferece o caminho de volta. As duas rotas mantêm a transição de tiras.
 
 `/aquilimpa/page/` publica a landing page Aqui Limpa com a identidade visual original, em desktop, tablet e celular. O arquivo Figma é `DNjwYBAICWA2zKhoTaVpzA`, página `30:2`, frames `30:3`, `197:887` e `197:888`. As imagens e os SVGs originais ficam em `assets/aquilimpa/`, com fontes Inter locais. `scripts/aquilimpa-page.cjs` gera a página; `npm run build` inclui a rota em `dist/`. A coleção de projetos e a resposta do personagem apontam para ela. O endereço sem a barra final também funciona no servidor de desenvolvimento; no GitHub Pages, a pasta contém seu próprio `index.html`.
 

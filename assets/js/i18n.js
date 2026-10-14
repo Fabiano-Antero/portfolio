@@ -2,6 +2,7 @@
   'use strict';
   const normalize = value => value.trim().replace(/\s+/g, ' ');
   const translations = new Map(`
+Ver mini DS ↗|View mini DS ↗|Ver mini DS ↗
 VISÃO DO PRODUTO · 16 S|PRODUCT OVERVIEW · 16 S|VISIÓN DEL PRODUCTO · 16 S
 Home, antecipação, Pix e Caixinhas em movimento.|Home, advances, Pix and savings goals in motion.|Inicio, anticipos, Pix y metas de ahorro en movimiento.
 Reproduzir|Play|Reproducir
@@ -595,6 +596,8 @@ Sandfit Arena: Estudo de caso: Fabiano Antero|Sandfit Arena: Case study: Fabiano
     return [original, {en, es}];
   }));
 
+  for(const [pt,en,es] of window.portfolioTranslations||[])translations.set(normalize(pt),{en,es});
+
   // Save original nodes once: toggling language preserves markup, listeners,
   // links, tab state and the manually controlled comparison.
   const nodes = [];
@@ -608,8 +611,8 @@ Sandfit Arena: Estudo de caso: Fabiano Antero|Sandfit Arena: Case study: Fabiano
     )});
   }
   const attributes = [];
-  document.querySelectorAll('[aria-label],[alt],iframe[title],meta[name="description"]').forEach(element => {
-    for (const name of ['aria-label','alt','title','content']) {
+  document.querySelectorAll('[aria-label],[alt],iframe[title],meta[name="description"],[placeholder]').forEach(element => {
+    for (const name of ['aria-label','alt','title','content','placeholder']) {
       if (!element.hasAttribute(name)) continue;
       const original = element.getAttribute(name);
       const translated = translations.get(normalize(original));
@@ -627,6 +630,7 @@ Sandfit Arena: Estudo de caso: Fabiano Antero|Sandfit Arena: Case study: Fabiano
     try { localStorage.setItem('portfolio-language', locale); } catch { /* Browsing without storage still supports switching. */ }
     document.dispatchEvent(new CustomEvent('portfolio:language', {detail:{language:locale}}));
   };
+  document.addEventListener('portfolio:set-language',event=>setLanguage(event.detail?.language));
   document.querySelectorAll('[data-language]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.language)));
   document.querySelectorAll('[data-mobile-language-option]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.mobileLanguageOption)));
   let saved = 'pt';

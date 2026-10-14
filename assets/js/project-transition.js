@@ -114,7 +114,7 @@
     let url;try{url=new URL(link.href,location.href);}catch{return;}
     if(url.origin!==location.origin||!['http:','https:'].includes(url.protocol))return;
     const file=documentPath(url).split('/').pop();
-    const isProjectPage=['projetos','ordiny','cash-advance','sandfit'].includes(file)||documentPath(url)==='/aquilimpa/page';
+    const isProjectPage=['projetos','ordiny','cash-advance','sandfit','aquilimpa'].includes(file)||documentPath(url)==='/aquilimpa/page';
     const isProjectSection=documentPath(url)==='/'&&url.hash==='#projetos';
     const isHomeReturn=documentPath(url)==='/'&&!sameDocument(url,new URL(location.href));
     if(!(isProjectPage||isProjectSection||isHomeReturn)||canonical(url)===canonical(new URL(location.href)))return;
