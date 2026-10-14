@@ -142,7 +142,7 @@
 .workbench-visual-delivery>.mono{padding:16px 16px 0}
 .workbench-visual-delivery .workbench-delivery{width:100%;height:auto;aspect-ratio:4/3;object-fit:contain}
 
-/* Product journey illustrations, scoped to the Problem tab. */
+/* Product journey and booking channel illustrations. */
 .workbench-journey{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:4px 0 8px}
 .workbench-journey figure{min-width:0;margin:0;display:flex;flex-direction:column;align-items:center;gap:6px}
 .workbench-journey img{width:100%;max-width:152px;height:auto;aspect-ratio:1;object-fit:contain}
