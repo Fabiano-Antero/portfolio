@@ -3,7 +3,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname,'../assets/css');
 const groups = {
   'site.css':['fonts.css','style.css','language.css','mobile-navigation.css','chibi-pet.css','project-transition.css','adaptive-navbar.css'],
-  'home.css':['hero-motion.css','hero-glitch.css','hero-particles.css','hero-blueprint.css','skills-marquee.css','home-projects.css']
+  'home.css':['hero-motion.css','hero-glitch.css','hero-particles.css','hero-blueprint.css','skills-marquee.css','home-projects.css','certifications.css']
 };
 function buildStyles() {
   for (const [output, sources] of Object.entries(groups)) {

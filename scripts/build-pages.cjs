@@ -56,3 +56,4 @@ console.log('Páginas geradas: projetos.html, ordiny.html, cash-advance.html, sa
 
 require('./aquilimpa-page.cjs')();
 require('./aquilimpa-case.cjs')();
+require('./certifications-section.cjs')();

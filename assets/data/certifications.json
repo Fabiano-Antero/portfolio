@@ -1,0 +1,122 @@
+[
+  {
+    "provider": "Alura",
+    "title": "UX: o que é experiência de usuário",
+    "category": "UX / PRODUTO",
+    "hours": 5,
+    "completed": "2020-10-08",
+    "url": "https://cursos.alura.com.br/certificate/e2ffece1-92d2-40bf-8abd-fcad077f5bd1"
+  },
+  {
+    "provider": "Alura",
+    "title": "UX Strategy: divergindo e afunilando ideias",
+    "category": "UX / PRODUTO",
+    "hours": 12,
+    "completed": "2021-06-28",
+    "url": "https://cursos.alura.com.br/certificate/b22fb254-0948-49ce-9fb2-8d8fee4c5492"
+  },
+  {
+    "provider": "Alura",
+    "title": "UX Usability: facilite a vida do seu usuário no mobile",
+    "category": "UX / PRODUTO",
+    "hours": 10,
+    "completed": "2021-12-03",
+    "url": "https://cursos.alura.com.br/certificate/07c7be73-46ec-44a1-97dc-1b3857a53240"
+  },
+  {
+    "provider": "Alura",
+    "title": "UX Produto: monitore, mensure e teste o seu projeto",
+    "category": "UX / PRODUTO",
+    "hours": 2,
+    "completed": "2021-12-03",
+    "url": "https://cursos.alura.com.br/certificate/65cdbe6e-0107-4b62-af05-474cb3b0c687"
+  },
+  {
+    "provider": "Alura",
+    "title": "UX: entenda a experiência de usuário",
+    "category": "UX / PRODUTO",
+    "hours": 8,
+    "completed": "2021-06-28",
+    "url": "https://cursos.alura.com.br/certificate/a9e0293a-e1ac-4807-be9d-6f324824b9a5"
+  },
+  {
+    "provider": "Alura",
+    "title": "HTTP: Entendendo a web por baixo dos panos",
+    "category": "FRONT-END",
+    "hours": 14,
+    "completed": "2021-07-12",
+    "url": "https://cursos.alura.com.br/certificate/fa5723f1-68ef-4027-abf1-59d5e2a6f79c"
+  },
+  {
+    "provider": "Alura",
+    "title": "Growth Hacking: crescimento para negócios digitais",
+    "category": "ESTRATÉGIA / GROWTH",
+    "hours": 8,
+    "completed": "2020-12-13",
+    "url": "https://cursos.alura.com.br/certificate/c3504f4c-cd29-4987-8379-6c6aab85f5e2"
+  },
+  {
+    "provider": "Alura",
+    "title": "HTML5 e CSS3 parte 1: crie uma página da Web",
+    "category": "FRONT-END",
+    "hours": 8,
+    "completed": "2021-02-14",
+    "url": "https://cursos.alura.com.br/certificate/1a392181-821b-41a8-95e6-12cf39d39548"
+  },
+  {
+    "provider": "Alura",
+    "title": "HTML5 e CSS3 parte 2: posicionamento, listas e navegação",
+    "category": "FRONT-END",
+    "hours": 8,
+    "completed": "2021-02-15",
+    "url": "https://cursos.alura.com.br/certificate/9aa476af-b445-478c-8e75-8dc20e4035fc"
+  },
+  {
+    "provider": "Alura",
+    "title": "HTML5 e CSS3 parte 3: trabalhando com formulários e tabelas",
+    "category": "FRONT-END",
+    "hours": 8,
+    "completed": "2021-02-15",
+    "url": "https://cursos.alura.com.br/certificate/c4b86b26-a2c1-4097-a1af-7b2bbd20d7ab"
+  },
+  {
+    "provider": "Alura",
+    "title": "HTML5 e CSS3 parte 4: avançando no CSS",
+    "category": "FRONT-END",
+    "hours": 8,
+    "completed": "2021-02-16",
+    "url": "https://cursos.alura.com.br/certificate/d7f7924a-cb8d-45b3-80eb-eb6875f98348"
+  },
+  {
+    "provider": "Alura",
+    "title": "Flexbox: posicione elementos na tela",
+    "category": "FRONT-END",
+    "hours": 9,
+    "completed": "2021-02-14",
+    "url": "https://cursos.alura.com.br/certificate/30b4bc63-74f0-4af9-87ea-4f184549691c"
+  },
+  {
+    "provider": "Udemy",
+    "title": "Curso do FIGMA ao código. O design da interface web completo",
+    "category": "DESIGN / FRONT-END",
+    "hours": 89,
+    "completed": "2023-12-08",
+    "url": "https://www.udemy.com/certificate/UC-89c61d65-332a-4440-ac19-4cb2f560e673/"
+  },
+  {
+    "provider": "Udemy",
+    "title": "JavaScript - Curso COMPLETO com 6 Projetos REAIS [2024]",
+    "category": "FRONT-END",
+    "hours": 38.5,
+    "completed": "2023-11-07",
+    "url": "https://www.udemy.com/certificate/UC-b24c5bec-7777-4bb8-a1b7-25ba482b7010/"
+  },
+  {
+    "provider": "Udemy",
+    "title": "Angular 7/8 - Material Design + Node.js + MongoDB + Firebase",
+    "category": "FRONT-END / BACK-END",
+    "hours": 39,
+    "completed": "2019-11-01",
+    "url": "https://www.udemy.com/certificate/UC-R8FZTHPN/"
+  }
+]

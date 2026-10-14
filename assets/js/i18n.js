@@ -2,6 +2,20 @@
   'use strict';
   const normalize = value => value.trim().replace(/\s+/g, ' ');
   const translations = new Map(`
+CERTIFICAÇÕES|CERTIFICATIONS|CERTIFICACIONES
+Aprender faz parte|Learning is part|Aprender es parte
+de construir.|of building.|de construir.
+Estudo contínuo para conectar experiência do usuário, estratégia de produto e desenvolvimento. Conhecimentos que levo da pesquisa à interface em produção.|Continuous learning to connect user experience, product strategy and development. Knowledge I apply from research to production interfaces.|Formación continua para conectar experiencia de usuario, estrategia de producto y desarrollo. Conocimientos que aplico desde la investigación hasta la interfaz en producción.
+UX / PRODUTO / DESENVOLVIMENTO|UX / PRODUCT / DEVELOPMENT|UX / PRODUCTO / DESARROLLO
+15 CERTIFICADOS / ALURA + UDEMY|15 CERTIFICATES / ALURA + UDEMY|15 CERTIFICADOS / ALURA + UDEMY
+Certificados de cursos|Course certificates|Certificados de cursos
+Certificado anterior|Previous certificate|Certificado anterior
+Próximo certificado|Next certificate|Siguiente certificado
+UX / PRODUTO|UX / PRODUCT|UX / PRODUCTO
+ESTRATÉGIA / GROWTH|STRATEGY / GROWTH|ESTRATEGIA / GROWTH
+CARGA HORÁRIA|COURSE HOURS|DURACIÓN
+CONCLUSÃO|COMPLETION|FINALIZACIÓN
+Ver certificado|View certificate|Ver certificado
 Ver mini DS ↗|View mini DS ↗|Ver mini DS ↗
 VISÃO DO PRODUTO · 16 S|PRODUCT OVERVIEW · 16 S|VISIÓN DEL PRODUCTO · 16 S
 Home, antecipação, Pix e Caixinhas em movimento.|Home, advances, Pix and savings goals in motion.|Inicio, anticipos, Pix y metas de ahorro en movimiento.
