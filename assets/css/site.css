@@ -286,3 +286,31 @@ html.chibi-cursor,html.chibi-cursor *{cursor:none!important}
 @keyframes project-transition-words{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 @media(max-width:767px){.project-transition-words{font-size:28px}.project-transition-track{animation-duration:26s}}
 @media(prefers-reduced-motion:reduce){.project-transition{display:none}.project-transition-track{animation:none}}
+
+html{scroll-padding-top:calc(var(--navbar-height,108px) + 16px)}
+.site-header{
+  --nav-background:rgb(16,17,20);
+  --nav-glass:rgba(16,17,20,.88);
+  --nav-text:#fff;
+  --nav-muted:#b9babd;
+  --nav-accent:#ff6b3d;
+  position:sticky;top:0;z-index:1000;
+  background:var(--nav-background);color:var(--nav-text);
+  transition:background-color .22s ease,color .22s ease,box-shadow .22s ease;
+}
+.site-header.is-scrolled{
+  background:var(--nav-glass);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  box-shadow:0 1px 0 color-mix(in srgb,var(--nav-text) 10%,transparent);
+}
+.site-header .brand,.site-header.mobile-menu-ready .mobile-menu-toggle{color:var(--nav-text)}
+.site-header .desktop-nav a,.site-header .case-navigation a,.site-header .mobile-menu-panel a,.site-header .language{color:var(--nav-muted)}
+.site-header .desktop-nav a:hover,.site-header .case-navigation a:hover,.site-header .case-navigation a[aria-current],.site-header .mobile-menu-panel a:hover,.site-header .mobile-menu-panel a[aria-current],.site-header .language button:hover{color:var(--nav-text)}
+.site-header .language button[aria-pressed="true"],.site-header .mobile-language-options button[aria-selected="true"]{color:var(--nav-accent)}
+.site-header .language button:focus-visible{outline-color:var(--nav-accent)}
+.site-header .mobile-language-trigger,.site-header .mobile-language-options{background:var(--nav-background);color:var(--nav-muted)}
+.site-header .mobile-language-options button{color:var(--nav-muted)}
+.site-header .mobile-language-options button:hover{color:var(--nav-text);background:color-mix(in srgb,var(--nav-text) 6%,transparent)}
+.skip-link{z-index:1001}
+@media(max-width:767px){.site-header .mobile-menu-panel{max-height:calc(100dvh - var(--navbar-height,92px));overflow-y:auto;overscroll-behavior:contain}}
+@media(prefers-reduced-motion:reduce){.site-header{transition:none}}
