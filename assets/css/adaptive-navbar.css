@@ -14,6 +14,11 @@ html{scroll-padding-top:calc(var(--navbar-height,108px) + 16px)}
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
   box-shadow:0 1px 0 color-mix(in srgb,var(--nav-text) 10%,transparent);
 }
+.site-header.is-over-hero{
+  background:transparent;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+  box-shadow:none;
+}
 .site-header .brand,.site-header.mobile-menu-ready .mobile-menu-toggle{color:var(--nav-text)}
 .site-header .desktop-nav a,.site-header .case-navigation a,.site-header .mobile-menu-panel a,.site-header .language{color:var(--nav-muted)}
 .site-header .desktop-nav a:hover,.site-header .case-navigation a:hover,.site-header .case-navigation a[aria-current],.site-header .mobile-menu-panel a:hover,.site-header .mobile-menu-panel a[aria-current],.site-header .language button:hover{color:var(--nav-text)}

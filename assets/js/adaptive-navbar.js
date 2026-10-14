@@ -16,6 +16,7 @@
     return [16, 17, 20];
   }
   function setTheme(section) {
+    header.classList.toggle('is-over-hero', section.classList.contains('hero'));
     const rgb = background(section);
     const channels = rgb.map(value => {
       const channel = value / 255;
