@@ -42,6 +42,12 @@ No repositório `Fabiano-Antero/portfolio`, o GitHub Pages publica os arquivos d
 
 ## Animações e acessibilidade
 
+### Aqui Limpa
+
+`/aquilimpa/page/` publica a landing page Aqui Limpa com a identidade visual original, em desktop, tablet e celular. O arquivo Figma é `DNjwYBAICWA2zKhoTaVpzA`, página `30:2`, frames `30:3`, `197:887` e `197:888`. As imagens e os SVGs originais ficam em `assets/aquilimpa/`, com fontes Inter locais. `scripts/aquilimpa-page.cjs` gera a página; `npm run build` inclui a rota em `dist/`. A coleção de projetos e a resposta do personagem apontam para ela. O endereço sem a barra final também funciona no servidor de desenvolvimento; no GitHub Pages, a pasta contém seu próprio `index.html`.
+
+O menu mobile, os detalhes dos seis serviços e o carrossel de avaliações são interativos e acessíveis pelo teclado. Os formulários de orçamento, contato e newsletter validam os campos e informam que são demonstrações: não enviam, não armazenam e não fazem requisições com os dados preenchidos. Os ícones de redes sociais também apresentam uma confirmação de demonstração, sem inventar perfis externos. O retorno ao portfólio usa a transição de tiras existente.
+
 - Hero: retrato com entrada por opacidade e suavização na base, círculo desenhado atrás do retrato, textos em cascata e divisórias que crescem antes de cada linha.
 - Título da hero: “DA LÓGICA”, “AO PRODUTO” e “EM USO.” desenhados nessa ordem, letra por letra. A primeira e a última linha recebem preenchimento ao terminar; o círculo fecha na base, atrás do retrato. As versões em espanhol e inglês usam a mesma fonte e mantêm a sequência.
 - Após o título: cargo, descrição, botão de projetos, botão de currículo e resumo da experiência entram nessa ordem, um por vez.

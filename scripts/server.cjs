@@ -9,7 +9,8 @@ types['.mp4'] = 'video/mp4';
 http.createServer((request, response) => {
   let url;
   try { url = decodeURIComponent(new URL(request.url, 'http://localhost').pathname); } catch { response.writeHead(400); return response.end('Bad request'); }
-  const file = path.resolve(root, '.' + (url === '/' ? '/index.html' : url));
+  const route = url === '/aquilimpa/page' || url === '/aquilimpa/page/' ? '/aquilimpa/page/index.html' : url === '/' ? '/index.html' : url;
+  const file = path.resolve(root, '.' + route);
   const publicCatalog = url === '/.well-known/ai-catalog.json';
   if (!file.startsWith(root + path.sep) || (!publicCatalog && url.split('/').some(part => part.startsWith('.'))) || !Object.hasOwn(types,path.extname(file))) { response.writeHead(403); return response.end('Forbidden'); }
   if (path.extname(file) === '.mp4') {

@@ -1,0 +1,68 @@
+[
+  {
+    "id": "airbnb",
+    "title": "Limpeza para Airbnb",
+    "icon": "imgHouseSvgrepoCom1",
+    "items": [
+      "Entre hóspedes",
+      "Profunda periódica",
+      "Serviço de lavandaria",
+      "Gestão de inventário"
+    ]
+  },
+  {
+    "id": "residencial",
+    "title": "Limpeza Residencial",
+    "icon": "imgModernHomeSvgrepoCom1",
+    "items": [
+      "Regular (Manutenção)",
+      "Profunda",
+      "Estofados e Tapetes",
+      "Pós-Obra ou Pós-Reforma"
+    ]
+  },
+  {
+    "id": "escritorios",
+    "title": "Limpeza de Escritórios",
+    "icon": "imgHotelSvgrepoCom1",
+    "items": [
+      "Diária ou Periódica de Manutenção",
+      "Pós-Evento ou Reuniões",
+      "Profunda Corporativa",
+      "Reposição de Materiais de Higiene"
+    ]
+  },
+  {
+    "id": "condominios",
+    "title": "Limpeza de Condomínios",
+    "icon": "imgHomeAlt4SvgrepoCom1",
+    "items": [
+      "Áreas Comuns",
+      "Garagens e Estacionamentos",
+      "Vidros e Fachadas Internas",
+      "Áreas de Lazer"
+    ]
+  },
+  {
+    "id": "hoteis",
+    "title": "Limpeza de Hotéis",
+    "icon": "imgHotel3SvgrepoCom1",
+    "items": [
+      "Quartos (Room Service)",
+      "Áreas Comuns",
+      "Pós-Check-out (Turnover)",
+      "Lavandaria e Gestão de Enxoval"
+    ]
+  },
+  {
+    "id": "pos-obra",
+    "title": "Limpeza Pós-Obra",
+    "icon": "imgCraneTruckLeftSvgrepoCom1",
+    "items": [
+      "Remoção de Resíduos",
+      "Limpeza Detalhada",
+      "Desinfecção de Ambientes",
+      "Preparação Final do Espaço"
+    ]
+  }
+]

@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname,'..');
 const errors=[];
-const pages=['index.html','projetos.html','ordiny.html','cash-advance.html','sandfit.html'];
+const pages=['index.html','projetos.html','ordiny.html','cash-advance.html','sandfit.html','aquilimpa/page/index.html'];
 const art=fs.readdirSync(path.join(root,'assets/art')).filter(file=>file.endsWith('.html')).map(file=>'assets/art/'+file);
 for(const file of [...pages,...art]){
   const source=fs.readFileSync(path.join(root,file),'utf8');
@@ -12,7 +12,8 @@ for(const file of [...pages,...art]){
   for(const ref of [...refs,...cssUrls,...responsiveRefs]){
     if(/^(https?:|mailto:|data:)/.test(ref))continue;
     const resource=ref.split(/[?#]/,1)[0];
-    const target=resource.startsWith('/')?path.resolve(root,'.'+resource):path.resolve(path.dirname(path.join(root,file)),resource);
+    let target=resource.startsWith('/')?path.resolve(root,'.'+resource):path.resolve(path.dirname(path.join(root,file)),resource);
+    if(fs.existsSync(target)&&fs.statSync(target).isDirectory())target=path.join(target,'index.html');
     if(!fs.existsSync(target)||!fs.statSync(target).size)errors.push(`${file}: recurso ausente ${ref}`);
   }
   const ids=[...source.matchAll(/\bid="([^"]+)"/g)].map(match=>match[1]);
