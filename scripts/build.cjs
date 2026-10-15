@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 require('./certifications-section.cjs')();
 require('./build-styles.cjs')();
+require('./ordiny-branding.cjs')();
 require('./aquilimpa-page.cjs')();
 require('./aquilimpa-case.cjs')();
 require('./case-evidence.cjs')();

@@ -18,7 +18,7 @@ const lumenUrl='https://www.behance.net/gallery/234488301/Lumen-simulador-de-con
 const aquiUrl='aquilimpa.html';
 const external='target="_blank" rel="noopener noreferrer"';
 const link=(href,label,style='button')=>style==='chapter-link'?chapterLink(href,label):`<a class="${style}" href="${esc(href)}" ${href.startsWith('https:')?external:''}>${label}</a>`;
-const figure=(name,width,height,title)=>`<iframe class="native-art" src="assets/art/${name}.html" title="${esc(title)}" tabindex="-1" loading="lazy" style="aspect-ratio:${width}/${height}"></iframe>`;
+const figure=(name,width,height,title)=>`<iframe class="native-art" src="assets/art/${name}.html${name==='ordiny-product'?'?v=20261015-meta':''}" title="${esc(title)}" tabindex="-1" loading="lazy" style="aspect-ratio:${width}/${height}"></iframe>`;
 const heading=(label,title,body='')=>`<div class="section-heading reveal"><p class="eyebrow">${label.replace(/^\d+\s*\/\s*/,'')}</p><h2>${title}</h2>${body?`<p>${body}</p>`:''}</div>`;
 const section=(id,theme,body)=>`<section ${id?`id="${id}"`:''} class="section case-section ${theme}"><div class="container stack">${body}</div></section>`;
 const info=(title,body)=>`<article class="info-block reveal"><h3>${title}</h3><p>${body}</p></article>`;
@@ -53,6 +53,7 @@ page('cash-advance.html','Cash Advance: Estudo de caso','Jornada financeira para
 const sandfitBody=require('./sandfit-case.cjs')({section,heading,link,figure});
 page('sandfit.html','Sandfit Arena: Estudo de caso','Treino na areia e reserva com clareza: UX/UI, jornada e sistema visual da Sandfit Arena.',sandfitBody);
 require('./art-copy.cjs').reviewSavedArt(root);
+require('./ordiny-branding.cjs')();
 console.log('Páginas geradas: projetos.html, ordiny.html, cash-advance.html, sandfit.html');
 
 require('./aquilimpa-page.cjs')();
