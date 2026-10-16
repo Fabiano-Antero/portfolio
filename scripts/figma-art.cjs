@@ -105,7 +105,6 @@ function extract(file, id, doc, naturalWidth, naturalHeight, name) {
 }
 extract('implementation-ordiny-1.txt','237:807','o1',1440,868,'ordiny-product');
 extract('implementation-cash.txt','272:364',3,390,874,'cash-home');
-extract('implementation-cash.txt','272:635',3,390,844,'cash-onboarding');
 extract('round2-cash-showcase.txt','301:448','cash2-showcase',390,844,'cash-home');
 extract('round2-cash-showcase.txt','299:569','cash2-showcase',390,844,'cash-advance-review');
 extract('round2-cash-showcase.txt','299:630','cash2-showcase',390,844,'cash-advance-tracking');

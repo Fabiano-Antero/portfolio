@@ -20,7 +20,7 @@ for(const file of [...pages,...art]){
   if(pages.includes(file)){
     for(const match of source.matchAll(/href="#([^"]+)"/g))if(!ids.includes(match[1]))errors.push(`${file}: âncora ausente ${match[1]}`);
     if(new Set(ids).size!==ids.length)errors.push(`${file}: IDs duplicados`);
-    if(!source.includes('<main')||!source.includes('lang="pt-BR"'))errors.push(`${file}: estrutura semântica incompleta`);
+    if(!source.includes('<main')||!/<html\b[^>]*\blang="pt-(BR|PT)"/.test(source))errors.push(`${file}: estrutura semântica incompleta`);
   }
   if(source.includes('figma.com/api/mcp/asset'))errors.push(`${file}: URL temporária do Figma`);
 }

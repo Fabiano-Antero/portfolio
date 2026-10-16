@@ -50,7 +50,7 @@ export function createCharacterChat(container,{onOpen=()=>{},onClose=()=>{}}={})
   compact.addEventListener('change',placeLauncher);placeLauncher();
   const load=()=>{
     if(knowledge)return Promise.resolve(knowledge);
-    if(!loadPromise)loadPromise=fetch(new URL('../data/fabiano.json?v=20261007-es',import.meta.url)).then(response=>{if(!response.ok)throw Error('Knowledge unavailable');return response.json();}).then(data=>{if(!Array.isArray(data.topics))throw Error('Invalid knowledge');knowledge=data;return data;}).catch(error=>{loadPromise=undefined;throw error;});
+    if(!loadPromise)loadPromise=fetch(new URL('../data/fabiano.json?v=20261016-text-review',import.meta.url)).then(response=>{if(!response.ok)throw Error('Knowledge unavailable');return response.json();}).then(data=>{if(!Array.isArray(data.topics))throw Error('Invalid knowledge');knowledge=data;return data;}).catch(error=>{loadPromise=undefined;throw error;});
     return loadPromise;
   };
   const safeLink=url=>{try{const parsed=new URL(url,location.href);return ['https:','mailto:'].includes(parsed.protocol)||(parsed.origin===location.origin&&parsed.protocol===location.protocol);}catch{return false;}};

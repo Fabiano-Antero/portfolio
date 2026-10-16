@@ -1,6 +1,6 @@
 import * as THREE from '../vendor/three/three.module.js';
 import { GLTFLoader } from '../vendor/three/loaders/GLTFLoader.js';
-import { createCharacterChat } from './chibi-chat.js?v=20261014-local-review';
+import { createCharacterChat } from './chibi-chat.js?v=20261016-text-review';
 import { createCharacterBounds } from './chibi-bounds.js';
 
 const mouse = matchMedia('(any-hover: hover) and (any-pointer: fine)');

@@ -115,14 +115,14 @@ window.portfolioTranslations=[
     "SERVICIOS / WEBSITE / MINI SISTEMA DE DISEÑO"
   ],
   [
-    "Uma identidade que vira interface.",
-    "An identity that becomes an interface.",
-    "Una identidad que se convierte en interfaz."
+    "Da identidade visual à página.",
+    "From visual identity to website.",
+    "De la identidad visual a la página."
   ],
   [
-    "Um mini design system para apresentar serviços com clareza e confiança. Este guia conecta a identidade visual, os fundamentos e os componentes à landing page desenvolvida.",
-    "A mini design system for presenting services with clarity and confidence. This guide connects the visual identity, foundations and components to the implemented landing page.",
-    "Un mini sistema de diseño para presentar servicios con claridad y confianza. Esta guía conecta la identidad visual, los fundamentos y los componentes con la landing page desarrollada."
+    "Um guia de cores, tipografia, espaçamento e componentes para a página da Aqui Limpa. Veja como apliquei a identidade visual da empresa na interface desenvolvida.",
+    "A guide to the colors, typography, spacing and components used on the Aqui Limpa page. See how I applied the company’s visual identity to the interface.",
+    "Una guía de colores, tipografía, espaciado y componentes de la página de Aqui Limpa. Consulta cómo apliqué la identidad visual de la empresa a la interfaz."
   ],
   [
     "Abrir página ↗",
@@ -175,9 +175,9 @@ window.portfolioTranslations=[
     "IDENTIDAD VISUAL"
   ],
   [
-    "Reconhecível antes do primeiro clique.",
-    "Recognizable before the first click.",
-    "Reconocible antes del primer clic."
+    "A identidade visual da Aqui Limpa.",
+    "Aqui Limpa’s visual identity.",
+    "La identidad visual de Aqui Limpa."
   ],
   [
     "Azul, grafismos em turquesa e imagens de profissionais formam a linguagem do Aqui Limpa. As versões originais da marca foram preservadas.",
@@ -230,9 +230,9 @@ window.portfolioTranslations=[
     "Cercanía y confianza."
   ],
   [
-    "Figuras humanas e sinais de cuidado aproximam a marca de quem procura o serviço.",
-    "Human figures and signs of care bring the brand closer to people seeking the service.",
-    "Figuras humanas y señales de cuidado acercan la marca a quienes buscan el servicio."
+    "Fotos de profissionais e grafismos apresentam os serviços e identificam a marca ao longo da página.",
+    "Photos of professionals and graphic details introduce the services and identify the brand throughout the page.",
+    "Las fotos de profesionales y los elementos gráficos presentan los servicios y permiten reconocer la marca a lo largo de la página."
   ],
   [
     "ESCOPO",
@@ -375,14 +375,14 @@ window.portfolioTranslations=[
     "GUÍA DE ESTILOS / ESPACIADO Y FORMA"
   ],
   [
-    "Respiro que organiza a leitura.",
-    "Breathing room that organizes reading.",
-    "Espacio que organiza la lectura."
+    "Espaçamento entre componentes e seções.",
+    "Spacing between components and sections.",
+    "Espaciado entre componentes y secciones."
   ],
   [
-    "A escala já utilizada na página conecta detalhes de controles, espaços internos dos cartões e a separação entre seções.",
-    "The scale already used on the page connects control details, card padding and spacing between sections.",
-    "La escala utilizada en la página conecta detalles de controles, espacios internos de tarjetas y separación entre secciones."
+    "A escala define os espaços dos controles, o preenchimento dos cartões e a distância entre seções.",
+    "The scale defines spacing within controls and cards, as well as gaps between sections.",
+    "La escala define los espacios de los controles, el relleno de las tarjetas y la distancia entre secciones."
   ],
   [
     "Escala de espaçamento em pixels",
@@ -455,9 +455,9 @@ window.portfolioTranslations=[
     "MINI DS / COMPONENTES"
   ],
   [
-    "Do guia para a interação.",
-    "From the guide to interaction.",
-    "De la guía a la interacción."
+    "Componentes para experimentar.",
+    "Try the components.",
+    "Prueba los componentes."
   ],
   [
     "Os exemplos abaixo reutilizam os estilos da página desenvolvida. Passe o mouse, use Tab e experimente os campos para conferir os estados.",
@@ -475,9 +475,9 @@ window.portfolioTranslations=[
     "ACCIONES"
   ],
   [
-    "Intenção visível.",
-    "Visible intent.",
-    "Intención visible."
+    "Ações principais e alternativas.",
+    "Primary and secondary actions.",
+    "Acciones principales y alternativas."
   ],
   [
     "Azul para a ação principal, contorno para alternativas e versão clara sobre fundos da marca.",
@@ -555,19 +555,19 @@ window.portfolioTranslations=[
     "Explorar la página ↗"
   ],
   [
-    "PRÓXIMOS CONTEXTOS",
-    "MORE CONTEXTS",
-    "OTROS CONTEXTOS"
+    "OUTROS PROJETOS",
+    "MORE PROJECTS",
+    "OTROS PROYECTOS"
   ],
   [
-    "Outros projetos.",
-    "Other projects.",
-    "Otros proyectos."
+    "Conheça também",
+    "Explore",
+    "Conoce también"
   ],
   [
-    "Outras decisões.",
-    "Other decisions.",
-    "Otras decisiones."
+    "os outros projetos.",
+    "my other projects.",
+    "los otros proyectos."
   ],
   [
     "Explorar todos os projetos ↗",
@@ -600,9 +600,9 @@ window.portfolioTranslations=[
     "Acciones"
   ],
   [
-    "Botões que deixam a intenção clara.",
-    "Buttons that make intent clear.",
-    "Botones que aclaran la intención."
+    "Botões principais e alternativos.",
+    "Primary and secondary buttons.",
+    "Botones principales y alternativos."
   ],
   [
     "Principal",
@@ -620,9 +620,9 @@ window.portfolioTranslations=[
     "Deshabilitado"
   ],
   [
-    "Sobre a marca",
-    "Over the brand",
-    "Sobre la marca"
+    "Sobre fundo azul",
+    "On a blue background",
+    "Sobre fondo azul"
   ],
   [
     "Campos",
@@ -640,7 +640,7 @@ window.portfolioTranslations=[
     "Correo electrónico"
   ],
   [
-    "Ex: seu@email.com",
+    "Ex.: nome@exemplo.pt",
     "E.g. you@email.com",
     "Ej.: tu@email.com"
   ],
@@ -665,12 +665,12 @@ window.portfolioTranslations=[
     "Tarjeta de servicio"
   ],
   [
-    "A mesma anatomia em cada categoria.",
-    "The same anatomy in every category.",
-    "La misma estructura en cada categoría."
+    "Título, itens incluídos e acesso aos detalhes.",
+    "Title, included items and access to details.",
+    "Título, elementos incluidos y acceso a los detalles."
   ],
   [
-    "Limpeza Residencial",
+    "Limpeza residencial",
     "Residential cleaning",
     "Limpieza residencial"
   ],
@@ -680,7 +680,7 @@ window.portfolioTranslations=[
     "Ver detalles"
   ],
   [
-    "Regular (Manutenção)",
+    "Limpeza regular de manutenção",
     "Regular (maintenance)",
     "Regular (mantenimiento)"
   ],
@@ -690,12 +690,12 @@ window.portfolioTranslations=[
     "Limpieza profunda"
   ],
   [
-    "Estofados e Tapetes",
+    "Estofos e tapetes",
     "Upholstery and carpets",
     "Tapizados y alfombras"
   ],
   [
-    "Pós-Obra ou Pós-Reforma",
+    "Após obras ou remodelações",
     "After construction or renovation",
     "Después de obra o reforma"
   ],
@@ -705,13 +705,13 @@ window.portfolioTranslations=[
     "Ejemplos de interfaz. No se envían datos."
   ],
   [
-    "Primeira ação",
-    "First action",
-    "Primera acción"
+    "Pedir orçamento",
+    "Request a quote",
+    "Pedir presupuesto"
   ],
   [
-    "Ação alternativa",
-    "Alternative action",
-    "Acción alternativa"
+    "Ver serviços",
+    "View services",
+    "Ver servicios"
   ]
 ];

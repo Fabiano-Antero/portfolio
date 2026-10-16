@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-14",
+  "updatedAt": "2026-10-16",
   "profile": {
     "name": "Fabiano Antero da Silva",
     "publicName": "Fabiano Antero",
@@ -64,9 +64,9 @@
         "profesion"
       ],
       "answer": {
-        "pt": "Sou Fabiano Antero, Product Designer e UX Engineer, de João Pessoa, PB. Conecto produto, UX/UI e desenvolvimento para transformar regras complexas em experiências claras, do desenho dos fluxos à interface em produção. Tenho mais de 7 anos de experiência em fintech, SaaS e serviços.",
-        "en": "I'm Fabiano Antero, a Product Designer and UX Engineer from João Pessoa, Brazil. I connect product, UX/UI and development to turn complex rules into clear experiences, from designing user flows to building production interfaces. I have over 7 years of experience in fintech, SaaS and services.",
-        "es": "Soy Fabiano Antero, Product Designer y UX Engineer, de João Pessoa, PB. Conecto producto, UX/UI y desarrollo para transformar reglas complejas en experiencias claras, desde el diseño de los flujos hasta la interfaz en producción. Tengo más de 7 años de experiencia en fintech, SaaS y servicios."
+        "pt": "Sou Fabiano Antero, Product Designer e UX Engineer, de João Pessoa, PB. Trabalho com produto, UX/UI e desenvolvimento, do desenho dos fluxos à implementação das interfaces. Tenho mais de 7 anos de experiência em fintech, SaaS e serviços.",
+        "en": "I’m Fabiano Antero, a Product Designer and UX Engineer from João Pessoa, Brazil. I work across product, UX/UI and development, from designing flows to implementing interfaces. I have over 7 years of experience in fintech, SaaS and services.",
+        "es": "Soy Fabiano Antero, Product Designer y UX Engineer, de João Pessoa, Brasil. Trabajo en producto, UX/UI y desarrollo, desde el diseño de los flujos hasta la implementación de las interfaces. Tengo más de 7 años de experiencia en fintech, SaaS y servicios."
       }
     },
     {
@@ -208,9 +208,9 @@
         "universidad"
       ],
       "answer": {
-        "pt": "Minha formação informada no currículo é Ciência da Computação no UNIPÊ, Centro Universitário de João Pessoa. Essa base se conecta à minha atuação entre design e desenvolvimento. O currículo não informa a data ou o status de conclusão.",
-        "en": "The education listed in my résumé is Computer Science at UNIPÊ, Centro Universitário de João Pessoa. This background connects with my work across design and development. The résumé does not specify a completion date or status.",
-        "es": "La formación indicada en mi currículum es Ciencias de la Computación en UNIPÊ, Centro Universitário de João Pessoa. Esa base se conecta con mi trabajo entre diseño y desarrollo. El currículum no indica la fecha ni el estado de finalización."
+        "pt": "Estudei Ciência da Computação no UNIPÊ, Centro Universitário de João Pessoa. Essa base me ajuda a entender as possibilidades técnicas e a trabalhar tanto no design quanto no desenvolvimento.",
+        "en": "I studied Computer Science at UNIPÊ, Centro Universitário de João Pessoa. That background helps me understand technical possibilities and work in both design and development.",
+        "es": "Estudié Ciencias de la Computación en UNIPÊ, Centro Universitário de João Pessoa. Esa base me ayuda a entender las posibilidades técnicas y a trabajar tanto en diseño como en desarrollo."
       }
     },
     {
@@ -285,9 +285,9 @@
         "fortalezas"
       ],
       "answer": {
-        "pt": "Minhas competências comportamentais registradas no currículo são colaboração, empatia, flexibilidade, pensamento crítico, inteligência emocional, resiliência e proatividade. Na prática, trabalho junto de Produto, stakeholders, usuários e engenharia para conectar decisões e implementação.",
-        "en": "The soft skills listed in my résumé are collaboration, empathy, flexibility, critical thinking, emotional intelligence, resilience and proactivity. In practice, I work with product, stakeholders, users and engineering to connect decisions with implementation.",
-        "es": "Las competencias personales registradas en mi currículum son colaboración, empatía, flexibilidad, pensamiento crítico, inteligencia emocional, resiliencia y proactividad. En la práctica trabajo con Producto, stakeholders, usuarios e ingeniería para conectar decisiones e implementación."
+        "pt": "Valorizo colaboração, empatia e pensamento crítico no trabalho. Procuro ouvir usuários, discutir decisões com as equipes de produto e engenharia e adaptar as propostas às necessidades do projeto.",
+        "en": "I value collaboration, empathy and critical thinking at work. I aim to listen to users, discuss decisions with product and engineering teams and adapt proposals to the project’s needs.",
+        "es": "Valoro la colaboración, la empatía y el pensamiento crítico en el trabajo. Procuro escuchar a los usuarios, discutir decisiones con los equipos de producto e ingeniería y adaptar las propuestas a las necesidades del proyecto."
       }
     },
     {
@@ -340,9 +340,9 @@
         "tus trabajos"
       ],
       "answer": {
-        "pt": "Os cinco projetos apresentados aqui são Ordiny, Cash Advance, Sandfit Arena, Lumen e Aqui Limpa. A Ordiny conecta produto, UX/UI e desenvolvimento em um SaaS de agendamento. Cash Advance é um estudo de jornada financeira para motoristas. Lumen ajuda a compreender o consumo de energia, e Aqui Limpa apresenta serviços de limpeza com uma hierarquia clara de informação. Sandfit Arena conecta a descoberta de uma academia com areia à escolha do treino e à reserva, com UX/UI, fluxos e sistema visual.",
-        "en": "The five projects presented here are Ordiny, Cash Advance, Sandfit Arena, Lumen and Aqui Limpa. Ordiny connects product, UX/UI and development in a booking SaaS. Cash Advance is a financial journey case study for drivers. Lumen helps users understand energy consumption, and Aqui Limpa presents cleaning services with a clear information hierarchy. Sandfit Arena connects discovery of a gym with sand to choosing a workout and booking, with UX/UI, flows and a visual system.",
-        "es": "Los cinco proyectos presentados aquí son Ordiny, Cash Advance, Sandfit Arena, Lumen y Aqui Limpa. Ordiny conecta producto, UX/UI y desarrollo en un SaaS de reservas. Cash Advance es un caso de estudio de recorrido financiero para transportistas. Lumen ayuda a comprender el consumo de energía y Aqui Limpa presenta servicios de limpieza con una jerarquía clara de información. Sandfit Arena conecta el descubrimiento de un gimnasio con arena con la elección del entrenamiento y la reserva, con UX/UI, flujos y sistema visual."
+        "pt": "Apresento cinco projetos no portfólio. A Ordiny é um SaaS de agendamento e gestão que projetei e desenvolvi. Cash Advance é um estudo de aplicativo financeiro para motoristas, e Sandfit Arena reúne app, site e sistema visual para treinos na areia. Lumen é um simulador de consumo de energia. Aqui Limpa é uma página de serviços de limpeza, com um mini design system e uma demonstração navegável.",
+        "en": "My portfolio features five projects. Ordiny is a booking and management SaaS I designed and developed. Cash Advance is a financial app case study for truck drivers, and Sandfit Arena includes an app, website and visual system for training on sand. Lumen is an energy consumption simulator. Aqui Limpa is a cleaning services page with a mini design system and an interactive demo.",
+        "es": "Mi portafolio presenta cinco proyectos. Ordiny es un SaaS de reservas y gestión que diseñé y desarrollé. Cash Advance es un estudio de una app financiera para transportistas, y Sandfit Arena reúne app, sitio web y sistema visual para entrenamientos en arena. Lumen es un simulador de consumo de energía. Aqui Limpa es una página de servicios de limpieza con un mini sistema de diseño y una demostración navegable."
       },
       "links": [
         {
@@ -432,7 +432,7 @@
         "atencion humana"
       ],
       "answer": {
-        "pt": "Na Ordiny, cada unidade usa seu próprio número do WhatsApp Business. O chatbot conduz o agendamento e encaminha para uma pessoa quando o cliente pede ajuda, pausando a automação. Lembretes e ações para retomar o contato com clientes têm controles próprios e exigem consentimento. O recurso de IA está desativada por padrão: ela interpreta mensagens, enquanto preços, disponibilidade e confirmação continuam sob as regras do sistema.",
+        "pt": "Na Ordiny, cada unidade usa seu próprio número do WhatsApp Business. O chatbot conduz o agendamento e encaminha para uma pessoa quando o cliente pede ajuda, pausando a automação. Lembretes e ações para retomar o contato com clientes têm controles próprios e exigem consentimento. O recurso de IA está desativado por padrão: interpreta mensagens, enquanto preços, disponibilidade e confirmação continuam sob as regras do sistema.",
         "en": "In Ordiny, each unit uses its own WhatsApp Business number. The chatbot guides booking and hands the conversation to a person when the customer asks for help, pausing automation. Reminders and re-engagement have separate controls and consent. The AI feature is disabled by default: it interprets messages while prices, availability and confirmation remain governed by system rules.",
         "es": "En Ordiny, cada sucursal utiliza su propio número de WhatsApp Business. El chatbot guía la reserva y deriva a una persona cuando el cliente pide ayuda, pausando la automatización. Los recordatorios y las acciones para retomar el contacto con clientes tienen controles propios y requieren consentimiento. La función de IA está desactivada por defecto: interpreta mensajes, mientras que precios, disponibilidad y confirmación siguen las reglas del sistema."
       }
@@ -549,9 +549,9 @@
         "limpieza"
       ],
       "answer": {
-        "pt": "Aqui Limpa é um website de apresentação de serviços de limpeza. Meu papel é UI e hierarquia de conteúdo, organizando a informação para tornar os serviços compreensíveis e construir confiança. O projeto está na coleção do portfólio e no Behance.",
-        "en": "Aqui Limpa is a website presenting cleaning services. My role is UI and content hierarchy, organizing information to make the services understandable and build confidence. The project is in the portfolio collection and on Behance.",
-        "es": "Aqui Limpa es un sitio de presentación de servicios de limpieza. Mi papel es UI y jerarquía de contenido, organizando la información para que los servicios sean comprensibles y generen confianza. El proyecto está en la colección del portafolio y en Behance."
+        "pt": "A Aqui Limpa é uma empresa de limpeza em Portugal. O cliente queria transmitir mais credibilidade e substituir o site que havia criado em WordPress. Organizei o conteúdo, defini os componentes e implementei a página respeitando a identidade visual e as preferências dele. No portfólio, você pode explorar o mini design system e a página, com formulários demonstrativos.",
+        "en": "Aqui Limpa is a cleaning company in Portugal. The client wanted to convey greater credibility and replace the website he had built in WordPress. I organized the content, defined the components and implemented the page while respecting his visual identity and preferences. The portfolio includes a mini design system and the page, with demo forms.",
+        "es": "Aqui Limpa es una empresa de limpieza en Portugal. El cliente quería transmitir más credibilidad y sustituir el sitio que había creado en WordPress. Organicé el contenido, definí los componentes e implementé la página respetando su identidad visual y sus preferencias. En el portafolio puedes explorar el mini sistema de diseño y la página, con formularios de demostración."
       },
       "links": [
         {
@@ -625,9 +625,9 @@
         "ubicacion"
       ],
       "answer": {
-        "pt": "Sou de João Pessoa, na Paraíba, conforme a localização informada no meu currículo.",
-        "en": "I'm based in João Pessoa, Paraíba, Brazil, according to the location listed in my résumé.",
-        "es": "Soy de João Pessoa, en Paraíba, según la ubicación indicada en mi currículum."
+        "pt": "Sou de João Pessoa, na Paraíba.",
+        "en": "I’m from João Pessoa, Paraíba, Brazil.",
+        "es": "Soy de João Pessoa, en Paraíba, Brasil."
       }
     },
     {
@@ -821,9 +821,9 @@
         "gimnasio con arena"
       ],
       "answer": {
-        "pt": "Sandfit Arena é um projeto para cliente na área de bem-estar. Atuei em design de produto, UX/UI, fluxos e sistema visual para conectar a descoberta de uma academia com areia à escolha do treino, à reserva e à organização da rotina. A entrega reúne app, site, design system e protótipo, com regras de disponibilidade, créditos, cancelamento, lista de espera e reagendamento. O projeto foi realizado sob confidencialidade e, por decisão do cliente, concluído após a entrega do design. O case preserva informações confidenciais e não apresenta resultados comerciais mensurados.",
-        "en": "Sandfit Arena is a client project in wellness. I worked on product design, UX/UI, flows and the visual system, connecting discovery of a gym with sand to choosing workouts, booking and organizing a routine. The delivery includes an app, website, design system and prototype, with rules for availability, credits, cancellation, waitlists and rescheduling. The project was carried out under confidentiality and, at the client’s decision, concluded after design delivery. The case preserves confidential information and does not claim measured commercial results.",
-        "es": "Sandfit Arena es un proyecto para cliente en el área de bienestar. Trabajé en diseño de producto, UX/UI, flujos y sistema visual para conectar el descubrimiento de un gimnasio con arena con la elección del entrenamiento, la reserva y la organización de la rutina. La entrega reúne app, sitio, sistema de diseño y prototipo, con reglas de disponibilidad, créditos, cancelación, lista de espera y cambios de fecha. El proyecto se realizó bajo confidencialidad y, por decisión del cliente, concluyó tras la entrega del diseño. El caso preserva la información confidencial y no presenta resultados comerciales medidos."
+        "pt": "A Sandfit Arena é um projeto para uma academia com treinos na areia. Desenhei os fluxos, as interfaces e o sistema visual do app e do site. A entrega inclui design system e protótipo, com reserva de aulas, créditos, cancelamento, lista de espera e reagendamento. Por decisão do cliente, o trabalho terminou após a entrega do design. O case preserva os dados confidenciais do projeto.",
+        "en": "Sandfit Arena is a project for a gym offering training on sand. I designed the flows, interfaces and visual system for the app and website. The delivery includes a design system and prototype covering class booking, credits, cancellation, waitlists and rescheduling. At the client’s request, the work concluded after the design handoff. The case protects confidential project information.",
+        "es": "Sandfit Arena es un proyecto para un centro de entrenamiento en arena. Diseñé los flujos, las interfaces y el sistema visual de la app y el sitio web. La entrega incluye sistema de diseño y prototipo, con reserva de clases, créditos, cancelación, lista de espera y cambios de reserva. Por decisión del cliente, el trabajo terminó tras la entrega del diseño. El caso preserva los datos confidenciales del proyecto."
       },
       "links": [
         {

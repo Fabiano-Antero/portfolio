@@ -11,7 +11,10 @@ const corrections=[
  ['R$60','R$ 60'],
  ['Próximos Horários','Próximos horários'],
  ['Próximo Atendimento','Próximo atendimento'],
- ['Limite Disponível','Limite disponível']
+ ['Limite Disponível','Limite disponível'],
+ ['Uma experiência que conecta a energia da arena à escolha do próximo treino.','Consulte aulas, escolha seu treino e reserve uma vaga.'],
+ ['Utilize os filtros para visualização específica','Filtre os horários para encontrar um atendimento'],
+ ['Corte e Barba | 1h','Corte e barba | 1h']
 ];
 function reviewArtHtml(html){
  return html.replace(/>([^<>]+)</g,(_,value)=>{

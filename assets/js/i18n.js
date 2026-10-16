@@ -3,10 +3,10 @@
   const normalize = value => value.trim().replace(/\s+/g, ' ');
   const translations = new Map(`
 Conecto produto, UX/UI e código para transformar regras complexas em experiências claras.|I connect product, UX/UI and code to turn complex rules into clear experiences.|Conecto producto, UX/UI y código para transformar reglas complejas en experiencias claras.
-Três projetos em que conecto produto, design e desenvolvimento.|Three projects connecting product, design and development.|Tres proyectos en los que conecto producto, diseño y desarrollo.
+Três projetos em que trabalhei com produto, design e desenvolvimento.|Three projects I worked on across product, design and development.|Tres proyectos en los que trabajé en producto, diseño y desarrollo.
 Um SaaS de agendamento e gestão que projetei e desenvolvi.|A booking and management SaaS I designed and developed.|Un SaaS de reservas y gestión que diseñé y desarrollé.
-Antecipação e Pix com custos e estados visíveis.|Advances and Pix with visible costs and statuses.|Anticipación y Pix con costes y estados visibles.
-App, site e design system para descobrir o treino e reservar.|An app, website and design system to discover workouts and book.|App, sitio web y sistema de diseño para descubrir entrenamientos y reservar.
+Antecipação e Pix com taxas e etapas da solicitação à vista.|Advances and Pix with fees and request progress clearly shown.|Anticipos y Pix con las comisiones y las etapas de la solicitud a la vista.
+App, site e design system para consultar aulas e reservar.|An app, website and design system for browsing classes and booking.|App, sitio web y sistema de diseño para consultar clases y reservar.
 Produto, UX/UI e desenvolvimento em fintech, SaaS e soluções de BI.|Product, UX/UI and development across fintech, SaaS and BI solutions.|Producto, UX/UI y desarrollo en fintech, SaaS y soluciones de BI.
 UX/UI para soluções de BI, pesquisa e governança de design systems.|UX/UI for BI solutions, research and design system governance.|UX/UI para soluciones de BI, investigación y gobernanza de sistemas de diseño.
 Onboarding, KYC e acessibilidade em jornadas financeiras.|Onboarding, KYC and accessibility across financial journeys.|Onboarding, KYC y accesibilidad en recorridos financieros.
@@ -65,8 +65,8 @@ Uma interface para explorar e compreender o consumo de energia.|An interface to 
 Além dos destaques.|Beyond the highlights.|Más allá de los destacados.
 Veja também Aqui Limpa na coleção completa.|Discover Aqui Limpa in the full collection.|Descubre también Aqui Limpa en la colección completa.
 Todos os projetos ↗|All projects ↗|Todos los proyectos ↗
-A interface mostra a decisão.|The interface reveals the decision.|La interfaz muestra la decisión.
-Explore a ligação entre problema, escolha e entrega na Ordiny.|Explore the connection between problem, choice and delivery in Ordiny.|Explora la relación entre problema, decisión y entrega en Ordiny.
+Como desenvolvi a Ordiny.|How I developed Ordiny.|Cómo desarrollé Ordiny.
+Veja o problema que orientou o projeto, minhas decisões e o que implementei.|Explore the problem behind the project, my decisions and what I implemented.|Conoce el problema que dio origen al proyecto, mis decisiones y lo que implementé.
 Problema|Problem|Problema
 Decisão|Decision|Decisión
 Entrega|Delivery|Entrega
@@ -77,9 +77,9 @@ JORNADA / VISÃO DO PRODUTO|JOURNEY / PRODUCT OVERVIEW|RECORRIDO / VISIÓN DEL P
 Agenda|Calendar|Agenda
 Clientes|Customers|Clientes
 Gestão|Management|Gestión
-A experiência conecta informações e tarefas.|The experience connects information and tasks.|La experiencia conecta información y tareas.
+Agendamentos, dados dos clientes e registros de atendimento no mesmo sistema.|Bookings, customer details and service records in one system.|Reservas, datos de clientes y registros de atención en un mismo sistema.
 ATUAÇÃO / PRODUTO + DESIGN + CÓDIGO|ROLE / PRODUCT + DESIGN + CODE|PARTICIPACIÓN / PRODUCTO + DISEÑO + CÓDIGO
-Conectar sem perder as regras.|Connect while preserving the rules.|Conectar sin perder las reglas.
+As mesmas regras em todos os canais.|The same rules across all channels.|Las mismas reglas en todos los canales.
 Painel, link público e WhatsApp passam pela mesma validação de disponibilidade.|The dashboard, public link and WhatsApp use the same availability validation.|El panel, el enlace público y WhatsApp utilizan la misma validación de disponibilidad.
 AGENDAMENTO / CANAIS|BOOKING / CHANNELS|RESERVAS / CANALES
 Painel|Dashboard|Panel
@@ -94,7 +94,7 @@ EXPERIÊNCIA|EXPERIENCE|EXPERIENCIA
 Complexidade|Complexity|Complejidad
 com contexto.|with context.|con contexto.
 Atuo em produto, design e engenharia para transformar regras, restrições e necessidades em experiências claras e fáceis de usar.|I work across product, design and engineering to turn rules, constraints and needs into clear, usable experiences.|Trabajo en producto, diseño e ingeniería para transformar reglas, restricciones y necesidades en experiencias claras y fáciles de usar.
-O que essa trajetória conecta|What this experience brings together|Lo que conecta esta trayectoria
+O que desenvolvi nessa trajetória|Skills I developed along the way|Lo que desarrollé a lo largo de mi trayectoria
 Dados e decisões|Data and decisions|Datos y decisiones
 BI, discovery e organização da informação.|BI, discovery and information organization.|BI, discovery y organización de la información.
 Jornadas financeiras|Financial journeys|Recorridos financieros
@@ -113,10 +113,10 @@ Integração entre design e front-end em contas digitais, Pix e terminais de pag
 UI/UX Designer · 2019 a 2020|UI/UX Designer · 2019 to 2020|UI/UX Designer · 2019 a 2020
 Arquitetura da informação e jornadas de pagamento.|Information architecture and payment journeys.|Arquitectura de la información y recorridos de pago.
 VAMOS CONVERSAR|LET’S TALK|CONVERSEMOS
-Seu próximo desafio|Your next challenge|Tu próximo desafío
-pode virar um|could become a|puede convertirse en
-bom produto.|great product.|un buen producto.
-Tem uma oportunidade ou um desafio de produto? Vamos conversar.|Have an opportunity or a product challenge? Let’s talk.|¿Tienes una oportunidad o un desafío de producto? Conversemos.
+Vamos conversar|Let’s talk|Hablemos
+sobre seu|about your|de tu
+próximo projeto.|next project.|próximo proyecto.
+Entre em contato para falar sobre uma oportunidade ou um projeto.|Get in touch to discuss an opportunity or a project.|Ponte en contacto para hablar de una oportunidad o un proyecto.
 FABIANO ANTERO / PORTFÓLIO 2019 / 2026|FABIANO ANTERO / PORTFOLIO 2019 / 2026|FABIANO ANTERO / PORTAFOLIO 2019 / 2026
 Pensado como produto. Construído com código.|Conceived as a product. Built with code.|Pensado como producto. Construido con código.
 Fabiano Antero: Product Designer e UX Engineer. Projetos de produto, UX/UI e desenvolvimento em fintech, SaaS e serviços.|Fabiano Antero: Product Designer and UX Engineer. Product, UX/UI and development projects in fintech, SaaS and services.|Fabiano Antero: Product Designer y UX Engineer. Proyectos de producto, UX/UI y desarrollo en fintech, SaaS y servicios.
@@ -142,7 +142,7 @@ por dentro.|in detail.|por dentro.
 Produtos, interfaces e experiências em finanças, serviços e consumo de energia.|Products, interfaces and experiences in finance, services and energy consumption.|Productos, interfaces y experiencias en finanzas, servicios y consumo de energía.
 Explore os trabalhos|Explore the work|Explora los trabajos
 SAAS / PRODUTO DIGITAL|SAAS / DIGITAL PRODUCT|SAAS / PRODUCTO DIGITAL
-Do design à aplicação: um SaaS que conecta produto, UX/UI e desenvolvimento.|From design to a working application: a SaaS product connecting UX/UI and development.|Del diseño a la aplicación: un SaaS que conecta producto, UX/UI y desarrollo.
+Um SaaS de agendamento e gestão que projetei e desenvolvi.|A booking and management SaaS I designed and developed.|Un SaaS de reservas y gestión que diseñé y desarrollé.
 FINTECH / APLICATIVO|FINTECH / APPLICATION|FINTECH / APLICACIÓN
 UX/UI · Jornada financeira|UX/UI · Financial journey|UX/UI · Recorrido financiero
 UTILITIES / SIMULADOR|UTILITIES / SIMULATOR|UTILITIES / SIMULADOR
@@ -165,7 +165,7 @@ Ordiny: Estudo de caso: Fabiano Antero|Ordiny: Case study: Fabiano Antero|Ordiny
 PROJETO PESSOAL / SAAS / EM DESENVOLVIMENTO|PERSONAL PROJECT / SAAS / IN DEVELOPMENT|PROYECTO PERSONAL / SAAS / EN DESARROLLO
 Da captação à gestão|From acquisition to|De la captación a la gestión
 do atendimento.|appointment management.|del servicio.
-Projetei e desenvolvi um SaaS que conecta o agendamento do cliente à rotina do estabelecimento. Da escolha do serviço ao atendimento, as etapas compartilham as mesmas regras.|I designed and developed a SaaS connecting customer booking to the business’s daily operations. From choosing a service to the appointment, every stage shares the same rules.|Diseñé y desarrollé un SaaS que conecta la reserva del cliente con la rutina del establecimiento. Desde la elección del servicio hasta su prestación, las etapas comparten las mismas reglas.
+Projetei e desenvolvi um SaaS de agendamento e gestão para estabelecimentos de serviços. A plataforma reúne reservas, atendimentos e pagamentos, com as mesmas regras de disponibilidade no painel, no link público e no WhatsApp.|I designed and developed a booking and management SaaS for service businesses. The platform brings together bookings, appointments and payments, with the same availability rules across the dashboard, public link and WhatsApp.|Diseñé y desarrollé un SaaS de reservas y gestión para negocios de servicios. La plataforma reúne reservas, citas y pagos, con las mismas reglas de disponibilidad en el panel, el enlace público y WhatsApp.
 Abrir a Ordiny ↗|Open Ordiny ↗|Abrir Ordiny ↗
 Contexto|Context|Contexto
 Jornada|Journey|Recorrido
@@ -184,8 +184,8 @@ ENTREGA|DELIVERY|ENTREGA
 Jornada conectada|Connected journey|Recorrido conectado
 Da captação à reserva, ao atendimento e ao relacionamento.|From acquisition to booking, appointments and customer relationships.|De la captación a la reserva, la prestación del servicio y la relación con el cliente.
 CONTEXTO|CONTEXT|CONTEXTO
-O problema era a ruptura entre etapas.|The problem was the gap between stages.|El problema era la ruptura entre etapas.
-Conversas precisavam ser registradas manualmente, reagendamentos exigiam novas verificações de disponibilidade e pagamentos precisavam ser vinculados aos atendimentos. A continuidade dependia de trabalho manual.|Conversations required manual records, rescheduling required new availability checks and payments needed to be linked to appointments. Keeping the process connected depended on manual work.|Las conversaciones debían registrarse manualmente, los cambios de fecha exigían nuevas comprobaciones de disponibilidad y los pagos debían vincularse a los servicios. La continuidad dependía del trabajo manual.
+Agendamento e gestão funcionavam separados.|Booking and management were disconnected.|Las reservas y la gestión funcionaban por separado.
+Era preciso registrar as conversas, conferir horários a cada reagendamento e vincular os pagamentos aos atendimentos. Sem integração entre essas etapas, a equipe repetia tarefas e informações.|Staff had to record conversations, check availability for every reschedule and link payments to appointments. Without integration, they repeated tasks and entered the same information more than once.|El equipo tenía que registrar conversaciones, comprobar horarios en cada cambio de cita y vincular los pagos a las atenciones. Sin integración, repetía tareas e información.
 O que precisava mudar|What needed to change|Lo que debía cambiar
 Conectar reserva, atendimento e pagamento para reduzir registros repetidos e prevenir conflitos na agenda.|Connect bookings, appointments and payments to reduce duplicate records and prevent calendar conflicts.|Conectar reserva, servicio y pago para reducir registros repetidos y evitar conflictos en la agenda.
 Dois públicos, uma operação|Two audiences, one operation|Dos públicos, una operación
@@ -206,7 +206,7 @@ Link público ou WhatsApp. Serviço, profissional e horário validados na confir
 Atender e acompanhar|Deliver and follow up|Prestar el servicio y hacer seguimiento
 A reserva entra na agenda, nas notificações e nos registros da operação.|The booking appears in the calendar, notifications and operational records.|La reserva aparece en la agenda, las notificaciones y los registros de la operación.
 A seleção do cliente precisa se transformar em um atendimento que a unidade consegue cumprir.|The customer’s selection must become an appointment the location can fulfill.|La elección del cliente debe convertirse en un servicio que la sucursal pueda prestar.
-Mapa explicativo do produto; os fluxos abaixo aprofundam suas regras.|An explanatory product map; the flows below explore its rules.|Mapa explicativo del producto; los flujos siguientes profundizan en sus reglas.
+Visão geral das etapas de agendamento e atendimento. As seções seguintes detalham as regras de cada fluxo.|Overview of booking and service delivery. The following sections explain the rules for each flow.|Vista general de las etapas de reserva y atención. Las siguientes secciones detallan las reglas de cada flujo.
 OPERAÇÃO|OPERATIONS|OPERACIÓN
 Uma unidade, diferentes papéis.|One location, different roles.|Una sucursal, diferentes roles.
 Organizei a operação por responsabilidade: proprietário, recepção e profissionais. O cliente agenda pelos canais públicos.|I organized operations by responsibility: owner, reception and professionals. Customers book through public channels.|Organicé la operación por responsabilidad: propietario, recepción y profesionales. El cliente reserva por los canales públicos.
@@ -223,7 +223,7 @@ Ambiente separado para administrar clientes da plataforma, planos e ocorrências
 Permissão é uma regra do sistema|Permission is a system rule|Los permisos son una regla del sistema
 Perfis orientam as ações visíveis; a API verifica a permissão em cada operação.|Roles determine visible actions; the API checks permissions for every operation.|Los perfiles orientan las acciones visibles; la API comprueba los permisos en cada operación.
 RESERVA|BOOKING|RESERVA
-Uma vitrine que respeita a agenda.|A storefront that respects the calendar.|Un escaparate que respeta la agenda.
+Serviços e horários disponíveis para reservar.|Services and available times to book.|Servicios y horarios disponibles para reservar.
 A unidade prepara sua vitrine; o cliente escolhe serviços e pacotes e segue para a reserva. A personalização mantém a identidade de cada estabelecimento.|The location prepares its storefront; customers choose services and packages and proceed to booking. Customization preserves each business’s identity.|La sucursal prepara su escaparate; el cliente elige servicios y paquetes y continúa con la reserva. La personalización mantiene la identidad de cada establecimiento.
 DA CONFIGURAÇÃO DA UNIDADE À ESCOLHA DO CLIENTE|FROM LOCATION SETUP TO CUSTOMER CHOICE|DE LA CONFIGURACIÓN DE LA SUCURSAL A LA ELECCIÓN DEL CLIENTE
 02 / PREPARAR A UNIDADE|02 / SET UP THE LOCATION|02 / PREPARAR LA SUCURSAL
@@ -245,7 +245,7 @@ IDENTIFICAÇÃO PÚBLICA|PUBLIC IDENTIFICATION|IDENTIFICACIÓN PÚBLICA
 CPF identifica; não autentica.|CPF identifies; it does not authenticate.|El CPF identifica; no autentica.
 A consulta não revela nome, telefone nem histórico e não permite sobrescrever livremente um cadastro.|The lookup does not reveal names, phone numbers or history, and does not allow unrestricted overwriting of a customer record.|La consulta no revela nombre, teléfono ni historial y no permite sobrescribir libremente un registro.
 PAGAMENTOS|PAYMENTS|PAGOS
-Duas relações financeiras.|Two financial relationships.|Dos relaciones financieras.
+Assinatura e pagamento do serviço.|Subscriptions and service payments.|Suscripción y pago del servicio.
 A assinatura da plataforma e o pagamento do atendimento têm destinatários e responsabilidades próprios.|The platform subscription and the appointment payment have their own recipients and responsibilities.|La suscripción a la plataforma y el pago del servicio tienen destinatarios y responsabilidades propios.
 USO DO SAAS|SAAS SUBSCRIPTION|USO DEL SAAS
 Estabelecimento → Ordiny|Business → Ordiny|Establecimiento → Ordiny
@@ -270,7 +270,7 @@ O recurso depende de contratação, consentimento do cliente, critérios de eleg
 Mensagem aceita não significa mensagem entregue|An accepted message is not necessarily delivered|Mensaje aceptado no significa mensaje entregado
 Os registros distinguem aceitação pela Meta, entrega e falha.|Records distinguish acceptance by Meta, delivery and failure.|Los registros distinguen entre aceptación por Meta, entrega y fallo.
 IA / EVOLUÇÃO DESATIVADA POR PADRÃO|AI / ENHANCEMENT DISABLED BY DEFAULT|IA / MEJORA DESACTIVADA POR DEFECTO
-Interpretar a mensagem. Preservar a regra.|Interpret the message. Preserve the rule.|Interpretar el mensaje. Preservar la regla.
+IA integrada às regras de agendamento.|AI working within booking rules.|IA integrada con las reglas de reserva.
 A IA interpreta mensagens em linguagem natural e as encaminha para o fluxo existente. Preços, disponibilidade e confirmação continuam seguindo as regras do sistema.|AI interprets natural language messages and routes them into the existing flow. Prices, availability and confirmation still follow system rules.|La IA interpreta mensajes en lenguaje natural y los dirige al flujo existente. Los precios, la disponibilidad y la confirmación siguen las reglas del sistema.
 As respostas da IA passam por validação. Há encaminhamento para atendimento humano e controles de acesso, orçamento, consumo e desativação.|AI responses are validated. Human handoff and controls for access, budget, usage and deactivation are available.|Las respuestas de la IA se validan. Hay derivación a atención humana y controles de acceso, presupuesto, consumo y desactivación.
 05 / CONTROLES DO WHATSAPP|05 / WHATSAPP CONTROLS|05 / CONTROLES DE WHATSAPP
@@ -278,7 +278,7 @@ Conexão, lembretes, testes e templates têm controles separados.|Connection, re
 TELA DE DESIGN / DADOS ILUSTRATIVOS|DESIGN SCREEN / ILLUSTRATIVE DATA|PANTALLA DE DISEÑO / DATOS ILUSTRATIVOS
 LEITURA COMPLEMENTAR|FURTHER READING|LECTURA COMPLEMENTARIA
 O que sustenta a experiência.|What supports the experience.|Lo que sostiene la experiencia.
-As escolhas de construção apoiam a consistência da interface e a confiabilidade das operações.|Development choices support interface consistency and operational reliability.|Las decisiones de desarrollo apoyan la consistencia de la interfaz y la fiabilidad de las operaciones.
+A interface usa componentes compartilhados. No back-end, validações e coordenação das reservas mantêm as regras de disponibilidade entre os canais.|The interface uses shared components. In the back end, validation and booking coordination enforce availability rules across channels.|La interfaz utiliza componentes compartidos. En el back-end, las validaciones y la coordinación de reservas mantienen las reglas de disponibilidad entre canales.
 Consistência entre telas|Consistency across screens|Consistencia entre pantallas
 React + TypeScript no Cloudflare Pages. Componentes compartilhados para desktop, mobile e PWA; temas de unidade e BackOffice separados.|React + TypeScript on Cloudflare Pages. Shared components for desktop, mobile and PWA; separate location and BackOffice themes.|React + TypeScript en Cloudflare Pages. Componentes compartidos para escritorio, móvil y PWA; temas de sucursal y BackOffice separados.
 REGRAS E COORDENAÇÃO|RULES AND COORDINATION|REGLAS Y COORDINACIÓN
@@ -301,8 +301,8 @@ Conectei conversa, reserva, atendimento e pagamento na mesma jornada, compartilh
 Uma operação mais clara|Clearer operations|Una operación más clara
 Organizei agenda, responsabilidades e relacionamento em interfaces para acompanhar a rotina de cada unidade.|I organized the calendar, responsibilities and customer relationships in interfaces for following each location’s daily operations.|Organicé la agenda, las responsabilidades y la relación con clientes en interfaces para seguir la rutina de cada unidad.
 A versão de homologação permite explorar a interface e os fluxos implementados.|The staging version lets visitors explore the interface and implemented flows.|La versión de pruebas permite explorar la interfaz y los flujos implementados.
-Outros contextos.|Other contexts.|Otros contextos.
-Outras decisões.|Other decisions.|Otras decisiones.
+Conheça também|Explore|Conoce también
+os outros projetos.|my other projects.|los otros proyectos.
 Explorar todos os projetos ↗|Explore all projects ↗|Explorar todos los proyectos ↗
 Da captação à gestão do atendimento: produto, UX/UI, desenvolvimento e decisões da plataforma Ordiny.|From acquisition to appointment management: product, UX/UI, development and decisions behind the Ordiny platform.|De la captación a la gestión del servicio: producto, UX/UI, desarrollo y decisiones de la plataforma Ordiny.
 Capítulos do estudo Ordiny|Ordiny case study chapters|Capítulos del caso de estudio de Ordiny
@@ -316,7 +316,7 @@ Cash Advance: Estudo de caso: Fabiano Antero|Cash Advance: Case study: Fabiano A
 ESTUDO UX/UI / ANTECIPAÇÃO DE FRETES / PROTÓTIPO|UX/UI CASE STUDY / FREIGHT PAYMENT ADVANCES / PROTOTYPE|CASO UX/UI / ANTICIPOS DE PAGOS DE TRANSPORTE / PROTOTIPO
 Antes de antecipar,|Before requesting an advance,|Antes de solicitar un anticipo,
 entenda o valor líquido.|understand the net amount.|entiende el importe neto.
-Uma experiência financeira para motoristas autônomos: avaliar os recebíveis, entender o valor líquido e acompanhar a solicitação de antecipação.|A financial experience for independent drivers: review receivables, understand the net amount and track the advance request.|Una experiencia financiera para transportistas autónomos: evaluar los pagos por cobrar, entender el importe neto y seguir la solicitud de anticipo.
+Protótipo de um aplicativo para motoristas autônomos consultarem recebíveis, conferirem o valor líquido e acompanharem pedidos de antecipação.|An app prototype for independent truck drivers to review receivables, check the net amount and track advance requests.|Prototipo de una app para transportistas autónomos que permite consultar cobros pendientes, comprobar el importe neto y seguir las solicitudes de anticipo.
 Abrir estudo completo ↗|Open full case study ↗|Abrir caso de estudio completo ↗
 Pesquisa|Research|Investigación
 Jornada|Journey|Recorrido
@@ -338,7 +338,7 @@ Entre concluir um frete e receber o pagamento, o motorista precisa manter a oper
 Escolher com clareza.|Choose with clarity.|Elegir con claridad.
 A antecipação precisa ser compreendida antes de ser solicitada: quanto custa, quanto entra e para onde o dinheiro vai.|An advance must be understood before it is requested: what it costs, how much is received and where the money goes.|El anticipo debe entenderse antes de solicitarlo: cuánto cuesta, cuánto se recibe y a dónde va el dinero.
 DECISÃO / HOME|DECISION / HOME|DECISIÓN / INICIO
-Dois saldos. Duas perguntas.|Two balances. Two questions.|Dos saldos. Dos preguntas.
+Recebíveis e saldo disponível.|Receivables and available balance.|Cobros pendientes y saldo disponible.
 Recebíveis elegíveis ficam separados do saldo disponível na conta. Essa hierarquia evita apresentar o valor que pode ser antecipado como dinheiro já liberado.|Eligible receivables are separate from the available account balance. This hierarchy avoids presenting a potential advance as money already released.|Los pagos por cobrar elegibles se separan del saldo disponible en la cuenta. Esta jerarquía evita presentar el importe que puede anticiparse como dinero ya disponible.
 PESQUISA|RESEARCH|INVESTIGACIÓN
 Custo, prazo e segurança|Cost, timing and security|Coste, plazo y seguridad
@@ -349,16 +349,16 @@ Rapidez|Speed|Rapidez
 Segurança|Security|Seguridad
 4,5/5 · Transparência das taxas|4.5/5 · Fee transparency|4,5/5 · Transparencia de las comisiones
 65% · Uso prévio de aplicativos de antecipação|65% · Previous use of payment advance apps|65% · Uso previo de aplicaciones de anticipos
-Fonte: questionário documentado no estudo. O estudo não informa o tamanho da amostra, as datas nem a forma de recrutamento. Os percentuais somam mais de 100%, mas o uso de múltipla escolha não está confirmado. Esses números não medem os resultados do aplicativo.|Source: questionnaire documented in the case study. Sample size, dates and recruitment methods were not reported. Percentages total more than 100%, but the use of multiple choice is unconfirmed. These figures do not measure app outcomes.|Fuente: cuestionario documentado en el estudio. El estudio no informa del tamaño de la muestra, las fechas ni el método de selección de participantes. Los porcentajes suman más del 100%, pero no se confirma el uso de selección múltiple. Estos datos no miden los resultados de la aplicación.
+Fonte: questionário apresentado no estudo, sem informações sobre amostra, datas ou recrutamento. Os percentuais somam mais de 100% e não há indicação de múltipla escolha. São critérios de escolha relatados, não resultados de uso do aplicativo.|Source: the questionnaire presented in the study, with no details about the sample, dates or recruitment. The percentages add up to more than 100%, and multiple-choice responses are not confirmed. They describe reported selection criteria, not app usage results.|Fuente: cuestionario presentado en el estudio, sin datos sobre la muestra, las fechas o el reclutamiento. Los porcentajes suman más del 100% y no se indica si se permitían respuestas múltiples. Describen criterios de elección declarados, no resultados de uso de la app.
 PERSONA / PERFIL DE REFERÊNCIA|PERSONA / REFERENCE PROFILE|PERSONA / PERFIL DE REFERENCIA
 37 anos · 7 anos no transporte|37 years old · 7 years in transport|37 años · 7 años en el transporte
-Perfil ilustrativo para reunir necessidades do projeto. A persona não corresponde a uma participante identificada.|An illustrative profile bringing together project needs. The persona does not represent an identified participant.|Perfil ilustrativo que reúne necesidades del proyecto. La persona no corresponde a una participante identificada.
+Perfil ilustrativo que reúne as necessidades consideradas no projeto. Não representa uma participante específica da pesquisa.|An illustrative profile bringing together the needs considered in the project. It does not represent a specific research participant.|Perfil ilustrativo que reúne las necesidades consideradas en el proyecto. No representa a una participante concreta de la investigación.
 Decidir sem interromper o trabalho.|Make decisions without interrupting work.|Decidir sin interrumpir el trabajo.
 Entre fretes, documentos e despesas, precisa entender o custo da antecipação, conferir o valor líquido e o destino do dinheiro e acompanhar o status da solicitação.|Between deliveries, documents and expenses, she needs to understand advance costs, check the net amount and destination and track the request status.|Entre transportes, documentos y gastos, necesita entender el coste del anticipo, comprobar el importe neto y el destino del dinero y seguir el estado de la solicitud.
 Pix agendado e reservas complementam a proposta de organização financeira.|Scheduled Pix and savings pots complement the financial organization proposal.|Pix programado y las reservas complementan la propuesta de organización financiera.
 JORNADA|JOURNEY|RECORRIDO
-Uma entrada.|One entry point.|Un punto de entrada.
-Três jornadas de uso.|Three user journeys.|Tres recorridos de uso.
+Da tela inicial|From the home screen|Desde la pantalla de inicio
+às três tarefas principais.|to three main tasks.|a las tres tareas principales.
 O acesso à tela inicial exige a conclusão do cadastro. A partir dela, o usuário pode solicitar uma antecipação, enviar um Pix ou organizar seus recursos. Cada jornada inclui revisão e acompanhamento.|Access to the home screen requires completed registration. Users can then request an advance, send a Pix payment or organize their funds. Each journey includes review and tracking.|El acceso a la pantalla de inicio requiere completar el registro. Desde ella, el usuario puede solicitar un anticipo, enviar un Pix u organizar sus recursos. Cada recorrido incluye revisión y seguimiento.
 Entrar / autenticar|Sign in / authenticate|Entrar / autenticar
 Cadastro completo?|Registration complete?|¿Registro completo?
@@ -418,7 +418,7 @@ PROTEÇÃO|PROTECTION|PROTECCIÓN
 Controlar o acesso.|Control access.|Controlar el acceso.
 O cartão virtual protege o acesso aos dados e orienta o usuário a conferir onde serão utilizados.|The virtual card protects access to its details and prompts users to check where they will be used.|La tarjeta virtual protege el acceso a los datos y guía al usuario para comprobar dónde se utilizarán.
 PLANEJAMENTO|PLANNING|PLANIFICACIÓN
-Reservar com intenção.|Save with purpose.|Reservar con intención.
+Separar dinheiro por objetivo.|Set money aside for a goal.|Separar dinero por objetivos.
 As Caixinhas permitem definir um objetivo, separar dinheiro e acompanhar o progresso da reserva.|Savings pots let users set a goal, put money aside and track their savings progress.|Caixinhas permite definir un objetivo, separar dinero y seguir el progreso del ahorro.
 CLAREZA|CLARITY|CLARIDAD
 Simular antes de solicitar.|Simulate before requesting.|Simular antes de solicitar.
@@ -446,7 +446,7 @@ COMPONENTES E ESTADOS|COMPONENTS AND STATES|COMPONENTES Y ESTADOS
 Botões, campos, ações rápidas, navegação e resumos seguem a mesma base. Os estados tratam cadastro parcial, ausência de recebíveis, revisão, solicitação recebida e análise.|Buttons, fields, quick actions, navigation and summaries share the same foundation. States handle partial registration, no receivables, review, received requests and assessment.|Botones, campos, acciones rápidas, navegación y resúmenes siguen la misma base. Los estados contemplan registro parcial, ausencia de pagos por cobrar, revisión, solicitud recibida y análisis.
 ESPAÇAMENTO / 8 · 12 · 16 · 24 · 32   CANTOS / 8 · 16 · 24 · 32|SPACING / 8 · 12 · 16 · 24 · 32   CORNERS / 8 · 16 · 24 · 32|ESPACIADO / 8 · 12 · 16 · 24 · 32   ESQUINAS / 8 · 16 · 24 · 32
 Da pesquisa ao protótipo.|From research to prototype.|De la investigación al prototipo.
-Uma experiência conectada.|A connected experience.|Una experiencia conectada.
+Antecipação, Pix e Caixinhas.|Advances, Pix and savings goals.|Anticipos, Pix y ahorro por objetivos.
 Minha entrega reúne pesquisa, desenho das jornadas, identidade visual, componentes e um protótipo de alta fidelidade para antecipação, Pix e organização financeira.|My delivery brings together research, journey design, visual identity, components and a high-fidelity prototype for advances, Pix and financial organization.|Mi entrega reúne investigación, diseño de recorridos, identidad visual, componentes y un prototipo de alta fidelidad para anticipos, Pix y organización financiera.
 O QUE ENTREGUEI|WHAT I DELIVERED|LO QUE ENTREGUÉ
 Do fluxo à interface.|From flow to interface.|Del flujo a la interfaz.
@@ -476,24 +476,24 @@ Sandfit Arena.|Sandfit Arena.|Sandfit Arena.
 Treino na areia.|Training on sand.|Entrena en la arena.
 Treino na areia. Reserva com clareza.|Training on sand. Booking with clarity.|Entrena en la arena. Reserva con claridad.
 Reserva com clareza.|Booking with clarity.|Reserva con claridad.
-Uma experiência para conectar a descoberta de uma academia com areia à escolha do treino, à reserva e à organização da rotina.|An experience connecting the discovery of a gym with sand to choosing a workout, booking a spot and organizing a routine.|Una experiencia que conecta el descubrimiento de un gimnasio con arena con la elección del entrenamiento, la reserva y la organización de la rutina.
+App e site para uma academia com treinos na areia. O projeto apresenta as modalidades e organiza a consulta de aulas, a reserva de vagas e o uso de créditos.|An app and website for a gym offering training on sand. The project introduces the activities and supports browsing classes, booking spots and managing credits.|App y sitio web para un centro de entrenamiento en arena. El proyecto presenta las modalidades y organiza la consulta de clases, la reserva de plazas y el uso de créditos.
 Treino e reserva|Training and booking|Entrenamiento y reserva
 Academia com areia de praia.|A gym with beach sand.|Gimnasio con arena de playa.
 Design de produto|Product design|Diseño de producto
 UX, UI, fluxos e sistema visual.|UX, UI, flows and visual system.|UX, UI, flujos y sistema visual.
 Experiência integrada|An integrated experience|Experiencia integrada
 App, site, DS e protótipo.|App, website, design system and prototype.|App, sitio, sistema de diseño y prototipo.
-O treino acontece na areia.|Training happens on sand.|El entrenamiento sucede en la arena.
-A escolha começa na tela.|The choice starts on screen.|La elección empieza en la pantalla.
-A primeira visita reúne dúvidas sobre a arena, o horário, o preparo e a dinâmica da aula. A proposta conecta essas informações à reserva, para que a pessoa escolha com contexto e chegue sabendo o que esperar.|A first visit brings questions about the arena, the schedule, preparation and how the class works. The proposal connects this information to booking, so people can choose with context and arrive knowing what to expect.|La primera visita reúne dudas sobre el gimnasio, el horario, la preparación y la dinámica de la clase. La propuesta conecta esa información con la reserva, para elegir con contexto y llegar sabiendo qué esperar.
+Informações da aula|Class details|Información de la clase
+antes da reserva.|before booking.|antes de reservar.
+Quem visita a arena pela primeira vez precisa saber como funciona a aula e como se preparar. Organizei essas informações junto dos horários e das condições da reserva.|First-time visitors need to know how the class works and how to prepare. I placed this information alongside schedules and booking conditions.|Quien visita la arena por primera vez necesita saber cómo funciona la clase y cómo prepararse. Organicé esta información junto con los horarios y las condiciones de reserva.
 Diminuir a incerteza.|Reduce uncertainty.|Reducir la incertidumbre.
 Modalidade, duração, instrutor, vagas e custo em créditos precisam aparecer antes da confirmação.|Activity, duration, instructor, available spots and cost in credits need to appear before confirmation.|Modalidad, duración, instructor, plazas y coste en créditos deben aparecer antes de la confirmación.
 DIREÇÃO DE PRODUTO|PRODUCT DIRECTION|DIRECCIÓN DE PRODUCTO
-Organizar a continuidade.|Connect the next steps.|Organizar la continuidad.
+Reagendar e acompanhar reservas.|Reschedule and track bookings.|Cambiar y consultar reservas.
 Agenda, lista de espera e reagendamento acompanham mudanças na rotina sem obrigar a pessoa a começar de novo.|The calendar, waitlist and rescheduling follow changes in routine without making people start again.|La agenda, la lista de espera y los cambios de fecha acompañan los cambios de rutina sin obligar a empezar de nuevo.
 PERFIL E CRITÉRIOS|PROFILE AND CRITERIA|PERFIL Y CRITERIOS
-A rotina decide o horário.|Routine sets the time.|La rutina decide el horario.
-A clareza orienta a reserva.|Clarity guides the booking.|La claridad orienta la reserva.
+Um treino que cabe|Training that fits|Un entrenamiento que encaja
+na rotina.|your routine.|en tu rutina.
 Milla é o perfil de referência da proposta: uma pessoa que concilia trabalho e treino, procura horários compatíveis e precisa entender as condições antes de reservar.|Milla is the reference profile for the proposal: someone who balances work and training, looks for compatible times and needs to understand the conditions before booking.|Milla es el perfil de referencia de la propuesta: una persona que combina trabajo y entrenamiento, busca horarios compatibles y necesita entender las condiciones antes de reservar.
 NECESSIDADE|NEED|NECESIDAD
 Encontrar o que cabe na semana.|Find what fits into the week.|Encontrar lo que encaja en la semana.
@@ -505,8 +505,8 @@ PRIMEIRA VISITA|FIRST VISIT|PRIMERA VISITA
 Chegar com orientação.|Arrive with guidance.|Llegar con orientación.
 Saber duração, preparo, unidade e posição na arena para reduzir as dúvidas da chegada.|Know the duration, preparation, location and position in the arena to reduce questions on arrival.|Conocer duración, preparación, sucursal y posición en la arena para reducir las dudas al llegar.
 JORNADA|JOURNEY|RECORRIDO
-Escolher. Conferir.|Choose. Review.|Elegir. Comprobar.
-Chegar com contexto.|Arrive with context.|Llegar con contexto.
+Da escolha do treino|From choosing a class|De la elección del entrenamiento
+à confirmação da reserva.|to confirming a booking.|a la confirmación de la reserva.
 O site apresenta a arena. O app organiza a escolha do treino e a gestão da reserva. A operação consulta disponibilidade, créditos e condições antes de concluir cada ação.|The website introduces the arena. The app organizes the choice of workout and booking management. The operation checks availability, credits and conditions before completing each action.|El sitio presenta el gimnasio. La app organiza la elección del entrenamiento y la gestión de la reserva. La operación consulta disponibilidad, créditos y condiciones antes de completar cada acción.
 Agenda|Calendar|Agenda
 Encontrar dia, modalidade e horário.|Find the day, activity and time.|Encontrar día, modalidad y horario.
@@ -520,12 +520,12 @@ TURMA LOTADA|FULL CLASS|CLASE COMPLETA
 Registrar interesse.|Register interest.|Registrar interés.
 A lista de espera informa que uma vaga pode surgir. A confirmação depende de uma nova escolha e da disponibilidade.|The waitlist indicates that a spot may become available. Confirmation depends on a new choice and availability.|La lista de espera informa de que puede quedar una plaza libre. La confirmación depende de una nueva elección y de la disponibilidad.
 SEM CRÉDITOS|NO CREDITS|SIN CRÉDITOS
-Retomar a intenção.|Resume the plan.|Retomar la intención.
+Voltar à reserva após a compra.|Return to booking after a purchase.|Volver a la reserva después de comprar.
 Após escolher um pacote e acompanhar o pagamento, a pessoa retorna ao contexto da aula para revisar a reserva.|After choosing a package and tracking payment, the person returns to the class context to review the booking.|Después de elegir un paquete y seguir el pago, la persona vuelve al contexto de la clase para revisar la reserva.
 DESCOBERTA|DISCOVERY|DESCUBRIMIENTO
 Horário, disponibilidade|Time, availability|Horario, disponibilidad
 e identidade na mesma leitura.|and identity in one view.|e identidad en la misma vista.
-A home aproxima a pessoa da arena. A agenda apresenta escolhas comparáveis. As fotos identificam as modalidades e acompanham os dados necessários para decidir.|The home brings people closer to the arena. The calendar presents comparable choices. Photos identify activities and accompany the information needed to decide.|La pantalla de inicio acerca a la persona al gimnasio. La agenda presenta opciones comparables. Las fotos identifican las modalidades y acompañan los datos necesarios para decidir.
+A tela inicial destaca o próximo treino. Na agenda, cada aula mostra horário, modalidade, instrutor e vagas, com fotos que ajudam a identificar a atividade.|The home screen highlights the next class. Each agenda entry shows the time, activity, instructor and available spots, with photos to identify the activity.|La pantalla de inicio destaca el próximo entrenamiento. En la agenda, cada clase muestra horario, modalidad, instructor y plazas disponibles, con fotos para identificar la actividad.
 HOME / SEU PRÓXIMO TREINO|HOME / YOUR NEXT WORKOUT|INICIO / TU PRÓXIMO ENTRENAMIENTO
 AGENDA / HORÁRIO E DISPONIBILIDADE|CALENDAR / TIME AND AVAILABILITY|AGENDA / HORARIO Y DISPONIBILIDAD
 DECISÃO / HOME|DECISION / HOME|DECISIÓN / INICIO
@@ -544,12 +544,12 @@ DECISÃO / MAPA|DECISION / MAP|DECISIÓN / MAPA
 Estado além da cor.|State beyond color.|Estado más allá del color.
 Número e rótulo distinguem posições livres, ocupadas e selecionadas. A pessoa entende onde ficará na arena.|A number and label distinguish available, occupied and selected spots. People understand where they will be in the arena.|El número y la etiqueta distinguen posiciones libres, ocupadas y seleccionadas. La persona entiende dónde estará en la arena.
 DECISÃO / CONFIRMAÇÃO|DECISION / CONFIRMATION|DECISIÓN / CONFIRMACIÓN
-Explicitar o impacto.|Make the impact explicit.|Hacer explícito el impacto.
+Mostrar o custo e o prazo.|Show the cost and deadline.|Mostrar el coste y el plazo.
 Uma aula utiliza 1 crédito. O resumo apresenta o saldo resultante e o horário limite para cancelar com devolução.|A class uses 1 credit. The summary shows the resulting balance and the deadline for cancellation with a refund.|Una clase utiliza 1 crédito. El resumen presenta el saldo resultante y la hora límite para cancelar con devolución.
 RECUPERAÇÃO|RECOVERY|RECUPERACIÓN
-Quando a rotina muda,|When the routine changes,|Cuando la rutina cambia,
-a experiência acompanha.|the experience follows.|la experiencia acompaña.
-Estados específicos orientam conflitos de vaga, turmas lotadas, saldo insuficiente e pagamentos pendentes. Cada situação mantém uma saída coerente com o contexto.|Specific states guide spot conflicts, full classes, insufficient balance and pending payments. Each situation keeps a way forward that fits the context.|Los estados específicos orientan conflictos de plaza, clases completas, saldo insuficiente y pagos pendientes. Cada situación mantiene una salida coherente con el contexto.
+Reagendamento, lista de espera|Rescheduling, waitlists|Cambios de reserva, lista de espera
+e créditos.|and credits.|y créditos.
+O fluxo informa quando uma vaga foi ocupada, a turma está lotada, faltam créditos ou o pagamento está pendente. Em cada situação, apresenta a ação disponível para continuar.|The flow explains when a spot has been taken, a class is full, credits are insufficient or a payment is pending. Each situation shows an available next step.|El flujo informa cuando una plaza se ha ocupado, la clase está completa, faltan créditos o el pago está pendiente. En cada situación, muestra la acción disponible para continuar.
 REAGENDAMENTO|RESCHEDULING|CAMBIO DE FECHA
 Preservar a reserva atual.|Preserve the current booking.|Preservar la reserva actual.
 A aula original permanece ativa durante a escolha. A substituição acontece após a disponibilidade do novo horário ser conferida.|The original class remains active while choosing. Replacement happens after availability for the new time has been checked.|La clase original permanece activa durante la elección. La sustitución sucede después de comprobar la disponibilidad del nuevo horario.
@@ -560,8 +560,8 @@ CRÉDITOS|CREDITS|CRÉDITOS
 Comunicar o que aconteceu.|Explain what happened.|Comunicar lo que sucedió.
 Saldo, validade e extrato organizam o acompanhamento. Pagamento pendente e pacote ativado têm mensagens e ações próprias.|Balance, validity and transaction history organize tracking. Pending payments and activated packages have their own messages and actions.|Saldo, vigencia y extracto organizan el seguimiento. El pago pendiente y el paquete activado tienen mensajes y acciones propios.
 SISTEMA VISUAL|VISUAL SYSTEM|SISTEMA VISUAL
-Uma marca reconhecível.|A recognizable brand.|Una marca reconocible.
-Uma interface consistente.|A consistent interface.|Una interfaz consistente.
+O mesmo sistema visual|The same visual system|El mismo sistema visual
+no site e no app.|across website and app.|en el sitio web y la app.
 A identidade da Sandfit combina fundos escuros, verde lima e roxo. Cor, tipografia e componentes tornam a experiência reconhecível entre o site e o app.|Sandfit’s identity combines dark backgrounds, lime green and purple. Color, typography and components make the experience recognizable across the website and app.|La identidad de Sandfit combina fondos oscuros, verde lima y morado. Color, tipografía y componentes hacen reconocible la experiencia entre el sitio y la app.
 Base|Base|Base
 Superfície|Surface|Superficie
@@ -581,10 +581,10 @@ Fotos da arena identificam o contexto do treino. Faixas inspiradas no símbolo d
 ENCERRAMENTO|CLOSING|CIERRE
 Entrega concluída.|Delivery completed.|Entrega completada.
 Identidade preservada.|Identity preserved.|Identidad preservada.
-Projeto realizado sob confidencialidade. Por decisão do cliente, o trabalho foi concluído após a entrega do design. Este case apresenta a experiência e o sistema visual, preservando informações confidenciais do projeto.|A project carried out under confidentiality. At the client’s decision, work concluded after the design delivery. This case presents the experience and visual system while preserving confidential project information.|Proyecto realizado bajo confidencialidad. Por decisión del cliente, el trabajo concluyó tras la entrega del diseño. Este caso presenta la experiencia y el sistema visual, preservando la información confidencial del proyecto.
+Por decisão do cliente, o trabalho foi concluído após a entrega do design. O case apresenta os fluxos, as interfaces e o sistema visual, preservando as informações confidenciais do projeto.|At the client’s request, the work concluded after the design handoff. This case presents the flows, interfaces and visual system while protecting confidential project information.|Por decisión del cliente, el trabajo concluyó tras la entrega del diseño. El caso presenta los flujos, las interfaces y el sistema visual, preservando la información confidencial del proyecto.
 A entrega reúne fluxos, interface, sistema visual e protótipo, conectando a descoberta da arena à organização do treino.|The delivery brings together flows, interface, visual system and prototype, connecting discovery of the arena to organizing training.|La entrega reúne flujos, interfaz, sistema visual y prototipo, conectando el descubrimiento del gimnasio con la organización del entrenamiento.
 SANDFIT ARENA · BEM-ESTAR|SANDFIT ARENA · WELLNESS|SANDFIT ARENA · BIENESTAR
-Uma experiência que conecta a descoberta da arena à escolha do treino e à reserva.|An experience connecting discovery of the arena to choosing a workout and booking a spot.|Una experiencia que conecta el descubrimiento del gimnasio con la elección del entrenamiento y la reserva.
+App e site para conhecer a arena, consultar aulas e reservar.|An app and website for exploring the arena, browsing classes and booking.|App y sitio web para conocer la arena, consultar clases y reservar.
 Veja também Lumen e Aqui Limpa na coleção completa.|Discover Lumen and Aqui Limpa in the full collection.|Descubre también Lumen y Aqui Limpa en la colección completa.
 PORTFÓLIO / 05 PROJETOS|PORTFOLIO / 05 PROJECTS|PORTAFOLIO / 05 PROYECTOS
 BEM-ESTAR / UX E UI|WELLNESS / UX AND UI|BIENESTAR / UX Y UI
@@ -612,6 +612,72 @@ Sandfit: revisão da reserva, crédito, saldo e prazo de cancelamento|Sandfit: b
 Home|Home|Inicio
 INTERFACE|INTERFACE|INTERFAZ
 Sandfit Arena: Estudo de caso: Fabiano Antero|Sandfit Arena: Case study: Fabiano Antero|Sandfit Arena: Caso de estudio: Fabiano Antero
+Três projetos em que trabalhei com produto, design e desenvolvimento.|Three projects I worked on across product, design and development.|Tres proyectos en los que trabajé en producto, diseño y desarrollo.
+Antecipação e Pix com taxas e etapas da solicitação à vista.|Advances and Pix with fees and request progress clearly shown.|Anticipos y Pix con las comisiones y las etapas de la solicitud a la vista.
+App, site e design system para consultar aulas e reservar.|An app, website and design system for browsing classes and booking.|App, sitio web y sistema de diseño para consultar clases y reservar.
+Como desenvolvi a Ordiny.|How I developed Ordiny.|Cómo desarrollé Ordiny.
+Veja o problema que orientou o projeto, minhas decisões e o que implementei.|Explore the problem behind the project, my decisions and what I implemented.|Conoce el problema que dio origen al proyecto, mis decisiones y lo que implementé.
+Agendamentos, dados dos clientes e registros de atendimento no mesmo sistema.|Bookings, customer details and service records in one system.|Reservas, datos de clientes y registros de atención en un mismo sistema.
+As mesmas regras em todos os canais.|The same rules across all channels.|Las mismas reglas en todos los canales.
+O que desenvolvi nessa trajetória|Skills I developed along the way|Lo que desarrollé a lo largo de mi trayectoria
+Vamos conversar|Let’s talk|Hablemos
+sobre seu|about your|de tu
+próximo projeto.|next project.|próximo proyecto.
+Entre em contato para falar sobre uma oportunidade ou um projeto.|Get in touch to discuss an opportunity or a project.|Ponte en contacto para hablar de una oportunidad o un proyecto.
+Um SaaS de agendamento e gestão que projetei e desenvolvi.|A booking and management SaaS I designed and developed.|Un SaaS de reservas y gestión que diseñé y desarrollé.
+App e site para conhecer a arena, consultar aulas e reservar.|An app and website for exploring the arena, browsing classes and booking.|App y sitio web para conocer la arena, consultar clases y reservar.
+Projetei e desenvolvi um SaaS de agendamento e gestão para estabelecimentos de serviços. A plataforma reúne reservas, atendimentos e pagamentos, com as mesmas regras de disponibilidade no painel, no link público e no WhatsApp.|I designed and developed a booking and management SaaS for service businesses. The platform brings together bookings, appointments and payments, with the same availability rules across the dashboard, public link and WhatsApp.|Diseñé y desarrollé un SaaS de reservas y gestión para negocios de servicios. La plataforma reúne reservas, citas y pagos, con las mismas reglas de disponibilidad en el panel, el enlace público y WhatsApp.
+Agendamento e gestão funcionavam separados.|Booking and management were disconnected.|Las reservas y la gestión funcionaban por separado.
+Era preciso registrar as conversas, conferir horários a cada reagendamento e vincular os pagamentos aos atendimentos. Sem integração entre essas etapas, a equipe repetia tarefas e informações.|Staff had to record conversations, check availability for every reschedule and link payments to appointments. Without integration, they repeated tasks and entered the same information more than once.|El equipo tenía que registrar conversaciones, comprobar horarios en cada cambio de cita y vincular los pagos a las atenciones. Sin integración, repetía tareas e información.
+Visão geral das etapas de agendamento e atendimento. As seções seguintes detalham as regras de cada fluxo.|Overview of booking and service delivery. The following sections explain the rules for each flow.|Vista general de las etapas de reserva y atención. Las siguientes secciones detallan las reglas de cada flujo.
+Serviços e horários disponíveis para reservar.|Services and available times to book.|Servicios y horarios disponibles para reservar.
+Assinatura e pagamento do serviço.|Subscriptions and service payments.|Suscripción y pago del servicio.
+IA integrada às regras de agendamento.|AI working within booking rules.|IA integrada con las reglas de reserva.
+A interface usa componentes compartilhados. No back-end, validações e coordenação das reservas mantêm as regras de disponibilidade entre os canais.|The interface uses shared components. In the back end, validation and booking coordination enforce availability rules across channels.|La interfaz utiliza componentes compartidos. En el back-end, las validaciones y la coordinación de reservas mantienen las reglas de disponibilidad entre canales.
+Disponibilidade conferida em todos os canais.|Availability checked across all channels.|Disponibilidad comprobada en todos los canales.
+Plataforma em homologação.|Platform in staging.|Plataforma en pruebas.
+Conheça também|Explore|Conoce también
+os outros projetos.|my other projects.|los otros proyectos.
+Protótipo de um aplicativo para motoristas autônomos consultarem recebíveis, conferirem o valor líquido e acompanharem pedidos de antecipação.|An app prototype for independent truck drivers to review receivables, check the net amount and track advance requests.|Prototipo de una app para transportistas autónomos que permite consultar cobros pendientes, comprobar el importe neto y seguir las solicitudes de anticipo.
+Antecipação, Pix e Caixinhas.|Advances, Pix and savings goals.|Anticipos, Pix y ahorro por objetivos.
+Recebíveis e saldo disponível.|Receivables and available balance.|Cobros pendientes y saldo disponible.
+Fonte: questionário apresentado no estudo, sem informações sobre amostra, datas ou recrutamento. Os percentuais somam mais de 100% e não há indicação de múltipla escolha. São critérios de escolha relatados, não resultados de uso do aplicativo.|Source: the questionnaire presented in the study, with no details about the sample, dates or recruitment. The percentages add up to more than 100%, and multiple-choice responses are not confirmed. They describe reported selection criteria, not app usage results.|Fuente: cuestionario presentado en el estudio, sin datos sobre la muestra, las fechas o el reclutamiento. Los porcentajes suman más del 100% y no se indica si se permitían respuestas múltiples. Describen criterios de elección declarados, no resultados de uso de la app.
+Perfil ilustrativo que reúne as necessidades consideradas no projeto. Não representa uma participante específica da pesquisa.|An illustrative profile bringing together the needs considered in the project. It does not represent a specific research participant.|Perfil ilustrativo que reúne las necesidades consideradas en el proyecto. No representa a una participante concreta de la investigación.
+Da tela inicial|From the home screen|Desde la pantalla de inicio
+às três tarefas principais.|to three main tasks.|a las tres tareas principales.
+Separar dinheiro por objetivo.|Set money aside for a goal.|Separar dinero por objetivos.
+App e site para uma academia com treinos na areia. O projeto apresenta as modalidades e organiza a consulta de aulas, a reserva de vagas e o uso de créditos.|An app and website for a gym offering training on sand. The project introduces the activities and supports browsing classes, booking spots and managing credits.|App y sitio web para un centro de entrenamiento en arena. El proyecto presenta las modalidades y organiza la consulta de clases, la reserva de plazas y el uso de créditos.
+Desenhei os fluxos, as interfaces e o sistema visual do site e do app, da apresentação da arena à confirmação da reserva.|I designed the flows, interfaces and visual system for the website and app, from introducing the arena to confirming a booking.|Diseñé los flujos, las interfaces y el sistema visual del sitio web y la app, desde la presentación de la arena hasta la confirmación de la reserva.
+Condições claras antes de reservar.|Clear terms before booking.|Condiciones claras antes de reservar.
+Informações da aula|Class details|Información de la clase
+antes da reserva.|before booking.|antes de reservar.
+Quem visita a arena pela primeira vez precisa saber como funciona a aula e como se preparar. Organizei essas informações junto dos horários e das condições da reserva.|First-time visitors need to know how the class works and how to prepare. I placed this information alongside schedules and booking conditions.|Quien visita la arena por primera vez necesita saber cómo funciona la clase y cómo prepararse. Organicé esta información junto con los horarios y las condiciones de reserva.
+Reagendar e acompanhar reservas.|Reschedule and track bookings.|Cambiar y consultar reservas.
+Um treino que cabe|Training that fits|Un entrenamiento que encaja
+na rotina.|your routine.|en tu rutina.
+Da escolha do treino|From choosing a class|De la elección del entrenamiento
+à confirmação da reserva.|to confirming a booking.|a la confirmación de la reserva.
+Voltar à reserva após a compra.|Return to booking after a purchase.|Volver a la reserva después de comprar.
+A tela inicial destaca o próximo treino. Na agenda, cada aula mostra horário, modalidade, instrutor e vagas, com fotos que ajudam a identificar a atividade.|The home screen highlights the next class. Each agenda entry shows the time, activity, instructor and available spots, with photos to identify the activity.|La pantalla de inicio destaca el próximo entrenamiento. En la agenda, cada clase muestra horario, modalidad, instructor y plazas disponibles, con fotos para identificar la actividad.
+Mostrar o custo e o prazo.|Show the cost and deadline.|Mostrar el coste y el plazo.
+Reagendamento, lista de espera|Rescheduling, waitlists|Cambios de reserva, lista de espera
+e créditos.|and credits.|y créditos.
+O fluxo informa quando uma vaga foi ocupada, a turma está lotada, faltam créditos ou o pagamento está pendente. Em cada situação, apresenta a ação disponível para continuar.|The flow explains when a spot has been taken, a class is full, credits are insufficient or a payment is pending. Each situation shows an available next step.|El flujo informa cuando una plaza se ha ocupado, la clase está completa, faltan créditos o el pago está pendiente. En cada situación, muestra la acción disponible para continuar.
+O mesmo sistema visual|The same visual system|El mismo sistema visual
+no site e no app.|across website and app.|en el sitio web y la app.
+Por decisão do cliente, o trabalho foi concluído após a entrega do design. O case apresenta os fluxos, as interfaces e o sistema visual, preservando as informações confidenciais do projeto.|At the client’s request, the work concluded after the design handoff. This case presents the flows, interfaces and visual system while protecting confidential project information.|Por decisión del cliente, el trabajo concluyó tras la entrega del diseño. El caso presenta los flujos, las interfaces y el sistema visual, preservando la información confidencial del proyecto.
+Da identidade visual à página.|From visual identity to website.|De la identidad visual a la página.
+Um guia de cores, tipografia, espaçamento e componentes para a página da Aqui Limpa. Veja como apliquei a identidade visual da empresa na interface desenvolvida.|A guide to the colors, typography, spacing and components used on the Aqui Limpa page. See how I applied the company’s visual identity to the interface.|Una guía de colores, tipografía, espaciado y componentes de la página de Aqui Limpa. Consulta cómo apliqué la identidad visual de la empresa a la interfaz.
+A identidade visual da Aqui Limpa.|Aqui Limpa’s visual identity.|La identidad visual de Aqui Limpa.
+Fotos de profissionais e grafismos apresentam os serviços e identificam a marca ao longo da página.|Photos of professionals and graphic details introduce the services and identify the brand throughout the page.|Las fotos de profesionales y los elementos gráficos presentan los servicios y permiten reconocer la marca a lo largo de la página.
+Espaçamento entre componentes e seções.|Spacing between components and sections.|Espaciado entre componentes y secciones.
+A escala define os espaços dos controles, o preenchimento dos cartões e a distância entre seções.|The scale defines spacing within controls and cards, as well as gaps between sections.|La escala define los espacios de los controles, el relleno de las tarjetas y la distancia entre secciones.
+Componentes para experimentar.|Try the components.|Prueba los componentes.
+Ações principais e alternativas.|Primary and secondary actions.|Acciones principales y alternativas.
+Conheça outros projetos.|Explore more projects.|Conoce otros proyectos.
+Minha experiência|My experience|Mi experiencia
+em produto.|in product.|en producto.
+CONTATO|CONTACT|CONTACTO
 `.trim().split('\n').map(row => {
     const [original, en, es] = row.split('|').map(normalize);
     return [original, {en, es}];

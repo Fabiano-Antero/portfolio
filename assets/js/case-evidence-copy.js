@@ -25,9 +25,9 @@ window.portfolioTranslations=[...(window.portfolioTranslations||[]),...[
     "DECISIÓN CENTRAL"
   ],
   [
-    "Uma regra entre canais.",
-    "One rule across channels.",
-    "Una regla entre canales."
+    "Disponibilidade conferida em todos os canais.",
+    "Availability checked across all channels.",
+    "Disponibilidad comprobada en todos los canales."
   ],
   [
     "Painel, link público e WhatsApp compartilham a validação de disponibilidade antes da confirmação.",
@@ -40,9 +40,9 @@ window.portfolioTranslations=[...(window.portfolioTranslations||[]),...[
     "ENTREGA"
   ],
   [
-    "Jornada implementada.",
-    "An implemented journey.",
-    "Un recorrido implementado."
+    "Plataforma em homologação.",
+    "Platform in staging.",
+    "Plataforma en pruebas."
   ],
   [
     "Interface, regras de negócio e integrações conectadas em ambiente de homologação. O produto continua em desenvolvimento.",
@@ -85,9 +85,9 @@ window.portfolioTranslations=[...(window.portfolioTranslations||[]),...[
     "ENTREGA"
   ],
   [
-    "Uma experiência conectada.",
-    "A connected experience.",
-    "Una experiencia conectada."
+    "Antecipação, Pix e Caixinhas.",
+    "Advances, Pix and savings goals.",
+    "Anticipos, Pix y ahorro por objetivos."
   ],
   [
     "Pesquisa, jornadas, guia de estilo e protótipo de alta fidelidade para antecipação, Pix e organização financeira.",
@@ -105,9 +105,9 @@ window.portfolioTranslations=[...(window.portfolioTranslations||[]),...[
     "UX/UI para app y sitio web."
   ],
   [
-    "Desenhei os fluxos, as interfaces e o sistema visual para conectar a descoberta da arena à reserva do treino.",
-    "I designed the flows, interfaces and visual system to connect discovering the arena with booking a training session.",
-    "Diseñé los flujos, las interfaces y el sistema visual para conectar el descubrimiento de la arena con la reserva del entrenamiento."
+    "Desenhei os fluxos, as interfaces e o sistema visual do site e do app, da apresentação da arena à confirmação da reserva.",
+    "I designed the flows, interfaces and visual system for the website and app, from introducing the arena to confirming a booking.",
+    "Diseñé los flujos, las interfaces y el sistema visual del sitio web y la app, desde la presentación de la arena hasta la confirmación de la reserva."
   ],
   [
     "DECISÃO CENTRAL",
@@ -115,9 +115,9 @@ window.portfolioTranslations=[...(window.portfolioTranslations||[]),...[
     "DECISIÓN CENTRAL"
   ],
   [
-    "Reservar com contexto.",
-    "Book with context.",
-    "Reservar con contexto."
+    "Condições claras antes de reservar.",
+    "Clear terms before booking.",
+    "Condiciones claras antes de reservar."
   ],
   [
     "Posições identificadas além da cor, custo em créditos e prazo de cancelamento visíveis antes da confirmação.",

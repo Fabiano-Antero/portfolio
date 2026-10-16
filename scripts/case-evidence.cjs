@@ -11,8 +11,8 @@ function build(){
   html=html.replace(/<!-- case-evidence:start -->[\s\S]*?<!-- case-evidence:end -->/,'');
   html=html.replace(/(<nav class="(?:chapter-nav[^\"]*|sandfit-chapters)"[\s\S]*?<\/nav>)/,`$1${block}`);
   html=html.replace(/<script src="assets\/js\/case-evidence-copy\.js[^\"]*" defer><\/script>/g,'');
-  html=html.replace('<script src="assets/js/i18n.js','<script src="assets/js/case-evidence-copy.js?v=20261014-local-review" defer></script><script src="assets/js/i18n.js');
-  html=html.replace(/site\.css\?v=[^"\s]+/g,'site.css?v='+(file==='ordiny.html'?'20261015-ordiny-comparison':'20261014-local-review')).replace(/i18n\.js\?v=[^"\s]+/g,'i18n.js?v=20261014-local-review').replace(/chibi-loader\.js\?v=[^"\s]+/g,'chibi-loader.js?v=20261014-local-review');
+  html=html.replace('<script src="assets/js/i18n.js','<script src="assets/js/case-evidence-copy.js?v=20261016-text-review" defer></script><script src="assets/js/i18n.js');
+  html=html.replace(/site\.css\?v=[^"\s]+/g,'site.css?v='+(file==='ordiny.html'?'20261015-ordiny-comparison':'20261014-local-review')).replace(/i18n\.js\?v=[^"\s]+/g,'i18n.js?v=20261016-text-review').replace(/chibi-loader\.js\?v=[^"\s]+/g,'chibi-loader.js?v=20261016-text-review');
   fs.writeFileSync(target,html);
  }
  fs.writeFileSync(path.join(root,'assets/js/case-evidence-copy.js'),'window.portfolioTranslations=[...(window.portfolioTranslations||[]),...'+JSON.stringify(rows,null,2)+'];\n');

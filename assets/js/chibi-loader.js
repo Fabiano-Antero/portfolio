@@ -1,4 +1,4 @@
-import {createCharacterChat} from './chibi-chat.js?v=20261014-local-review';
+import {createCharacterChat} from './chibi-chat.js?v=20261016-text-review';
 
 let dismissed=false;
 try{dismissed=sessionStorage.getItem('portfolio-chibi-hidden')==='true';}catch{}
@@ -24,7 +24,7 @@ if(!dismissed) {
   async function loadPet(event) {
     if(!alive||reduced.matches)return;
     if(!loading)loading=(async()=>{
-      const {createPet}=await import('./chibi-pet.js?v=20261014-local-review');
+      const {createPet}=await import('./chibi-pet.js?v=20261016-text-review');
       if(!alive)return;
       pet=await createPet({layer,chat,onReady:removePreview});
       if(!alive)pet?.destroy();

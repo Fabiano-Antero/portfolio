@@ -12,57 +12,57 @@
   },
   {
     "id": "residencial",
-    "title": "Limpeza Residencial",
+    "title": "Limpeza residencial",
     "icon": "imgModernHomeSvgrepoCom1",
     "items": [
-      "Regular (Manutenção)",
+      "Limpeza regular de manutenção",
       "Profunda",
-      "Estofados e Tapetes",
-      "Pós-Obra ou Pós-Reforma"
+      "Estofos e tapetes",
+      "Após obras ou remodelações"
     ]
   },
   {
     "id": "escritorios",
-    "title": "Limpeza de Escritórios",
+    "title": "Limpeza de escritórios",
     "icon": "imgHotelSvgrepoCom1",
     "items": [
-      "Diária ou Periódica de Manutenção",
-      "Pós-Evento ou Reuniões",
-      "Profunda Corporativa",
-      "Reposição de Materiais de Higiene"
+      "Manutenção diária ou periódica",
+      "Após eventos ou reuniões",
+      "Limpeza profunda",
+      "Reposição de materiais de higiene"
     ]
   },
   {
     "id": "condominios",
-    "title": "Limpeza de Condomínios",
+    "title": "Limpeza de condomínios",
     "icon": "imgHomeAlt4SvgrepoCom1",
     "items": [
-      "Áreas Comuns",
-      "Garagens e Estacionamentos",
-      "Vidros e Fachadas Internas",
-      "Áreas de Lazer"
+      "Áreas comuns",
+      "Garagens e estacionamentos",
+      "Vidros e fachadas interiores",
+      "Áreas de lazer"
     ]
   },
   {
     "id": "hoteis",
-    "title": "Limpeza de Hotéis",
+    "title": "Limpeza de hotéis",
     "icon": "imgHotel3SvgrepoCom1",
     "items": [
-      "Quartos (Room Service)",
-      "Áreas Comuns",
-      "Pós-Check-out (Turnover)",
-      "Lavandaria e Gestão de Enxoval"
+      "Limpeza de quartos",
+      "Áreas comuns",
+      "Entre estadias",
+      "Lavandaria e gestão de roupa"
     ]
   },
   {
     "id": "pos-obra",
-    "title": "Limpeza Pós-Obra",
+    "title": "Limpeza após obras",
     "icon": "imgCraneTruckLeftSvgrepoCom1",
     "items": [
-      "Remoção de Resíduos",
-      "Limpeza Detalhada",
-      "Desinfecção de Ambientes",
-      "Preparação Final do Espaço"
+      "Remoção de resíduos",
+      "Limpeza detalhada",
+      "Desinfeção dos espaços",
+      "Preparação final do espaço"
     ]
   }
 ]

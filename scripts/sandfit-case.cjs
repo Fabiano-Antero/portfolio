@@ -3,7 +3,7 @@
 const content=require('./sandfit-content.json');
 module.exports=({section,heading,link,figure})=>{
  const escape=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
- const text=id=>escape(content['343:'+id]||'').replaceAll('\n','<br>');
+ const text=id=>escape(content['343:'+id]||'').replaceAll('\n','<br> ');
  const study='https://www.figma.com/design/VVbGZeoDwzTw4tbai6vHl9/Sandfit-arena?node-id=3422-6';
  const prototype='https://www.figma.com/design/VVbGZeoDwzTw4tbai6vHl9/Sandfit-arena?node-id=3471-2553';
  const chapters=[['contexto','01 Contexto'],['perfil','02 Perfil e critérios'],['jornada','03 Jornada'],['descoberta','04 Descoberta'],['reserva','05 Reserva'],['recuperacao','06 Recuperação'],['sistema','07 Sistema'],['encerramento','08 Encerramento']];
