@@ -1,0 +1,18 @@
+{
+  "checks": {
+    "studio_loads_without_js_errors": true,
+    "premium_opens_in_page": true,
+    "settings_stays_in_page": true,
+    "english_switch": true,
+    "stream_screen_opens": true,
+    "password_control_present": true,
+    "configuration_warning": true,
+    "invite_not_available_before_live": true,
+    "invalid_link_disabled": true,
+    "mobile_no_horizontal_overflow": true,
+    "still_no_js_errors": true,
+    "viewer_invalid_link_handled": true
+  },
+  "errors": [],
+  "environment": "Chromium DOM-rendering through set_content; opaque origin, media capture unavailable. No network WebRTC or physical-device test."
+}

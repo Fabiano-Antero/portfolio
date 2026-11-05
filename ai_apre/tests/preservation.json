@@ -1,0 +1,87 @@
+[
+  {
+    "path": "audio-processors.js",
+    "sha256": "86f1e3a41108d8fa9d82eab2a50344d9089f4f617cb86fd3606717f98d88e1a6",
+    "identical_to_v14": true
+  },
+  {
+    "path": "audio-output.js",
+    "sha256": "c4102b29fc68a4fdf998fa4cdff3efe3aa2cfca727e4659ee9f2d191cb4f46a0",
+    "identical_to_v14": true
+  },
+  {
+    "path": "audio.js",
+    "sha256": "b0f466b8f02b7c3f2811b333ceb8c2a366387dffaf7e1c7d8d214a02d6fa78d1",
+    "identical_to_v14": true
+  },
+  {
+    "path": "avatar.js",
+    "sha256": "5ba4d5ada831dac12ae1379b3958c7142862b0246fb540dd3fd16dcdda966c7f",
+    "identical_to_v14": true
+  },
+  {
+    "path": "portrait-return.js",
+    "sha256": "b4dfd292615c2154faca00221bf53b91a8da4dcc2bc7ff83bbd975206bb6111c",
+    "identical_to_v14": true
+  },
+  {
+    "path": "styles.css",
+    "sha256": "6eba60dbbd46704e772433e7360406880f5e3a122e18dda7f5e672ab2db65213",
+    "identical_to_v14": true
+  },
+  {
+    "path": "settings.js",
+    "sha256": "e1636cf730e1e83e37ff82eb3151211b27b2b48a95dba0779d60164d7260b8ef",
+    "identical_to_v14": true
+  },
+  {
+    "path": "premium.css",
+    "sha256": "89b7e44521a5e22436914ee9e794d1bba1ee2ba4fd3dc47d43160e637a223773",
+    "identical_to_v14": true
+  },
+  {
+    "path": "premium.js",
+    "sha256": "15e2827e78f13eb2ae42de240e78e969edb0be658dcc4fca31f35afac4d5a34c",
+    "identical_to_v14": true
+  },
+  {
+    "path": "translations.js",
+    "sha256": "4c5479c3c7fe6ae01c3ce5dc2cb06fef65d5ff6df1dcb0da10c46df66826de15",
+    "identical_to_v14": true
+  },
+  {
+    "path": "i18n.js",
+    "sha256": "08c6a9744f66e12907d7d75f30b09cd2a500d8f1597caa76dd3d181360ddd66a",
+    "identical_to_v14": true
+  },
+  {
+    "path": "assets/flow-backward.png",
+    "sha256": "3c6a06749caae58d4520c4600102d3562ee03d43b73b515e23ed89b51de34bb3",
+    "identical_to_v14": true
+  },
+  {
+    "path": "assets/repouso.webp",
+    "sha256": "072507a926c683cb6d17583b6515548967391d46f550489d21e261ec7e88dd27",
+    "identical_to_v14": true
+  },
+  {
+    "path": "assets/flow-forward.png",
+    "sha256": "2e84acc82fa0f0cd2ea0c33d5beb0ba89b72cecefe8dea0a99d2f12dcae58247",
+    "identical_to_v14": true
+  },
+  {
+    "path": "assets/metadata.json",
+    "sha256": "66f23bce1a82e47ba4b154e1373ba27aef53c28a61da3d9ecc3b554cc737acad",
+    "identical_to_v14": true
+  },
+  {
+    "path": "assets/original.mp4",
+    "sha256": "20d8d84e3ed8b984069da9313bbdd765562f9dc461354ec8a3800c5d64281e6a",
+    "identical_to_v14": true
+  },
+  {
+    "path": "assets/flow-metadata.json",
+    "sha256": "fc8425874894907233176a01725653bc95be1b5d0c953580079bbf37c4face71",
+    "identical_to_v14": true
+  }
+]

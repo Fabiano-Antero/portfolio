@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="dark"><meta name="theme-color" content="#080e13"><meta name="referrer" content="no-referrer"><title>VOZ // Player ao vivo</title><link href="data:," rel="icon"><link href="styles.css" rel="stylesheet"><link href="stream.css" rel="stylesheet"></head>
+<body class="watch-body" data-i18n-ignore>
+<div class="watch-app">
+  <header class="watch-header"><div class="st-brand"><b>VOZ<span>//</span></b><p data-st="receiverLabel"></p></div><div class="watch-language"><label for="watchLanguage" data-st="language"></label><select id="watchLanguage"><option value="pt-BR">Português (Brasil)</option><option value="en">English</option></select></div></header>
+  <div class="watch-title"><div><p data-st="localTag"></p><h1 data-st="playerTitle"></h1></div><span class="st-chip" data-st="localOnlyBadge"></span></div>
+  <section id="watchPlayer" class="st-card watch-player" aria-label="Player de transmissão">
+    <div class="st-card-top"><span>LIVE / 01</span><span class="st-badge" id="watchBadge" role="status"></span></div>
+    <div class="st-video-wrap"><video id="watchVideo" autoplay muted playsinline></video><div class="st-empty watch-empty" id="watchEmpty"><span id="watchEmptyIcon"></span><strong id="watchTitle"></strong><p id="watchDescription"></p><button class="st-button" id="watchPlay" type="button" data-st="play" hidden></button></div><div class="st-corners" aria-hidden="true"></div><span class="st-overlay-label"><span data-st="scope"></span><span class="watch-signal-flag" id="watchMutedFlag"></span></span><span class="st-quality" id="watchResolutionBadge">—</span></div>
+    <div class="watch-controls"><div class="watch-audio"><button id="watchSound" type="button" class="st-button st-primary" aria-pressed="false" data-st="soundOff"></button><label for="watchVolume" class="sr-only" data-st="volume"></label><input type="range" id="watchVolume" min="0" max="1" value="0.4" step="0.01"><output id="watchVolumeValue" for="watchVolume">40%</output></div><div class="watch-secondary"><button id="watchReconnect" type="button" class="st-button" data-st="reconnect"></button><button id="watchFullscreen" type="button" class="st-button" data-st="fullscreen"></button></div></div>
+    <div class="st-stats"><div class="st-stat"><small data-st="signal"></small><output id="watchSignal">—</output></div><div class="st-stat"><small data-st="duration"></small><output id="watchTimer">00:00</output></div><div class="st-stat"><small data-st="receiving"></small><output id="watchBitrate">—</output></div><div class="st-stat"><small data-st="frames"></small><output id="watchFrames">0</output></div></div>
+  </section>
+  <p class="watch-hint" data-st="soundHint"></p><p class="st-warning" data-st="scopeNote"></p><div id="watchMessage" class="st-message" role="status" hidden></div>
+  <footer class="watch-foot"><span data-st="noCapture"></span><span data-st="privacy"></span></footer>
+</div>
+<script src="config.js"></script><script src="stream-common.js"></script><script src="online.js"></script><script src="stream-viewer.js"></script>
+</body></html>

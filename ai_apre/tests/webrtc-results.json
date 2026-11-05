@@ -1,0 +1,16 @@
+{
+  "environment": "Chromium about:blank with inline app, synthetic canvas camera and test bridge to actual worker code with mocked Durable Objects. No production services.",
+  "checks": {
+    "authenticated_room_created": true,
+    "offer_generated_by_real_rtcpeerconnection": true,
+    "answer_received_and_applied": true,
+    "no_page_js_errors_during_negotiation": true
+  },
+  "media_delivery": {
+    "status": "not_validated",
+    "ice_candidates_publisher": 0,
+    "ice_candidates_viewer": 0,
+    "frames_decoded": 0
+  },
+  "limitation": "The environment did not expose ICE network candidates. Audio/video reception, TURN relay and real Cloudflare runtime require a deployed end-to-end test."
+}

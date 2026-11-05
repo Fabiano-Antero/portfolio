@@ -1,0 +1,114 @@
+{
+  "version": 12,
+  "tests": [
+    {
+      "name": "zero-pitch-effect-has-one-impulse-no-delayed-copy",
+      "sampleRate": 44100,
+      "mix": 0.35,
+      "nonzero": 1,
+      "tail": 0
+    },
+    {
+      "name": "zero-pitch-effect-has-one-impulse-no-delayed-copy",
+      "sampleRate": 44100,
+      "mix": 0.65,
+      "nonzero": 1,
+      "tail": 0
+    },
+    {
+      "name": "zero-pitch-effect-has-one-impulse-no-delayed-copy",
+      "sampleRate": 44100,
+      "mix": 1,
+      "nonzero": 1,
+      "tail": 0
+    },
+    {
+      "name": "effect-bypass-exact",
+      "sampleRate": 44100,
+      "maxError": 0
+    },
+    {
+      "name": "continuous-gate-does-not-cut-low-level-speech",
+      "sampleRate": 44100,
+      "gateError": 0
+    },
+    {
+      "name": "changes-finite-limiter-safe-sample-ceiling",
+      "sampleRate": 44100,
+      "peak": 0.8912509083747864
+    },
+    {
+      "name": "zero-pitch-effect-has-one-impulse-no-delayed-copy",
+      "sampleRate": 48000,
+      "mix": 0.35,
+      "nonzero": 1,
+      "tail": 0
+    },
+    {
+      "name": "zero-pitch-effect-has-one-impulse-no-delayed-copy",
+      "sampleRate": 48000,
+      "mix": 0.65,
+      "nonzero": 1,
+      "tail": 0
+    },
+    {
+      "name": "zero-pitch-effect-has-one-impulse-no-delayed-copy",
+      "sampleRate": 48000,
+      "mix": 1,
+      "nonzero": 1,
+      "tail": 0
+    },
+    {
+      "name": "effect-bypass-exact",
+      "sampleRate": 48000,
+      "maxError": 0
+    },
+    {
+      "name": "continuous-gate-does-not-cut-low-level-speech",
+      "sampleRate": 48000,
+      "gateError": 0
+    },
+    {
+      "name": "changes-finite-limiter-safe-sample-ceiling",
+      "sampleRate": 48000,
+      "peak": 0.8912509083747864
+    },
+    {
+      "name": "zero-pitch-effect-has-one-impulse-no-delayed-copy",
+      "sampleRate": 96000,
+      "mix": 0.35,
+      "nonzero": 1,
+      "tail": 0
+    },
+    {
+      "name": "zero-pitch-effect-has-one-impulse-no-delayed-copy",
+      "sampleRate": 96000,
+      "mix": 0.65,
+      "nonzero": 1,
+      "tail": 0
+    },
+    {
+      "name": "zero-pitch-effect-has-one-impulse-no-delayed-copy",
+      "sampleRate": 96000,
+      "mix": 1,
+      "nonzero": 1,
+      "tail": 0
+    },
+    {
+      "name": "effect-bypass-exact",
+      "sampleRate": 96000,
+      "maxError": 0
+    },
+    {
+      "name": "continuous-gate-does-not-cut-low-level-speech",
+      "sampleRate": 96000,
+      "gateError": 0
+    },
+    {
+      "name": "changes-finite-limiter-safe-sample-ceiling",
+      "sampleRate": 96000,
+      "peak": 0.8912509083747864
+    }
+  ],
+  "passed": 18
+}

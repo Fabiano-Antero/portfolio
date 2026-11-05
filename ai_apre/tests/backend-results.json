@@ -1,0 +1,110 @@
+{
+  "version": 15,
+  "environment": "Node.js with mocked DurableObject storage and WebSockets; not workerd",
+  "tests": [
+    {
+      "name": "Reject unapproved origin",
+      "passed": true
+    },
+    {
+      "name": "Reject wrong publisher password",
+      "passed": true
+    },
+    {
+      "name": "Create room with separate 256-bit capabilities",
+      "passed": true
+    },
+    {
+      "name": "Viewer capability cannot publish",
+      "passed": true
+    },
+    {
+      "name": "Wrong viewer capability rejected",
+      "passed": true
+    },
+    {
+      "name": "Explicit direct-only test config returns STUN",
+      "passed": true
+    },
+    {
+      "name": "Publisher WebSocket admitted",
+      "passed": true
+    },
+    {
+      "name": "WebSocket tickets are single-use",
+      "passed": true
+    },
+    {
+      "name": "Second publisher rejected",
+      "passed": true
+    },
+    {
+      "name": "Four viewer cap enforced server-side",
+      "passed": true
+    },
+    {
+      "name": "Publisher identity set by server",
+      "passed": true
+    },
+    {
+      "name": "Viewer cannot spoof another participant or recipient",
+      "passed": true
+    },
+    {
+      "name": "Viewer cannot send publisher offer",
+      "passed": true
+    },
+    {
+      "name": "Broadcast state sent to viewers",
+      "passed": true
+    },
+    {
+      "name": "Room survives simulated hibernation/reconstruction",
+      "passed": true
+    },
+    {
+      "name": "ICE candidate forwarded through signaling",
+      "passed": true
+    },
+    {
+      "name": "Viewer cannot end the room",
+      "passed": true
+    },
+    {
+      "name": "End room closes all connections",
+      "passed": true
+    },
+    {
+      "name": "Old invitation revoked after ending",
+      "passed": true
+    },
+    {
+      "name": "Production fails closed without TURN",
+      "passed": true
+    },
+    {
+      "name": "Publisher login rate-limited",
+      "passed": true
+    },
+    {
+      "name": "CORS exact allowed origin, not wildcard",
+      "passed": true
+    },
+    {
+      "name": "TURN temporary credentials contract",
+      "passed": true
+    },
+    {
+      "name": "Master TURN secret never returned to client",
+      "passed": true
+    },
+    {
+      "name": "Blocked TURN port 53 removed",
+      "passed": true
+    },
+    {
+      "name": "TURN credentials cached per participant",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "ai-apre-signal",
+  "version": "15.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "cf dev",
+    "build": "cf build",
+    "deploy": "cf deploy",
+    "check": "cf deploy --dry-run",
+    "test": "node ../tests/backend-test.mjs && node ../tests/online-test.cjs && node ../tests/dsp-test.cjs"
+  },
+  "devDependencies": {
+    "cf": "latest",
+    "@cloudflare/vite-plugin": "beta",
+    "vite": "^7.0.0"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "environment": "Node VM; mocked WebSockets, fetch and timers; no media transport",
+  "tests": [
+    {
+      "name": "Valid HTTPS API accepted",
+      "passed": true
+    },
+    {
+      "name": "Insecure remote API rejected",
+      "passed": true
+    },
+    {
+      "name": "Invitation parsed from fragment",
+      "passed": true
+    },
+    {
+      "name": "Malformed invitation rejected",
+      "passed": true
+    },
+    {
+      "name": "Publisher password only in Authorization header",
+      "passed": true
+    },
+    {
+      "name": "Join carries role token in POST body",
+      "passed": true
+    },
+    {
+      "name": "WebSocket carries only single-use ticket",
+      "passed": true
+    },
+    {
+      "name": "Ready state configures ICE before negotiation",
+      "passed": true
+    },
+    {
+      "name": "No stale offer queued while offline",
+      "passed": true
+    },
+    {
+      "name": "Ready client sends signal",
+      "passed": true
+    },
+    {
+      "name": "Peer signal delivered",
+      "passed": true
+    },
+    {
+      "name": "Server heartbeat not sent to negotiation handler",
+      "passed": true
+    },
+    {
+      "name": "Closing clears readiness and disallows further messages",
+      "passed": true
+    }
+  ]
+}

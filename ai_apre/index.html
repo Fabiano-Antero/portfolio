@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta name="referrer" content="no-referrer">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="dark" name="color-scheme"/>
+<meta content="#080c10" name="theme-color"/>
+<meta content="Estúdio cyberpunk com avatar, serviços Premium e transmissão online de câmera e áudio para outro player." name="description"/>
+<title>VOZ // Estúdio + Transmissão — v15</title>
+<link href="data:," rel="icon"/>
+<link href="styles.css" rel="stylesheet"/><link href="premium.css" rel="stylesheet"/><link href="stream.css" rel="stylesheet"/></head>
+<body>
+<div aria-hidden="true" class="background-grid"></div>
+<div class="shell">
+<main aria-label="Avatar e áudio em tempo real">
+<div class="studio">
+<section aria-label="Avatar completo reativo à voz" class="avatar-card" data-demo="false" data-speaking="false" data-state="loading" data-version="13" id="avatarCard">
+<div class="avatar-head"><span class="avatar-id">AVATAR // 01</span><span aria-live="off" class="avatar-connection" id="avatarState">CARREGANDO</span></div>
+<div class="avatar-viewport">
+<video aria-label="Vídeo original durante a fala. Volta ao primeiro quadro ao entrar em silêncio." disablepictureinpicture="" height="944" hidden="" id="avatarVideo" muted="" playsinline="" preload="auto" width="960"></video><canvas aria-label="Transição do retrato completo até a pose inicial" height="944" hidden="" id="avatarTransition" width="960"></canvas><img alt="Pose inicial do avatar, com a boca fechada." decoding="sync" height="944" id="avatarRest" width="960"/>
+<span aria-hidden="true" class="avatar-corner-note">V13 / RETORNO SUAVE</span>
+<span class="avatar-demo-label" hidden="" id="avatarDemoLabel">TESTE VISUAL · SEM SOM</span>
+<div class="avatar-error" hidden="" id="avatarError" role="status">O vídeo não carregou. Extraia a pasta completa ou use o HTML único.</div>
+</div>
+<div class="avatar-foot"><div><strong id="avatarCaption">Pronto para acompanhar sua fala</strong><small id="avatarSource">Retorno suave → pose inicial</small></div><div class="avatar-level"><span aria-hidden="true" class="avatar-mouth-meter"><i id="mouthMeterFill"></i></span><output aria-label="Atividade da voz na animação" aria-live="off" id="mouthPercent">0%</output></div></div>
+</section>
+<div class="signal-stack">
+<section aria-label="Monitor de áudio em tempo real" class="terminal">
+<div class="terminal-top"><div aria-live="polite" class="status" data-kind="idle" id="status" role="status"><span aria-hidden="true" class="dot"></span><span id="statusText">Microfone desligado</span></div><div class="terminal-code"><span id="modeCaption">FORMA DE ONDA</span><span>CH / 01</span></div></div>
+<div class="stage">
+<div aria-hidden="true" class="axis-y"><span>+1.0</span><span>+0.5</span><span>0.00</span><span>−0.5</span><span>−1.0</span></div>
+<div class="canvas-wrap"><canvas aria-label="Forma de onda do áudio tratado pelo microfone" id="wave" role="img">Visualização do sinal capturado.</canvas></div>
+<div aria-hidden="true" class="axis-right">AMPLITUDE / NORMALIZADA</div><div class="idle-prompt" id="idlePrompt">AGUARDANDO SUA VOZ</div>
+</div>
+<div class="stage-meta"><div class="scale-labels"><span id="horizontalAxis">DOMÍNIO DO TEMPO</span><span class="voice-badge" id="voiceBadge">FX / ASSISTENTE</span></div><span aria-hidden="true" class="stereo-label"><i></i><i></i> MONO</span></div>
+<div class="telemetry">
+<div class="metric"><div class="metric-label"><span>NÍVEL DE ENTRADA</span><span class="metric-index">01</span></div><div class="metric-value"><output id="inputValue">— dBFS</output><meter aria-label="Nível de entrada em dBFS" id="inputMeter" max="0" min="-80" value="-80"></meter></div></div>
+<div class="metric"><div class="metric-label"><span>ÁUDIO TRATADO</span><span class="metric-index">02</span></div><div class="metric-value"><output class="accent" id="levelValue">— dBFS</output><meter aria-label="Nível tratado em dBFS" id="levelMeter" max="0" min="-80" value="-80"></meter></div></div>
+<div class="metric"><div class="metric-label"><span>SESSÃO ATIVA</span><span class="metric-index">03</span></div><div class="metric-value"><output id="sessionTime">00:00</output></div></div>
+<div class="metric"><div class="metric-label"><span>AMOSTRAGEM</span><span class="metric-index">04</span></div><div class="metric-value"><output id="sampleRate">— <small>kHz</small></output></div></div>
+</div>
+<div class="toolbar">
+<div class="capture-buttons"><button aria-pressed="false" class="primary" data-phase="idle" id="captureToggle" type="button">Ativar microfone</button><button class="secondary" hidden="" id="resume" type="button">Retomar áudio</button></div>
+<button aria-label="Ligar retorno" aria-pressed="false" class="return-info" id="monitorToggle" type="button"><svg aria-hidden="true" fill="none" height="21" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" width="19"><path d="M4 15v-3a8 8 0 0 1 16 0v3"></path><rect height="8" rx="1" width="4" x="3" y="13"></rect><rect height="8" rx="1" width="4" x="17" y="13"></rect></svg><div class="return-text"><div id="returnState">Retorno desligado</div><span id="returnDetail">Use fones para ouvir seu microfone.</span></div></button>
+</div><div class="signal-warning" hidden="" id="signalWarning" role="status"></div></section>
+</div>
+</div>
+</main>
+</div>
+<nav aria-label="Acessos rápidos" class="utility-dock"><button aria-controls="premiumDialog" aria-expanded="false" aria-haspopup="dialog" aria-label="Abrir serviços Premium" class="settings-trigger premium-trigger" id="premiumTrigger" title="Serviços Premium (Alt + P)" type="button"><svg aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24" width="18"><path d="M3 8l4-5h10l4 5-9 13L3 8Z"></path><path d="M3 8h18M7 3l5 18 5-18M7 3l5 5 5-5"></path></svg></button><button aria-controls="settingsDrawer" aria-expanded="false" aria-haspopup="dialog" aria-label="Abrir configurações de áudio" class="settings-trigger" id="settingsTrigger" title="Configurações nesta página (Alt + ,)" type="button"><svg aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24" width="18"><path d="M4 6h5m4 0h7M4 12h10m4 0h2M4 18h2m4 0h10"></path><rect height="4" width="4" x="9" y="4"></rect><rect height="4" width="4" x="14" y="10"></rect><rect height="4" width="4" x="6" y="16"></rect></svg></button></nav>
+<dialog aria-labelledby="settingsTitle" class="settings-drawer" id="settingsDrawer">
+<header class="drawer-head"><div><p class="drawer-kicker">SYS / CONTROLE DO SINAL</p><h2 id="settingsTitle">Configurações</h2></div><button aria-label="Fechar configurações" autofocus="" class="icon-button" id="closeSettings" type="button"><svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-width="1.4" viewBox="0 0 20 20" width="16"><path d="m5 5 10 10M15 5 5 15"></path></svg></button></header><div class="language-setting"><div class="language-setting-label"><svg aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24" width="18"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a17 17 0 0 1 0 18 17 17 0 0 1 0-18Z"></path></svg><label for="interfaceLanguage">Idioma da interface</label></div><select aria-describedby="languageHint" data-i18n-ignore="" id="interfaceLanguage"><option lang="pt-BR" value="pt-BR">Português (Brasil)</option><option lang="en" value="en">English</option></select><p id="languageHint">Altera os textos, sem interromper o áudio.</p><span aria-live="polite" class="sr-only" id="languageFeedback" role="status"></span></div>
+<div class="calibration" hidden="" id="calibration"><strong aria-live="polite" id="calibrationTitle" role="status"></strong><p id="calibrationText"></p><progress aria-label="Progresso da calibração" id="calibrationProgress" max="1" value="0"></progress><button class="small-button" id="cancelCalibration" type="button">Cancelar calibração</button></div>
+<div aria-label="Categorias de configuração" class="tabs" role="tablist"><button aria-controls="panel-avatar" aria-selected="true" class="tab" id="tab-avatar" role="tab" type="button">Avatar</button><button aria-controls="panel-input" aria-selected="false" class="tab" id="tab-input" role="tab" tabindex="-1" type="button">Entrada</button><button aria-controls="panel-noise" aria-selected="false" class="tab" id="tab-noise" role="tab" tabindex="-1" type="button">Limpeza</button><button aria-controls="panel-voice" aria-selected="false" class="tab" id="tab-voice" role="tab" tabindex="-1" type="button">Voz IA</button><button aria-controls="panel-output" aria-selected="false" class="tab" id="tab-output" role="tab" tabindex="-1" type="button">Saída</button><button aria-controls="panel-visual" aria-selected="false" class="tab" id="tab-visual" role="tab" tabindex="-1" type="button">Visual</button></div>
+<div class="drawer-scroll">
+<section aria-labelledby="tab-avatar" id="panel-avatar" role="tabpanel">
+<p class="section-heading">00 / RETORNO SUAVE À POSE INICIAL</p>
+<p class="panel-intro">Enquanto você fala, o vídeo se movimenta. Quando a fala termina, o retrato completo retorna suavemente à pose inicial, com a boca fechada.</p>
+<label class="toggle" for="avatarEnabled"><span class="title">Reagir à minha fala</span><input checked="" id="avatarEnabled" type="checkbox"/></label>
+<p class="helper">O retorno tem início e fim suaves. Se você retomar a fala durante a transição, ela é revertida a partir do ponto atual, sem cortar para outra pose.</p>
+<div class="control"><div class="range-label"><label for="mouthThreshold">Limite de detecção da fala</label><output id="mouthThresholdValue">−48 dBFS</output></div><input id="mouthThreshold" max="-25" min="-65" step="1" type="range" value="-48"/><div class="range-ends"><span>MAIS SENSÍVEL</span><span>MENOS RUÍDO</span></div><p class="helper">Usa o áudio limpo antes do efeito. Sons acima do limite também podem ativar o vídeo. Calibre o ambiente na aba Limpeza.</p></div>
+<div class="control"><div class="range-label"><label for="phraseHold">Espera antes de voltar ao repouso</label><output id="phraseHoldValue">180 ms</output></div><input id="phraseHold" max="400" min="80" step="20" type="range" value="180"/><div class="range-ends"><span>PAUSA MAIS CEDO</span><span>FRASE MAIS CONTÍNUA</span></div><p class="helper">Espera breve para não confundir uma pausa entre sílabas com o fim da frase. Depois desse intervalo, começa a transição para a pose inicial. Este tempo é separado da duração do retorno abaixo.</p></div>
+<div class="control"><div class="range-label"><label for="returnDuration">Duração do retorno suave</label><output id="returnDurationValue">320 ms</output></div><input id="returnDuration" max="600" min="160" step="20" type="range" value="320"/><div class="range-ends"><span>MAIS RÁPIDO</span><span>MAIS GRADUAL</span></div><p class="helper">Comece em 320 ms. A transição movimenta o retrato completo, sem recorte da boca. Se parecer lenta, reduza para 240 ms.</p></div>
+<div class="control"><div class="range-label"><label for="mouthDelay">Atraso adicional da animação</label><output id="mouthDelayValue">0 ms</output></div><input id="mouthDelay" max="600" min="0" step="10" type="range" value="0"/><p class="helper">Atrasa a reação visual ao áudio, inclusive o retorno ao repouso. Mantenha em 0 ms para retornar o quanto antes.</p></div>
+<div class="avatar-controls-row"><button aria-pressed="false" class="small-button" disabled="" id="avatarDemo" type="button">Testar fala e pausas</button><button aria-pressed="false" class="small-button" disabled="" id="compareOriginal" type="button">Ver vídeo original</button></div>
+<p class="feedback" id="avatarHelp" role="status">Teste três falas e a volta suave à pose inicial. Sem áudio e sem acessar o microfone.</p>
+<button class="small-button" id="resetAvatar" type="button">Restaurar ajustes</button>
+<div class="avatar-description"><strong>Retrato inteiro. Repouso fixo.</strong><br/>Durante a fala, o vídeo é preservado. Apenas o retorno usa uma transição de imagem com alinhamento do movimento até o primeiro quadro. Não há recorte da boca. Isso suaviza a mudança de pose, mas não cria sincronia labial por palavras.</div>
+<p class="processing-note">VERSÃO 13 / FALA → RETORNO SUAVE → REPOUSO<br/>Encerrou a captura, pausou a animação ou terminou um teste? O avatar também retorna à mesma pose inicial.</p>
+</section>
+<section aria-labelledby="tab-input" hidden="" id="panel-input" role="tabpanel">
+<p class="section-heading">01 / ORIGEM DO SINAL</p><p class="panel-intro">Escolha a entrada e dê presença à sua voz. O ganho altera o áudio real, não apenas o desenho.</p>
+<label class="title" for="device" id="inputTitle">Microfone</label><select aria-describedby="deviceHint" id="device"><option value="">Microfone padrão do sistema</option></select><p class="helper" id="deviceHint">Para trocar a entrada, encerre a captura e ative novamente. As entradas disponíveis aparecem após a permissão.</p>
+<div class="control"><div class="range-label"><label for="voiceGain">Ganho da voz</label><output for="voiceGain" id="voiceGainValue">+12 dB · 4,0×</output></div><input aria-describedby="voiceGainHint" id="voiceGain" max="30" min="0" step="1" type="range" value="12"/><div class="range-ends"><span>SEM AMPLIFICAÇÃO</span><span>+30 dB</span></div><p class="helper" id="voiceGainHint">Comece em +12 dB ou use o ajuste guiado. Aumentar demais também amplifica o ruído durante a fala.</p></div>
+<button class="small-button" disabled="" id="calibrateVoice" type="button">Ajustar minha voz</button><p class="feedback" id="voiceResult" role="status">Fale normalmente durante o ajuste. O som será pausado somente durante a medição; a escolha do retorno será mantida.</p>
+<p class="processing-note">PRIMEIRO USO<br/>Ative o microfone → calibre o ambiente → ajuste a voz → ligue o retorno com fones. Ao parar a captura, sua escolha do retorno será mantida.</p>
+</section>
+<section aria-labelledby="tab-noise" hidden="" id="panel-noise" role="tabpanel">
+<p class="section-heading">02 / TRATAMENTO DO ÁUDIO</p><p class="panel-intro">Priorize a continuidade da voz. O filtro adicional vem desligado; a redução de ruído do navegador continua solicitada.</p><div class="mode-card"><label class="title" for="speechMode">Tratamento da fala</label><select id="speechMode"><option selected="" value="continuous">Fala contínua · recomendado</option><option value="balanced">Atenuação suave nas pausas</option><option value="diagnostic">Diagnóstico · sem supressão e sem efeito</option><option value="custom">Personalizado</option></select><p class="feedback" id="speechHint" role="status">Sem corte por nível. Redução de ruído do navegador solicitada.</p></div>
+<label class="toggle" for="gateEnabled"><span class="title">Atenuação extra nas pausas</span><input aria-describedby="gateHint" id="gateEnabled" type="checkbox"/></label><p class="helper" id="gateHint">Opcional: reduz gradualmente o som, sem fechar completamente o áudio. Deixe desligada para priorizar falas baixas e o fim das palavras.</p>
+<div class="control"><div class="range-label"><label for="threshold">Referência para atenuação</label><output for="threshold" id="thresholdValue">−60 dBFS</output></div><input id="threshold" max="-25" min="-80" step="1" type="range" value="-60"/><div class="range-ends"><span>MAIS VOZ PRESERVADA</span><span>MAIS ATENUAÇÃO</span></div><p class="helper">Para preservar sílabas baixas, use um limite baixo. A medição do ambiente não ativa a atenuação automaticamente.</p></div><div class="control"><div class="range-label"><label for="gateAttenuation">Atenuação máxima</label><output id="gateAttenuationValue">12 dB</output></div><input id="gateAttenuation" max="24" min="3" step="1" type="range" value="12"/><p class="helper">Não reduz a zero. Mais atenuação também pode reduzir fala muito baixa.</p></div>
+<div class="control"><div class="range-label"><label for="gateHold">Preservar pausas entre palavras</label><output id="gateHoldValue">500 ms</output></div><input id="gateHold" max="1200" min="150" step="50" type="range" value="500"/></div>
+<div class="control"><div class="range-label"><label for="gateRelease">Reduzir o som gradualmente em</label><output id="gateReleaseValue">450 ms</output></div><input id="gateRelease" max="1000" min="150" step="50" type="range" value="450"/></div>
+<button class="small-button" disabled="" id="calibrateNoise" type="button">Calibrar ambiente</button><p class="feedback" id="noiseResult" role="status">Fique em silêncio para medir o ruído do ambiente.</p><div class="gate-state" id="gateState">Filtro de pausas aguardando captura</div>
+<div class="control"><label class="title" for="tone">Filtro de graves e agudos</label><select id="tone"><option value="natural">Leve · timbre mais aberto</option><option selected="" value="balanced">Equilibrado · recomendado</option><option value="strong">Mais fechado · corta os extremos</option></select><p class="helper">Calibre novamente após mudar o filtro. Mais corte pode deixar a voz menos natural.</p></div>
+<details class="diagnostics"><summary>Processamento do navegador</summary><p class="helper">Você pode testar estes ajustes durante a captura. O navegador pode reconfigurar brevemente o sinal; o resultado depende do dispositivo.</p><label class="toggle" for="nativeNoise"><span>Solicitar redução de ruído</span><input checked="" id="nativeNoise" type="checkbox"/></label><label class="toggle" for="nativeEcho"><span>Solicitar cancelamento de eco</span><input checked="" id="nativeEcho" type="checkbox"/></label><p class="helper" id="nativeStatus">O estado efetivo será informado após a captura.</p><p class="helper">Ganho automático nativo solicitado como desligado. O ganho principal é manual ou definido pela calibração.</p></details><div class="notice"><strong>Redução de ruído não identifica sua voz.</strong><br/>Esta versão não aprende seu timbre nem separa outras pessoas falando. A calibração mede níveis: não é um cadastro de voz. Cancelar todo ruído sem afetar a fala não é garantido.</div>
+</section>
+<section aria-labelledby="tab-voice" hidden="" id="panel-voice" role="tabpanel">
+<p class="section-heading">03 / IDENTIDADE SINTÉTICA</p>
+<p class="panel-intro">Dê um timbre eletrônico à sua própria voz, em tempo real. Escolha entre uma presença sutil e uma transformação robótica.</p>
+<label class="toggle" for="effectEnabled"><span class="title">Aplicar efeito de voz</span><input aria-describedby="effectHint" checked="" id="effectEnabled" type="checkbox"/></label>
+<p class="helper" id="effectHint">O efeito não liga nem desliga o retorno. Sua escolha de ouvir o microfone é independente.</p>
+<div class="control"><label class="title" for="voicePreset">Personalidade da voz</label><select aria-describedby="presetDescription" id="voicePreset"><option value="assistant">Assistente IA · sutil e futurista</option><option value="android">Androide · textura metálica</option><option value="robot">Robô digital · bem marcado</option></select></div>
+<div class="voice-profile"><div class="fx-heading"><span id="presetTag">ASSISTENTE // 01</span><span>DSP LOCAL</span></div><p class="helper" id="presetDescription">Textura eletrônica leve, sem duplicação e sem transposição por padrão. Uma única voz processada.</p></div>
+<div class="control"><div class="range-label"><label for="effectMix">Intensidade do efeito</label><output for="effectMix" id="effectMixValue">35%</output></div><input aria-describedby="effectMixHint" id="effectMix" max="100" min="0" step="1" type="range" value="35"/><div class="range-ends"><span>SUA VOZ</span><span>VOZ SINTÉTICA</span></div><p class="helper" id="effectMixHint">Controla a textura de uma única voz, sem somar uma cópia atrasada. Comece em 35%.</p></div>
+<div class="control"><div class="range-label"><label for="voicePitch">Tom da voz · opcional</label><output for="voicePitch" id="voicePitchValue">Original</output></div><input id="voicePitch" max="7" min="-7" step="0.5" type="range" value="0"/><div class="range-ends"><span>MAIS GRAVE</span><span>MAIS AGUDO</span></div><p class="helper">Mantenha em 0 para o caminho de menor atraso. A transposição pode soar granulada e acrescentar atraso; ela não é usada nos perfis iniciais.</p></div>
+<div class="voice-actions"><button aria-pressed="false" class="small-button" id="listenVoice" type="button">Ouvir nos fones</button><button aria-pressed="false" class="small-button" disabled="" id="compareVoice" type="button">Comparar original</button></div>
+<p class="helper">Coloque fones e comece com volume baixo. “Comparar original” remove só o efeito: mantém limpeza, ganho e controle de picos.</p>
+<div aria-live="polite" class="gate-state" id="voiceStatus" role="status">Assistente IA preparado · retorno desligado</div><button class="small-button" id="resetCleanVoice" type="button">Restaurar efeito sem duplicação</button>
+<p class="processing-note">EFEITO, NÃO CLONAGEM<br/>O nome “Voz IA” descreve a estética. Esta versão usa processamento digital de áudio: não gera uma nova voz por IA, não envia sua fala e não usa API paga. O efeito pode acrescentar atraso ao retorno.</p>
+</section>
+<section aria-labelledby="tab-output" hidden="" id="panel-output" role="tabpanel">
+<p class="section-heading">04 / RETORNO SONORO</p><p class="panel-intro">Ouça o áudio tratado, incluindo o efeito escolhido em Voz IA, pela saída de som do computador. Coloque fones antes de ligar o retorno.</p>
+<div class="output-routing">
+<label class="title" for="outputDevice">Reproduzir áudio em</label>
+<select aria-describedby="outputDeviceHint" id="outputDevice"><option value="">Padrão do sistema · segue o Windows</option></select>
+<p class="helper" id="outputDeviceHint">Conecte o aparelho Bluetooth no Windows primeiro. A saída é independente do microfone escolhido na aba Entrada.</p>
+<div class="output-actions"><button class="small-button" id="authorizeOutput" type="button">Autorizar dispositivos</button><button class="small-button" id="refreshOutputs" type="button">Atualizar lista</button></div>
+<p class="helper">A autorização pode pedir acesso temporário ao microfone para liberar a lista. Essa captura é encerrada em seguida, sem gravação ou reprodução.</p>
+<div class="output-actions"><button class="small-button" id="applyOutput" type="button">Aplicar saída</button><button class="small-button" id="testOutput" type="button">Testar saída</button></div>
+<p class="helper">O teste pausa o som do retorno brevemente, sem alterar o botão. Depois do teste ou da troca de saída, o som volta se o retorno estiver ligado.</p>
+<div class="gate-state output-destination"><span>SAÍDA SELECIONADA</span><strong id="outputSelected">Padrão do sistema</strong></div>
+<p aria-live="polite" class="feedback" id="outputStatus" role="status">Escolha a saída e teste antes de ligar o retorno.</p>
+<div class="notice" hidden="" id="outputCompatibility"><strong>Seleção pelo sistema.</strong><br/>Este navegador não oferece a troca de saída usada pelo projeto. No Windows, abra Configurações → Sistema → Som → Saída. Para tentar a seleção no aplicativo, use Chrome atualizado no computador.</div>
+</div>
+<label class="toggle" for="monitor"><span class="title" id="outputTitle">Retorno do microfone</span><input aria-describedby="monitorHint" id="monitor" type="checkbox"/></label><p class="helper" id="monitorHint">Ative uma vez. Parar e reativar o microfone mantém o retorno ligado. Durante calibração, teste ou saída indisponível, só o som é pausado; o botão não muda.</p>
+<div class="control"><div class="range-label"><label for="volume">Volume do retorno</label><output for="volume" id="volumeValue">40%</output></div><input id="volume" max="1" min="0" step="0.01" type="range" value="0.40"/><div class="range-ends"><span>0%</span><span>100%</span></div></div>
+<div class="notice"><strong>Atenção à microfonia.</strong><br/>Caixas de som próximas podem gerar um apito forte. Comece com volume baixo. O limitador digital não garante proteção auditiva.</div><p class="helper" id="peakState" style="margin-top:22px">Compressor de dinâmica + limitador de picos digitais ativos durante a captura.</p><p class="processing-note">BLUETOOTH E SINCRONIA<br/>A seleção não pareia o aparelho nem elimina o atraso sem fio. Se a imagem chegar antes do som, ajuste Atraso da animação na aba Avatar. Para monitorar a própria voz, prefira fones e comece com volume baixo.</p>
+</section>
+<section aria-labelledby="tab-visual" hidden="" id="panel-visual" role="tabpanel">
+<p class="section-heading">05 / INTERFACE DO SINAL</p><p class="panel-intro">A visualização acompanha o áudio tratado, incluindo o efeito de voz, antes do volume do retorno.</p>
+<label class="title" for="mode" id="visualTitle">Tipo de visualização</label><select id="mode"><option value="wave">Linha · forma de onda</option><option value="bars">Barras · espectro de frequências</option></select>
+<div class="control" id="sensitivityControl"><div class="range-label"><label for="sensitivity">Amplitude visual da linha</label><output for="sensitivity" id="sensitivityValue">3×</output></div><input id="sensitivity" max="8" min="1" step="0.5" type="range" value="3"/><div class="range-ends"><span>1×</span><span>8×</span></div><p class="helper">Amplia somente o desenho. Para aumentar a voz, use Ganho da voz na aba Entrada.</p></div>
+<button class="small-button" id="fullscreenButton" type="button">Entrar em tela cheia</button><p class="helper" id="fullscreenHint" role="status">Um terminal sem distrações. Pressione Esc para sair da tela cheia.</p><p class="processing-note">A captura é local: este protótipo não grava nem transmite áudio pela internet.</p>
+</section>
+</div>
+<footer class="drawer-foot"><span>V13 / CONTROLES NESTA PÁGINA</span><span><kbd>ESC</kbd> FECHAR</span></footer>
+</dialog><dialog aria-describedby="premiumSubtitle" aria-labelledby="premiumTitle" class="premium-dialog" id="premiumDialog"><div class="premium-shell"><header class="premium-head"><div class="premium-identity"><span aria-hidden="true" class="premium-symbol"><svg fill="none" height="22" stroke="currentColor" stroke-width="1.1" viewBox="0 0 24 24" width="22"><path d="m3 8 4-5h10l4 5-9 13L3 8Zm0 0h18M7 3l5 18 5-18"></path></svg></span><div><span class="premium-kicker">VOZ // EXPERIÊNCIAS</span><strong>PREMIUM</strong></div></div><div class="premium-head-actions"><span class="premium-demo-chip"><i aria-hidden="true"></i>CATÁLOGO DEMONSTRATIVO</span><button aria-label="Voltar ao estúdio" autofocus="" class="icon-button" id="closePremium" title="Voltar ao estúdio" type="button"><svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-width="1.4" viewBox="0 0 20 20" width="16"><path d="m5 5 10 10M15 5 5 15"></path></svg></button></div></header><div class="premium-scroll"><section class="premium-intro"><div><p class="premium-eyebrow">AFETO &amp; COMPANHIA</p><h2 id="premiumTitle">Pequenos gestos.<br/><span>Mais conexão.</span></h2></div><p id="premiumSubtitle">Escolha um momento de carinho, atenção ou companhia. Cada experiência tem seu valor em créditos.</p></section><div class="premium-section-label"><span>ESCOLHA SUA EXPERIÊNCIA</span><span>06 / SERVIÇOS</span></div><div class="premium-grid"><article aria-labelledby="service-title-hug" class="premium-card is-featured" data-service="hug"><div class="premium-card-top"><span class="premium-card-category">ACOLHIMENTO</span><span class="premium-featured-label">Em destaque</span></div><div class="premium-service-icon"><svg aria-hidden="true" fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" viewBox="0 0 48 48" width="48"><circle cx="19" cy="13" r="4"></circle><circle cx="29" cy="13" r="4"></circle><path d="M13 34v-8c0-4 2-7 6-7 3 0 5 3 8 5l7-3M35 34v-8c0-4-2-7-6-7-3 0-5 3-8 5l-7-3M20 30l8 4M28 30l-8 4"></path></svg></div><h3 id="service-title-hug">Abraço</h3><p class="premium-card-description" id="service-description-hug">Um instante de acolhimento. Sem pressa, sem precisar dizer nada.</p><div class="premium-card-bottom"><p class="premium-price"><strong>5</strong><span>créditos</span></p><button aria-describedby="service-title-hug" aria-pressed="false" class="premium-select" data-select-service="hug" type="button"><span>Selecionar</span><svg aria-hidden="true" fill="none" height="17" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" width="17"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></button></div></article><article aria-labelledby="service-title-listen" class="premium-card" data-service="listen"><div class="premium-card-top"><span class="premium-card-category">ATENÇÃO</span><span aria-hidden="true" class="premium-card-code">/02</span></div><div class="premium-service-icon"><svg aria-hidden="true" fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" viewBox="0 0 48 48" width="48"><path d="M24 34c-5 0-3-7-8-10-2-2-3-4-3-7a11 11 0 0 1 22 0c0 7-5 10-7 14-1 2-2 3-4 3Z"></path><path d="M19 17a5 5 0 0 1 10 0c0 4-5 4-5 8M38 11l3-2M39 19h4M38 27l3 2"></path></svg></div><h3 id="service-title-listen">Escuta atenta</h3><p class="premium-card-description" id="service-description-listen">Um espaço para falar do seu dia e ser ouvido com atenção.</p><div class="premium-card-bottom"><p class="premium-price"><strong>8</strong><span>créditos</span></p><button aria-describedby="service-title-listen" aria-pressed="false" class="premium-select" data-select-service="listen" type="button"><span>Selecionar</span><svg aria-hidden="true" fill="none" height="17" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" width="17"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></button></div></article><article aria-labelledby="service-title-words" class="premium-card" data-service="words"><div class="premium-card-top"><span class="premium-card-category">GENTILEZA</span><span aria-hidden="true" class="premium-card-code">/03</span></div><div class="premium-service-icon"><svg aria-hidden="true" fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" viewBox="0 0 48 48" width="48"><path d="M9 10h30v22H25l-9 7v-7H9V10Z"></path><path d="M16 18h16M16 24h10"></path></svg></div><h3 id="service-title-words">Palavras de carinho</h3><p class="premium-card-description" id="service-description-words">Uma mensagem gentil para tornar o seu momento mais leve.</p><div class="premium-card-bottom"><p class="premium-price"><strong>3</strong><span>créditos</span></p><button aria-describedby="service-title-words" aria-pressed="false" class="premium-select" data-select-service="words" type="button"><span>Selecionar</span><svg aria-hidden="true" fill="none" height="17" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" width="17"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></button></div></article><article aria-labelledby="service-title-company" class="premium-card" data-service="company"><div class="premium-card-top"><span class="premium-card-category">PRESENÇA</span><span aria-hidden="true" class="premium-card-code">/04</span></div><div class="premium-service-icon"><svg aria-hidden="true" fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" viewBox="0 0 48 48" width="48"><circle cx="17" cy="16" r="5"></circle><circle cx="33" cy="17" r="4"></circle><path d="M6 36v-3a11 11 0 0 1 22 0v3M29 27a9 9 0 0 1 13 8v1M22 8l3-3M27 10l4-2"></path></svg></div><h3 id="service-title-company">Companhia</h3><p class="premium-card-description" id="service-description-company">Um tempo para conversar, compartilhar histórias ou só estar junto.</p><div class="premium-card-bottom"><p class="premium-price"><strong>10</strong><span>créditos</span></p><button aria-describedby="service-title-company" aria-pressed="false" class="premium-select" data-select-service="company" type="button"><span>Selecionar</span><svg aria-hidden="true" fill="none" height="17" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" width="17"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></button></div></article><article aria-labelledby="service-title-hands" class="premium-card" data-service="hands"><div class="premium-card-top"><span class="premium-card-category">CONEXÃO</span><span aria-hidden="true" class="premium-card-code">/05</span></div><div class="premium-service-icon"><svg aria-hidden="true" fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" viewBox="0 0 48 48" width="48"><path d="m6 28 7-10 8 2 4-2 9 2 8 10-8 7-10-6-7 4L6 28Z"></path><path d="m21 20-5 7 5 3 7-6 8 6M11 22l8 12M37 23l-6 12"></path></svg></div><h3 id="service-title-hands">Mãos dadas</h3><p class="premium-card-description" id="service-description-hands">Um gesto simples de proximidade para compartilhar o momento.</p><div class="premium-card-bottom"><p class="premium-price"><strong>5</strong><span>créditos</span></p><button aria-describedby="service-title-hands" aria-pressed="false" class="premium-select" data-select-service="hands" type="button"><span>Selecionar</span><svg aria-hidden="true" fill="none" height="17" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" width="17"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></button></div></article><article aria-labelledby="service-title-affection" class="premium-card" data-service="affection"><div class="premium-card-top"><span class="premium-card-category">EXPERIÊNCIA COMPLETA</span><span aria-hidden="true" class="premium-card-code">/06</span></div><div class="premium-service-icon"><svg aria-hidden="true" fill="none" height="48" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" viewBox="0 0 48 48" width="48"><path d="M24 38S7 28 7 17a9 9 0 0 1 17-4 9 9 0 0 1 17 4c0 11-17 21-17 21Z"></path><path d="M15 23h5l3-7 4 13 3-6h5"></path></svg></div><h3 id="service-title-affection">Pacote de afeto</h3><p class="premium-card-description" id="service-description-affection">Abraço, escuta atenta e palavras de carinho em uma única seleção.</p><div class="premium-card-bottom"><p class="premium-price"><strong>14</strong><span>créditos</span></p><button aria-describedby="service-title-affection" aria-pressed="false" class="premium-select" data-select-service="affection" type="button"><span>Selecionar</span><svg aria-hidden="true" fill="none" height="17" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" width="17"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></button></div></article></div><section aria-label="Resumo da seleção" class="premium-selection" hidden="" id="premiumSelection"><div class="premium-selection-text"><span class="premium-selection-kicker">SUA ESCOLHA</span><strong id="premiumSelectedName"></strong><p id="premiumSelectionHint">Confira o serviço e confirme sua seleção de demonstração.</p></div><div class="premium-selection-actions"><span class="premium-selection-price"><strong id="premiumSelectedPrice"></strong> <span>créditos</span></span><button class="premium-confirm" id="confirmPremium" type="button">Confirmar seleção</button></div></section><div aria-live="polite" class="premium-feedback" hidden="" id="premiumFeedback" role="status"></div><p class="premium-simulation-note"><svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-width="1.2" viewBox="0 0 20 20" width="14"><circle cx="10" cy="10" r="7"></circle><path d="M10 9v5m0-9v1"></path></svg><span>Interface de demonstração. Não há pagamento, débito de créditos ou prestação de serviços nesta versão.</span></p></div><footer class="premium-foot"><span>CONEXÃO HUMANA / INTERFACE DIGITAL</span><button id="backToStudio" type="button"><svg aria-hidden="true" fill="none" height="15" stroke="currentColor" stroke-width="1.2" viewBox="0 0 20 20" width="15"><path d="M16 10H4m5-5-5 5 5 5"></path></svg><span>Voltar ao estúdio</span></button></footer></div></dialog>
+<script id="audio-processors" type="text/plain">'use strict';
+// Processamento mono na thread de áudio: não depende da animação ou de timers da página.
+class PauseGate extends AudioWorkletProcessor {
+  static get parameterDescriptors() { return [
+    {name:'threshold',defaultValue:-60,minValue:-80,maxValue:-25,automationRate:'k-rate'},
+    {name:'enabled',defaultValue:0,minValue:0,maxValue:1,automationRate:'k-rate'},
+    {name:'attenuation',defaultValue:12,minValue:3,maxValue:24,automationRate:'k-rate'},
+    {name:'holdMs',defaultValue:500,minValue:150,maxValue:1200,automationRate:'k-rate'},
+    {name:'releaseMs',defaultValue:450,minValue:150,maxValue:1000,automationRate:'k-rate'}
+  ]; }
+  constructor() {
+    super();
+    // Fixed look-ahead in bypass and enabled modes avoids a timing jump on toggles.
+    this.delay=new Float32Array(Math.max(1,Math.round(sampleRate*.008)));
+    this.cursor=0;this.envelope=0;this.gain=1;this.open=true;this.hold=0;
+    this.frames=0;this.energy=0;this.peak=0;
+    this.attack=Math.exp(-1/(sampleRate*.003));
+  }
+  process(inputs,outputs,p) {
+    const input=inputs[0]?.[0], output=outputs[0]?.[0]; if(!output)return true;
+    let energy=0,peak=0;
+    for(let i=0;i<output.length;i++) {
+      const x=input&&Number.isFinite(input[i])?input[i]:0;
+      energy+=x*x;peak=Math.max(peak,Math.abs(x));
+    }
+    const mean=energy/output.length;
+    const c=Math.exp(-output.length/(sampleRate*(mean > this.envelope ? .002 : .070)));
+    this.envelope=mean+(this.envelope-mean)*c;
+    const db=10*Math.log10(Math.max(this.envelope,1e-12));
+    const enabled=p.enabled[0]>=.5, threshold=p.threshold[0];
+    const holdSamples=Math.round(sampleRate*p.holdMs[0]/1000);
+    if(!enabled||db>=threshold){this.open=true;this.hold=holdSamples;}
+    else if(this.open){
+      if(db>=threshold-6)this.hold=holdSamples;
+      else this.hold=Math.max(0,this.hold-output.length);
+      if(!this.hold)this.open=false;
+    }
+    // No hard gate: even far below threshold the attenuation is bounded.
+    // With the default enabled=0 the input passes unchanged (apart from 8 ms).
+    const reduction=enabled&&!this.open?Math.min(p.attenuation[0],Math.max(0,threshold-db)*.55):0;
+    const target=Math.pow(10,-reduction/20);
+    const release=Math.exp(-1/(sampleRate*p.releaseMs[0]/1000));
+    const smoothing=target>this.gain?this.attack:release;
+    for(let i=0;i<output.length;i++) {
+      const x=input&&Number.isFinite(input[i])?input[i]:0;
+      const delayed=this.delay[this.cursor];this.delay[this.cursor]=x;
+      this.cursor=(this.cursor+1)%this.delay.length;
+      this.gain=target+(this.gain-target)*smoothing;
+      output[i]=delayed*this.gain;
+    }
+    this.energy+=energy;this.peak=Math.max(this.peak,peak);this.frames+=output.length;
+    if(this.frames>=sampleRate*.05){
+      this.port.postMessage({kind:'meter',time:currentTime,
+        db:10*Math.log10(Math.max(this.energy/this.frames,1e-12)),peak:this.peak,
+        open:this.open,gain:this.gain,reduction:20*Math.log10(Math.max(this.gain,1e-12))});
+      this.frames=0;this.energy=0;this.peak=0;
+    }
+    return true;
+  }
+}
+// Limitador de pico de amostra com antecipação de 6 ms e recuperação de 100 ms.
+// Uma fila monotônica mantém o maior pico da janela sem varrer todo o buffer.
+// Não é medidor true-peak e não corrige distorção já presente no microfone.
+class SamplePeakLimiter extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.lookahead = Math.max(1,Math.round(sampleRate*0.006));
+    this.buffer = new Float32Array(this.lookahead+1);
+    this.queueValues = new Float32Array(this.lookahead+3);
+    this.queueIndices = new Float64Array(this.lookahead+3);
+    this.head = 0; this.tail = 0; this.count = 0;
+    this.index = 0; this.cursor = 0; this.gain = 1;
+    this.release = Math.exp(-1/(sampleRate*0.100));
+    this.ceiling = Math.pow(10,-1/20);
+    this.frames=0; this.minGain=1;
+  }
+  process(inputs,outputs) {
+    const input=inputs[0]?.[0], output=outputs[0]?.[0];
+    if (!output) return true;
+    const length=this.queueValues.length;
+    for (let i=0; i<output.length; i++) {
+      const x=input && Number.isFinite(input[i]) ? input[i] : 0;
+      const magnitude=Math.abs(x);
+      // Remover amostras que já saíram da janela de antecipação.
+      while(this.count && this.queueIndices[this.head]<this.index-this.lookahead) {
+        this.head=(this.head+1)%length; this.count--;
+      }
+      while(this.count) {
+        const last=(this.tail-1+length)%length;
+        if(this.queueValues[last]>magnitude) break;
+        this.tail=last; this.count--;
+      }
+      this.queueValues[this.tail]=magnitude;
+      this.queueIndices[this.tail]=this.index;
+      this.tail=(this.tail+1)%length; this.count++;
+      this.buffer[this.cursor]=x;
+      const delayed=this.buffer[(this.cursor+1)%this.buffer.length];
+      this.cursor=(this.cursor+1)%this.buffer.length;
+      const windowPeak=this.queueValues[this.head];
+      const target=windowPeak>this.ceiling ? this.ceiling/windowPeak : 1;
+      this.gain=target<this.gain ? target : target+(this.gain-target)*this.release;
+      // Salvaguarda numérica: o limitador controla o ganho antes desta contenção.
+      output[i]=Math.max(-this.ceiling,Math.min(this.ceiling,delayed*this.gain));
+      this.minGain=Math.min(this.minGain,this.gain);
+      this.index++; this.frames++;
+    }
+    if(this.frames>=sampleRate*0.1) {
+      this.port.postMessage({kind:'limiter',reduction:20*Math.log10(Math.max(this.minGain,1e-8))});
+      this.frames=0; this.minGain=1;
+    }
+    return true;
+  }
+}
+
+// v12: one processed voice, not a persistent dry + delayed-voice mixture.
+// At pitch=0 the effect is sample-local: no chorus, delay tap or reverb.
+// Optional pitch transposition still uses two complementary granular read heads,
+// exclusively on the processed stream; it may add coloration and 4–28 ms delay.
+class CyberVoice extends AudioWorkletProcessor {
+  static get parameterDescriptors() { return [
+    {name:'enabled',defaultValue:1,minValue:0,maxValue:1,automationRate:'k-rate'},
+    {name:'mix',defaultValue:.35,minValue:0,maxValue:1,automationRate:'k-rate'},
+    {name:'pitch',defaultValue:0,minValue:-7,maxValue:7,automationRate:'k-rate'},
+    {name:'robot',defaultValue:.24,minValue:0,maxValue:1,automationRate:'k-rate'},
+    {name:'carrier',defaultValue:72,minValue:20,maxValue:160,automationRate:'k-rate'}
+  ]; }
+  constructor() {
+    super();
+    const length=2**Math.ceil(Math.log2(sampleRate*.12));
+    this.buffer=new Float32Array(length);this.mask=length-1;this.cursor=0;
+    this.phase=.25;this.ringPhase=0;
+    this.window=sampleRate*.024;this.baseDelay=sampleRate*.004;
+    this.amount=0;this.ratio=1;this.depth=0;this.carrier=72;this.shiftBlend=0;
+    this.smooth=1-Math.exp(-1/(sampleRate*.012));
+  }
+  read(delay) {
+    const position=this.cursor-delay,index=Math.floor(position),f=position-index;
+    return this.buffer[index & this.mask]*(1-f)+this.buffer[(index+1)&this.mask]*f;
+  }
+  process(inputs,outputs,p) {
+    const input=inputs[0]?.[0],output=outputs[0]?.[0];if(!output)return true;
+    const amount=p.enabled[0]>=.5?p.mix[0]:0;
+    const shifting=amount>0&&Math.abs(p.pitch[0])>.01;
+    const targetRatio=shifting?Math.pow(2,p.pitch[0]/12):1;
+    const tau=2*Math.PI;
+    for(let i=0;i<output.length;i++) {
+      const x=input&&Number.isFinite(input[i])?input[i]:0;
+      this.buffer[this.cursor]=x;
+      this.amount+=(amount-this.amount)*this.smooth;
+      this.depth+=(p.robot[0]*amount-this.depth)*this.smooth;
+      this.carrier+=(p.carrier[0]-this.carrier)*this.smooth;
+      this.ratio+=(targetRatio-this.ratio)*this.smooth;
+      this.shiftBlend+=((shifting?1:0)-this.shiftBlend)*this.smooth;
+      if(this.shiftBlend<1e-6&&!shifting)this.shiftBlend=0;
+      if(this.shiftBlend>1-1e-6&&shifting)this.shiftBlend=1;
+      this.ringPhase=(this.ringPhase+this.carrier/sampleRate)%1;
+      let voice=x;
+      if(this.shiftBlend>0) {
+        this.phase+=(1-this.ratio)/this.window;this.phase-=Math.floor(this.phase);
+        const a=this.phase,b=(a+.5)%1,w=.5-.5*Math.cos(tau*a);
+        const shifted=this.read(this.baseDelay+a*this.window)*w+
+          this.read(this.baseDelay+b*this.window)*(1-w);
+        // Brief crossfade only when entering/leaving pitch shift, not an FX mix.
+        voice=this.shiftBlend===1?shifted:x+(shifted-x)*this.shiftBlend;
+      }
+      // Intensity adjusts modulation depth on this one stream.
+      const d=this.depth,carrier=(1-d)+d*Math.sin(tau*this.ringPhase);
+      const compensation=Math.min(1.4,1/Math.sqrt((1-d)**2+d*d*.5));
+      const y=voice*carrier*compensation;
+      output[i]=Number.isFinite(y)?y:0;
+      if(amount===0&&this.amount<1e-6&&this.shiftBlend===0){
+        this.amount=0;this.depth=0;output[i]=x;
+      }
+      this.cursor=(this.cursor+1)&this.mask;
+    }
+    return true;
+  }
+}
+registerProcessor('cyber-voice-v2',CyberVoice);
+registerProcessor('pause-gate-v2',PauseGate);
+registerProcessor('sample-peak-limiter-v2',SamplePeakLimiter);
+</script><script src="audio-output.js"></script><script src="audio.js"></script><script src="settings.js"></script><script id="avatar-assets" type="application/json">{"version": 10, "video": "assets/original.mp4", "poster": "assets/repouso.webp", "fps": 24, "frames": 361, "activeEndFrame": 320, "restFrame": 0, "restTime": 0, "source": "19434(1).mp4", "method": "Original full video during speech; bidirectional full-portrait motion-aligned eased return to original frame 0; reversible transition if speech resumes.", "flowForward": "assets/flow-forward.png", "flowBackward": "assets/flow-backward.png", "flow": {"width": 128, "height": 126, "columns": 19, "rows": 19, "range": 0.125}}</script><script src="portrait-return.js"></script><script src="avatar.js"></script><script src="translations.js"></script><script src="i18n.js"></script><script src="premium.js"></script><script src="config.js"></script><script src="stream-common.js"></script><script src="online.js"></script><script src="stream-producer.js"></script></body>
+</html>

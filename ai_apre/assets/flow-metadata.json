@@ -1,0 +1,13 @@
+{
+  "width": 128,
+  "height": 126,
+  "columns": 19,
+  "rows": 19,
+  "range": 0.125,
+  "frames": 361,
+  "algorithm": "OpenCV DIS medium, bidirectional, full portrait",
+  "sourceWidth": 480,
+  "sourceHeight": 472,
+  "clippedComponents": 0,
+  "peakNormalizedDisplacement": 0.09212842583656311
+}

@@ -1,0 +1,21 @@
+{
+  "version": 10,
+  "video": "assets/original.mp4",
+  "poster": "assets/repouso.webp",
+  "fps": 24,
+  "frames": 361,
+  "activeEndFrame": 320,
+  "restFrame": 0,
+  "restTime": 0,
+  "source": "19434(1).mp4",
+  "method": "Original full video during speech; bidirectional full-portrait motion-aligned eased return to original frame 0; reversible transition if speech resumes.",
+  "flowForward": "assets/flow-forward.png",
+  "flowBackward": "assets/flow-backward.png",
+  "flow": {
+    "width": 128,
+    "height": 126,
+    "columns": 19,
+    "rows": 19,
+    "range": 0.125
+  }
+}
